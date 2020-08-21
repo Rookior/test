@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue基础</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>介绍</h1>
+        <div>
+            <h4>声明与渲染</h4>
+            {{ message }}
+            <span v-bind:title="message2">
+                鼠标悬停几秒钟查看此处动态绑定的提示信息！
+            </span>
+            <h4>条件与循环</h4>
+            <p v-if="seen">现在你看到我了</p>
+            <p v-if="!seen">现在你看不到我了</p>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+            <h4>处理用户输入</h4>
+            <p>{{ inputmessage }}</p>
+            <button v-on:click="reverseinputMessage">反转消息</button>
+            <h4>v-model</h4>
+            <p>{{ message3 }}</p>
+            <input v-model="message3">
+            <h4>组件化应用(组件必须先定义、注册、再使用)</h4>
+            <todo-item></todo-item>
+            <todo-item2 v-for="(item,index) in todos" v-bind:todo="item" v-bind:key="index"></todo-item2>
+            <button @click="add()">添加属性</button>
+        </div>
+        <h1>实例</h1>
+        <div>
+            <h4>数据与方法</h4>
+            <p>Vue 实例被创建时，data 加入到 Vue 响应中。当这些 值发生改变，视图将会产生“响应”，即匹配更新为新的值。</p>
+            <p>注意的是只有当实例被创建时就已经存在于 data 中的 property 才是响应式的</p>
+            <p>如果你添加一个新的 property，比如：
+            <pre>vm.b = 'hi'</pre>那么对 b 的改动将不会触发任何视图的更</p>
+            <h4>实例生命周期钩子</h4>
+            <li v-for="item in live">
+                {{ item }}
+            </li>
+        </div>
+        <h1>模板语法</h1>
+        <div>
+            <h4>文本</h4>
+            <span>Message: {{ inputmessage }}</span>
+            <span v-once>这个将不会改变: {{ inputmessage }}</span>
+            <h4>原始 HTML</h4>
+            <p>Using mustaches:<span v-html="rawHtml"></p>
+            <h4>使用 JavaScript 表达式</h4>
+            <p>{{ number + 1 }}
+
+                {{ ok ? 'YES' : 'NO' }}
+
+                {{ message.split('').reverse().join('') }}
+            </p>
+            <h4>指令v-bind v-on</h4>
+            <a v-bind:href="url">百度</a>
+            <a v-on:click="doSomething">doSomething</a>
+            <h4>指令缩写</h4>
+
+            <p>v-bind:href 缩写 :href </p>
+            <p> v-on:click 缩写 @click
+            </p>
+            <h4>计算属性computed</h4>
+            <div id="example">
+                <p>Original message: "{{ message }}"</p>
+                <p>Computed reversed message: "{{ reversedMessage }}"</p>
+            </div>
+            <h4>侦听器 watch</h4>
+            <p>messageOld：{{ message4Old }}</p>
+            <p>messageNow：{{ message4 }}</p>
+            <input v-model="message4">
+
+        </div>
+        <h1>Class 与 Style 绑定</h1>
+        <div>
+            <h4>绑定 HTML Class</h4>
+            <div v-bind:class="{ active: isActive }">active</div>
+            <div v-bind:class="classObject">isActive noerror</div>
+            <div v-bind:class="[activeClass, errorClass]">active textdenger</div>
+            <div v-bind:class="[isActive ? activeClass : '', errorClass]">activeClass</div>
+            <my-component class="baz boo"></my-component>
+            <h4>绑定内联样式</h4>
+            <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">activeColor fontsize</div>
+            <div v-bind:style="styleObject">styleObj</div>
+            <div v-bind:style="[styleObject, overridingStyles]">多个styleObj</div>
+        </div>
+        <h1>条件渲染</h1>
+        <div>
+            <h4>v-if</h4>
+            <p v-if="awesome">Vue is awesome!</p>
+            <p v-else>Oh no 😢</p>
+            <div v-if="Math.random() > 0.5">
+                Now you see me
+            </div>
+            <div v-else>
+                Now you don't
+            </div>
+            <div v-if="type === 'A'">
+                A
+            </div>
+            <div v-else-if="type === 'B'">
+                B
+            </div>
+            <div v-else-if="type === 'C'">
+                C
+            </div>
+            <div v-else>
+                Not A/B/C
+            </div>
+            <h4>v-show</h4>
+            <p v-show="ok">不同的是带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 只是简单地切换元素的 CSS property display。</p>
+        </div>
+        <h1>列表渲染</h1>
+        <div>
+            <h4>v-for</h4>
+            <ul id="example-1">
+                <li v-for="item in items" :key="item.message">
+                    {{ item.message }}
+                </li>
+            </ul>
+            <ul>
+                <li v-for="(item, index) in items">
+                    {{ parentMessage }} - {{ index }} - {{ item.message }}
+                </li>
+            </ul>
+            <h4>v-for使用对象</h4>
+            <ul>
+                <li v-for="value in object">
+                    {{ value }}
+                </li>
+                <div v-for="(value, name) in object">
+                    {{ name }}: {{ value }}
+                </div>
+                <div v-for="(value, name, index) in object">
+                    {{ index }}. {{ name }}: {{ value }}
+                </div>
+            </ul>
+            <h4>变更方法</h4>
+            <p>Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：</p>
+            push()
+            pop()
+            shift()
+            unshift()
+            splice()
+            sort()
+            reverse()
+            <h4>替换数组</h4>
+            filter()、concat() 和 slice()。它们不会变更原始数组，而总是返回一个新数组
+            <h4>注意事项</h4>
+            <p>由于 JavaScript 的限制，Vue 不能检测数组和对象的变化。<a target="view_window"
+                    href="https://cn.vuejs.org/v2/guide/reactivity.html#检测变化的注意事项">深入响应式原理</a>>中有相关的讨论。</p>
+            <h4>显示过滤排序后的结果 使用computed或者methods</h4>
+            <li v-for="n in evenNumbers">{{ n }}</li>
+            <ul v-for="set in sets">
+                <li v-for="n in even(set)">{{ n }}</li>
+            </ul>
+            <h4>在 v-for 里使用值范围</h4>
+            <div>
+                <span v-for="n in 10">{{ n }} </span>
+            </div>
+            <h4>在 template 上使用 v-for</h4>
+            <p>你也可以利用带有 v-for 的 template 来循环渲染一段包含多个元素的内容</p>
+            <ul>
+                <template v-for="item in items">
+                    <li>{{ item.message }}</li>
+                    <li class="divider" role="presentation"></li>
+                </template>
+            </ul>
+            <h4>v-for 与 v-if 一同使用</h4>
+            <p>当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。当你只想为部分项渲染节点时，这种优先级的机制会十分有用</p>
+            <h4>
+                在组件上使用 v-for
+            </h4>
+
+            <form v-on:submit.prevent="addNewTodo">
+                <label for="new-todo">Add a todo</label>
+                <input v-model="newTodoText" id="new-todo" placeholder="E.g. Feed the cat">
+                <button>Add</button>
+            </form>
+            <p>注意这里的 is="todo-item" attribute。这种做法在使用 DOM 模板时是十分必要的，因为在 ul 元素内只有 li 元素会被看作有效内容。这样做实现的效果与 todo-item
+                相同，但是可以避开一些潜在的浏览器解析错误。</p>
+            <ul>
+                <!-- 等价于 -->
+                <!-- <todolist-item  v-for="(todo, index) in todosList"
+                        v-bind:key="todo.id"
+                        v-bind:title="todo.title"
+                        v-on:remove="todosList.splice(index, 1)">
+
+                      </todolist-item> -->
+                <li is="todolist-item" v-for="(todo, index) in todosList" v-bind:key="todo.id" v-bind:title="todo.title"
+                    v-on:remove="todosList.splice(index, 1)"></li>
+            </ul>
+            <h1>事件处理</h1>
+                <h4>监听事件</h4>
+                <div id="example-1">
+                    <button v-on:click="counter += 1">Add 1</button>
+                    <p>The button above has been clicked {{ counter }} times.</p>
+                </div>
+                <h4>事件处理方法</h4>
+                <div id="example-2">
+                    <!-- `greet` 是在下面定义的方法名 -->
+                    <!-- 也可以用 JavaScript 直接调用方法
+                        app.greet() // => 'Hello Vue.js!' -->
+                    <button v-on:click="greet">Greet</button>
+                  </div>
+                  <h4>内联处理器中的方法</h4>
+                  <div id="example-3">
+                    <button v-on:click="say('hi')">Say hi</button>
+                    <button v-on:click="say('what')">Say what</button>
+                    <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+                        Submit
+                      </button>
+                  </div>
+                  <h4>事件修饰符</h4>
+                  <ul>
+                    <li>.stop 阻止单击事件继续传播</li>
+                    <li>.prevent  阻止默认事件</li>
+                    <li>.capture  即内部元素触发的事件先在此处理，然后才交由内部元素进行处理</li>
+                    <li>.self 只当在 event.target 是当前元素自身时触发处理函数</li>
+                    <li>.once  点击事件将只会触发一次</li>
+                    <li>.passive  滚动事件的默认行为 (即滚动行为) 将会立即触发</li>
+                  </ul>
+                  <h4>按键修饰符</h4>
+                  <p>v-on:keyup.enter</p>
+                  <p>v-on:keyup.13</p>
+                  <p><a target="view_window" href="https://cn.vuejs.org/v2/api/#keyCodes">自定义按键修饰符</a></p>
+                  <h4>鼠标按钮修饰符</h4>
+                    <p>.left  .right   .middle</p>
+                    <h1>表单输入绑定</h1>
+                    <p>对于需要使用输入法 (如中文、日文、韩文等) 的语言，你会发现 v-model 不会在输入法组合文字过程中得到更新。如果你也想处理这个过程，请使用 input 事件。</p>
+                    <h4>基础用法</h4>
+                    <p>文本：<input v-model="messageTxt" placeholder="edit me"> Message is: {{ messageTxt }} </p>
+                    <p>多行文本：<textarea v-model="messageArea" placeholder="add multiple lines"></textarea>{{ messageArea }}</p>
+                    <p>复选框：<input type="checkbox" id="checkbox" v-model="checked"><label for="checkbox">{{ checked }}</label></p>
+                    <p>多选框  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+                        <label for="jack">Jack</label>
+                        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+                        <label for="john">John</label>
+                        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+                        <label for="mike">Mike</label>
+                        <span>Checked names: {{ checkedNames }}</span>
+                    </p>
+                    <p>单选按钮：<input type="radio" id="one" value="One" v-model="picked">
+                        <label for="one">One</label>                    
+                        <input type="radio" id="two" value="Two" v-model="picked">
+                        <label for="two">Two</label>                    
+                        <span>Picked: {{ picked }}</span>
+                    </p>
+                    <p>选择框： <select v-model="selected">
+                        <option disabled value="">请选择</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                      </select>
+                      <span>Selected: {{ selected }}</span></p>
+                      <p>
+                        <select v-model="selectedList" multiple style="width: 50px;">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                          </select>
+                          <br>
+                          <span>Selected: {{ selectedList }}</span>
+                      </p>
+                      <h4>值绑定</h4>
+                      <p>自定义组件的<a target="view_window" href="https://cn.vuejs.org/v2/guide/components-custom-events.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model"> v-model</a></p>
+                      <h4>修饰符</h4>
+                      <p>input v-model.lazy="msg"  事件触发后将输入框的值与数据进行同步 (除了上述输入法组合文字时)。你可以添加 lazy 修饰符，从而转为在 change 事件_之后_进行同步</p>
+                      <p>input v-model.number="age" type="number"  自动将用户的输入值转为数值类型</p>
+                      <p>input v-model.trim="msg"  自动过滤用户输入的首尾空白字符</p>
+                   
+
+
+                    <h1><a target="view_window" href="vue-basic.html">组件基础</a></h1>
+                   
+        </div>
+
+
+    </div>
+
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script>
+
+        Vue.component('todo-item', {
+            template: '<li>这是个待办项</li>'
+        })
+        Vue.component('my-component', {
+            template: '<p class="foo bar">父组件定义时的类不会被覆盖</p>'
+        })
+        Vue.component('todo-item2', {
+            props: ['todo'],
+            template: '<li v-show="!todo.show">{{ todo.text }}</li>'
+        })
+        Vue.component('todolist-item', {
+            template: '\
+                <li>\
+                {{ title }}\
+                <button v-on:click="$emit(\'remove\')">Remove</button>\
+                </li>\
+            ',
+            props: ['title']
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                seen: true,
+                message: 'Hello Vue!',
+                message2: '页面加载于 ' + new Date().toLocaleString(),
+                message3: '响应inputmodel',
+                message4: '监听message',
+                message4Old: '监听message',
+                inputmessage: 'inputmessage txt',
+                todos: [
+                    { text: '学习 JavaScript', name: '1' },
+                    { text: '学习 Vue', name: '2' },
+                    { text: '整个牛项目', name: '3' }
+                ],
+                live: ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'beforeDestroy', 'destroyed'],
+                rawHtml: '<a href="http://www.celerstar.com/" style="color:green">openIoE</a>',
+                number: 0,
+                ok: true,
+                url: 'http://www.baidu.com',
+                isActive: true,
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                activeColor: 'red',
+                fontSize: 15,
+                styleObject: {
+                    color: 'red',
+                    fontSize: '13px'
+                },
+                overridingStyles: {
+                    backgroundColor: '#ccc',
+                    paddingLeft: '10px',
+                    display: 'inline-block'
+                },
+                awesome: true,
+                type: 'D',
+                items: [
+                    { message: 'Foo' },
+                    { message: 'Bar' }
+                ],
+                parentMessage: 'Parent',
+                object: {
+                    title: 'How to do lists in Vue',
+                    author: 'Jane Doe',
+                    publishedAt: '2016-04-10'
+                },
+                numbers: [1, 2, 3, 4, 5],
+                sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
+                newTodoText: '',
+                todosList: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4,
+                counter: 0,
+                name: 'Vue.js',
+                messageTxt:'',
+                messageArea:'',
+                checked:false,
+                checkedNames: [],
+                picked: '',
+                selected: '',
+                selectedList: []
+
+            },
+            computed: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                    // `this` 指向 vm 实例
+                    return this.message.split('').reverse().join('')
+                },
+
+                classObject: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                },
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            watch: {
+                // 如果 `question` 发生改变，这个函数就会运行
+                message4: function (newQuestion, oldQuestion) {
+                    this.message4Old = oldQuestion;
+
+                    console.log(newQuestion, oldQuestion)
+                }
+            },
+            methods: {
+                reverseinputMessage: function () {
+                    this.inputmessage = this.inputmessage.split('').reverse().join('')
+                },
+                add: function () {
+                    this.todos.push(
+                        { text: '测试添加', name: '4', show: false }
+                    )
+                },
+                doSomething: function () {
+                    alert("doSomething")
+                },
+                even: function (numbers) {
+                    return numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                },
+                addNewTodo: function () {
+                    this.todosList.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                },
+                greet: function (event) {
+                    // `this` 在方法里指向当前 Vue 实例
+                    alert('Hello ' + this.name + '!')
+                    // `event` 是原生 DOM 事件
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                },
+                say: function (message) {
+                    alert(message)
+                },
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) {
+                    event.preventDefault()
+                    }
+                    alert(message)
+                }
+            },
+            // component:{
+            //     'todo-item':'todo-item'
+            // }
+        })
+
+    </script>
+</body>
+
+</html>
