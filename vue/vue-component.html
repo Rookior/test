@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深入了解组件</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <h1>组件注册</h1>
+        <h4>组件名</h4>
+        <p>字母全小写且必须包含一个连字符</p>
+        <h4>组件名大小写</h4>
+        <p>当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 my-component-name</p>
+        <p>当使用 PascalCase (首字母大写命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 my-component-name 和 MyComponentName
+            都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。</p>
+        <h4>全局注册</h4>
+        Vue.component('my-component-name', {
+        // ... 选项 ...
+        })
+        <p>也就是说它们在注册之后可以用在任何新创建的 Vue 根实例 (new Vue) 的模板中。</p>
+        <h4>局部注册</h4>
+        var ComponentA = { /* ... */ }
+        var ComponentB = { /* ... */ }
+        var ComponentC = { /* ... */ }
+        <p>然后在 components 选项中定义你想要使用的组件：</p>
+        new Vue({
+        el: '#app',
+        components: {
+        'component-a': ComponentA,
+        'component-b': ComponentB
+        }
+        })
+        <h4>在模块系统中局部注册</h4>
+        import ComponentA from './ComponentA'
+        import ComponentC from './ComponentC'
+
+        export default {
+        components: {
+        ComponentA,
+        ComponentC
+        },
+        // ...
+        }
+        <h1>Prop</h1>
+        <h4>Prop 的大小写</h4>
+        HTML 中的 attribute 名是大小写不敏感的，所以浏览器会把所有大写字符解释为小写字符。这意味着当你使用 DOM 中的模板时，camelCase (驼峰命名法) 的 prop 名需要使用其等价的
+        kebab-case (短横线分隔命名) 命名：
+        <blog-post post-title="hello!"></blog-post>
+        <h4>传递静态或动态 Prop</h4>
+        <blog-post post-title="静态数据值"></blog-post>
+        <blog-post v-bind:post-title="post.title + ' by ' + post.author.name"></blog-post>
+        <h4>传入一个数字</h4>
+        <blog-post v-bind:post-title="42"></blog-post>
+        <h4>传入一个布尔值</h4>
+        <blog-post v-bind:post-title="false"></blog-post>
+        <h4>传入一个数组</h4>
+        <blog-post v-bind:post-title="[234, 266, 273]"></blog-post>
+        <h4>传入一个对象</h4>
+        <blog-post v-bind:post-title="{
+                    name: 'Veronica',
+                    company: 'Veridian Dynamics'
+                  }"></blog-post>
+        <h4>传入一个对象的所有 property</h4>
+        <blog-post v-bind:post-title="post"></blog-post>
+        <h4>单向数据流</h4>
+        <p>使用prop用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用。在这种情况下，最好定义一个本地的 data property 并将这个 prop 用作其初始值：修改子组件的值不会影响父组件
+        </p>
+        <test-post v-bind:initial-counter="parentconnter"></test-post>
+        <P>使用prop 以一种原始的值传入且需要进行转换。在这种情况下，最好使用这个 prop 的值来定义一个计算属性：</P>
+        <test-com v-bind:size="parentsize"></test-com>
+        <H4>Prop 验证</H4>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+
+        Vue.component('blog-post', {
+            // 在 JavaScript 中是 camelCase 的
+            props: ['postTitle'],
+            template: '<p>{{ postTitle }}</p>'
+        })
+
+        Vue.component('test-post', {
+            props: ['initialCounter'],
+            data: function () {
+                return {
+                    counter: this.initialCounter
+                }
+            },
+            template: '<div><p>父组件传递初始值：{{ initialCounter }} </p><p>子组件接收后自定义的值：{{ counter }}</p>  <button v-on:click="counter++">修改</button> </div>'
+        })
+
+        Vue.component('test-com', {
+            props: ['size'],
+            computed: {
+                normalizedSize: function () {
+                    return this.size.toLowerCase()
+                }
+            },
+            template: '<div><p>父组件传递初始值：{{ size }} </p><p>子组件接收后自定义的值：{{ normalizedSize }}</p> </div>'
+        })
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                parentconnter: 0,
+                parentsize: 'Hello WORLD',
+                post: {
+                    title: '动态值',
+                    author: {
+                        name: 'wzy'
+                    }
+                }
+
+            },
+            methods: {
+
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
