@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="month_dian" style="width: 360px;height: 165px;"></div>
+ <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <script>
+         // 柱状图 
+         month_dianOption = 
+        {
+                backgroundColor:'#000',
+            color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#0059a8' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#00d7fa' // 100% 处的颜色
+                }],
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '20',
+                right: '20',
+                bottom: '0',
+                top:'40',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['场站1', '场站2', '场站3', '场站4', '场站5'],
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine:{
+                        show:true,
+                        lineStyle:{  //刻度线样式 { color , width , type , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                            color:'#00cbff'
+                        }
+                    },
+                    axisLabel:{      //刻度标签样式(x轴文字样式)
+                        show:true,   //是否显示文字
+                        inside:false,  //文字是否在内部，默认外部
+                        margin:10,     //标签与轴线距离
+                        color:'#fff',   //文字颜色                    
+                        fontWeight:200,       //文字字体的粗细。
+                        fontSize: 13,          //文字的字体大小。
+                    },
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',               
+                    name:'发电量(万kWh)',  //轴名称
+                    nameTextStyle:{      //轴名称样式
+                        color:'#fff',
+                        padding:6,
+                    },
+                    splitNumber:5,
+                    min:0,
+                    max:120,
+                    axisLine:{
+                        show:false,
+                    },
+                    axisTick:{ //刻度配置
+                        show:false
+                    },
+                    interval:30,
+                    axisLabel:{      //刻度标签样式(x轴文字样式)
+                        show:true,   //是否显示文字
+                        inside:false,  //文字是否在内部，默认外部
+                        margin:10,     //标签与轴线距离
+                        color:'#fff',   //文字颜色                    
+                        fontWeight:200,       //文字字体的粗细。
+                        fontSize: 13,          //文字的字体大小。
+                    },
+                    splitLine:{  //坐标轴在grid中的分隔线(图形中间网格)
+                        show:true,
+                        lineStyle:{   //分割线样式
+                            color: ['#006d89'],  //分割线颜色
+                            width:1,   //分割线宽度    
+                            type:'dashed'  //分隔线线的类型。'solid''dashed''dotted'
+                        }
+                    }
+                }
+            ],
+            series: {
+                type:'bar',
+                barMaxWidth:'20',
+                data: [10, 52, 20, 34, 90]
+            }
+        };
+        // 风电发电情况
+        var month_dianChart = echarts4.init(document.getElementById('month_dian'));
+        month_dianChart.setOption(month_dianOption);
+    </script>
+</body>
+</html>
