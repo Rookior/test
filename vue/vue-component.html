@@ -160,9 +160,33 @@
           <h4>异步组件</h4>
           <async-example></async-example>
           <h1>处理边界情况</h1>
+          <h4>访问根实例</h4>
+          <p>在每个 new Vue 实例的子组件中，其根实例可以通过 $root property 进行访问</p>
+          // 获取根组件的数据
+            this.$root.foo
+
+            // 写入根组件的数据
+            this.$root.foo = 2
+
+            // 访问根组件的计算属性
+            this.$root.bar
+
+            // 调用根组件的方法
+            this.$root.baz()
+          <chacao-com>
+            {{this.$root.foo}}
+          </chacao-com>
+          <h4>模板定义的替代品</h4>
+          <li>X-Template: 在一个 <code>&lt;script&gt;</code> 元素中，并为其带上 text/x-template 的类型，然后通过一个 id 将模板引用过去。</li>
+          <hello-world></hello-world>
+          <h4>控制更新</h4>
+          <li>强制更新：vm.$forceUpdate()</li>
 
     </div>
     <script src="./js/vue.js"></script>
+    <script type="text/x-template" id="hello-world-template">
+        <p>Hello hello hello</p>
+        </script>
     <script>
 
         Vue.component('blog-post', {
@@ -256,7 +280,10 @@
             }, 1000)
         })
 
-
+        // 模板代替方法
+        Vue.component('hello-world', {
+            template: '#hello-world-template'
+        })
 
         var app = new Vue({
             el: '#app',
@@ -275,7 +302,8 @@
                     lastName: 'zy'
                 },
                 currentTab: "Home",
-                tabs: ["Home", "Posts", "Archive"]
+                tabs: ["Home", "Posts", "Archive"],
+                foo: 1
 
             },
             computed: {
