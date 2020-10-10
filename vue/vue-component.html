@@ -31,6 +31,12 @@
         // ... 选项 ...
         })
         <p>也就是说它们在注册之后可以用在任何新创建的 Vue 根实例 (new Vue) 的模板中。</p>
+		<code>
+		import pageHeader from '@/components/pageHeader.vue' </code>
+		<br />
+		<code>Vue.component('pageHeader',pageHeader)
+		</code>
+		
         <h4>局部注册</h4>
         var ComponentA = { /* ... */ }
         var ComponentB = { /* ... */ }

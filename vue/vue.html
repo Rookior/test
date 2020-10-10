@@ -41,7 +41,7 @@
             <p>Vue 实例被创建时，data 加入到 Vue 响应中。当这些 值发生改变，视图将会产生“响应”，即匹配更新为新的值。</p>
             <p>注意的是只有当实例被创建时就已经存在于 data 中的 property 才是响应式的</p>
             <p>如果你添加一个新的 property，比如：
-            <pre>vm.b = 'hi'</pre>那么对 b 的改动将不会触发任何视图的更</p>
+            <pre>vm.b = 'hi'</pre>那么对 b 的改动将不会触发任何视图的更新</p>
             <h4>实例生命周期钩子</h4>
             <li v-for="item in live">
                 {{ item }}
@@ -289,6 +289,7 @@
 
     <script src="./js/jquery-1.11.1.min.js"></script>
     <script src="./js/vue.js"></script>
+    <script src="./js/noScale.js"></script>
     <script>
 
         Vue.component('todo-item', {
