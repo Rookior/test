@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>结构赋值</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <script>
+        /*
+            解构赋值正确使用
+            1.函数参数
+            2.函数返回值
+            3.变量呼唤
+            4.JSON应用
+            5.Ajax请求应用
+        
+        */ 
+        //对象析构
+        // const obj = {
+        //     name: 'wzy',
+        //     age:'18',
+        //     teacher:{
+        //         name:'chen',
+        //     }
+        // }
+        // const arr =['es6','es7','es8']
+        // const [a,b,c] = arr
+        // console.log(a,b,c)
+
+        //设置别名
+        // const{
+        //     name:myname,  //别名
+        //     age,
+        //     teacher:{
+        //         name
+        //     }
+        // } = obj
+        // console.log(myname,age,name)
+
+        // 精准解构赋值
+        // const sum = arr =>{
+        //     let result = 0
+        //     for(let i=0;i<arr.length;i++){
+              
+        //         result += arr[i]
+        //     }
+        //     return result
+        // }
+        // console.log( sum([1,2,3]))
+
+        //析构实现
+        // const sum = ([a,b,c]) =>{
+        //     return a+b+c
+        // }
+        // console.log( sum([1,2,3]))
+
+        //设置默认值
+        // const foo = ({name,age,school="xx学校"}) =>{
+        //     console.log(name,age,school)
+        // }
+        // foo({
+        //     name:'张三',
+        //     age:19
+        // })
+
+        // const foo = ()=>{
+        //     return{
+        //         name:'张三',
+        //         age:19
+        //     }
+        // }
+        // const {name,age} = foo();
+        // console.log(name,age)
+
+        //解构赋值实现值互换
+        // let a = 1;
+        // let b =2;
+        // [b,a] = [a,b]
+        // console.log(a,b)
+
+        //json
+        // const json = '{"name":"es","price":"500"}'
+        // const {name,price} =  JSON.parse(json)
+        // console.log(name,price)
+
+        axios.get('./data.json')
+        .then( ({data:{name,type}})=> {
+            //console.log(data);
+            console.log(name,type)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+
+    </script>
+</body>
+</html>

@@ -4,12 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>箭头函数</title>
 </head>
 
 <body>
     <button id="btn">我是按钮</button>
     <script>
+        /*
+            1.this有回调时不能使用箭头函数
+            2.箭头函数定义对象里面的方法
+            3.箭头函数里面不能使用arguments
+            4.箭头函数不能作为构造函数使用
+            5.箭头函数不能定义原型里面的方法
+
+        */
         function sum2(x, y) {
             return x + y
         }
