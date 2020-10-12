@@ -3,7 +3,7 @@ const sum = (x,y)=>{
     return x+y
 }
 const {name,age}={
-    name:"张三2",
+    name:"张三",
     age:18
 }
 
