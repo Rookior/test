@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>debuge</title>
+</head>
+<body>
+    <input id="a" type="text" />
+    <input id="b" type="text" />
+    <button onclick="calc()">sum</button>
+    <script>
+      
+      //参考地址：http://lingread.celerstar.com/content-gh941SnHXNlLsHs5-6497-6294.html
+      function calc(){
+        var a = document.getElementById('a').value
+        var b = document.getElementById('b').value
+        debugger
+        var div = document.createElement("div")
+        var sum = a+b
+        //var sum = parseInt(a,10) + parseInt(b,10)
+        div.innerHTML = a + '+' + b + '=' + sum
+        document.body.appendChild(div)
+    }      
+        
+    </script>
+</body>
+</html>
