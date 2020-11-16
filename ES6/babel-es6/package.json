@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "webpack": "webpack --progress --display-modules --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,7 +12,10 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "jQuery": "^1.7.4",
+    "webpack": "^5.1.2",
+    "webpack-cli": "^4.0.0"
   },
   "dependencies": {
     "babel-core": "^6.26.3",

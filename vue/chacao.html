@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue插槽</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <todo-item>
+            
+        </todo-item>
+        <todo-item>
+            自定义插槽内容
+            <template v-slot:header>
+                dddd
+            </template>
+        </todo-item>
+        <base-layout>
+            <template v-slot:header>
+                <h1>Here might be a page title</h1>
+            </template>
+            <!-- <template v-slot:default> -->
+                <p>A paragraph for the main content.</p>
+                <p>And another one.</p>
+            <!-- </template> -->
+
+            <template v-slot:footer>
+                <p>Here's some contact info</p>
+            </template>
+        </base-layout>
+        
+    </div>
+
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/noScale.js"></script>
+    <script>
+
+        
+        Vue.component('todo-item', {
+            template: `
+                <div>
+                    <slot>默认插槽内容</slot>      
+                    <slot name="header"></slot>              
+                </div>
+            `
+        })
+        Vue.component('base-layout', {
+            template: `
+            <div>
+                    <slot name="header"></slot>
+               
+                    <slot></slot>
+              
+                    <slot name="footer"></slot>             
+            </div>
+
+            `
+            })
+        var app = new Vue({
+            el: '#app',
+            data: {
+               
+
+            },
+            computed: {
+                
+            },
+            watch: {
+                
+            },
+            methods: {
+                
+            },
+            component:{
+                'todo-item':'todo-item'
+            }
+        })
+
+    </script>
+</body>
+
+</html>

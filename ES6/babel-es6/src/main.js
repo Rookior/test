@@ -7,4 +7,5 @@ const {name,age}={
     age:18
 }
 
+
 // 通过执行npx babel src/index -o dist/index.js 将当前js编译为es5语法到dist文件夹
