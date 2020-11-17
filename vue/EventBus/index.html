@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件传值</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <testa></testa>
+        <testb></testb>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+
+        $EventBus = new Vue()
+
+        Vue.component('testa', {
+            template: `
+                <div>
+                    <p @click="sendMsg()">{{name}}</p>              
+                </div>
+            `,
+            data:function(){
+                return{
+                    name: 'testa'
+                } 
+            },
+            methods: {
+                sendMsg(){
+                    $EventBus.$emit("aMsg", '来自A页面的消息');
+                }
+            },
+        })
+        
+        Vue.component('testb', {
+            template: `
+            <div>
+                <p>{{msg}}</p>   
+            </div>
+
+            `,
+            data(){
+                return {
+                    msg: ''
+                }
+            },
+            mounted() {
+                $EventBus.$on("aMsg", (msg) => {
+                // A发送来的消息
+                this.msg = msg;
+                });
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+               
+
+            },
+            computed: {
+                
+            },
+            watch: {
+                
+            },
+            methods: {
+                
+            },
+            component:{
+                'testa':'testa',
+                'testb':'testb'
+            }
+        })
+
+    </script>
+</body>
+
+</html>
