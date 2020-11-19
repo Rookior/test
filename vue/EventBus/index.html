@@ -8,15 +8,19 @@
     <style>
         #app>div {
             padding: 20px;
-            border:1px solid #ccc;margin:20px;
+            border: 1px solid #ccc;
+            margin: 20px;
         }
-        .green{
+
+        .green {
             color: green;
         }
-        .red{
+
+        .red {
             color: red;
         }
-        .bold{
+
+        .bold {
             font-weight: bold;
             text-indent: 2em;
             display: inline-block;
@@ -33,16 +37,14 @@
             <p>parentData2:<input v-model="parentData2" /></p>
             父组件接收子组件值:<span class="red">{{childData}}</span>
         </div>
-       <div>
+        <div>
             <h3>组件a</h3>
-           <testa :parentdata="parentData1"></testa>
-       </div>
-       <div>
+            <testa :parentdata="parentData1"></testa>
+        </div>
+        <div>
             <h3>组件b</h3>
             <testb :parentdata="parentData2" v-on:childsubmit="childsubmit"></testb>
-       </div>
-       
-      
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -58,77 +60,74 @@
                     <button @click="sendMsg()">定义相同方法向任意组件传值</button>              
                 </div>
             `,
-            data:function(){
-                return{
-                    inputValue:'',
-                    self_parentdata:''
-                } 
+            data: function () {
+                return {
+                    inputValue: '',
+                    self_parentdata: ''
+                }
             },
             props: ["parentdata"],
             mounted() {
-               this.self_parentdata = this.parentdata
+                this.self_parentdata = this.parentdata
             },
             methods: {
-                sendMsg(){
+                sendMsg() {
                     $EventBus.$emit("aMsg", this.inputValue);
                 }
             },
         })
-        
+
         Vue.component('testb', {
             template: `
-            <div>
-                <p>子组件通过prop接收父组件属性值：<span class="green">{{parentdata}}</span><i class="bold">(不重新赋值时子组件data随父组件修改而修改)</i></p>  
-                <p>通过相同方法接收任意组件传递的值：<span class="red">{{amsg}}</span></p> 
-                <input v-model="inputValue" />
-                <button @click="sentToParent">子组件向父组件传值</button>
-            </div>
-
+                <div>
+                    <p>子组件通过prop接收父组件属性值：<span class="green">{{parentdata}}</span><i class="bold">(不重新赋值时子组件data随父组件修改而修改)</i></p>  
+                    <p>通过相同方法接收任意组件传递的值：<span class="red">{{amsg}}</span></p> 
+                    <input v-model="inputValue" />
+                    <button @click="sentToParent">子组件向父组件传值</button>
+                </div>
             `,
             props: ["parentdata"],
-            data(){
+            data() {
                 return {
                     amsg: '',
-                    inputValue:''
+                    inputValue: ''
                 }
             },
             mounted() {
                 $EventBus.$on("aMsg", (msg) => {
-                // A发送来的消息
-                this.amsg = msg;
+                    // A发送来的消息
+                    this.amsg = msg;
                 });
             },
-            methods:{
-                sentToParent(){
+            methods: {
+                sentToParent() {
                     this.$emit("childsubmit", this.inputValue);
                 }
             }
         })
         var app = new Vue({
             el: '#app',
-            data(){
-                return{
-                    childData:'',
-                    parentData1:'默认父组件数据1',
-                    parentData2:'默认父组件数据2'
+            data() {
+                return {
+                    childData: '',
+                    parentData1: '默认父组件数据1',
+                    parentData2: '默认父组件数据2'
                 }
-                
-
             },
             computed: {
-                
+
             },
             watch: {
-                
+
             },
             methods: {
-                childsubmit(data){
+                childsubmit(data) {
                     this.childData = data
                 }
             },
-            component:{
-                'testa':'testa',
-                'testb':'testb'
+            component: {
+                'testa': 'testa',
+                'testb': 'testb'
             }
         })
 
