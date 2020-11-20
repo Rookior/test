@@ -34,7 +34,7 @@
             },
             grid: {
                 left: '20',
-                right: '20',
+                right: '40',
                 bottom: '0',
                 top:'40',
                 containLabel: true
@@ -59,6 +59,7 @@
                         color:'#fff',   //文字颜色                    
                         fontWeight:200,       //文字字体的粗细。
                         fontSize: 13,          //文字的字体大小。
+						 rotate:30
                     },
                 }
             ],
@@ -101,7 +102,21 @@
             series: {
                 type:'bar',
                 barMaxWidth:'20',
-                data: [10, 52, 20, 34, 90]
+                data: [10, 52, 20, 34, 90],
+				markLine: {
+					symbol: ['none', 'none'],
+					label: {show: true},
+					lineStyle:{
+					color:"#f00"
+					},
+					data: [
+
+						{
+							name: 'Y 轴值水平线',
+							yAxis: 100
+						}
+					]
+				}
             }
         };
         // 风电发电情况
