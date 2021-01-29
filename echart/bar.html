@@ -93,9 +93,21 @@
                 icon:'rect',              //标记图形'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
                 itemWidth:25,         //标记图形宽    
                 itemHeight:14,         //标记图形高
-                textStyle:{
-                    color:'#fff'
-                },
+               // textStyle:{
+               //     color:'#fff'
+               // },
+				  formatter:'{a|{name}}',
+                    textStyle: {
+                        rich:{
+                            a: {
+                                color: '#fff',
+                                fontSize: 17,
+                                width: 95,   //设置宽度使文本对齐
+                                height: 21,
+                                padding: [0,0,0,1]
+                            },
+                        }
+                    },
                 data:[
                     {
                         name:'系列1',
@@ -290,6 +302,7 @@
             },{
                 type:'bar',
                 name:'系列2',
+				silent:true,  //取消默认鼠标悬浮高亮 图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。
                 barMaxWidth:'20',
                 data: [{
                     name:'场站1',

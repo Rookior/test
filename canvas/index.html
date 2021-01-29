@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas绘制刻度尺</title>
+    <style>
+        #canvas{
+            display: block;
+            margin: 200px auto 0;
+            width: 800px;
+            height: 500px;  
+            background: #000f2a;   
+        }
+    </style>
+</head>
+<body>
+    <script src="../echart/js/echarts4.js"></script>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <!-- <script type="text/javascript" src="./jquery-1.11.1.min.js" ></script> -->
+    <script>
+        var canvas = document.getElementById("canvas");
+        var cxt = canvas.getContext("2d");
+
+      
+        // canvas.width = 250
+        // canvas.height = 250
+        var textOffsetY = 50 ;
+        var startX = 30;   //起点x
+        var startY = 100;  //起点Y
+        var markValue = 0.8;
+        var bgHeight = 30;
+
+        var lineWidth = 2 ;    //刻度线宽度
+        var spaceHeight = 20;   //刻度高度
+        var min = -1       //刻度最小值
+        var max = 1       //刻度最大值
+        var space = 0.1  //刻度间隔
+        var spaceLength = ( max - min ) / space // => 10 刻度个数
+        var spaceWidth =  20  //刻度每间隔的宽度 即一刻度的距离
+        for (var i=0;i<=spaceLength;i++){
+            cxt.beginPath();
+            cxt.save();
+           
+            cxt.lineCap = "round";
+           
+            
+            if (i % 5 === 0) {
+                cxt.strokeStyle = "#014f77";
+                cxt.lineWidth = (lineWidth * 2);
+                cxt.moveTo(spaceWidth * i + startX, startY);
+                cxt.lineTo(spaceWidth * i + startX, startY-spaceHeight*1.5);
+            }else{
+                cxt.strokeStyle = "#014f77";
+                cxt.lineWidth = lineWidth;
+                cxt.moveTo(spaceWidth * i + startX, startY);
+                cxt.lineTo(spaceWidth * i + startX, startY-spaceHeight*1);
+            }
+            cxt.stroke();
+            cxt.restore();
+            cxt.closePath();
+
+
+        }
+
+        //添加体重数字
+        cxt.beginPath();
+        cxt.font = "12px Arial";
+        cxt.fillStyle = "#03D4FF";
+        cxt.textAlign = "center";
+        cxt.textBaseline = "middle";
+        var scaleValueList = []
+       
+        for (var i = 0; i <= spaceLength; i++) {
+            scaleValueList.push(parseFloat((min + space*i).toFixed(1)));
+            console.log(scaleValueList)
+        }
+        console.log(scaleValueList)
+        scaleValueList.forEach(function (num, i) {
+            if (i % 5 === 0) {
+                cxt.fillText(num.toString(), spaceWidth * i + startX, startY + textOffsetY);
+            }
+            
+        });
+        cxt.closePath();
+
+        // 画标记点
+        cxt.beginPath();
+        cxt.save();
+
+      
+        var imgs = new Image();
+        imgs.src = "1.png";  
+        imgs.onload = function (){
+            
+
+                cxt.drawImage(imgs,( (markValue-min)/space ) * spaceWidth + startX -imgs.width/2, startY-spaceHeight*1.5 - imgs.height/2,imgs.width,imgs.height);
+                
+           
+        }
+
+        var imgs2 = new Image();
+        imgs2.src = "2.png";  
+        imgs2.onload = function (){
+            
+
+                cxt.drawImage(imgs2,startX-lineWidth,startY ,spaceLength*spaceWidth + lineWidth*2,imgs2.height);
+                
+           
+        }
+        
+        cxt.strokeStyle = "#03D4FF";
+        cxt.lineWidth = lineWidth;
+        cxt.lineCap = "round";
+        cxt.setLineDash( [ 4, 4] );
+        cxt.moveTo(  ( (markValue-min)/space ) * spaceWidth + startX, startY + imgs2.height);
+        cxt.lineTo(  ( (markValue-min)/space ) * spaceWidth + startX, startY-spaceHeight*1.5 );     
+        cxt.stroke();
+        cxt.restore();
+        cxt.closePath();
+
+        // 画数值
+        rect = {
+            width:30,
+            height:20
+        }
+        cxt.strokeStyle = "#00739F";
+        roundRect(cxt,( (markValue-min)/space ) * spaceWidth + startX - rect.width/2,startY - spaceHeight*3,rect.width,rect.height,2)
+        cxt.fillStyle = "#FFFFFF";
+        cxt.fillText(markValue.toString(),( (markValue-min)/space ) * spaceWidth + startX , startY - spaceHeight*3 + rect.height/2);
+        // cxt.fillRect(( (markValue-min)/space ) * spaceWidth + startX - 10,startY - spaceHeight*3, 20, 20)
+
+       function roundRect(ctx, x, y, w, h, r) {
+            ctx.save();
+            if (w < 2 * r) {r = w / 2;}
+            if (h < 2 * r){ r = h / 2;}
+            ctx.beginPath();
+          
+            ctx.moveTo(x+r, y);
+            ctx.arcTo(x+w, y, x+w, y+h, r);
+            ctx.arcTo(x+w, y+h, x, y+h, r);
+            ctx.arcTo(x, y+h, x, y, r);
+            ctx.arcTo(x, y, x+w, y, r);
+            ctx.stroke();
+            ctx.closePath();
+           
+        }
+      
+    </script>
+</body>
+</html>
