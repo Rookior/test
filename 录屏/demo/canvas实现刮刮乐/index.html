@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 600px;
+            height: 400px;
+            position: relative;
+            margin: 100px auto;
+            border: 1px solid #000;
+        }
+        .container div{
+            width: 600px;
+            height: 400px;
+            position: absolute;
+            color: red;
+            text-align: center;
+            font-size: 30px;
+            line-height: 400px;
+        }
+        canvas{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>恭喜你，获得一等奖</div>
+        <canvas width="600" height="400"></canvas>
+    </div>
+    <script>
+        canvas = document.getElementsByTagName('canvas')[0];
+        //上下文
+        let ctx = canvas.getContext('2d');
+        //填充颜色
+        ctx.fillStyle = '#999';
+        //绘制矩形
+        ctx.fillRect(0,0,600,400);
+        // 鼠标拖拽按下移动抬起事件
+        canvas.onmousedown = function(event){
+            ctx.clearRect(event.offsetX,event.offsetY,10,10);
+            canvas.onmousemove = function(event){
+                ctx.clearRect(event.offsetX,event.offsetY,10,10);
+            }
+        }
+        // 鼠标抬起，将鼠标移动事件移除
+        canvas.onmouseup = function(){
+            canvas.onmousemove = null;
+        }
+    </script>
+</body>
+</html>

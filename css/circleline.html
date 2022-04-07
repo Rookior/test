@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>yugi</title>
+<meta charset=UTF-8 />
+<style type="text/css">
+</style>
+<script type="text/javascript">
+    var Eye = function (a, b)
+    {
+        this.a = a;
+        this.b = b;
+    }
+    Eye.prototype =
+    {
+        constructor : Eye,
+        g : null,
+        init : function ()
+        {
+            var canvas = document.querySelector ("canvas");
+            this.g = canvas.getContext ("2d");
+            return this;
+        },
+        drawEyelid : function ()
+        {
+            var g = this.g, a = this.a, b = this.b, R = 5;
+            g.save ();
+            g.beginPath ();
+            g.fillStyle = "black";
+            g.arc (a.x, a.y, R, 0, 2 * Math.PI);
+            g.fill ();
+            g.restore ();
+            g.beginPath ();
+            g.fillStyle = "red";
+            g.arc (b.x, b.y, R, 0, 2 * Math.PI);
+            g.fill ();
+            g.restore ();
+            g.beginPath ();
+            g.strokeStyle = "blue";
+            g.moveTo (a.x, a.y);
+            g.lineTo (a.x, a.y);
+            var r = 300;
+            g.arcTo (a.x + r, a.y, b.x, b.y, r);
+            g.lineTo (b.x, b.y);
+            g.stroke ();
+            g.restore ();
+            g.beginPath ();
+            g.strokeStyle = "pink";
+            g.moveTo (b.x, b.y);
+            g.lineTo (b.x, b.y);
+            g.arcTo (b.x - r, b.y, a.x, a.y, r);
+            g.lineTo (a.x, a.y);
+            g.stroke ();
+            g.restore ();
+            g.beginPath ();
+            g.fillStyle = "black";
+            g.moveTo (b.x, b.y);
+            g.lineTo (b.x, b.y - 2 * R);
+            g.lineTo (b.x - 2 * R, b.y - 4);
+            g.fill ();
+            g.restore ();
+            g.beginPath ();
+            g.moveTo (a.x, a.y);
+            g.lineTo (a.x, a.y + 2 * R);
+            g.lineTo (a.x + 2 * R, a.y + 4);
+            g.fill ();
+            g.restore ();
+        }
+    };
+     
+    onload = function ()
+    {
+        var eye = new Eye (
+        {
+            x : 100,
+            y : 50
+        },
+        {
+            x : 550,
+            y : 310
+        });
+        eye.init ().drawEyelid ();
+    }
+</script>
+</head>
+<body>
+<body>
+    <canvas width="800" height="600">
+        你的浏览器不支持canvas标签
+    </canvas>
+</body>
+</html>

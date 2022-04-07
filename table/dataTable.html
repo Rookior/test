@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:TrackMoves>false</w:TrackMoves><w:TrackFormatting/><w:ValidateAgainstSchemas/><w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid><w:IgnoreMixedContent>false</w:IgnoreMixedContent><w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText><w:DoNotPromoteQF/><w:LidThemeOther>EN-US</w:LidThemeOther><w:LidThemeAsian>ZH-CN</w:LidThemeAsian><w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript><w:Compatibility><w:BreakWrappedTables/><w:SnapToGridInCell/><w:WrapTextWithPunct/><w:UseAsianBreakRules/><w:DontGrowAutofit/><w:SplitPgBreakAndParaMark/><w:DontVertAlignCellWithSp/><w:DontBreakConstrainedForcedTables/><w:DontVertAlignInTxbx/><w:Word11KerningPairs/><w:CachedColBalance/><w:UseFELayout/></w:Compatibility><w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel><m:mathPr><m:mathFont m:val="Cambria Math"/><m:brkBin m:val="before"/><m:brkBinSub m:val="--"/><m:smallFrac m:val="off"/><m:dispDef/><m:lMargin m:val="0"/> <m:rMargin m:val="0"/><m:defJc m:val="centerGroup"/><m:wrapIndent m:val="1440"/><m:intLim m:val="subSup"/><m:naryLim m:val="undOvr"/></m:mathPr></w:WordDocument></xml><![endif]-->
+</head>
+<body>
+    
+    <div id="table1"></div>
+    <script src="./jquery-1.11.1.min.js"></script>
+   
+    <script>
+        // 表格
+(function(){
+     //2.创建一个构造函数
+     var editTable = function(options){
+        //用$.extend({})定义默认值
+        this.options = $.extend({
+           
+        },options);
+        //4.执行初始化函数
+        this.init();
+     };
+     //5.定义初始化函数
+     editTable.prototype.init = function(){
+        var colName = this.options.colName;
+        var dataList = this.options.dataList;
+        var el = $(this.options.el);
+        var that = this;
+        var table = document.createElement("table");
+		table.setAttribute("class", "safeProduction-table");
+		
+        // 生成表头
+        var thead = document.createElement("thead");
+		table.appendChild(thead)
+        var tr = document.createElement("tr");
+		thead.appendChild(tr);
+        for(var i=0;i<colName.length;i++){
+            var td = document.createElement("td");
+			tr.appendChild(td);
+            td.innerHTML = colName[i].label;
+        }
+        //生成数据
+        var tbody = document.createElement("tbody");
+		table.appendChild(tbody)
+	    for(var j=0 ;j<dataList.length;j++){
+			var tr = document.createElement("tr");
+			tbody.appendChild(tr);
+            for (var k=0;k<colName.length;k++) {
+                var td = document.createElement("td");
+                var index = colName[k].index;
+                var isEdit = colName[k].isEdit;
+                if(isEdit){
+                    var editRow = colName[k].editRow
+                    td.setAttribute("editRow",dataList[j][editRow])
+		 			td.setAttribute("editCol",index)
+                    td.onclick=function(){
+                        that.editRow = this.getAttribute('editRow');
+                        that.editCol = this.getAttribute('editCol')                      
+                        var tempValue = $(this).text() 
+                        var td = $(this);
+                        td.hide();
+                        var input = document.createElement("input");
+                        input.setAttribute("value", tempValue) ;
+                        input.onblur = function(){
+                            var newValue = this.value;
+                            console.log('编辑',that.editRow,that.editCol,newValue)
+                            td.html(newValue)
+                            td.show();
+                            $(input).hide()
+                        }
+                        $(this).after(input);                                        
+                    } 
+                }
+                td.innerHTML = dataList[j][index];
+                tr.appendChild(td);
+            }
+		}
+        //合并行（空数据合并到前面）
+        for(var p=0;p<table.rows.length;p++){				
+            for(var q=1;q<table.rows[p].cells.length;q++){				
+                if(table.rows[p].cells[q].innerHTML === ''){
+                    //console.log(table.rows[p].cells[q].innerHTML,table.rows[p].cells[q-1].innerHTML)
+                    table.rows[p].removeChild(table.rows[p].cells[q]);					
+                    table.rows[p].cells[q-1].colSpan = table.rows[p].cells[q-1].colSpan +1
+                }
+            }				
+        }    
+        // 合并相同列
+        // el.tablesMergeCell({											
+        //     cols: [0],
+        // });
+        el.append(table)
+     };
+     //3.将函数暴露给外部
+     window.editTable=editTable;
+}()) 
+//6.实例化应用
+new editTable({
+	el:'#table1',
+	colName:[
+		{
+			label:'类型',
+			index:'type',
+		},
+		{
+			label:'',
+			index:'factory',
+		},{
+			label:'共计(台)',
+			index:'sum',
+		},{
+			label:'运行(台)',
+			index:'run',
+		},{
+			label:'停备(台)',
+			index:'stop',
+		},{
+			label:'故障(台)',
+			index:'error',
+			isEdit:true,   //可以编辑
+            editRow:'factory'//编辑提交时x轴的参数
+		},{
+			label:'限时负荷风机台数',
+			index:'limit',
+		},{
+			label:'运行率',
+			index:'rate',
+		}
+	],
+	dataList:[
+		{
+			type:'风电',
+			factory:'承德事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{
+			type:'风电',
+			factory:'张家口事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+        {
+			type:'风电',
+			factory:'总计',
+			sum:'',
+			run:'',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		}
+	]
+})
+
+
+    </script>
+</body>
+</html>

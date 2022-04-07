@@ -1,0 +1,69 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.target{
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    margin-top: -75px;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    border: 1px solid rgb(199, 191, 191);
+}
+
+.mask{
+    background-color: #000;
+    opacity: 0.75;
+    filter: alpha(opacity=75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+}
+.mask-pic{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -445px;
+    margin-top: -273px;
+    z-index: 1001;
+}
+.mask-panel{
+    width: 890px;
+    height: 546px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -445px;
+    margin-top: -273px;
+    z-index: 1002;
+}
+.mask-panel .click{
+    background-color: #fff;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    display: block;
+    position: absolute;
+    /* 图片可见区域的宽高 */
+    width: 773px;
+    height: 430px;
+    top: 70px;
+    left: 49px;
+}
+.mask-panel .mask-close{
+    position: absolute;
+    width: 39px;
+    height: 39px;
+    top: 53px;
+    right: 55px;
+    background-color: #fff;
+    opacity: 0;
+    filter: alpha(opacoty=0);
+    cursor: pointer;
+}

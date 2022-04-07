@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影票选座</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            margin: 40px auto;
+            list-style: none;
+            width: 600px;
+            border: 2px solid rgb(218, 210, 210);
+        }
+        ul li{
+            float: left;
+            width: 80px;
+            height: 40px;
+            margin: 10px;
+            background-color: rgb(150, 145, 145);
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        ul div{
+            width: 300px;
+            height: 100px;
+            line-height: 150px;
+            border: 1px solid rgb(224, 219, 219);
+            text-align: center;
+            margin: auto auto;
+        }
+        .click{
+            color: gray;
+            font-size: 14px;
+            line-height: 40px;
+            text-align: center;
+            background-color: rgb(233, 151, 74);
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li><li></li><li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <p style="clear: both;"></p>
+        <div>屏幕中央</div>
+    </ul>
+
+    <script>
+        let lis = document.getElementsByTagName('li');
+        for(let i=0;i<lis.length;i++){
+            lis[i].onclick=function(){
+                let res = this.hasAttribute('class');
+                if(!res){
+                    this.setAttribute('class','click');
+                    this.innerText = '座位已选';
+                }else{
+                    this.removeAttribute('class','');
+                    this.innerText = '';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

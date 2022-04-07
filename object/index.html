@@ -1,0 +1,23 @@
+<script>
+    function Person(name){
+        this.name = name;
+    }
+    Person.prototype = {
+        constructor:Person,
+        sayhi:function(){
+            console.log('hi,i am ' + this.name)
+        }
+    }
+
+    //构造函数的prototype
+    var p1=new Person('css1');
+    var p2=new Person('css2');
+    p1.sayhi===p2.sayhi//true
+   
+    Person.prototype.constructor===Person //=>true
+    Person.constructor===Function//true,因为Person.__proto__.constructor为true，它其实是在原型链上的constructor属性
+
+
+</script>
+   
+   

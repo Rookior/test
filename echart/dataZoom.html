@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="month_dian" style="width: 660px;height: 365px;"></div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echart.js"></script>
+    <script>
+        var month_dianOption = {
+             "backgroundColor": '#000', 
+             "grid": { "top": 30, "right": 95, "bottom": 15, "left": 35, "containLabel": true },
+              "tooltip": { "show": true, "trigger": "axis", "axisPointer": { "type": "shadow" } },
+               "legend": { "show": false }, 
+               "xAxis": { 
+                   "type": "value", 
+                   "axisLabel": { "color": "#fff", "rotate": 0 },
+                    "splitLine": { "show": false }, 
+                    "splitNumber": 5, 
+                    "axisLine": { 
+                        "lineStyle": { "color": "#fff" }
+                     } 
+                }, 
+                "yAxis": [{ 
+                    "type": "category", 
+                    "inverse": true, 
+                    "data": ["太阳山19号风机", "太阳山16号风机", "太阳山15号风机", "太阳山18号风机", "太阳山17号风机", "太阳山23号风机", "太阳山1号风机", "太阳山22号风机", "太阳山25号风机", "太阳山3号风机", "太阳山24号风机", "太阳山2号风机", "太阳山21号风机", "太阳山20号风机", "太阳山9号风机", "太阳山8号风机", "太阳山27号风机", "太阳山5号风机", "太阳山26号风机", "太阳山4号风机", "太阳山29号风机", "太阳山7号风机", "太阳山28号风机", "太阳山6号风机", "太阳山12号风机", "太阳山33号风机", "太阳山11号风机", "太阳山14号风机", "太阳山13号风机", "太阳山30号风机", "太阳山32号风机", "太阳山10号风机", "太阳山31号风机"],
+                     "axisLine": { "lineStyle": { "color": "#fff" } }, 
+                     "axisLabel": { "color": "#fff", "interval": 0, "rotate": 0 } }], 
+                     "visualMap": [{ "type": "continuous", "show": false, "min": 0, "dimension": 1, "inRange": { "color": ["#003e9b", "#00fcff"] }, "seriesIndex": 0, "max": 33 }], 
+                     "dataZoom": { "show": true, "zoomLock": false, "type": "slider", "right": 25, "top": 20, "bottom": 20, "width": 10, "textStyle": false, "startValue": 20, "endValue": 30, "orient": "vertical", "borderColor": "rgba(200, 200, 200, 0.3)", "handleStyle": { "borderColor": "#283d58", "borderWidth": 0, "shadowBlur": 0, "background": "#283d58", "color": "rgba(0, 0, 0, 0)" } }, 
+                     "series": [{ "name": "能量利用率", "color": "#003e9b", "type": "bar", "barMaxWidth": 50, "label": { "normal": { "show": true, "position": "right", "color": "#fff" } }, 
+                     "markLine": { "symbol": ["none", "none"], "lineStyle": { "color": "#f00" }, 
+                     "data": [{ "name": "Y 轴值水平线", "xAxis": 0.7 ,"label": { "show": true }}] 
+                    }, "data": [{ "deviceCode": "WTG019", "deviceName": "太阳山19号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山19号风机", "value": 0 }, { "deviceCode": "WTG016", "deviceName": "太阳山16号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山16号风机", "value": 0 }, { "deviceCode": "WTG015", "deviceName": "太阳山15号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山15号风机", "value": 0 }, { "deviceCode": "WTG018", "deviceName": "太阳山18号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山18号风机", "value": 0 }, { "deviceCode": "WTG017", "deviceName": "太阳山17号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山17号风机", "value": 0 }, { "deviceCode": "WTG023", "deviceName": "太阳山23号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山23号风机", "value": 0 }, { "deviceCode": "WTG001", "deviceName": "太阳山1号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山1号风机", "value": 0 }, { "deviceCode": "WTG022", "deviceName": "太阳山22号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山22号风机", "value": 0 }, { "deviceCode": "WTG025", "deviceName": "太阳山25号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山25号风机", "value": 0 }, { "deviceCode": "WTG003", "deviceName": "太阳山3号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山3号风机", "value": 0 }, { "deviceCode": "WTG024", "deviceName": "太阳山24号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山24号风机", "value": 0 }, { "deviceCode": "WTG002", "deviceName": "太阳山2号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山2号风机", "value": 0 }, { "deviceCode": "WTG021", "deviceName": "太阳山21号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山21号风机", "value": 0 }, { "deviceCode": "WTG020", "deviceName": "太阳山20号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山20号风机", "value": 0 }, { "deviceCode": "WTG009", "deviceName": "太阳山9号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山9号风机", "value": 0 }, { "deviceCode": "WTG008", "deviceName": "太阳山8号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山8号风机", "value": 0 }, { "deviceCode": "WTG027", "deviceName": "太阳山27号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山27号风机", "value": 0 }, { "deviceCode": "WTG005", "deviceName": "太阳山5号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山5号风机", "value": 0 }, { "deviceCode": "WTG026", "deviceName": "太阳山26号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山26号风机", "value": 0 }, { "deviceCode": "WTG004", "deviceName": "太阳山4号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山4号风机", "value": 0 }, { "deviceCode": "WTG029", "deviceName": "太阳山29号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山29号风机", "value": 0 }, { "deviceCode": "WTG007", "deviceName": "太阳山7号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山7号风机", "value": 0 }, { "deviceCode": "WTG028", "deviceName": "太阳山28号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山28号风机", "value": 0 }, { "deviceCode": "WTG006", "deviceName": "太阳山6号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山6号风机", "value": 0 }, { "deviceCode": "WTG012", "deviceName": "太阳山12号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山12号风机", "value": 0 }, { "deviceCode": "WTG033", "deviceName": "太阳山33号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山33号风机", "value": 0 }, { "deviceCode": "WTG011", "deviceName": "太阳山11号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山11号风机", "value": 0 }, { "deviceCode": "WTG014", "deviceName": "太阳山14号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山14号风机", "value": 0 }, { "deviceCode": "WTG013", "deviceName": "太阳山13号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山13号风机", "value": 0 }, { "deviceCode": "WTG030", "deviceName": "太阳山30号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山30号风机", "value": 0 }, { "deviceCode": "WTG032", "deviceName": "太阳山32号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山32号风机", "value": 0 }, { "deviceCode": "WTG010", "deviceName": "太阳山10号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山10号风机", "value": 0 }, { "deviceCode": "WTG031", "deviceName": "太阳山31号风机", "kpiId": "b23087f2af4e11e9a2a32a2ae2dbcce4", "kpiName": "能量可利用率(%)", "kpiValue": 0, "name": "太阳山31号风机", "value": 0 }] }]
+        }
+
+
+        var month_dianChart = echarts.init(document.getElementById('month_dian'));
+        month_dianChart.setOption(month_dianOption);
+
+        month_dianChart.on('dataZoom', function (event) {
+
+          
+            if (event.batch) {
+                start = event.batch[0].start;
+                end = event.batch[0].end;
+            } else {
+                start = event.start;
+                end = event.end;
+            };
+            month_dianOption.dataZoom.start = start;
+            month_dianOption.dataZoom.end = end;
+        });
+        
+					
+						$('#month_dian').mouseover(function(){
+							console.log(222)
+							month_dianOption.series[0].markLine.lineStyle.opacity = '1';
+							month_dianOption.series[0].markLine.data[0].label.show = true;
+							
+						
+						
+							month_dianChart.setOption(month_dianOption)
+						})
+						$('#month_dian').mouseout(function(){
+                            console.log(111)
+							month_dianOption.series[0].markLine.lineStyle.opacity = '0';
+							month_dianOption.series[0].markLine.data[0].label.show = false;
+						
+							month_dianChart.setOption(month_dianOption)
+						})
+    </script>
+</body>
+
+</html>

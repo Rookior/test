@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            margin: 100px auto;
+            width: 400px;
+            height: 300px;
+            background-color: rgb(207, 52, 78);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        p {
+            color: #fff;
+            font-size: 20px;
+            margin: 50px auto;
+        }
+
+        span {
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+            color: #fff;
+            font-size: 20px;
+            background-color: rgb(39, 38, 38);
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <p>计算到2021年12月14日的倒计时</p>
+        <span class="dayspan">111</span>
+        <span class="hourspan">222</span>
+        <span class="minutespan">333</span>
+        <span class="secondspan">444</span>
+        <p>快到啦</p>
+    </section>
+    <script>
+        let day = document.getElementsByClassName('dayspan')[0];
+        let hour = document.getElementsByClassName('hourspan')[0];
+        let minute = document.getElementsByClassName('minutespan')[0];
+        let second = document.getElementsByClassName('secondspan')[0];
+
+        let deadline = new Date('2021-12-14 00:00');
+
+        function cutdown() {
+            let now = new Date(), remaintime = deadline - now;
+            let seconds,minutes,hours,days;
+            if(remaintime<=0){
+                return 0;
+            }
+            //取余数 0-59,0-23
+            seconds = Math.floor(remaintime / 1000 % 60);
+            minutes = Math.floor(remaintime / 1000 / 60 % 60);
+            hours = Math.floor(remaintime / 1000 / 60 / 60 % 24);
+            days = Math.floor(remaintime / 1000 / 60 / 60 / 24);
+
+            day.innerHTML = days + '天';
+            hour.innerHTML = hours + '时';
+            minute.innerHTML = minutes + '分';
+            second.innerHTML = seconds + '秒';
+
+            setTimeout(cutdown,1000);
+        }
+        cutdown();
+    </script>
+</body>
+
+</html>

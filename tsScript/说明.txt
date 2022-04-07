@@ -1,0 +1,9 @@
+ts->js
+
+tsc src/index.ts
+
+js->浏览器运行
+
+npx webpack
+或
+npx webpack --entry ./src/index.js --output-path ./dist

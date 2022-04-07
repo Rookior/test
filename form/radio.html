@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .option-radio{
+            display: none;
+        }       
+        .option-radio+label>.radio{
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;         
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #01bcf0;
+            border-radius: 50%;         
+            box-sizing: border-box;
+        }
+        .option-radio+label>span{
+            vertical-align: middle;
+        }
+        .option-radio:checked+label>.radio{
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;         
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #01bcf0;
+            border-radius: 50%;            
+            padding: 2px;
+        }
+        .option-radio:checked+label>.radio span{
+            display: block;    
+            width: 100%;
+            height: 100%;     
+            background: #01bcf0;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="radio" id="option1" name="mode" value = "0" class="option-radio" checked />
+        <label for="option1">
+            <span class="radio">
+                <span></span>
+            </span> 
+            <span class="">option1</span>  
+        </label>
+        <input type="radio" id="option2" name="mode" value = "1" class="option-radio" />
+        <label for="option2">
+            <span class="radio">
+                <span></span>
+            </span> 
+            <span class="">option2</span>
+        </label>       
+    </div>
+   
+</body>
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script>
+    $('input:radio[name="mode"]:checked').val()
+</script>
+</html>

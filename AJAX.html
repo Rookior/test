@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax数据请求格式222</title>
+</head>
+<body>
+    上传文件 ： <input type="text" name = "text" id = "text" />
+
+    <input type="file" name = "file" id = "fileId" onclick="bbb()" onchange="aaaa()" /> 
+    <button onclick="submit()">提交</button>
+    <script src="./echart/js/jquery-1.11.1.min.js"></script>
+    <script>
+        function aaaa(){
+            if($('#fileId').val()){
+                alert("选中")
+            }else{
+                alert("未选中")
+            }
+        }
+        function bbb(){
+            $('#fileId').val("")
+        }
+        function submit(){
+            var file=document.getElementById('fileId').files[0]//获取文件流
+
+            alert(  document.getElementById('fileId').value)
+            var formdata = new FormData();
+            console.log(111,formdata)
+            formdata.append("file",file);
+            console.log(111,formdata)
+            var text = $('#text').val();
+
+            console.log(file)
+            $.ajax({
+                type : 'post',
+                dataType : 'json',
+                contentType: "multipart/form-data; charset=utf-8",
+                data : formdata,
+                processData:false,
+                url : 'http://localhost:8081/ynjk/message/getAlarmAlert?flag=3&_=1606381817110',
+                success : function(result) {
+                    
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    XMLHttpRequest = null;
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    XMLHttpRequest = null;
+                }
+            });
+        }
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --main-bg-color: #f00;
+            --main-bg-color2: #0f0;
+        }
+        .current{
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+        }
+        #a .current:hover{
+            background: var(--main-bg-color2);
+           
+        }
+        #a .current.active:hover{
+            
+            background-color: var(--main-bg-color);
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="a">
+        <div class="current"></div>
+    </div>
+    <button onclick="add()">点击添加class</button>
+    <script>
+        function add(){
+            document.getElementsByClassName('current')[0].classList.add('active')
+        }
+    </script>   
+</body>
+</html>

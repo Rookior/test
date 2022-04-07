@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖器功能</title>
+    <style>
+        .container{
+            width: 600px;
+            height: 600px;
+            border: 1px solid red;
+        }
+        .container div{
+            width: 33%;
+            height: 33%;
+            line-height: 200px;
+            text-align: center;
+            border: 1px solid red;
+            font-size: 18px;
+            float: left;
+        }
+        .container #start{
+            background-color: pink;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .container #start:hover{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="option">耳机一副</div>
+        <div class="option">iPhone一台</div>
+        <div class="option">ipd一台</div>
+        <div class="option">笔记本一台</div>
+        <div id="start">开始抽奖</div>
+        <div class="option">蓝牙音响</div>
+        <div class="option">智能机器人</div>
+        <div class="option">豆浆机</div>
+        <div class="option">薯片一袋</div>
+    </div>
+
+    <script>
+        let start = document.getElementById('start');
+        let options = document.getElementsByClassName('option');
+        let timer = null;
+        start.onclick = function(){
+            let num=0;
+            if(timer==null){
+                timer = setInterval(()=>{
+                    num++;
+                    // 随机0-7
+                    let rand = Math.round(Math.random()*(7-0)+0);
+                    // 重置
+                    for(let i=0;i<options.length;i++){
+                        options[i].style.backgroundColor = '';
+                    }
+                    // 选中
+                    options[rand].style.backgroundColor = 'orange';
+                    // 设置一个时间停止定时器
+                    if(num>=40){
+                        clearInterval(timer);
+                        timer=null;
+                    }
+                },100);
+            }
+        }
+    </script>
+</body>
+</html>

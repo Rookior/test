@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常量变量</title>
+</head>
+<body>
+    <script>
+        // 声明常量
+        /*
+            const
+            1.不允许重复声明
+            2.不属于顶层对象window
+            3.不存在变量提升
+            4.暂时性死区
+            5.块级作用域
+        */
+
+        
+        //ES3 通过大写默认不修改定义，但是仍然可以修改
+        var BASE_URL = '常量'
+        BASE_URL = "修改后常量"
+        console.log(BASE_URL)
+
+        //ES5
+        Object.defineProperty(window,'es',{
+            value:'es6',
+            writable:false
+        })
+        console.log(es)
+        es = 'es2015'
+        console.log(es)
+
+        //ES6
+        const p = '3.14'
+        console.log(p)
+        // p = '14926'  
+        // console.log(p)  =>报错，不能常量赋值
+
+        //const a
+        //a = '3.14'  =>报错，必须声明时赋值
+
+        var a = '1'
+        var a = '2'
+        console.log(a)  //=>后面覆盖前面
+
+        //ES6不允许重复声明
+        //const a = '1'
+        //const a = '2'
+
+        var c = '3'
+        console.log(window.c)  //=>3
+
+        //const不属于顶层对象
+        const str = '666'
+        console.log(window.str)  //=>undefined
+
+        //变量提升
+        console.log(temp)
+        var temp = '222'
+        //等价于
+        //var temp;
+        //console.log(temp)  =>undefined
+        //temp = '222'
+
+        //ES6的const不存在变量名提升
+        // console.log(temp)
+        // var temp = '222'  =>报错
+
+        //暂时性死区
+        if(true){
+            var str3 = '777'
+        }
+        console.log(str3)  //=>可以获得值
+
+        //块级作用域
+        if(true){
+            const str2 = 'es6'
+        }
+        //console.log(str2)  =>报错，str not defined
+
+        // const不可改变？
+        const esObj={
+            name:'es6',
+            year:'2015'
+        }
+        esObj.name = 'es2015'
+        console.log(esObj) //=>被修改 {name: "es2015", year: "2015"}
+
+        const arr = ['es6','es7','es7']
+        arr[0] = '2015'
+        console.log(arr)  //=>被修改 ["2015", "es7", "es7"]
+
+        //const声明的基本数据类型不可改变，对象和数组是引用类型，只想的地址没有改变，是指向的地址的值改变了，所以改变了
+
+        //通过freeze冻结，使得不被改变
+        Object.freeze(esObj)
+        esObj.name = '修改es2015'
+        console.log(esObj) //=>未被修改 {name: "es2015", year: "2015"}
+
+        Object.freeze(arr)
+        arr[0] = '修改2015'
+        console.log(arr)  //=>未被修改 ["2015", "es7", "es7"]
+
+        const aaa = {
+            name :'wzy',
+            age:'18',
+            list:['1','2','3']
+        }
+        aaa.list[0] = '100'  
+        console.log(aaa)   //list被改变
+
+        function myFreeze(obj){
+            Object.freeze(obj)
+            Object.keys(obj).forEach(function(key){
+                if(typeof obj[key] === 'object'){
+                    myFreeze(obj[key])
+                }
+            })
+
+        }
+        myFreeze(aaa)
+        aaa.list[0] = '修改100'  
+        console.log(aaa)   //list未被改变
+
+        //let vs const  优先const ,必须被改变时使用let
+
+
+        
+    </script>
+</body>
+</html>

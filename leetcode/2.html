@@ -1,0 +1,12 @@
+<script>
+ var deleteNode = function(head, val) {
+    for(var i=0,l=head.length;i<l;i++){
+        if(head[i] == val ){       
+            head.splice(i,1)
+            break;
+        }
+    }
+     return head
+};
+console.log(deleteNode([4,5,1,9],5))
+</script>

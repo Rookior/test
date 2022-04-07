@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类和模块</title>
+</head>
+<body>
+    <script>
+        function Range (from,to){
+            this.from= from;
+            this.to = to;
+        }
+        Range.prototype  = {
+            constructor:Range,
+            includes:function(x){
+                return this.from<=x && x<= this.to
+            },
+            foreach:function(f){
+                for(var x = Math.ceil(this.from);x<this.to;x++) f(x)
+            },
+            toString:function(){
+                return "(" + this.from + '...' + thi.to + ')';
+            }
+
+        }
+
+        var r = new Range(1,3);
+        r.includes(2);
+        r.foreach(console.log);
+        console.log(r);
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>my-vue</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 300px;
+      overflow: auto;
+    }
+
+    table {
+      width: 1200px;
+      height: 600px;
+    }
+
+    table td {
+      border: 1px solid black;
+    }
+
+    table > thead > tr > td {
+      background-color: green;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    table > tbody > tr > td:nth-of-type(1) {
+      background-color: red;
+      position: sticky;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app" onscroll="stickyscroll(this)">
+  <table cellspacing="0">
+    <thead>
+    <tr>
+      <td rowspan="2" style="width: 100px;">123</td>
+      <td rowspan="2">123</td>
+      <td colspan="2">123</td>
+      <td colspan="2" class="getstickyscrollheight">123</td>
+    </tr>
+    <tr class="setstickyscrollheight">
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+      <td>123</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  function stickyscroll(ele) {
+    ele.querySelectorAll(".setstickyscrollheight>td").forEach(li => {
+      li.style.top = ele.querySelector(".getstickyscrollheight").offsetHeight + "px"
+    })
+  }
+</script>
+</body>
+</html>

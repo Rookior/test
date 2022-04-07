@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script>
+
+var option = {
+    xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: [ 
+        {
+        type: 'value',
+        max: value => {
+        const { max, min } = value;
+        const absMax = Math.max(Math.abs(max), Math.abs(min));
+        return Math.floor(absMax * 1);
+    } ,
+    min: value => {
+        const { max, min } = value;
+        const absMax = Math.max(Math.abs(max), Math.abs(min));
+        return Math.floor(-absMax * 1);
+    } 
+        },
+    {
+        type: 'value',
+      
+      
+         max: value => {
+        const { max, min } = value;
+        const absMax = Math.max(Math.abs(max), Math.abs(min));
+        return Math.floor(absMax * 1);
+    } ,
+    min: value => {
+        const { max, min } = value;
+        const absMax = Math.max(Math.abs(max), Math.abs(min));
+        return Math.floor(-absMax * 1);
+    } 
+    }],
+    series: [{
+        data: [-10, -10, -10, -10, -10, -10, 20],
+        type: 'bar',
+        yAxisIndex: 0
+    },
+    {
+        data: [-10, -10, -10, -10, -10, -10, 20],
+        type: 'bar',
+        yAxisIndex: 1
+    }]
+}
+
+
+
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts4.init(document.getElementById('main'));
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+
+    </script>
+</body>
+</html>

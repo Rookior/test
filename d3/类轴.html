@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3</title>
+</head>
+
+<body>
+    <ul>
+        <li>选择器select selectAll</li>
+        <li>属性设置style为函数</li>
+        <li>enter 和 exit 来实现添加 移除 dom元素，使数据保持一致</li>
+        <li>Array Api</li>
+        <li>axis刻度尺
+
+            <ul>
+                <li>
+                    attr("transform",'translate(0,0)')来调整轴距离原点位置
+                </li>
+                <li>
+                    .domain 表示显示数值显示范围
+                </li>
+                <li>
+                    .range 表示svg渲染区域范围
+                </li>
+                <li>
+                    domain和range获取的轴x(x-value),可以获取xvalue在轴的位置
+                </li>
+                <li>
+                    axisTop()、axisRight()、axisBottom()、axisLeft()、 画轴,方向表示刻度文字相对轴位置
+                </li>
+                <li>
+                    ticks 数据划分依据
+                </li>
+                <li>
+                    tickFormat 数据划分后显示格式
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div id="ganttChart">
+
+    </div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v1.min.js"></script>
+    <script src="https://d3js.org/d3-axis.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v2.min.js"></script>
+    <script>
+        // y轴
+        var xscale = d3.scaleLinear()
+            .domain([0, 200])   //数值范围
+            .range([0, 300]);   //宽度范围
+
+
+
+
+
+        var axis = d3.axisLeft()
+            .scale(xscale)
+            .ticks(10, "s")   //分割刻度尺段数
+            .tickSize(6)     //刻度线高度
+            .tickPadding(3)  //刻度线和刻度文本之间距离
+
+        var svg = d3.select('#ganttChart').append("svg");
+
+        svg.attr("width", 1440)
+            .attr("height", 200)
+            .attr("class", 'svg')
+            .append("g")
+            .attr("transform", "translate(30,30)")
+            .call(axis);
+
+        // y轴类轴
+            //返回start,end,之间n+1个数据
+            var aaa = d3.ticks(0, 300, 3)
+            console.log(aaa)
+            //返回间隔一致等差数列
+            var bbb = d3.range(0, 300, 300/3)
+            console.log(bbb)
+            //
+           
+            
+            var xCat = d3.scaleOrdinal()
+            .domain(["风机1","风机2","风机3","风机4"])   //数值范围
+            .range(aaa);   //宽度范围
+
+
+            var xCatAxis = d3.axisRight()
+            .scale(xCat)
+           
+            
+            svg
+        
+            .append("g")
+            .attr("transform", "translate(630,30)")
+            .call(xCatAxis);
+
+
+
+
+
+        // x轴
+
+        var xTime = d3.scaleTime()
+            .domain([new Date(2015, 0, 1), new Date(2015, 0, 21)])
+            .range([0, 600])
+            
+
+console.log("xTime:" + xTime(new Date(2015, 0, 1)))
+        var axisTime = d3.axisBottom()
+            .scale(xTime)
+            
+            //  .ticks(d3.timeDay.every(2))
+            
+            .tickFormat(d3.timeFormat('%b-%d'))
+
+
+        svg
+            .attr("width", 1440)
+            .attr("height", 600)
+            .append("g")
+            .attr("transform", "translate(30,330)")
+            .call(axisTime);
+        // 矩形
+        svg.selectAll("rect")
+                    .data([
+                        {"date":new Date(2015, 0, 1),
+                        "end":new Date(2015, 0, 2),
+                            "value":'0',
+                            name:'风机1'
+                        },
+                        {"date":new Date(2015, 0, 3),
+                        "end":new Date(2015, 0, 4),
+                            "value":'20',
+                            name:"风机2"
+                    },
+                        {"date": new Date(2015, 0, 7),
+                        "end":new Date(2015, 0, 8),
+                            "value":'20',
+                    "value":'80',
+                "name":'风机3'}
+                    ])
+                    .enter()
+                    .append("rect")
+
+
+     
+                .attr("x",30)
+                .attr("y",0)
+                .attr('width', function (d) {
+                            return xTime(d.end) - xTime(d.date);
+                        })
+                .attr('height', function (d) {
+                            return 300/10
+                        })
+                .attr('transform', function (d) {
+                    return `translate(${xTime(d.date)}, ${xscale(d.value) + 30})`
+                })
+               
+                .attr("fill","red")
+
+    </script>
+</body>
+
+</html>

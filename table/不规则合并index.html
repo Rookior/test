@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh"> 
+<head>
+
+<title>安全生产日报</title>
+<style>
+html,body,.container{
+ color: #fff;
+ font-size: 13px;
+ background: #000;
+ margin: 0;
+ padding: 0;
+}
+input,textarea{
+    background: #000;
+    color: #fff;
+    box-sizing: border-box;
+    border-width: 1px;
+}
+.table-container{
+	height: 730px;
+    box-sizing: border-box;
+	padding: 10px 20px;
+	/* border-bottom: 1px solid #009be9;
+    border-top: 2px solid #009be9;
+    border-left: 1px solid #009be9;
+    border-right: 1px solid #009be9; */
+}
+.table-content{
+	overflow-y: auto;
+	height: calc(100% - 50px);
+	line-height: 2;
+}
+.table-content h3{
+	font-size: 20px;
+	margin: 10px 0;
+	font-weight: bold;
+}
+.table-content h4{
+	font-size: 19px;
+	margin: 10px 0;
+	text-indent: 1em;
+}
+.table-content p{
+	font-size: 18px;
+	padding-left: 30px;
+}
+.safeProduction-table{
+	width: 100%;
+}
+.safeProduction-table td{
+	color: #fff;
+	text-align: center;
+}
+.safeProduction-table thead tr:nth-child(1) td {
+	background-color: #073a7b;
+	color: #fff;
+}
+.safeProduction-table tr td {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #EBEEF5;
+	color: #fff;
+	max-width: 100px;
+}
+.safeProduction-table tr .edit-td{
+	position: relative;
+}
+.editText{
+	position: relative;
+}
+.editText-input{
+	padding-left: 29px;
+	font-size: 18px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.editText-input:focus{
+	padding-left: 29px;
+}
+.safeProduction-table tr td .edit-input{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.safeProduction-table tr td .edit-textarea{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	font-size: 14px;
+	resize:none;
+}
+td[class=line]{
+	position: relative;
+}
+td[class=line] div:before{
+	position: absolute;
+	content:' ';
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to top right,#073a7b,#073a7b 48%, #fff , #073a7b 51%,#073a7b);
+	left: 0;
+	top: 0;
+}
+td[class=line] .left{
+	position: absolute;
+    right: 55%;
+    bottom: 0;
+    z-index: 99;
+}
+td[class=line] .right{
+	position: absolute;
+    left: 55%;
+    top: 0;
+    z-index: 99;
+}
+td .red{
+	color: red;
+}
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="aptech-nav">
+		<ul id="myTab" class="nav nav-tabs">
+			<!-- <li class="active"><a href="#home" data-toggle="tab"> <i
+					class="fa fa-university"></i>安全生产日报
+			</a></li> -->
+			<h1>安全生产日报</h1>
+		</ul>
+	</div>
+	<div class="table-container">
+		<a id="#divBtnQuery" class="btn btn-default yn-mt15 yn-mb15 yn-mr10 yn-fr yn-flex yn-flex-center" style="text-shadow: none;width: 70px; height: 30px"><span class="glyphicon glyphicon-search btn-icon" ></span><span >导出</span></a>
+		<div class="table-content yn-cb">
+			<h3>
+				一、总体情况
+			</h3>
+			<p class="editText">系统安全生产平稳，未发生不安全事件。</p>
+			<h3>二、设备可靠性情况（截至当日07:30最新故障情况）</h3>
+			<div id="table1"></div>
+			<div id="table2"></div>
+			<h4>（一）非计划停运统计：</h4>
+			<div id="table3"></div>
+			<h4>（二）风电机组长停风机及大部件下架情况</h4>
+			<div id="table4"></div>
+			<h4>（三）风电场变配电设备情况</h4>
+			<div id="table5"></div>
+			<h4>（四）设备缺陷情况（截至当日00：00缺陷情况）：</h4>
+			<div id="table6"></div>
+			<h3>三、发电量情况</h3>
+			<div id="table7"></div>
+			<div id="table8"></div>
+			<div id="table9"></div>
+			<h3>四、设备检修情况</h3>
+			<h4>（一）高风险作业及受限空间作业情况</h4>
+			<p>1.骆驼沟风电场</p>
+			<p>无</p>
+			<p>2.万胜永风电场</p>
+			<p>无</p>
+			<p>3.西桥梁风电场</p>
+			<p>无</p>
+			<p>4.漫  景风电场</p>
+			<p>无</p>
+			<p>5.乌登山风电场</p>
+			<p>无</p>
+			<p>6.闪电河风电场</p>
+			<p>无</p>
+			<p>7.光伏情况</p>
+			<p>（1）赞皇光伏对升压站一次舱、二次舱进行巡视检查，主变无异响、渗油、套管过热等现象，油温、油位正常，未发现异常现象。</p>
+			<p>（2）北京光伏对配电室变压器、逆变器、高压负荷柜、中置柜进行日常测温工作，无超温现象。</p>
+			<h4>（二）变电站、线路检修情况</h4>
+			<p>1.骆驼沟风电场</p>
+			<p>无</p>
+			<p>2.万胜永风电场</p>
+			<p>无</p>
+			<p>3.西桥梁风电场</p>
+			<p>无</p>
+			<p>4.漫  景风电场</p>
+			<p>无</p>
+			<p>5.乌登山风电场</p>
+			<p>无</p>
+			<p>6.闪电河风电场</p>
+			<p>无</p>
+			<h4>（三）风机定检开展情况（统计范围为全年检情况，半年检及巡检情况不统计在内）</h4>
+			<div id="table10"></div>
+			<h3>五、三必须执行及迎检情况</h3>
+			<h4>（一）三必须执行情况</h4>
+			<!-- 循环场站 -->
+			<p>承德事业部：</p>
+			<div id="table11"></div>
+			<div id="table12"></div>
+			<h4>（二）迎检情况</h4>
+			<p>无</p>
+			<h3>六、其他情况</h3>
+			<p>无</p>
+		</div>
+	</div> 
+</div>
+<script src="./jquery-1.11.1.min.js"></script>
+<script src="./tablesMergeCell.js"></script>
+<script type="text/javascript">
+ /**
+	 * 表格
+	 * @param dataList 如果查到值是空字符串，想要显示该td,不进行合并，需要默认返回'&nbsp;'空格进行占位
+	 * 				   如果查到值是''或者undefined,默认向前面合并这个td
+	 */
+ (function(){
+     //2.创建一个构造函数
+     var editTable = function(options){
+        //用$.extend({})定义默认值
+        this.options = $.extend({
+           
+        },options);
+        //4.执行初始化函数
+        this.init();
+     };
+     //5.定义初始化函数
+     editTable.prototype.init = function(){
+        var colName = this.options.colName;
+        var dataList = this.options.dataList;
+        var el = $(this.options.el);
+        var that = this;
+        var table = document.createElement("table");
+		table.setAttribute("class", "safeProduction-table");
+		
+        // 生成表头
+        var thead = document.createElement("thead");
+		table.appendChild(thead)
+        var tr = document.createElement("tr");
+		thead.appendChild(tr);
+        for(var i=0;i<colName.length;i++){
+            var td = document.createElement("td");
+			tr.appendChild(td);
+			if(colName[i].label && colName[i].label.indexOf('line')>-1){
+				var temp = colName[i].label.split('line')
+				td.setAttribute("class", "line");
+				td.innerHTML = '<span class="left">'+temp[0]+'</span><div></div>'+ '<span class="right">'+temp[1]+'</span>'			
+			}else{
+				td.innerHTML = colName[i].label;
+			}
+            
+        }
+        //生成数据
+        var tbody = document.createElement("tbody");
+		table.appendChild(tbody)
+	    for(var j=0 ;j<dataList.length;j++){
+			var tr = document.createElement("tr");
+			tbody.appendChild(tr);
+            for (var k=0;k<colName.length;k++) {
+                var td = document.createElement("td");
+                var index = colName[k].index;
+                var isEdit = colName[k].isEdit;
+                if(isEdit){
+                    var editRow = colName[k].editRow
+					var editType = colName[k].editType;
+                    td.setAttribute("editRow",dataList[j][editRow])
+		 			td.setAttribute("editCol",index)
+                    td.onclick=function(){
+                        that.editRow = this.getAttribute('editRow');
+                        that.editCol = this.getAttribute('editCol')                      
+                        var tempValue = $(this).html()//使用html来保留内部标签
+                        var td = $(this);
+                        td.hide();
+						var temptd = document.createElement("td");
+						temptd.innerHTML = tempValue;
+						temptd.setAttribute("class", "edit-td");
+						if(editType == 'input'){
+							var input = document.createElement("input");
+							input.setAttribute("class", "edit-input");
+							input.setAttribute("value", tempValue) ;							
+							setTimeout(function(){
+						　　　　 input.focus();
+								input.setSelectionRange(tempValue.length,tempValue.length)
+						　　},100);
+							input.onblur = function(){
+								var newValue = this.value;
+								console.log('编辑',that.editRow,that.editCol,newValue)
+								td.html(newValue);td.show();
+								$(temptd).remove()
+							}
+							// enter键结束编辑
+							input.onkeydown = function(event){
+								if (event.keyCode == "13") {
+									var newValue = this.value;
+									console.log('编辑',that.editRow,that.editCol,newValue)
+									td.html(newValue);td.show();
+									$(temptd).remove()
+								}
+							}
+							temptd.appendChild(input)
+						}else{
+							var textarea = document.createElement("textarea");
+							textarea.setAttribute("class", "edit-textarea");
+							textarea.innerText = tempValue;
+							setTimeout(function(){
+								textarea.focus();
+								textarea.setSelectionRange(tempValue.length,tempValue.length)
+						　　},100);
+							textarea.onblur = function(){
+								var newValue = this.value;
+								console.log('编辑',that.editRow,that.editCol,newValue)
+								td.html(newValue)
+								td.show();
+								$(temptd).remove()
+							}
+							// enter键结束编辑
+							textarea.onkeydown = function(event){
+								if (event.keyCode == "13") {
+									var newValue = this.value;
+									console.log('编辑',that.editRow,that.editCol,newValue)
+									td.html(newValue)
+									td.show();
+									$(temptd).remove()
+								}
+							}
+							temptd.appendChild(textarea)
+						}						
+                        $(this).after(temptd);                                        
+                    } 
+                }			
+				td.innerHTML = dataList[j][index];            
+                tr.appendChild(td);
+            }
+		}
+        //合并行（空数据合并到前面）
+        for(var p=0;p<table.rows.length;p++){				
+            for(var q=1;q<table.rows[p].cells.length;q++){				
+                if(table.rows[p].cells[q] && table.rows[p].cells[q].innerHTML == '' || table.rows[p].cells[q] && table.rows[p].cells[q].innerHTML == 'undefined'){
+                    //console.log(table.rows[p].cells[q].innerHTML,table.rows[p].cells[q-1].innerHTML)
+					$(table.rows[p].cells[q]).hide()  //使用hide否则会影响后面的循环
+                    //table.rows[p].removeChild(table.rows[p].cells[q]);	
+					function getTD(temp){	
+						if(q-temp == 0){
+							// 如果第一个数据还是空，就说明改行都是删除改行														
+							table.rows[p].cells[q-temp].colSpan = temp+1 
+							return;
+						}		
+						if(table.rows[p].cells[q-temp].innerHTML != ''){
+							table.rows[p].cells[q-temp].colSpan = (table.rows[p].cells[q-temp].colSpan)+1
+						}else{
+							temp++;
+							getTD(temp)
+						}
+					}
+					getTD(1);
+                    //table.rows[p].cells[q-1].colSpan = table.rows[p].cells[q-1].colSpan +1             
+				}
+            }				
+        }   
+		el.append(table) 
+        // 合并相同列
+		if(that.options.MergeCell){
+			el.tablesMergeCell({											
+				cols: that.options.MergeCell,
+			});
+		}  
+     };
+     //3.将函数暴露给外部
+     window.editTable=editTable;
+}()) 
+//6.实例化应用
+new editTable({
+	el:'#table1',
+	MergeCell:[0],  //需要垂直合并的列序号
+	colName:[
+		{
+			label:'类型',
+			index:'type',
+		},
+		{
+			label:'',
+			index:'factory',
+		},{
+			label:'共计(台)',
+			index:'sum',
+		},{
+			label:'运行(台)',
+			index:'run',
+		},{
+			label:'停备(台)',
+			index:'stop',
+		},{
+			label:'故障(台)',
+			index:'error',
+			isEdit:true,   //可以编辑
+			editType:'textarea', //编辑窗口是input或者textarea
+            editRow:'factory'//编辑提交时x轴的参数
+		},{
+			label:'限时负荷风机台数',
+			index:'limit',
+			isEdit:true,   //可以编辑
+			editType:'input', //编辑窗口是input或者textarea
+            editRow:'factory'//编辑提交时x轴的参数
+		},{
+			label:'运行率',
+			index:'rate',
+		}
+	],
+	dataList:[
+		{
+			type:'风电',
+			factory:'承德事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{
+			type:'风电',
+			factory:'张家口事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+        {
+			type:'风电',
+			factory:'总计',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		}
+	]
+})
+new editTable({
+	el:'#table2',
+	MergeCell:[0],  //需要垂直合并的列序号
+	colName:[
+		{
+			label:'类型',
+			index:'type',
+		},
+		{
+			label:'',
+			index:'factory',
+		},{
+			label:'共计(台)',
+			index:'sum',
+		},{
+			label:'停备总计(台)',
+			index:'run',
+		},{
+			label:'输变电停备(台)',
+			index:'stop',
+		},{
+			label:'超风速停备(台)',
+			index:'error'
+		},{
+			label:'叶片结冰(台)',
+			index:'limit',
+		},{
+			label:'风向标结冰(台)',
+			index:'rate',
+		},
+		{
+			label:'低温停备(台)',
+			index:'lowtemperature',
+		},{
+			label:'计划检修(台)',
+			index:'plan',
+		}
+	],
+	dataList:[
+		{
+			type:'风电',
+			factory:'承德事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666',
+			lowtemperature:'777',
+			plan:'888'
+		},
+		{
+			type:'风电',
+			factory:'张家口事业部',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666',
+			lowtemperature:'777',
+			plan:'888'
+		},
+        {
+			type:'风电',
+			factory:'总计',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666',
+			lowtemperature:'777',
+			plan:'888'
+		}
+	]
+})
+new editTable({
+	el:'#table3',
+	MergeCell:[0],  //需要垂直合并的列序号
+	colName:[
+		{
+			label:'事业部',
+			index:'factory',
+		},
+		{
+			label:'次数line名称',
+			index:'count',
+		},{
+			label:'变电站故障导致全场风机全停',
+			index:'sum',
+		},{
+			label:'事故长停',
+			index:'run',
+		},{
+			label:'一类长停',
+			index:'stop',
+		},{
+			label:'二类长停',
+			index:'error'
+		},{
+			label:'三类长停',
+			index:'limit',
+		},{
+			label:'大部件损坏下架',
+			index:'rate',
+		}
+	],
+	dataList:[
+		{
+			factory:'承德事业部',
+			count:'月次数',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{
+			factory:'承德事业部',
+			count:'本年累计次数',			
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{	
+			factory:'张家口',
+			count:'月次数',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{
+			factory:'张家口',
+			count:'本年累计次数',			
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		},
+		{			
+			factory:'公司年累计次数',
+			count:'',
+			sum:'111',
+			run:'222',
+			stop:'333',
+			error:'444',
+			limit:'555',
+			rate:'666'
+		}
+	]
+})
+new editTable({
+	el:'#table4',
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'所属风场',
+			index:'factory',
+		},{
+			label:'风机编号',
+			index:'sum',
+		},{
+			label:'故障原因及处理情况',
+			index:'info',
+			isEdit:true,   //可以编辑
+			editType:'textarea', //编辑窗口是input或者textarea
+            editRow:'factory'//编辑提交时x轴的参数
+		},{
+			label:'停机时间',
+			index:'stop',
+		},{
+			label:'停运时长',
+			index:'error'
+		},{
+			label:'恢复时间',
+			index:'limit',
+		}
+	],
+	dataList:[
+		{
+			factory:'西桥梁',
+			id:'1',
+			sum:'111',
+			info:'43号风机大家覅大家记得影响到家附近的记得发货就点击返回点击返回决定等影响到家附近的记得发货就点击返回点击返回决定等<span class="red">因吊车及道路积雪，影响到家附近的记得发货就点击返回点击返回决定等级</span>',
+			stop:'333',
+			error:'444',
+			limit:'&nbsp;',
+		},
+		{
+			factory:'西桥梁',
+			id:'2',
+			sum:'111',
+			info:'43号风机大家覅大家记得<span class="red">因吊车及道路积雪，影响</span>',
+			stop:'333',
+			error:'444',
+			limit:'555',
+		},
+		{
+			factory:'&nbsp;',
+			id:'&nbsp;',
+			sum:'&nbsp;',
+			info:'43号风机大家覅大家记得<span class="red">因吊车及道路积雪，影响</span>',
+			stop:'&nbsp;',
+			error:'&nbsp;',
+			limit:'&nbsp;',
+		}
+	]
+})
+new editTable({
+	el:'#table5',
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'所属风场',
+			index:'factory',
+		},{
+			label:'风机编号',
+			index:'sum',
+		},{
+			label:'故障原因及处理情况',
+			index:'info',
+			isEdit:true,   //可以编辑
+			editType:'textarea', //编辑窗口是input或者textarea
+            editRow:'factory'//编辑提交时x轴的参数
+		},{
+			label:'停机时间',
+			index:'stop',
+		},{
+			label:'停运时长',
+			index:'error'
+		},{
+			label:'恢复时间',
+			index:'limit',
+		}
+	],
+	dataList:[
+		{
+			factory:'西桥梁',
+			id:'1',
+			sum:'111',
+			info:'43号风机大家覅大家记得<span class="red">因吊车及道路积雪，影响</span>',
+			stop:'333',
+			error:'444',
+			limit:'555',
+		}
+	]
+})
+new editTable({
+	el:'#table6',
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'风电场',
+			index:'factory',
+		},{
+			label:'风机号',
+			index:'sum',
+		},{
+			label:'风机型号',
+			index:'info',
+		},{
+			label:'故障原因',
+			index:'stop',
+		},{
+			label:'处理进度',
+			index:'error'
+		},{
+			label:'停运时长(h)',
+			index:'limit',
+		}
+	],
+	dataList:[
+		{			
+			id:'1',
+			factory:'乌登山',
+			sum:'21',
+			info:'SE7715',
+			stop:'变桨canopen通讯故障',
+			error:'新发缺陷',
+			limit:'1.33',
+		},
+		{			
+			id:'1',
+			factory:'骆驼沟',
+			sum:'119',
+			info:'XE82-2000',
+			stop:'变桨驱动3故障',
+			error:'昨日登塔检查发现励磁继电器60K3损坏，天色较晚未处理，计划今日更换继电器后继续检查',
+			limit:'33.50',
+		}
+	]
+})
+
+new editTable({
+	el:'#table7',
+	colName:[
+		{
+			label:'单位：万千瓦时',
+			index:'id',
+		},
+		{
+			label:'日发电量',
+			index:'factory',
+		},{
+			label:'调度限电电量',
+			index:'sum',
+		},{
+			label:'设备限电电量',
+			index:'info',
+		},{
+			label:'日平均风速(m/s)',
+			index:'stop',
+		},{
+			label:'月累计发电量',
+			index:'error'
+		},{
+			label:'月度发电量计划',
+			index:'limit',
+		}
+	],
+	dataList:[
+		{			
+			id:'承德事业部风电',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			stop:'6.60',
+			error:'8928',
+			limit:'13839',
+		},
+		{			
+			id:'总计',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			stop:'6.60',
+			error:'8928',
+			limit:'13839',
+		}
+	]
+})
+
+new editTable({
+	el:'#table8',
+	colName:[
+		{
+			label:'单位：万千瓦时',
+			index:'id',
+		},
+		{
+			label:'日发电量',
+			index:'factory',
+		},{
+			label:'调度限电电量',
+			index:'sum',
+		},{
+			label:'设备限电电量',
+			index:'info',
+		},{
+			label:'日照小时数',
+			index:'stop',
+		},{
+			label:'日照强度（W/㎡）',
+			index:'error'
+		},{
+			label:'月累计发电量',
+			index:'limit',
+		},{
+			label:'月度发电量计划',
+			index:'name1',
+		}
+	],
+	dataList:[
+		{			
+			id:'承德事业部风电',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			stop:'6.60',
+			error:'8928',
+			limit:'13839',
+			name1:'-',
+		},
+		{			
+			id:'总计',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			stop:'6.60',
+			error:'8928',
+			limit:'13839',
+			name1:'410.4',
+		}
+	]
+})
+
+
+new editTable({
+	el:'#table9',
+	colName:[
+		{
+			label:'单位：万千瓦时',
+			index:'id',
+		},
+		{
+			label:'日发电量',
+			index:'factory',
+		},{
+			label:'日照强度（W/㎡）',
+			index:'sum',
+		},{
+			label:'调度限电电量',
+			index:'info',
+		},{
+			label:'设备限电电量',
+			index:'error'
+		},{
+			label:'日照时数',
+			index:'limit',
+		},{
+			label:'日平均风速',
+			index:'name1',
+		},{
+			label:'月累计发电量',
+			index:'name2',
+		},{
+			label:'月度发电量计划',
+			index:'name3',
+		}
+	],
+	dataList:[
+		{			
+			id:'承德事业部风电',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			error:'8928',
+			limit:'13839',
+			name1:'-',
+			name2:'50',
+			name3:'158'
+		},
+		{			
+			id:'总计',
+			factory:'770',
+			sum:'0',
+			info:'12',
+			error:'8928',
+			limit:'13839',
+			name1:'410.4',
+			name2:'32',
+			name3:'213'
+		}
+	]
+})
+
+new editTable({
+	el:'#table10',
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'风电场',
+			index:'factory',
+		},{
+			label:'风机号',
+			index:'sum',
+		},{
+			label:'风机型号',
+			index:'info',
+		},{
+			label:'定检开展情况',
+			index:'error'
+		},{
+			label:'风机是否运行',
+			index:'limit',
+		}
+	],
+	dataList:[
+		{			
+			id:'&nbsp;',
+			factory:'&nbsp;',
+			sum:'&nbsp;',
+			info:'&nbsp;',
+			error:'&nbsp;',
+			limit:'&nbsp;',
+		},
+		{			
+			id:'累计',
+			factory:'大唐国际（京津冀区域）新能源集控中心风机总台数共535台，定检累计完成0台，剩余535台，其中：<br/>1.骆驼沟风电场累计完成0台，剩余129台；2.万胜永风电场累计完成0台，剩余75台；3.西桥梁风电场累计完成0台，剩余57台；4.漫  景风电场累计完成0台，剩余100台；5.乌登山风电场累计完成0台，剩余141台；6.闪电河风电场累计完成0台，剩余33台。',
+			sum:'',
+			info:'',
+			error:'',
+			limit:'undefined', 
+		}
+	]
+})
+
+new editTable({
+	el:'#table11',
+	MergeCell:[1],  //需要垂直合并的列序号
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'岗位',
+			index:'factory',
+		},{
+			label:'领导姓名',
+			index:'sum',
+		},{
+			label:'本月登塔检查情况',
+			index:'info',
+		},{
+			label:'年度次数累计',
+			index:'error'
+		},{
+			label:'备注',
+			index:'limit',
+			isEdit:true,   //可以编辑
+			editType:'textarea', //编辑窗口是input或者textarea
+            editRow:'sum'//编辑提交时x轴的参数
+		}
+	],
+	dataList:[
+		{			
+			id:'1',
+			factory:'公司领导',
+			sum:'赵  均',
+			info:'33',
+			error:'00次',
+			limit:'&nbsp',  //空字符串默认会被向前合并,无备注直接返回一个空格字符
+		},
+		{			
+			id:'2',
+			factory:'公司领导',
+			sum:'宋祥斌',
+			info:'444',
+			error:'00次',
+			limit:'&nbsp',  //空字符串默认会被向前合并,无备注直接返回一个空格字符
+		},
+		{			
+			id:'3',
+			factory:'生技部',
+			sum:'方占正',
+			info:'55',
+			error:'00次',
+			limit:'&nbsp',  //空字符串默认会被向前合并,无备注直接返回一个空格字符
+		}
+	]
+})
+
+new editTable({
+	el:'#table12',
+	MergeCell:[1],  //需要垂直合并的列序号
+	colName:[
+		{
+			label:'序号',
+			index:'id',
+		},
+		{
+			label:'岗位',
+			index:'factory',
+		},{
+			label:'领导姓名',
+			index:'sum',
+		},{
+			label:'本月现场重要工作到位指导情况',
+			index:'info',
+		},{
+			label:'年度次数累计',
+			index:'error'
+		},{
+			label:'备注',
+			index:'limit',
+			isEdit:true,   //可以编辑
+			editType:'textarea', //编辑窗口是input或者textarea
+            editRow:'sum'//编辑提交时x轴的参数
+		}
+	],
+	dataList:[
+		{			
+			id:'1',
+			factory:'公司领导',
+			sum:'赵  均',
+			info:'的地方',
+			error:'00次',
+			limit:'&nbsp',  //空字符串默认会被向前合并,无备注直接返回一个空格字符
+		},
+		{			
+			id:'2',
+			factory:'公司领导',
+			sum:'宋祥斌',
+			info:'东风的',
+			error:'00次',
+			limit:'-',  //空字符串默认会被向前合并,无备注需要处理为一个占位空格直接返回一个空格字符
+		},
+		{			
+			id:'3',
+			factory:'生技部',
+			sum:'方占正',
+			info:'带饭',
+			error:'00次',
+			limit:'无备注',  //空字符串默认会被向前合并,无备注直接返回一个空格字符
+		}
+	]
+})
+$('.editText').click(function(){
+
+	var that = $(this);
+	var tempValue = $(this).html();
+	var input = document.createElement("input");
+	input.setAttribute("class", "editText-input");
+	input.setAttribute("value", tempValue);	
+	setTimeout(function(){
+　　　　 input.focus();
+		input.setSelectionRange(tempValue.length,tempValue.length)
+　　},100);
+	input.onclick = function(e){
+		e.stopPropagation();
+		return false;
+	}
+	input.onblur = function(){
+		var newValue = this.value;
+		that.html(newValue);that.show();
+		console.log('编辑',newValue)
+		$(input).remove()
+	}
+	// enter键结束编辑
+	input.onkeydown = function(event){
+		if (event.keyCode == "13") {
+			var newValue = this.value;
+			console.log('编辑',newValue)
+			that.html(newValue);that.show();
+			$(input).remove()
+		}
+	}
+	$(this).append(input)
+})
+</script>
+
+</body>
+</html>

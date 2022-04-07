@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+   <canvas id="canvas" width="200" height="200">
+
+   </canvas>
+   <script src="../js/jquery-1.11.1.min.js"></script>
+   <script>
+       var canvas = document.getElementById('canvas');
+       var ctx = canvas.getContext("2d");
+       var img = new Image();
+       img.src="./2.png";
+       ctx.fillStyle = '#f00';
+       var rotate = 0;
+       img.onload = function(){
+           setInterval(function(){
+                ctx.clearRect(0, 0, 200, 200);                             
+                ctx.fillRect(95, 90, 5, 110);  
+                ctx.save(); 
+                ctx.translate(60+35, 43+56);
+                ctx.rotate(rotate * Math.PI / 180);      
+                ctx.translate(-60-35, -43-56); 
+                ctx.drawImage(img,0,0,68,112,60,43,68,112);
+                ctx.restore();
+                rotate++
+           },20)
+          
+       }
+       
+       
+
+   </script>
+</body>
+</html>

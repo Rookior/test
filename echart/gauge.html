@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<s>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script>
+      option = {
+    backgroundColor:'transparent',
+  
+            tooltip: {
+				formatter: "{a} <br/>{b} : {c}%"
+            },
+  title: {
+                text: '{a|'+ 0 +'}{c|%%%}',
+                x: 'center',
+                y: 'center',
+                textStyle: {
+                    rich:{
+                        a: {
+                            fontSize: 42,
+                            color: '#fff',
+                        },
+
+                        c: {
+                            fontSize: 20,
+                            color: '#ffffff',
+                            verticalAlign:'bottom',
+                            padding: [4,4]
+                        }
+                    }
+                }
+            },
+    series: [
+
+                { //内圆
+                    type: 'pie',
+                    radius: '100%',
+                    center: ['50%', '50%'],
+                    z: 1,
+                    itemStyle: {
+                        normal: {
+                            color: new echarts4.graphic.RadialGradient(.5, .5, .4, [{
+                                offset: 0,
+                                color: '#0069ad'
+                            },
+                                {
+                                    offset: .5,
+                                    color: '#013a60'
+                                },
+                                {
+                                    offset: 1,
+                                    color: 'transparent',
+                                }
+                            ], false),
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        },
+                    },
+                    hoverAnimation: false,
+                    label: {
+                        show: false,
+                    },
+                    tooltip: {
+                        show: false
+                    },
+                    data: [100],
+                },
+                {
+                    name: '灰色内圈', //刻度背景
+                    type: 'gauge',
+                    radius: '67%',
+                    startAngle: '225',
+                    endAngle: '-45',
+                    //center: ["50%", "75%"], //整体的位置设置
+                    axisLine: { // 坐标轴线
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: [
+                                [1, '#018DFF']
+                            ],
+
+                            width: 2,
+                            opacity: 1, //刻度背景宽度
+                        }
+                    },
+					splitNumber:'6',
+                    splitLine: {
+                        length:8,
+                        show: true,
+                        lineStyle:{
+                            color :'#0c4b5d',
+                            width:2
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    detail: {
+                        show: 0
+                    }
+                },
+                {
+                    name: "内部进度条",
+                    type: "gauge",
+                    // center: ['20%', '50%'],
+                    radius: '90%',
+
+                    splitNumber: 10,
+                    axisLine: {
+
+                        lineStyle: {
+							width: '20',
+                            color: [
+                                [0 / 100, new echarts4.graphic.LinearGradient(
+                                    0, 1, 0, 0, [{
+                                        offset: 0,
+                                        color: 'rgba(0, 180, 255,.5)',
+                                    }, {
+                                        offset: 0.3,
+                                        color: 'rgba(0, 236, 255,.9)',
+                                    },
+                                        {
+                                            offset: 1,
+                                            color: 'rgba(0, 150, 255,1)',
+                                        }
+                                    ]
+                                )],
+                                [1, "#0d487b"]
+                            ],
+
+                        },
+
+                    },
+                    axisLabel: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: false,
+
+                    },
+                    splitLine: {
+                        show: false,
+                    },
+                    itemStyle: {
+                        show: false,
+                    },
+                    detail: {
+                        formatter: function(value) {
+                            return 0;
+
+                        },
+                        offsetCenter: [0, 82],
+                        textStyle: {
+                            padding: [0, 0, 0, 0],
+                            fontSize: 18,
+                            fontWeight: '700',
+                            color: '##468EFD'
+                        }
+                    },
+                    title: { //标题
+                        show: true,
+                        offsetCenter: [0, 46], // x, y，单位px
+                        textStyle: {
+                            color: "#fff",
+                            fontSize: 14, //表盘上的标题文字大小
+                            fontWeight: 400,
+                            fontFamily: 'PingFangSC'
+                        }
+                    },
+                    data: [{
+
+                        value: 0,
+                    }],
+                    pointer: {
+                        show: 0,
+                    },
+                },
+                {
+                    // 外圈xian
+                    type: 'gauge',
+                    radius: '98%',
+                    
+                    min: 0,
+                    max: 100,
+                    startAngle: 225,
+                    endAngle: -45,
+                    axisLabel: {
+                        // 刻度值文字
+                        show: false
+                    },
+                    splitNumber: 10, //刻度值分割成几个区域
+                    splitLine: {
+                        // 大的分割线
+                        show: false,
+                        length:5, //大刻度线长度
+                        lineStyle:{
+                            width :10
+                        }
+
+                    },
+                    axisTick:{
+                        // 小的刻度线
+                        show:false,
+                        inside:true, //刻度线是否朝外
+                        length:5, //小刻度线长度
+                        lineStyle:{
+                             color:'#ccc' ,
+                              width:1 ,  //小刻度线宽度
+                               type:'solid'
+                        }
+                    },
+                    axisLine: {
+                        // 轴线
+                        show: false,
+                        lineStyle: {
+                            width: 2,
+                            shadowBlur: 0,
+                            color: [
+                                [0, '#025e69'],
+                                [1, '#02646e']
+                            ],
+
+                        }
+
+                    },
+                   
+                    detail: {
+                        show: true,
+                        offsetCenter: [15, '85%'],
+                        color: '#000',
+                        formatter: function(params) {
+                            return '年发电量完成率'
+                        },
+                        textStyle: {
+                            fontSize: 25
+                        }
+                    },
+                    pointer: {
+                        show: 0
+                    },
+                   
+
+                },
+            ]
+};
+
+
+         // 基于准备好的dom，初始化echarts实例
+         var myChart = echarts4.init(document.getElementById('main'));
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+
+        <p>{{title}}</p>
+        <li v-show="hasshow" v-for="item in [1,2,3,4]"> 
+            {{item}}
+        </li>
+        <text-item :title="title" v-on:child-submit="showAdvice"></text-item>
+        <text-item :title.sync="title"></text-item>
+        <button>右键</button>
+    </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script>
+         Vue.component('text-item', {
+            template: '<div><p>{{childTitle}}</p><button @click="updatetitle">修改title</button></div>',
+            props: ['title'],
+            data:function(){
+                return {
+                    childTitle:this.title
+                }
+            },
+            methods:{
+                updatetitle:function(){
+                    this.childTitle = "修改后title"
+                    this.$emit("child-submit",this.childTitle)
+                    this.$emit('update:title', "修改后title")
+                }
+            }
+
+        })
+        var app = new Vue({
+            el:'#app',
+            
+            data(){
+                return {
+                    msg:'111',
+                    title:'标题',
+                    hasshow:true
+                }
+            },
+               
+            methods:{
+                showAdvice:function(title){
+                   
+                    this.title = title
+                }
+            }
+        })
+    </script>
+</body>
+</html>

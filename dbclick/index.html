@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p  v-open-line-dialog="{
+        dev: '111',
+        tag: 'CMPT_ActPower_Max_Day',
+        tagName: '日最大功率',
+      }"
+    >1111</p>
+    <div>
+        <span v-open-line-dialog="{
+            dev: '222',
+            tag: 'CMPT_ActPower_Max_Day',
+            tagName: '日最大功率',
+          }" >2222</span>
+    </div>
+    <div v-open-line-dialog="{
+        dev: '333',
+        tag: 'CMPT_ActPower_Max_Day',
+        tagName: '日最大功率',
+      }">
+        3333
+    </div>
+    <script src="./jquery-1.11.1.min.js"></script>
+    <script>
+        document.addEventListener('dblclick', function(e){
+            event.stopPropagation()
+            var str = $(e.target).attr('v-open-line-dialog') 
+            console.log( eval('(' + str + ')'))         
+        });
+      
+    </script>
+</body>
+</html>

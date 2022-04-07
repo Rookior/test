@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件传值</title>
+    <style>
+        #app>div {
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+       
+        <div>
+            <h3>组件a</h3>
+            <!-- <testa :items="items"></testa> -->
+            <testa :value='parentValue' @input="changeInput"></testa>
+        </div>
+      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+
+      
+
+        Vue.component('testa', {
+            // template: `
+            //     <h1>{{ blogTitle }}</h1>
+            // `,
+            // 使用render实现自定义template内容与其绑定关系
+            // render: function (createElement) {
+            //     return createElement('h1', this.blogTitle)
+            // },
+            // template:`
+            // <ul v-if="items.length">
+            //     <li v-for="item in items">{{ item.name }}</li>
+            // </ul>
+            // <p v-else>No items found.</p>
+            // `,
+            // props: ['items'],
+            // render: function (createElement) {
+            //     if (this.items.length) {
+            //         return createElement('ul', this.items.map(function (item) {
+            //         return createElement('li', item.name)
+            //         }))
+            //     } else {
+            //         return createElement('p', 'No items found.')
+            //     }
+            // },
+            props: ['value'],
+            render: function (createElement) {
+                var self = this
+                return createElement('input', {
+                    domProps: {
+                        value: self.value
+                    },
+                    on: {
+                    input: function (event) {
+                        self.$emit('input', event.target.value)
+                    }
+                    }
+                })
+            },
+            data: function () {
+                return {
+                    blogTitle:'blogTitle',                   
+                }
+            },          
+            mounted() {
+               
+            },
+            methods: {
+                
+            },
+        })
+
+        
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    items:[
+                        {
+                            name:111
+                        },
+                        {
+                            name:222
+                        }
+                    ],
+                    parentValue:'parentValue'
+                }
+            },
+            computed: {
+
+            },
+            watch: {
+
+            },
+            methods: {
+                changeInput:function(data){
+                    console.log(data)
+                }
+            },
+            component: {
+                'testa': 'testa',
+               
+            }
+        })
+
+    </script>
+</body>
+
+</html>

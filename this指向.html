@@ -1,0 +1,50 @@
+<h1>this指向</h1>
+
+<h4>1.直接函数调用，this指向window</h4>
+<script>
+function a(){
+    console.log("this:",this)
+}
+a()
+</script>
+<h4>2.对象方法调用，this指向这个对象</h4>
+<script>
+    var b = {
+        say:function(){
+            console.log("this:",this)
+        }
+    }
+    b.say()
+</script>
+
+<h4>3.构造函数，通过new调用时，this指向这个构造函数创建的承接对象</h4>
+<script>
+    var that = null;
+    function C(){
+        this.name = 'wzy';
+        that = this;
+        console.log("this:",this)
+    }
+    C.prototype = {
+        construct:C,
+        say:function(){
+            console.log('hello')
+        }
+    } 
+    var c = new C()
+    console.log(c == that)  //true
+   
+</script>
+<h4>4.通过apply、call、bind调用时，this可以被指定</h4>
+<script>
+    let fn = function(a,b){
+        console.log(this,a,b);
+    }
+    let obj = {name:"obj"};
+    //call(this,参数1，参数2，...)
+    fn.call(obj,1,2);    // this:obj    a:1         b:2 
+    //apply(this,[参数1，参数2，...])
+    fn.apply(obj, [1, 2]);  // this:obj    a:1         b:2 
+    // bind和call一样，但是函数不会立即执行
+    fn.bind(obj, 1, 2); // 改变fn中的this，fn并不执行
+</script>

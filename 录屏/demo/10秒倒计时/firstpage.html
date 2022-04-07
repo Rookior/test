@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10秒倒计时</title>
+    <style>
+        div{
+            width: 300px;
+            margin: 50px auto;
+            background-color: gray;
+            text-align: center;
+            padding: 20px 0 20px 0;
+        }
+        p{
+            font-size: 16px;
+            margin: 10px 0 10px 0;
+        }
+        button{
+            cursor: pointer;
+            padding: 5px 15px 5px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>JK商品预售</p>
+        <p>原价：500元</p>
+        <p>现价：320元</p>
+        <P>
+            <button>取消</button>
+            <button>支付</button>
+        </P>
+    </div>
+    <script>
+        window.onload=function(){
+            let btn = document.getElementsByTagName('button')[1];
+            btn.onclick = function () { 
+                let res = window.confirm('确认支付吗？');
+                if(res){
+                    location.href = './success.html';
+                }
+             }
+        }
+    </script>
+</body>
+</html>

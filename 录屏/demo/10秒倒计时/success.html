@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>success</title>
+    <style>
+        p {
+            font-size: 18px;
+        }
+
+        #toJump {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>支付成功！！！</p>
+        <p><span id="toJump">10</span>秒后跳转到相应页面</p>
+        <p><button>返回</button></p>
+    </div>
+
+    <script>
+        window.onload = function () {
+            let time = 10;
+            // 页面加载时触发定时器
+            setInterval(() => {
+                time--;
+                let content = document.getElementById('toJump');
+                content.innerText = time;
+                if (time == 0) {
+                    location.href = 'http://www.baidu.com';
+                }
+            }, 1000);
+
+            let btn = document.getElementsByTagName('button')[0];
+            btn.onclick = function () {
+                location.href = 'http://www.baidu.com';
+            }
+        }
+
+    </script>
+</body>
+
+</html>

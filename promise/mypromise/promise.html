@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写promise</title>
+</head>
+<body>
+    <script>
+        class myPromise{
+            constructor(anyscFun){
+                var self = this;
+                self.status = "pending";
+                self.value = undefined;
+                self.resolveArr = [];
+                self.rejectArr = [];
+                anyscFun(function(data){
+                    if(self.status != 'pending') return;
+                    self.status = "fulfilled";
+                    self.value = data;
+                    self.resolveArr.forEach(fn=>fn(data))
+                },function(err){
+                    if(self.status != 'pending') return;
+                    self.status = "rejected";
+                    self.value = err;
+                    self.rejectArr.forEach(fn=>fn(err))
+                })
+            }
+            then(onresolve,onreject){
+
+               
+
+                var self = this;
+                if(self.state === 'fulfilled'){
+                    onresolve(self.value)
+                }
+                if(self.state === 'rejected'){
+                    onreject(self.value)
+                }
+                if(self.status === 'pending'){
+                    self.resolveArr.push(onresolve)
+                    self.rejectArr.push(onreject)
+                }
+
+                
+            }
+        }
+        new myPromise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve('suc')
+            }, 2000);
+        }).then((res)=>{
+            console.log(res)
+        },(err)=>{
+            console.log(err)
+        })
+    </script>
+</body>
+</html>

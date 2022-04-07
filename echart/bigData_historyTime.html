@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大数据渲染</title>
+</head>
+<body>
+    <div id="main2" style="width: 600px;height: 600px;"></div>
+    <div id="main" style="width: 600px;height: 100px;"></div>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts5.js"></script>
+    <script>
+        var myChart = echarts5.init(document.getElementById('main'));
+        var myChart2 = echarts5.init(document.getElementById('main2'));
+        
+
+        function detailTime(shijian) {
+            var date = new Date(shijian)
+            var Y = date.getFullYear() + '-'
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+            var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' '
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
+            var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':'
+            var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+            return Y + M + D + h + m + s
+          }
+     
+        
+       
+        var arr = []
+        for(var i=0;i<1000000;i++){
+            arr.push(
+                [new Date('2022-02-01 08:00:00').getTime() + i*1000
+                ,Math.random()*100 + 100]
+            )
+        }
+
+        var option = {
+            xAxis: {
+                type: 'time',
+                min: detailTime(arr[0][0]),
+                max:detailTime(arr[arr.length-1][0])
+              },
+              yAxis: {
+                type: 'value',
+              },
+            dataZoom: [{
+                start: 0,
+                end: 100,
+                //zoomLock:true
+                minValueSpan:1000 
+            }],
+        }
+        myChart.setOption(option)
+        var option2 = {
+           
+            tooltip: {
+              trigger: 'axis'
+            },
+            legend: {
+              data: ['01发电量']
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
+              }
+            },
+          xAxis: {
+               type: 'time',
+             },
+             yAxis: {
+               type: 'value',
+             },
+             animation:false,
+             series: [
+               {
+                 type: 'line',
+                 sampling :"lttb",
+                 name:'01发电量',
+                 data: []
+               }]
+          };
+          let startValue = myChart.getModel().option.dataZoom[0].startValue;
+          let endValue = myChart.getModel().option.dataZoom[0].endValue;
+          
+          console.log(1111,startValue,endValue);
+          startValue = Math.floor(startValue/1000)*1000;
+          endValue = Math.floor(endValue/1000)*1000;
+          console.log(2222,Math.floor(startValue/1000)*1000,Math.floor(endValue/1000)*1000)
+          let startIndex = (startValue - arr[0][0])/1000
+          let endIndex = (endValue - arr[0][0])/1000
+          console.log(3333,startIndex,endIndex)
+          
+          var temp = []
+
+          var step = Math.ceil((endIndex-startIndex)/1000);
+          console.log("查询间隔",step)
+
+          for(var j=startIndex;j<endIndex;j=j+step){
+             // if((j-startIndex)%step == 0){
+                  
+                  temp.push(arr[j])
+                  
+            //  }
+              
+          }
+          console.log(temp)
+         option2.series[0].data = temp;
+          myChart2.setOption(option2,true)
+
+       
+       
+
+
+		
+
+         
+        myChart.on('dataZoom',function(event){
+            if(event.batch){
+                var start=event.batch[0].start;
+                var end=event.batch[0].end;
+            }else{
+                var start=event.start;
+                var end=event.end;
+            };
+            option.dataZoom[0].start = start;
+            option.dataZoom[0].end=end;
+            
+            let startValue = myChart.getModel().option.dataZoom[0].startValue;
+            let endValue = myChart.getModel().option.dataZoom[0].endValue;
+            
+            console.log(1111,startValue,endValue);
+            startValue = Math.floor(startValue/1000)*1000;
+            endValue = Math.floor(endValue/1000)*1000;
+            console.log(2222,Math.floor(startValue/1000)*1000,Math.floor(endValue/1000)*1000)
+            let startIndex = (startValue - arr[0][0])/1000
+            let endIndex = (endValue - arr[0][0])/1000
+            console.log(3333,startIndex,endIndex)
+            var temp = []
+
+            var step = Math.ceil((endIndex-startIndex)/1000);
+
+            console.log("查询间隔",step)
+            for(var j=startIndex;j<endIndex;j=j+step){
+               // if((j-startIndex)%step == 0){
+                    
+                    temp.push(arr[j])
+                    
+               // }
+                
+            }
+            console.log(temp)
+           option2.series[0].data = temp;
+            myChart2.setOption(option2)
+
+
+            
+        });
+       
+    </script>
+</body>
+</html>

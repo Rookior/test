@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS动画</title>
+    <style>
+        /* 
+            animation: 
+                name: keyframe 名称 
+                duration: 动画花费时间 （默认值0）
+                timing-function：动画速度曲线 linea| ease（默认值）| ease-in| ease-out
+                delay：延迟几秒执行
+                iteration-count：播放次数 infinite无限循环或者n次（默认值1） 
+                direction：轮流反向播放。normal（默认从头开始）或者alternate（反向）
+            animation-play-state：
+                paused动画暂停| running动画播放（默认值）
+            animation-fill-mode：开始结束状态
+                none：开始和结束都使用属性状态（默认值）
+                forwards 动画开始时使用属性状态，动画结束时保持最后一个状态keyframes100%，
+                backwards动画开始前使用第一个状态keyframes 0%，动画结束时使用属性状态
+                both：开始和结束都使用keyframes状态   
+        */
+        .a{
+            width: 100px;
+            height: 200px;
+            margin-left: 200px;
+            background: #ccc;
+            animation: scool 2s ease-in 1s 1 alternate;
+            animation-play-state:running;
+            animation-fill-mode: both;
+            padding: 20px;
+        }
+        @keyframes scool {
+            0%{                     
+                transform: rotateY(0deg) scale(0.5);
+            }         
+            100%{             
+                transform: rotateY(720deg) scale(1);       
+            }
+        }      
+    </style>
+</head>
+<body>
+    <div class="a">
+       <div style="background: #0f0;height: 100%;"></div>
+    </div>
+</body>
+</html>

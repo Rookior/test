@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="month_dian" style="width: 660px;height: 365px;"></div>
+    <script src="./js/echart.js"></script>
+    <script>
+        var option = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+    dataZoom: [     // 主要是这一部分，他是折线图的缩放功能的开启  
+            {
+                startValue:0,    // 起始位置
+                end:100
+            },
+            {
+                type: 'inside',  //slider
+               
+            }
+        ],
+  series: [
+    {
+      data: [150, 230, 224, 218, 135, 147, 260],
+      type: 'line'
+    }
+  ]
+};
+var start,end;
+var month_dianChart = echarts.init(document.getElementById('month_dian'));
+    month_dianChart.setOption(option);
+
+    month_dianChart.on('dataZoom',function(event){
+    	if(event.batch){
+    		start=event.batch[0].start;
+    		end=event.batch[0].end;
+    	}else{
+    		start=event.start;
+    		end=event.end;
+    	};
+        console.log(start,end)
+});
+        setInterval(function(){
+          console.log(option.dataZoom[0])
+            var aa = []
+            for(var i=0,l=7;i<l;i++){
+               
+                aa.push(Number((Math.random()*100 + 100).toFixed(0)) )
+                
+            }
+            option.series[0].data = aa;
+            option.dataZoom[0].start=start;
+	        option.dataZoom[0].end=end;
+            month_dianChart.setOption(option,true);
+        },3000)
+    </script>
+</body>
+</html>

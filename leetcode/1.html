@@ -1,0 +1,19 @@
+<script>
+    var hammingWeight = function(n) {
+    var str = n.toString(2);
+    var sum = 0;
+    for(var i=0,l=str.length;i<l;i++){
+        console.log(sum,str[i])
+        if(str[i] === '1'){         
+            sum+=1;
+          
+        }
+    }
+    return sum
+
+    // return n.toString(2).split("1").length-1;
+
+};
+var aa = hammingWeight(00000000000000000000000000001011)
+console.log(aa)
+</script>

@@ -1,0 +1,46 @@
+<button id="button" onclick="aa()">html事件：直接写在html上面</button>
+<button id='btn'>dom0级事件：通过获取节点进行绑定（只能进行最后一个事件绑定）</button>
+<div onclick="parent()">
+<button id='btn2'>dom2级事件：通过addEventListener定义监听（可以绑定多个事件）(无法移除匿名函数)</button>
+</div>
+
+<p>阻止冒泡行为：event.stopPropagation()  ||     event.cancelBubble=true(IE)</p>
+<p>阻止默认事件：event.preventDefault()或return false ||  event.returnValue=false(IE)</p>
+<script>
+// html事件
+function aa(){
+    alert('html事件')
+}
+//html事件移除：元素.setAttribute('on+事件名',null);
+//document.getElementById('button').setAttribute('onclick',null)
+
+// dom0级事件
+document.getElementById('btn').onclick = function(){
+    alert('dom0级事件')
+}
+document.getElementById('btn').onclick = function(){
+    alert('dom0级事件最后一个')
+}
+// dom0级事件移除：元素. on+事件名=null; 
+// document.getElementById('btn').onclick = null
+
+// dom2级事件监听
+document.getElementById('btn2').addEventListener('click',fun2, false)  //默认false,冒泡机制，可以被移除，由内向外？？？
+document.getElementById('btn2').addEventListener('click',fun3, true)  //true捕获机制，无法被移除，由外向内？？？
+function fun2(event){
+    //event.stopPropagation() 阻止冒泡
+    alert('dom2级事件1')
+}
+function fun3(){
+    //event.stopPropagation() 阻止冒泡
+    alert('dom2级事件2')
+}
+
+// document.getElementById('btn2').removeEventListener('click',fun2)
+// document.getElementById('btn2').removeEventListener('click',fun3)
+
+function parent(){
+    alert('父级事件')
+}
+</script>
+

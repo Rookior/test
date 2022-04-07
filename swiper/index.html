@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-wrap{
+            position: relative;          
+        }
+        .swiper-content{
+            width: 100%;
+            height: 300px;
+            position: relative;
+			overflow:hidden;
+        }
+        .swiper-item{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 100%;
+        }
+        .swiper-item img{
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-item.active{
+            left: 0;
+            transition: left .6s ease-in-out;
+        }
+        .swiper-item.left{
+            left: -100%;
+            transition: left .6s ease-in-out;
+        }
+        .swiper-pointer-wrap{
+            text-align: center;
+            height: 30px;
+            width: 100%;
+        }
+        .swiper-pointer-wrap .swiper-pointer{
+            display: inline-block;
+            width: 40px;
+            height: 8px;
+            background: #721717;
+            margin: 0 5px;
+            transition: width ease 1s;
+        }
+        .swiper-pointer-wrap .swiper-pointer.focus{
+            background: #c72828;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper-wrap" id="swiper-wrap">
+        <div class="swiper-content" id="swiper-content">
+            <div class="swiper-item active">
+                <img src="./images/t1.png" />
+            </div>
+            <div class="swiper-item">
+                <img src="./images/t2.png" />
+            </div>
+            <div class="swiper-item">
+                <img src="./images/t3.png" />
+            </div>
+            <div class="swiper-item">
+                <img src="./images/t4.png" />
+            </div>
+        </div>
+        <div class="swiper-pointer-wrap">
+            <div class="focus swiper-pointer"></div>
+            <div class="swiper-pointer"></div>
+            <div class="swiper-pointer"></div>
+            <div class="swiper-pointer"></div>
+        </div>
+    </div>
+   
+
+
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script>
+           // 轮播图
+        var currentIndex = 0;
+        function func(){
+            var current = $('.swiper-item.active');
+            var currentPoint =  $('.swiper-pointer.focus');           
+            var swiperLength = document.getElementsByClassName('swiper-item').length;            
+            if(currentIndex == swiperLength-1){
+                currentIndex = 0;
+                current.removeClass('active');
+                currentPoint.removeClass('focus');
+                current.addClass('left')
+                setTimeout(function(){
+                    $('.swiper-item.left').removeClass('left')
+                },600)
+                $('.swiper-item:first-child') .addClass('active')
+                $('.swiper-pointer:first-child') .addClass('focus')               
+            }else{
+                currentIndex ++;
+                current.removeClass('active');
+                currentPoint.removeClass('focus');
+                current.addClass('left')
+                setTimeout(function(){
+                    $('.swiper-item.left').removeClass('left')
+                },600)
+                current.next().addClass('active');
+                currentPoint.next().addClass('focus')
+            }
+        }
+       
+        var interval = setInterval(function(){            
+            func()
+        },3000)
+        document.getElementById('swiper-content').onmouseover = function(){            
+            clearInterval(interval);
+		}
+		document.getElementById('swiper-content').onmouseout = function(){        
+            interval = setInterval(func, 3000); 
+		}
+        var swiperPoints = document.querySelectorAll('.swiper-pointer')
+        for(var i=0;i<swiperPoints.length;i++){
+            clickSwiper(i)             
+        }
+        function clickSwiper(index){
+            var swiperPoints = document.querySelectorAll('.swiper-pointer')
+            swiperPoints[index].onclick = function(){
+                  
+                  currentIndex = index;
+                  window.clearInterval(interval);
+                  var current = $('.swiper-item.active');
+                  var currentPoint =  $('.swiper-pointer.focus'); 
+                  current.removeClass('active');
+                  currentPoint.removeClass('focus');
+                  current.addClass('left')
+                  setTimeout(function(){
+                      $('.swiper-item.left').removeClass('left')
+                  },600)
+                  $('.swiper-content').find('.swiper-item:eq('+index+')').addClass('active')
+                  $('.swiper-pointer-wrap').find('.swiper-pointer:eq('+index+')').addClass('focus')
+                  interval = setInterval(func, 3000);  
+                                
+          }
+        }
+        
+       
+    </script>
+</body>
+</html>

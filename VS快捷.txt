@@ -1,0 +1,26 @@
+alt + 鼠标左键  : 多光标插入
+shift + alt + I   : 选中行结尾插入光标
+
+
+Alt + 上下   :移动当前行
+Alt + shift + 上下 ：拷贝当前行
+Ctrl + shift + K   :删除当前行
+
+Ctrl + enter : 后面插入一行
+ctrl + shift + enter : 前面插入新行
+
+ctrl + 上下 ： 滚动页面
+
+ctrl + G   ：跳转到第几行代码
+Ctrl + p     :按照文件名称搜索
+
+
+ctrl + f :查找
+ctr + h  :查找替换
+ctrl + /   :添加注释
+
+
+F12   :转到选中定义
+
+ctrl 加 '+' 文字放大
+ctrl 加 '-' 文字缩小

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写ajax</title>
+</head>
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET','https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&wd=' + '百度',true)
+        xhr.send()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                //判断本次下载的状态码都是多少 304表示请求的资源没有被修改
+                if(xhr.status == 200){
+                    alert(xhr.responseText);
+                }else{
+                    alert("Error:" + xhr.status);
+                }
+            }
+        }
+
+    
+            const xhrPost = new XMLHttpRequest()
+          
+            xhrPost.open('POST', 'https://www.baidu.com/sugrec', true)
+            xhrPost.onreadystatechange = function () {
+                console.log(xhrPost)
+                if (xhrPost.readyState === 4) {
+                    if (xhrPost.status === 200) {
+                        console.log(xhrPost.responseText)
+                    }else{
+                        console.log("Error:" + xhrPost.status);
+                    }
+                }
+            }          
+            xhrPost.send(JSON.stringify({
+                pre:1,p:3,ie:'utf-8',json:1,prod:'pc',from:'pc_web',wd:'百度'
+            }))//发送格式为json字符串
+
+    </script>
+</body>
+</html>

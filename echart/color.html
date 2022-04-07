@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<s>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 900px;height:800px;"></div>
+    <script>
+        
+        function handleColors(num) {
+            var arr = [];
+            while (arr.length < num) {
+                let color = '';
+                let r = Math.floor(Math.random() * 256);
+                let g = Math.floor(Math.random() * 256);
+                let b = Math.floor(Math.random() * 256);
+                color = `rgb(${r},${g},${b})`;
+                color = "rgb(" + r + "," + g + "," + b + ")"
+                if (!arr.includes(color)) {
+                    arr.push(color)
+                }
+            }
+
+            return arr;
+        }
+
+
+
+
+        function makeColorArrByDataLen(len, startColor = '#0682d8', endColor = '#fec02f') {
+            if (len === 0) {
+                return [];
+            }
+
+            const startNumber = makeColorNumberString(startColor),
+                delta = (makeColorNumberString(endColor) - startNumber) / (len - 1),
+                arr = [];
+
+            arr.push(startColor);
+
+            for (let i = 1; i < len; i++) {
+                arr.push(makeColorString(Math.floor(startNumber + delta * i)));
+            }
+
+            return arr;
+
+            /**
+             * 生成16进制的数字
+             * @param {string} color
+             */
+            function makeColorNumberString(color) {
+                color = color.slice(1).toLowerCase();
+
+                if (color.length === 3) {
+                    color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
+                }
+
+                return parseInt(color, 16);
+            }
+
+            /**
+             * 由数字变成颜色
+             * @param {*} number
+             */
+            function makeColorString(number) {
+                const arr = [
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    'a',
+                    'b',
+                    'c',
+                    'd',
+                    'e',
+                    'f'
+                ];
+
+                let str = '',
+                    remainder;
+
+                while (number !== 0) {
+                    remainder = number % 16;
+                    str = arr[remainder] + str;
+                    number = Math.floor(number / 16);
+                }
+
+                for (let i = 0, len = 6 - str.length; i < len; i++) {
+                    str = '0' + str;
+                }
+
+                return '#' + str;
+            }
+        }
+        function getHslArray(num) {
+            // 获取随机HSL
+            function randomHsl() {
+                var H = Math.random();
+                var S = Math.random();
+                var L = Math.random();
+                return [H, S, L];
+            }
+            function hslToRgb(H, S, L) {
+                    var R, G, B;
+                    if (+S === 0) {
+                        R = G = B = L; // 饱和度为0 为灰色
+                    } else {
+                        var hue2Rgb = function (p, q, t) {
+                            if (t < 0) t += 1;
+                            if (t > 1) t -= 1;
+                            if (t < 1 / 6) return p + (q - p) * 6 * t;
+                            if (t < 1 / 2) return q;
+                            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                            return p;
+                        };
+                        var Q = L < 0.5 ? L * (1 + S) : L + S - L * S;
+                        var P = 2 * L - Q;
+                        R = hue2Rgb(P, Q, H + 1 / 3);
+                        G = hue2Rgb(P, Q, H);
+                        B = hue2Rgb(P, Q, H - 1 / 3);
+                    }
+                    return [Math.round(R * 255), Math.round(G * 255), Math.round(B * 255)];
+                }
+
+            var HSL = [];
+            var hslLength = num; // 获取数量
+            for (var i = 0; i < hslLength; i++) {
+                var ret = randomHsl();
+
+                // 颜色相邻颜色差异须大于 0.25
+                if (i > 0 && Math.abs(ret[0] - HSL[i - 1][0]) < 0.25) {
+                    i--;
+                    continue; // 重新获取随机色
+                }
+                ret[1] = 0.7 + (ret[1] * 0.2); // [0.7 - 0.9] 排除过灰颜色
+                ret[2] = 0.4 + (ret[2] * 0.4); // [0.4 - 0.8] 排除过亮过暗色
+
+                // 数据转化到小数点后两位
+                ret = ret.map(function (item) {
+                    return parseFloat(item.toFixed(2));
+                });
+
+                HSL.push(ret);
+            }
+         
+
+
+          
+                 
+
+                    var rgbArray = HSL.map(function (item) {
+                        return hslToRgb.apply(this, item);
+                    });
+                   
+                    return rgbArray.map(function (item) {
+                        return 'rgb(' + item.toString() + ')'
+                    });
+        }
+
+        var a = makeColorArrByDataLen(20)
+        console.log(a)
+        var b = handleColors(20)
+        console.log(b)
+        var c = getHslArray(20)
+        console.log(c)
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts4.init(document.getElementById('main'));
+
+        option = {"tooltip":{"trigger":"axis","axisPointer":{"type":"line"}},"legend":{"show":true,"textStyle":{"color":"#fff"},"left":"center","top":"5%","data":["十间房风电场","1号风机","2号风机","3号风机","4号风机","5号风机","6号风机","7号风机","8号风机","9号风机","10号风机","11号风机","12号风机","13号风机","14号风机","15号风机","16号风机","17号风机","18号风机","19号风机","20号风机","21号风机","22号风机","23号风机","24号风机","25号风机","26号风机","27号风机","28号风机","29号风机","30号风机","31号风机","32号风机","33号风机"],"selected":{"十间房风电场":false,"1号风机":false,"2号风机":false,"3号风机":false,"4号风机":false,"5号风机":false,"6号风机":false,"7号风机":false,"8号风机":false,"9号风机":false,"10号风机":false,"11号风机":false,"12号风机":false,"13号风机":false,"14号风机":false,"15号风机":false,"16号风机":false,"17号风机":false,"18号风机":false,"19号风机":false,"20号风机":false,"21号风机":false,"22号风机":false,"23号风机":false,"24号风机":false,"25号风机":false,"26号风机":false,"27号风机":false,"28号风机":false,"29号风机":false,"30号风机":false,"31号风机":false,"32号风机":false,"33号风机":false}},"grid":{"top":"20%","left":"5%","right":"5%"},"xAxis":{"type":"category","data":["3-4米","4-5米","5-6米","6-7米","7-8米","8-9米","9-10米","10-11米","11-12米","12-13米","13-14米","14-15米","15-16米","16-17米","17-18米","18-19米","19-20米","20-21米","21-22米","22-23米","23-24米","24-25米"],"axisLine":{"nZero":true,"lineStyle":{"color":"rgb(0,203,255)"}},"boundaryGap":false,"axisLabel":{"color":"#ccc"},"axisTick":{"show":false},"splitLine":{"show":false}},"yAxis":{"type":"value","axisLine":{"nZero":true,"lineStyle":{"color":"rgb(0,203,255)"}},"axisLabel":{"color":"#ccc"},"axisTick":{"show":false},"splitLine":{"show":false}},"dataZoom":{"type":"slider","xAxisIndex":[0],"show":true,"zoomLock":true,"bottom":20,"left":"5%","right":"5%","height":10,"borderColor":"rgba(200, 200, 200, 0.3)","handleStyle":{"borderColor":"#283d58","borderWidth":0,"shadowBlur":0,"background":"#283d58","color":"rgba(0, 0, 0, 0)"},"textStyle":false,"startValue":0,"endValue":13},"series":[{"name":"十间房风电场","type":"line","symbol":"none","smooth":"true","data":[0.0583,0.0845,0.0847,0.0881,0.0888,0.0819,0.0777,0.0644,0.0662,0.0525,0.061,0.0507,0,0,0,0,0,0,0,0,0,0]},{"name":"1号风机","type":"line","symbol":"none","smooth":"true","data":[0.0798,0.0911,0.1075,0.0967,0.1115,0.0891,0.089,0.0604,0.0624,0.0448,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"2号风机","type":"line","symbol":"none","smooth":"true","data":[0.0334,0.0768,0.0953,0.0926,0.0889,0.0879,0.0906,0.0658,0.0503,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"3号风机","type":"line","symbol":"none","smooth":"true","data":[0.041,0.0895,0.091,0.0935,0.0947,0.0983,0.0791,0.0719,0.0723,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"4号风机","type":"line","symbol":"none","smooth":"true","data":[0.0423,0.0768,0.0845,0.0802,0.0775,0.0873,0.1061,0.0532,0.0428,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"5号风机","type":"line","symbol":"none","smooth":"true","data":[0.0536,0.0965,0.0858,0.0952,0.1015,0.0755,0.0657,0.0486,0.0454,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"6号风机","type":"line","symbol":"none","smooth":"true","data":[0.0487,0.0581,0.0951,0.0817,0.0741,0.0626,0.0665,0.0466,0.0538,0.0443,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"7号风机","type":"line","symbol":"none","smooth":"true","data":[0.0823,0.075,0.0846,0.0754,0.0816,0.0875,0,0,0.0525,0.0363,0.0479,0,0,0,0,0,0,0,0,0,0,0]},{"name":"8号风机","type":"line","symbol":"none","smooth":"true","data":[0.0601,0.1133,0.1023,0.0693,0.0859,0.0616,0.1434,0.0551,0.0522,0.0395,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"9号风机","type":"line","symbol":"none","smooth":"true","data":[0.0549,0.1144,0.1131,0.1063,0.0728,0.1193,0,0.0467,0.0436,0.0413,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"10号风机","type":"line","symbol":"none","smooth":"true","data":[0.0783,0.0639,0.0942,0.1212,0.102,0.0975,0.076,0.075,0.0543,0.0535,0.0645,0,0,0,0,0,0,0,0,0,0,0]},{"name":"11号风机","type":"line","symbol":"none","smooth":"true","data":[0,0.08,0.048,0.0564,0.0637,0.0785,0.0725,0.0481,0.0771,0.0689,0.0472,0.0422,0,0,0,0,0,0,0,0,0,0]},{"name":"12号风机","type":"line","symbol":"none","smooth":"true","data":[0.0436,0.0764,0.065,0.1029,0.1045,0.1039,0.0796,0.1029,0.0726,0.0657,0.0522,0,0,0,0,0,0,0,0,0,0,0]},{"name":"13号风机","type":"line","symbol":"none","smooth":"true","data":[0.0712,0.1142,0.0625,0.0758,0.1152,0.0864,0.0737,0.0594,0.0694,0.0541,0.0499,0,0,0,0,0,0,0,0,0,0,0]},{"name":"14号风机","type":"line","symbol":"none","smooth":"true","data":[0.066,0.0986,0.0955,0.0957,0.0902,0.0833,0.0701,0.048,0.0545,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"15号风机","type":"line","symbol":"none","smooth":"true","data":[0.0446,0.0958,0.0714,0.0765,0.0975,0.0851,0.0647,0.0622,0.0534,0.0353,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"16号风机","type":"line","symbol":"none","smooth":"true","data":[0.0606,0.0864,0.0868,0.0921,0.1036,0.1043,0.0809,0.0667,0.1156,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"17号风机","type":"line","symbol":"none","smooth":"true","data":[0.0695,0.0776,0.0943,0.1028,0.1026,0.0709,0.058,0.0538,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"18号风机","type":"line","symbol":"none","smooth":"true","data":[0.0488,0.0955,0.0777,0.0867,0.0778,0.0756,0.0965,0.0772,0.076,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"19号风机","type":"line","symbol":"none","smooth":"true","data":[0.0466,0.0808,0.0821,0.0927,0.0939,0.0789,0.0645,0.0495,0.0623,0.0648,0.0677,0,0,0,0,0,0,0,0,0,0,0]},{"name":"20号风机","type":"line","symbol":"none","smooth":"true","data":[0.0642,0.078,0.0716,0.0947,0.0829,0.0866,0.081,0.0828,0.0784,0.0717,0.092,0,0,0,0,0,0,0,0,0,0,0]},{"name":"21号风机","type":"line","symbol":"none","smooth":"true","data":[0.0633,0.0554,0.0657,0.0794,0.1056,0.0775,0.0831,0.0902,0.0991,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"22号风机","type":"line","symbol":"none","smooth":"true","data":[0.0652,0.0656,0.0781,0.058,0.0814,0.0782,0.0783,0.0813,0.1018,0.0626,0.0669,0.0591,0,0,0,0,0,0,0,0,0,0]},{"name":"23号风机","type":"line","symbol":"none","smooth":"true","data":[0.0438,0.0853,0.0931,0.0732,0.0844,0.0677,0.0832,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"24号风机","type":"line","symbol":"none","smooth":"true","data":[0.0499,0.0943,0.0932,0.0808,0.0849,0.0864,0.0698,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"25号风机","type":"line","symbol":"none","smooth":"true","data":[0.0562,0.096,0.0827,0.0971,0.0702,0.087,0.0749,0.0416,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"26号风机","type":"line","symbol":"none","smooth":"true","data":[0.0757,0.1066,0.1064,0.1188,0.1161,0.0787,0.0724,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"27号风机","type":"line","symbol":"none","smooth":"true","data":[0.0551,0.1031,0.0994,0.0866,0.0992,0.0919,0.0928,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"28号风机","type":"line","symbol":"none","smooth":"true","data":[0.08,0.0923,0.1055,0.0888,0.0787,0.0699,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"29号风机","type":"line","symbol":"none","smooth":"true","data":[0.0506,0.0616,0.0784,0.1234,0.0845,0.0694,0.0576,0.0952,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"30号风机","type":"line","symbol":"none","smooth":"true","data":[0.0567,0.0716,0.0904,0.1013,0.0794,0.0708,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"31号风机","type":"line","symbol":"none","smooth":"true","data":[0.0511,0.062,0.0673,0.0787,0.0834,0.0648,0.0694,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"32号风机","type":"line","symbol":"none","smooth":"true","data":[0.0676,0.0705,0.0619,0.0709,0.072,0.0791,0.0499,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"33号风机","type":"line","symbol":"none","smooth":"true","data":[0.0599,0.0863,0.0662,0.0626,0.0683,0.0616,0.0645,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}],"color":["rgb(61,17,238)","rgb(88,238,157)","rgb(208,22,55)","rgb(157,216,241)","rgb(220,42,223)","rgb(234,240,163)","rgb(27,62,243)","rgb(226,219,34)","rgb(153,182,240)","rgb(240,158,217)","rgb(209,95,31)","rgb(29,175,96)","rgb(157,18,191)","rgb(20,188,16)","rgb(205,100,232)","rgb(239,197,159)","rgb(183,34,236)","rgb(143,239,147)","rgb(230,76,113)","rgb(147,244,123)","rgb(101,88,243)","rgb(142,233,28)","rgb(92,70,226)","rgb(230,87,25)","rgb(237,49,49)","rgb(196,190,33)","rgb(201,24,66)","rgb(13,73,227)","rgb(240,45,92)","rgb(185,57,29)","rgb(240,117,198)","rgb(29,82,185)","rgb(210,30,127)","rgb(65,141,230)"]}
+
+
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

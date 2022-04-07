@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件基础</title>
+</head>
+<body>
+    <div id="app">
+        <h1>基本示例组件</h1>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <h1>data 必须是一个函数</h1>
+        <p>注意当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建。</p>
+        <h1>通过 Prop 向子组件传递数据</h1>
+        <blog-post title="My journey with Vue"></blog-post>
+        <blog-post
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:title="post.title"
+            >
+        </blog-post>
+        <h1>单个根元素</h1>
+        <blog-post2
+        v-for="post in posts2"
+        v-bind:key="post.id"
+        v-bind:post="post"
+        ></blog-post2>
+        <h1>监听子组件事件</h1>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post3  v-on:enlarge-text="postFontSize += 0.1"
+                v-for="post in posts3"
+                v-bind:key="post.id"
+                v-bind:post="post"
+            ></blog-post3>
+        </div>
+        <div :style="{ fontSize: postFontSize4 + 'em' }">
+            <blog-post4  v-on:enlarge-text="postFontSize4 += $event"
+                v-bind:post="posts4"
+            ></blog-post4>
+            <blog-post4 v-on:enlarge-text="onEnlargeText"
+               
+               
+                v-bind:post="posts4" 
+            ></blog-post4>
+        </div>
+        <h1>在组件上使用 v-model</h1>
+       <input v-model="searchText">
+       <input
+        v-bind:value="searchText"
+        v-on:input="searchText = $event.target.value"
+        >
+        <custom-input
+        v-bind:value="searchText"
+        v-on:input="searchText = $event"
+        ></custom-input>
+        <h1>通过插槽分发内容</h1>
+        <p>将组件的内容放置在组件定义时的slot标签内</p>
+        <alert-box>
+            <p>Something bad happened.</p>
+            <a>百度</a>
+        </alert-box>
+        <h1><a href="vue-component.html">深入了解组件</a></h1>
+        
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+         // 定义一个名为 button-counter 的新组件
+         Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+        })
+        Vue.component('blog-post', {
+            props: ['title'],
+            template: '<h3>{{ title }}</h3>'
+        })
+        Vue.component('blog-post2', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                    <h3>{{ post.title }}</h3>
+                    <div v-html="post.content"></div>
+                </div>
+            `
+        })
+        Vue.component('blog-post3', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                    <h3>{{ post.title }}</h3>           
+                    <div v-html="post.content"></div>
+                    <button v-on:click="$emit('enlarge-text')">
+                        Enlarge text
+                    </button>
+                </div>
+            `
+        })
+        Vue.component('blog-post4', {
+            props: ['post'],
+            template: `
+                <div class="blog-post">
+                    <h3>{{ post.title }}</h3>           
+                    <div v-html="post.content"></div>
+                    <button v-on:click="$emit('enlarge-text',0.1)">
+                        Enlarge text
+                    </button>
+                </div>
+            `
+        })
+        Vue.component('custom-input', {
+        props: ['value'],
+        template: `
+            <input
+            v-bind:value="value"
+            v-on:input="$emit('input', $event.target.value)"
+            >
+        `
+        })
+        Vue.component('alert-box', {
+        template: `
+            <div class="demo-alert-box">
+            <strong>Error!</strong>
+            <slot></slot>
+            </div>
+            `
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+               
+                posts: [
+                    { id: 1, title: '1'},
+                    { id: 2, title: '2'},
+                    { id: 3, title: '3'}
+                ],
+                posts2: [
+                    { id: 4, title: '4',content:'<span>测试444</span>' },
+                    { id: 5, title: '5',content:'<span>测试555</span>' },
+                    { id: 6, title: '6' ,content:'<span>测试666</span>'}
+                ],
+                postFontSize: 1,
+                posts3: [
+                    { id: 7, title: '7',content:'<span>测试777</span>' }                  
+                ],
+                postFontSize4:1,
+                posts4: { id: 8, title: '8',content:'<span>测试888</span>' } ,
+                searchText:''                 
+                
+            },
+            methods:{
+                onEnlargeText: function (enlargeAmount) {
+                    this.postFontSize4 += enlargeAmount
+                }
+            }
+        })
+
+       
+    </script>
+</body>
+</html>

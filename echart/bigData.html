@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大数据渲染</title>
+</head>
+<body>
+    <div id="main2" style="width: 600px;height: 600px;"></div>
+    <div id="main" style="width: 600px;height: 100px;"></div>
+    <script src="./js/echarts4.js"></script>
+    <script>
+        var myChart = echarts4.init(document.getElementById('main'));
+        var myChart2 = echarts4.init(document.getElementById('main2'));
+        myChart2.showLoading({
+			text : 'loading',
+			effect : 'whirling' ,
+		});	
+        var option = {
+            tooltip: {
+        trigger: 'axis'
+      },
+            xAxis: {
+                type: 'category',
+                axisLabel: {
+					show:false,
+					textStyle:{
+						color:'#ff9900',
+					}
+				},
+				axisLine: {
+					lineStyle: {
+						color: '#ffffff',
+					}
+				},
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+
+					textStyle:{
+						color:'#ffffff',
+					}
+				},
+				axisLine: {
+					show:false,
+					lineStyle:{
+						color:'#ffffff',
+					}
+				},
+            },
+            dataZoom: [
+               
+                {
+                    start: 0,
+                    end: 100,
+                    //zoomLock:true
+                    minValueSpan:1
+                },
+        //         {
+        //   type: 'inside'
+        // }
+            ],
+            series: [
+                {
+                    data: [],
+                    type: 'line'
+                }
+            ]
+        }
+
+       
+
+       
+var xlist = [];
+for(var q=0;q<240000;q++){
+xlist.push(q+"点")
+}
+        option.xAxis.data = xlist;
+       
+        myChart.setOption(option)
+
+        // 
+        let startValue = myChart.getModel().option.dataZoom[0].startValue;
+        let endValue = myChart.getModel().option.dataZoom[0].endValue;
+        var option2 =  {
+            tooltip: {
+                trigger: 'axis'
+            },
+                    xAxis: {
+                        type: 'category',
+                        data: []
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                   
+                    series: [
+                        {
+                            data: [],
+                            type: 'line'
+                        }
+                    ]
+                }
+
+
+            
+            
+             var aaaa= [];
+                var ser = [];
+                var temp = Math.ceil((endValue-startValue)/10000);
+                console.log("查询点数"+temp)
+            for(var p=startValue;p<=endValue;p++){
+                
+                if((p-startValue)%temp == 0){
+                    aaaa.push(xlist[p])
+                    ser.push(Math.random()*100 + 100)
+                }
+               
+            }
+            console.log(option2)
+            option2.xAxis.data = aaaa;
+            option2.series[0].data = ser;
+            myChart2.setOption(option2)
+            myChart2.hideLoading();//隐藏气泡显示
+        myChart.on('dataZoom',function(event){
+            if(event.batch){
+                var start=event.batch[0].start;
+                var end=event.batch[0].end;
+            }else{
+                var start=event.start;
+                var end=event.end;
+            };
+            //百分比
+            option.dataZoom[0].start = start;
+            option.dataZoom[0].end=end;
+           // let start = myChart.getModel().option.xAxis[0].data[startValue];//起始X轴
+           let startValue = myChart.getModel().option.dataZoom[0].startValue;
+            let endValue = myChart.getModel().option.dataZoom[0].endValue;
+            let start2 = myChart.getModel().option.xAxis[0].data[startValue];//起始X轴
+            let end2 = myChart.getModel().option.xAxis[0].data[endValue];//结束X轴
+            console.log(startValue,endValue,start2,end2)
+
+
+            var option2 =  {
+            tooltip: {
+                trigger: 'axis'
+            },
+                    xAxis: {
+                        type: 'category',
+                        data: []
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                   
+                    series: [
+                        {
+                            data: [],
+                            type: 'line'
+                        }
+                    ]
+                }
+
+
+            
+            
+             var aaaa= [];
+                var ser = [];
+                var temp = Math.ceil((endValue-startValue)/10000);
+                console.log("查询点数"+temp)
+            for(var p=startValue;p<=endValue;p++){
+                
+                if((p-startValue)%temp == 0){
+                    aaaa.push(xlist[p])
+                    ser.push(Math.random()*100 + 100)
+                }
+               
+            }
+            console.log(option2)
+            option2.xAxis.data = aaaa;
+            option2.series[0].data = ser;
+            myChart2.setOption(option2)
+       
+           
+           
+          
+          
+            
+        });
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <button id="backBtn">鼠标右键执行</button>
+    <button onclick="changeUrlNotReload()">修改url不刷新页面</button>
+    <button onclick="deleteUrl()">删除url参数</button>
+    <button onclick="hasUrlAndDelete()">存在url参数时删除</button>
+<script>
+    function changeUrlNotReload(){
+        var newurl = updateQueryStringParameter(window.location.href, 'back', 'index');
+        //向当前url添加参数，没有历史记录
+        window.history.replaceState({
+            path: newurl
+        }, '', newurl);
+    }
+    function deleteUrl(){
+        var newurl = removeURLParameter(window.location.href, 'back')
+        //向当前url添加参数，没有历史记录
+        window.history.replaceState({
+            path: newurl
+        }, '', newurl);
+    }
+    function hasUrlAndDelete(){
+      
+        if(getQueryString('back')){
+            var newurl = removeURLParameter(window.location.href, 'back')
+            console.log(newurl)
+            //向当前url添加参数，没有历史记录
+            window.history.replaceState({
+                path: newurl
+            }, '', newurl);
+        }
+    }
+    document.body.oncontextmenu = function(e) {
+        e.preventDefault();
+        if(getQueryString('back')){
+            alert('右键点击执行返回')
+        }
+       
+    }
+    // 获取url
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    // 修改url
+    function updateQueryStringParameter(uri, key, value) {
+        if(!value) {
+            return uri;
+        }
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    }
+    // 删除url
+    function removeURLParameter(url, parameter) {
+        var urlparts = url.split('?');
+        if(urlparts.length >= 2) {
+            //参数名前缀
+            var prefix = encodeURIComponent(parameter) + '=';
+            var pars = urlparts[1].split(/[&;]/g);
+    
+            //循环查找匹配参数
+            for(var i = pars.length; i-- > 0;) {
+                if(pars[i].lastIndexOf(prefix, 0) !== -1) {
+                    //存在则删除
+                    pars.splice(i, 1);
+                }
+            }
+    
+            return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
+        }
+        return url;
+    }
+
+</script>
+
+</body>
+</html>

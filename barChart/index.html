@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #qqq{
+            width: 300px;
+            height: 300px;
+        }
+        #power_plan_ball{
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="qqq">
+        <div id="power_plan_ball"></div>
+    </div>
+   
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="./BallChart.js"></script>
+    <script>
+        // setTimeout(function(){
+            $("#power_plan_ball").BallChart({
+                radius: 35,
+                rate: '20',
+                foregroundColor: '#01B41F',
+                backgroundColor: '#008000',
+                fontColor: '#FFFFFF'
+            });
+        // },0)
+       
+    </script>
+</body>
+</html>

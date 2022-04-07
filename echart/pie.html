@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<s>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script>
+         // 基于准备好的dom，初始化echarts实例
+         var myChart = echarts4.init(document.getElementById('main'));
+
+// 指定图表的配置项和数据
+var obj = [
+                {value: Math.ceil(Math.random()*100), name: '直接访问',
+                    label:{
+                        normal:{ 
+                            show:true,
+                            formatter: '{d}%',
+                            textStyle: {
+                                    fontSize: 36,
+                                    fontWeight: 'bolder',
+                            },
+                        }
+                    }
+                },
+                {value: Math.ceil(Math.random()*100), name: '邮件营销'},
+                {value: Math.ceil(Math.random()*100), name: '联盟广告'},
+                {value: Math.ceil(Math.random()*100), name: '视频广告'},
+                {value: Math.ceil(Math.random()*100), name: '搜索引擎'}
+            ]
+var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 10,
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    series: [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+			center: ['50%', '50%'],  //居中显示饼图
+            animation:false,
+            label: {
+                 normal: {
+                  show: false,
+                  position: 'center',
+                  formatter: function(data){ // 设置圆饼图中间文字排版
+                  
+                    return '111'+"\n"+"用户数"
+                  },
+                  textStyle: { //设置文字样式
+                      fontSize: '42',
+                      color:"#333"
+                  }
+              },
+              emphasis: {
+                  show: false, //文字至于中间时，这里需为true
+                  
+              }
+            },
+            labelLine: {
+                show: false
+            },
+            data:obj
+        }
+    ]
+};
+
+
+
+// for(var i=0;0<5;i++){
+//     data.series.data[i].value = result[statusCode];
+// }
+console.log(option)
+
+// 使用刚指定的配置项和数据显示图表。
+setInterval(function(){
+    obj = [
+                {value: Math.ceil(Math.random()*100), name: '直接访问',
+                    label:{
+                        normal:{ 
+                            show:true,
+                            formatter: '{d}%',
+                            textStyle: {
+                                    fontSize: 36,
+                                    fontWeight: 'bolder',
+                            },
+                        }
+                    }
+                },
+                {value: Math.ceil(Math.random()*100), name: '邮件营销'},
+                {value: Math.ceil(Math.random()*100), name: '联盟广告'},
+                {value: Math.ceil(Math.random()*100), name: '视频广告'},
+                {value: Math.ceil(Math.random()*100), name: '搜索引擎'}
+            ]
+            option.series[0].data = obj;
+            myChart.setOption(option,{
+    replaceMerge: ['xAxis', 'yAxis', 'series']
+}); 
+ 
+},5000)
+
+       
+    </script>
+</body>
+</html>

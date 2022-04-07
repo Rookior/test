@@ -1,0 +1,81 @@
+<button id="btn">频繁点击节流</button>
+<p>
+延迟执行防抖：<input id="input1" type="text">
+</p>
+
+<script>
+    // 节流 ：将多次执行变成每隔一段时间执行
+
+    //使用时间戳的节流函数会在第一次触发事件时立即执行，以后每过 delay 秒之后才执行一次，并且最后一次触发事件不会被执行
+    // function throttle(func, delay){
+	//     var prev = Date.now();
+	//     return function(){
+	//         var context = this;
+	//         var args = arguments;
+	//         var now = Date.now();
+	//         if(now-prev>=delay){
+	//             func.apply(context,args);
+	//             prev = Date.now();
+	//         }
+	//     }
+	// }
+
+    //使用定时器的节流函数在第一次触发时不会执行，而是在 delay 秒之后才执行，当最后一次停止触发后，还会再执行一次函数
+    function throttle(func, delay){
+	    var timer = null;
+	    return function(){
+	        if(!timer){            
+	            timer = setTimeout(function(){
+	                func();
+	                timer = null;
+	            },delay);
+	        }
+	    }
+	}
+
+    // function throttle(fn, delay) {
+    //     let valid = true
+    //     return function () {
+    //         if (!valid) {
+    //             //休息时间 暂不接客
+    //             return false
+    //         }
+    //         // 工作时间，执行函数并且在间隔期内把状态位设为无效
+    //         valid = false
+    //         setTimeout(() => {
+    //             fn()
+    //             valid = true;
+    //         }, delay)
+    //     }
+    // }
+    function showTop() {
+        console.log('点击');
+    }
+    // onclick方式不对，暂时不知道为什么
+    document.getElementById('btn').onclick = throttle(showTop, 1000) 
+
+
+
+ 
+
+//防抖  将多次执行变为最后一次执行
+const input1 = document.getElementById('input1') 
+function debounce(fn,delay){
+    let timer=null
+
+    return function () {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer=setTimeout(() => {
+        	//模拟触发change事件
+            fn.apply(this,arguments)
+            // 清空计时器
+            timer=null
+        }, delay);
+    }
+}
+input1.addEventListener('keyup', debounce(()=>{
+    console.log(input1.value)
+},1000))
+</script>

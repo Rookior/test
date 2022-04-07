@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Person (name){
+            this.name = name
+        }
+        Person.prototype = {
+            constrct:Person,
+            sayHello:function(){
+                console.log("hello " + this.name)
+            }
+        }
+        var a = new Person("小明")
+        a.sayHello()
+        var b = new Person("小王")
+        b.sayHello()
+        console.log(a.sayHello == b.sayHello)  //true
+
+        // 人的原型赋值给学生，两者指向同一个原型对象
+        function Student(name,school){
+            // 自有属性
+            this.school = school
+            this.name = name
+            this.jump = function(){
+                console.log(this.name + " can jump")
+            }          
+        }
+        Student.prototype = Person.prototype
+        Student.prototype.white = function(){
+            // 继承属性
+            console.log(this.name+'来自学校：'+this.school)
+        }
+       
+        var c = new Student("wzy","北京大学")
+        c.white()
+        c.sayHello()
+
+        Object.defineProperty(Person.prototype, 'sex', {
+            value: "男",
+            writable: false
+        })
+        c.jump()
+        console.log(c.sex)
+        console.log(c.hasOwnProperty("name"))  //true
+        console.log(c.hasOwnProperty("sayHello"))  //false
+        console.log(c.hasOwnProperty("white"))      //false
+        console.log(c.hasOwnProperty("jump"))       //true
+        console.log("white" in c)           //true
+        console.log("name" in c)           //true
+
+        Person.prototype.isPrototypeOf(c)  //true
+        Person.prototype.isPrototypeOf(c)   //true
+        Student.prototype.isPrototypeOf(c)  //true
+
+        // 老师继承人
+        function Teacher(txt){
+            this.teach = function(){
+                console.log(this.name + " can teach "+ txt)
+            }
+        }
+        var d = new Person('小刘老师')
+        Teacher.prototype = d
+        var dd = new Teacher('语文')
+        dd.teach()
+        dd.sayHello()
+      
+        Person.prototype.isPrototypeOf(dd)   //true
+        Teacher.prototype.isPrototypeOf(dd)  //true
+    </script>
+</body>
+</html>

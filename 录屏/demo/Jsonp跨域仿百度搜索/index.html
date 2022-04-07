@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿百度搜索加载</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .search-wrapper{
+            margin: 20px 20px;
+            padding: 10px 20px;
+        }
+        .input-wrapper{
+            width: 400px;
+        }
+        .list-wrapper{
+            width: 400px;
+        }
+        .search-input{
+            outline: none;
+        }
+        .wd-list{
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="search-wrapper">
+        <div class="input-wrapper">
+            <input type="text" class="search-input J_searchInput">
+        </div>
+        <div class="list-wrapper">
+            <ul class="wd-list J_wdList">
+                <!-- <li class="wd-item">
+                    <a class="https://www.baidu.com/s?wd={{wdLink}}" target="_blank">{{wd}}</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/html" id="J_listTpl">
+        <li class="wd-item">
+            <a class="https://www.baidu.com/s?wd={{wdLink}}" target="_blank">{{wd}}</a>
+        </li>
+    </script>
+    <script type="text/javascript" src="./index.js"></script>
+</body>
+</html>

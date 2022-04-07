@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main{
+            background: #041936; 
+           
+           
+          
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 978px;"></div>
+   
+    <script>
+
+        option = {
+            tooltip : {
+					       show:true
+					    },
+            color:['#ffffff','#40d467','#f2f2f2','#fa9e00','#f95459','#ece400','#3cefe8'],
+            "grid": [{
+                "show": false,
+                "x": "0",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "70",
+                "containLabel": true
+            },
+            {
+                "show": false,
+                "x": "150",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            },
+            {
+                "show": false,
+                "x": "290",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            },
+            {
+                "show": false,
+                "x": "430",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            },{
+                "show": false,
+                "x": "570",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            },{
+                "show": false,
+                "x": "710",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            },{
+                "show": false,
+                "x": "850",
+                "y": "0",
+                "top": 40,
+                "bottom": 10,
+                "width": "140",
+                "containLabel": true
+            }],
+            "xAxis": [
+                {
+                    "name": "单位名称",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,50],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0c3861'
+                    },
+                    "min": 0,
+                    "max": 100,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 0
+                },
+                {
+                    "name": "运行",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0f3e68'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false,
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 1
+                },
+                {
+                    "name": "待机",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0c3861'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 2
+                },
+                {
+                    "name": "停机",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0f3e68'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 3
+                },
+                {
+                    "name": "故障",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0c3861'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 4
+                },{
+                    "name": "维护",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0f3e68'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 5
+                },{
+                    "name": "中断",
+                    "nameLocation": "middle",
+                    nameTextStyle: {                      
+                        "color": "#00cbff",
+                            "fontSize": 13,
+                            padding:[5,60],                        
+                            verticalAlign:'middle',                        
+                            backgroundColor:'#0c3861'
+                    },
+                    "min": 0,
+                    "max": 200,
+                    "type": "value",
+                    "position": "top",
+                    "axisTick": {
+                        "show": false
+                    },
+                    "axisLabel": {
+                        "show": false
+                    },
+                    "axisLine": {
+                        "show": false
+                    },
+                    "splitLine": {
+                        "lineStyle": {
+                            "type": "solid"
+                        },
+                        "show": false
+                    },
+                    "gridIndex": 6
+                }
+            ],
+            "yAxis": [{
+                "type": "category",
+                "position": "top",
+                "min": 0,
+                "offset": -1,
+                "splitNumber": 2,
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20,
+                        align: 'center',
+                        position:'relative'
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false,
+                    "inside": false,
+                    "length": 1089
+                },
+                "splitLine": {
+                    "show": false
+                },               
+                "gridIndex": 0,
+                "data": ["五龙山风电场", "冯贝堡风电场", "十间房风电场",'双台子电厂']
+            },{
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+               
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 1,
+                "data": []
+            },
+            {
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 2,
+                "data": []
+            },{
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 3,
+                "data": []
+            },{
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 4,
+                "data": []
+            },{
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": true,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 5,
+                "data": []
+            },{
+                "type": "category",
+                "axisLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "color": "#999",
+                        "type": "solid"
+                    }
+                },
+                "axisLabel": {
+                    "show": false,
+                    "textStyle": {
+                        "color": "#fff",
+                        "fontSize": 13,
+                        "lineHeight": 20
+                    },
+                    "rich": {
+                        "value": {
+                            "lineHeight": 1
+                        }
+                    }
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "gridIndex": 6,
+                "data": []
+            }],
+            series: [
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 0,
+                    "xAxisIndex": 0,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "color": "#666",
+                            "position": "right",  
+                        }
+                    },                
+                    "data": []
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 1,
+                    "xAxisIndex": 1,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "color": "#666",
+                            "position": "right",  
+                            
+                        }
+                    },                
+                    "data": [{
+                        "value": 2.5611,                      
+                    }, {
+                        "value": 0.4577,                       
+                    }, {
+                        "value": 5.1773,                      
+                    }, {
+                        "value": 99.1773,                      
+                    }]
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 2,
+                    "xAxisIndex": 2,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "position": "right",
+                            "color": "#666"
+                        }
+                    },
+                   
+                    "data": [{
+                        "value": 2.5611,
+                        
+                        
+                    }, {
+                        "value": 0.4577,
+                        
+                       
+                    }, {
+                        "value": 5.1773,
+                       
+                       
+                    },{
+                        "value": 5.1773,
+                       
+                       
+                    }]
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 3,
+                    "xAxisIndex": 3,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "position": "right",
+                            "color": "#666"
+                        }
+                    },
+                   
+                    "data": [{
+                        "value": 2.5611,
+                        
+                        
+                    }, {
+                        "value": 0.4577,
+                        
+                       
+                    }, {
+                        "value": 5.1773,
+                       
+                       
+                    },{
+                        "value": 5.1773,
+                       
+                       
+                    }]
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 4,
+                    "xAxisIndex": 4,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "position": "right",
+                            "color": "#666"
+                        }
+                    },
+                   
+                    "data": [{
+                        "value": 2.5611,
+                        
+                        
+                    }, {
+                        "value": 0.4577,
+                        
+                       
+                    }, {
+                        "value": 5.1773,
+                       
+                       
+                    },{
+                        "value": 5.1773,
+                       
+                       
+                    }]
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 5,
+                    "xAxisIndex": 5,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "position": "right",
+                            "color": "#666"
+                        }
+                    },
+                   
+                    "data": [{
+                        "value": 2.5611,
+                        
+                        
+                    }, {
+                        "value": 0.4577,
+                        
+                       
+                    }, {
+                        "value": 5.1773,
+                       
+                       
+                    },{
+                        "value": 5.1773,
+                       
+                       
+                    }]
+                },
+                {
+                    "type": "bar",
+                    "barWidth": "14px",
+                    "yAxisIndex": 6,
+                    "xAxisIndex": 6,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            formatter: '{c}%',
+                            "position": "right",
+                            "color": "#666"
+                        }
+                    },
+                   
+                    "data": [{
+                        "value": 2.5611,
+                        
+                        
+                    }, {
+                        "value": 0.4577,
+                        
+                       
+                    }, {
+                        "value": 5.1773,
+                       
+                       
+                    },{
+                        "value": 5.1773,
+                       
+                       
+                    }]
+                },
+            ]
+
+
+
+
+        }
+ 
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts4.init(document.getElementById('main'));
+        myChart.resize({height:30*4+50}); 
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

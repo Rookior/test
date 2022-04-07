@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-axis.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+
+    <script src="https://d3js.org/d3-array.v1.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-format.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v2.min.js"></script>
+    <style>
+        .xAxis {
+            width: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gantt-scroll-wrapper" id="ganttScrollWrapper">
+        <button onclick="aa()">更新</button>
+        <div id="ganttChart">
+            222222
+        </div>
+    </div>
+    <div class="x-axis-wrapper" v-show="needScroll">
+        <div id="ganttXAxis"></div>
+    </div>
+    <script>
+        function aa(){
+              let x = d3.scaleTime().range([0, width])
+                 let xScale = x.domain([new Date(2017, 1), new Date(2017, 6)])
+                 let height = 0;
+
+                 ganttXAxis.append('svg')
+                .attr('class', 'gantt-x-svg')
+                .attr('width', 700)
+                .attr('height', 200).append('g')
+                .attr('class', 'xAxis')
+                .attr('transform', `translate(30, ${height})`)
+                .call(d3.axisBottom(xScale))
+        }
+        const ganttChartContainer = document.getElementById('ganttChart');
+        const ganttXAxis = d3.select(document.getElementById('ganttXAxis'));
+        ganttChartContainer.innerHTML = '';
+
+        d3.select(ganttChartContainer)
+            .selectAll("p")
+            .data([4, 8, 15, 16, 23, 42])
+            .enter().append("p")
+            .text(function (d) { return "I’m number " + d + "!"; });
+
+
+
+            var start = new Date(2015, 02, 01), // Sun Mar 01 2015 00:00:00 GMT-0800 (PST)
+             end = new Date(2015, 03, 01); // Wed Apr 01 2015 00:00:00 GMT-0700 (PDT)
+        //    const x =  d3.timeDay.range(start, end, 2)
+
+
+
+
+
+
+        let height = 0;
+        let width = 600;
+        let x = d3.scaleTime().range([0, width])
+        let xScale = x.domain([start, end])
+
+
+       
+
+
+
+        // x轴
+        let xAxis = ganttXAxis.append('svg')
+            .attr('class', 'gantt-x-svg')
+            .attr('width', 700)
+            .attr('height', 200).append('g')
+            .attr('class', 'xAxis')
+            .attr('transform', `translate(30, ${height})`)
+            .call(d3.axisBottom(xScale))
+
+
+
+
+//                 d3.select("axis").append("svg")
+//     .attr("width", 1440)
+//     .attr("height", 30)
+//   .append("g")
+//     .attr("transform", "translate(0,30)")
+//     .call(axis);
+
+    </script>
+</body>
+
+</html>

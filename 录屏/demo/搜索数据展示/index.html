@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索数据展示</title>
+    <style>
+        /* *{
+            margin: 0;
+            padding: 0;
+        } */
+        .container{
+            display: flex;
+            flex-direction: column;
+        }
+        .top{
+            width: 300px;
+        }
+        .val{
+            display: inline-block;
+            width: 270px;
+        }
+        .show{
+            margin-top: 4px;
+            width: 300px;
+            border: 1px solid gray;
+            height: 600px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <input type="text" id="val" placeholder="请输入内容">
+            <input type="submit" id="sub" value="搜索">
+        </div>
+        <div class="show" id="show"></div>
+    </div>
+    <script>
+        let arr = ['前端技术','后端技术','Java技术','开发人员','研发人员','996机制','薪资1509','UI技术','绘画技术'];
+        let inputval = document.getElementById('val');
+        let show = document.getElementById('show');
+        inputval.onkeyup = function () { 
+            showFilter();
+         }
+
+         inputval.onblur = function () { 
+            showFilter();
+         }
+
+         inputval.onblur = function () { 
+             show.style.display = 'none';
+             inputval.value = '';
+          }
+
+          function showFilter(){
+            show.style.display = 'block'
+            let str = '';
+            arr.forEach((item) => {
+                let res = item.indexOf(inputval.value);
+                if(res != -1){
+                    str += '<p>'+item+'</p>';
+                }
+            });
+
+            if(!inputval.value || !str){
+                show.innerHTML = '<p>找不到结果</p>';
+            }
+            show.innerHTML = str;
+          }
+    </script>
+</body>
+</html>

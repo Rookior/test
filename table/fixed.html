@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上左固定表格</title>
+    <style>
+        /* 表格 */
+        .scrollTable{
+            width: 620px;
+            margin: 200px auto 0;
+            height: 600px;
+        }
+        .yn-w{
+            width: 100%;
+        }
+        .yn-h{
+            height: 100%;
+        }
+						
+						.scrollTable table {
+							table-layout: fixed;						
+							border-collapse: inherit;							
+							overflow: hidden;
+							position: relative;						
+						}
+						.scrollTable #tableRight,#tableLeft{
+							height: 375px;
+						}
+						.scrollTable #tableLeft{
+							overflow: scroll hidden;
+						}
+
+						.scrollTable table td,
+						.scrollTable table th {
+							border: 1px solid #1d4a70;
+							text-align: center;
+							min-width: 200px;
+							height: 60px;
+							color: #fff;
+						}
+						.scrollTable table td>div{
+							width: 100%;
+							height: 100%;
+							word-break: break-all;
+							text-overflow: ellipsis;
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+						}
+						
+
+						.scrollTable table tr:nth-child(2n) {
+
+							background: rgba(1, 30, 61, 1)
+						}
+
+						.scrollTable table tr:nth-child(2n+1) {
+
+							background: rgba(2, 22, 50, 1)
+						}
+    </style>
+</head>
+<body>
+
+    <div class="scrollTable">
+        <div style="overflow: hidden;">
+            <table id="table">
+                <tbody>
+                    <tr>
+                        <td>
+
+                            <div class="yn-h">
+                                <table class="yn-w yn-h">							
+                                    <tr>
+                                        <td>风速</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="tableTop" style="width: 400px;overflow: hidden;">
+                                <!-- <table style="width: 800px;"> -->
+                                <table>
+                                    <colgroup>
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;">	
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;">										
+                                    </colgroup>
+                                    <tr>
+                                        <td colspan="2">风机1</td>
+                                        <td colspan="2">风机2</td>
+                                        <td colspan="2">风机3</td>
+                                        <td colspan="2">风机4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>实际功率</td>
+                                        <td>平均功率</td>
+                                        <td>实际功率</td>
+                                        <td>平均功率</td>
+                                        <td>实际功率</td>
+                                        <td>平均功率</td>
+                                        <td>实际功率</td>
+                                        <td>平均功率</td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="tableLeft">
+                                <table class="yn-w">
+                                    <tbody>
+                                        <tr>
+                                            <td>3.1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="tableRight" style="width: 400px;overflow-y: scroll;overflow-x: scroll;" onscroll="tableScroll(this)">
+                                <!-- <table style="width: 800px;"> -->
+                                <table>
+                                    <colgroup>
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;">	
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;" >
+                                        <col style="width:200px;">										
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script>
+        function tableScroll(dom){
+						console.log($(dom).scrollTop())
+						$('#tableLeft').scrollTop($(dom).scrollTop())
+						$('#tableTop').scrollLeft($(dom).scrollLeft())
+						
+					}
+    </script>
+    
+</body>
+</html>

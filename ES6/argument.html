@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function aa(){
+            console.log(111,arguments)
+            var bb =Array.prototype.slice.call(arguments,0)
+            console.log(bb)
+        }
+        aa(111,222,333)
+
+        // function Person(name, age) {
+        //     this.name = name
+        //     this.age = age
+        // }
+        // Person.prototype.information = function () {
+        //     return 'My name is ' + this.name + ', I am ' + this.age
+        // }
+      
+        class Person {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            information() {
+                return 'My name is ' + this.name + ', I am ' + this.age
+            }
+        }
+        var people = new Person('wzy',18)
+        console.log(123,people.information())
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甘特图</title>
+    <style>
+        body {
+            background: rgba(51, 59, 107, 0.767);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echart.js"></script>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script>
+
+        // 根据毫秒算时间间隔
+        function fun(ms) {           
+            var str = '';
+            var days = Math.floor((ms) / 1000 / 60 / 60 / 24);
+            var hours = Math.floor((ms) / 1000 / 60 / 60);
+            var minutes = Math.floor((ms) / 1000 / 60);
+            var seconds = Math.floor((ms) / 1000 % 60)
+            if(days > 0){
+                str+= days + '天'
+            }
+            if(hours >0){
+                str+= hours + '时'
+            }
+            if(minutes >0){
+                str+= minutes + '分'
+            }
+            str+=seconds + '秒'
+            return str;
+        }
+
+
+        //设定图形效果
+        function renderItem(params, api) {
+            var categoryIndex = api.value(0);
+            var start = api.coord([api.value(1), categoryIndex]);
+            var end = api.coord([api.value(2), categoryIndex]);
+            var height = api.size([0, 1])[1] * 0.6;
+
+            var rectShape = echarts.graphic.clipRectByRect({
+                x: start[0],
+                y: start[1] - height / 2,
+                width: end[0] - start[0],
+                height: height
+            }, {
+                x: params.coordSys.x,
+                y: params.coordSys.y,
+                width: params.coordSys.width,
+                height: params.coordSys.height
+            });
+
+            return rectShape && {
+                type: 'rect',
+                shape: rectShape,
+                style: api.style()
+            };
+
+        }
+
+        
+        option = {
+            //鼠标提示
+            tooltip: {
+                alwaysShowContent:true,
+                formatter: function (params) {
+                    let domStr = `<p>${params.marker}</p>`
+                    params.data.tooltipValue.forEach(item => {
+                        domStr += `<p>&nbsp;&nbsp;&nbsp;${item}</p>`
+                    })
+                    return domStr
+                }
+            },
+            //标题
+            title: {
+                text: '甘特图-机器运行状态',
+                left: 'center'
+            },
+            legend: {
+                show: false,
+            },
+
+            //缩放
+            dataZoom: [{
+                type: 'slider',
+                // realtime: true,
+                // minSpan: 1,
+                // minValueSpan:
+                // minValueSpan: 1,
+                filterMode: 'weakFilter',
+                showDataShadow: false,
+                height: 10,
+                borderColor: 'transparent',
+                // backgroundColor: '#e2e2e2',,
+                // backgroundColor: 'rgb(5,116,148)',
+                backgroundColor: 'transparent',
+                // handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z', // jshint ignore:line
+                handleSize: 20,
+                handleStyle: {
+                    // color: 'rgb(5,116,148)'
+                    // shadowBlur: 6
+                    // shadowOffsetX: 1,
+                    // shadowOffsetY: 2,
+                    // shadowColor: '#aaa'
+                },
+                labelFormatter: ''
+            }, {
+                type: 'inside',
+                filterMode: 'weakFilter'
+            }],
+            grid: {
+                top: 100,
+                height: 350
+            },
+            xAxis: {
+                min: 'dataMin',
+                max: 'dataMax',
+                scale: true,
+                axisLabel: {
+                    rotate: 90,
+                    color: '#ccc',
+                    formatter: function (val) {
+                        return new Date(val);
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgb(0,203,255)'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgb(0,203,255)',
+                        type: 'dashed'
+                    }
+                }
+            },
+            yAxis: {
+                data: ['运行', '中断', '待机', '停机', '故障', '维护'],
+                axisTick: {
+                    show: false
+                    // inside: true
+                },
+                axisLabel: {
+                    color: '#ccc'
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgb(0,203,255)'
+                    }
+                },
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: ['rgba(0,90,154,0.14)', 'rgba(41,149,225,0.14)']
+                    }
+                }
+            },
+
+            series: [{
+                name: '运行',
+                type: 'custom',
+                renderItem: renderItem,
+                itemStyle: {
+                    opacity: 0.8,
+                    color: "#0f0"
+                },
+                encode: {
+                    x: [1, 2],
+                    y: 0
+                },
+                data: [
+                    {
+
+                        value: [
+                            0,              //yAxis的index
+                            1628053589000,  //开始时间戳 毫秒
+                            1628053600000,   //结束时间戳 毫秒
+                            11000          //间隔时间 毫秒
+                        ],
+                        "tooltipValue": ["开始时间： 2021-08-04 13:06:29", "结束时间： 2021-08-04 13:06:40", "持续时间： 0分11秒", "标准状态： 运行", "原始状态： 并网运行"],
+
+                    },{
+
+                        value: [
+                            0,              //yAxis的index
+                            1628053709000,  //开始时间戳 毫秒
+                            1628053720000,   //结束时间戳 毫秒
+                            11000          //间隔时间 毫秒
+                        ],
+                        "tooltipValue": ["开始时间： 2021-08-04 13:08:29", "结束时间： 2021-08-04 13:08:40", "持续时间： 0分11秒", "标准状态： 运行", "原始状态： 并网运行"],
+
+                    }
+                ]
+            },
+            {
+                name: '故障',
+                type: 'custom',
+                renderItem: renderItem,
+                itemStyle: {
+                  
+                    color: "#f00",
+                },
+                encode: {
+                    x: [1, 2],
+                    y: 0
+                },
+                data: [
+                    {
+                        name: '故障',
+                        value: [4, 1628049081000, 1628049167000, 86000],
+                        "tooltipValue": ["开始时间： 2021-08-04 11:51:21", "结束时间： 2021-08-04 11:52:47", "持续时间： 1分26秒", "标准状态： 故障", "原始状态： 快速并网"],
+                    }
+                ]
+            }
+            ]
+        };
+
+        console.log(option)
+        var month_dianChart = echarts.init(document.getElementById('main'));
+        month_dianChart.setOption(option);
+
+        document.getElementById('main').onmouseover = function(){
+            option.tooltip.alwaysShowContent = true;
+            month_dianChart.setOption(option);
+			// month_dianChart.dispatchAction({
+            //     type: 'showTip'
+            // })
+		}
+		document.getElementById('main').onmouseout = function(){
+            option.tooltip.alwaysShowContent = false;
+            month_dianChart.setOption(option);
+			month_dianChart.dispatchAction({
+                type: 'hideTip'
+            })
+		}
+    </script>
+</body>
+
+</html>

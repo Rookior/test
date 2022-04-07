@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="position: fixed;top: 20px;left: 20px;">
+        <li>
+            <a  onclick="aa()" >2222222222222</a>
+        </li>
+        <li>
+            <a  onclick="bb()" >33333333333333</a>
+        </li>
+    </div>
+    <div id="wind" style="height: 2000px;background: #f00;">
+            <iframe id="mframe"></iframe>
+    </div>
+    <div id="wind2"  style="height: 2000px;background: #0f0;">
+        <iframe id="mframe_electric"></iframe>
+    </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script>
+        function aa(){
+            $("#mframe").attr("src",'http://127.0.0.1:5500/a_href/b.html');
+            
+        }
+        function bb(){
+            $("#mframe_electric").attr("src",'http://127.0.0.1:5500/a_href/c.html');
+        }
+    </script>
+</body>
+</html>

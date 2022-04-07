@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function changearr(oldarr){
+        console.log(oldarr);
+        var maxLength=getMaxLength(oldarr);
+        //console.log(maxLength);
+        var rowarr=[],rowoldarr=[];
+        for(var k=0;k<oldarr.length;k++){
+            for(var m=0;m<maxLength;m++){
+                if (!rowarr[m]) rowarr[m]=[];
+                rowarr[m].push(oldarr[k][m]);
+                if (!rowoldarr[m]) rowoldarr[m]=[];
+                rowoldarr[m].push(oldarr[k][m]);
+            }
+        }
+        //console.log(rowarr);
+        return rowarr;
+    }
+    function getMaxLength(arr) {
+        //console.log(arr);
+        var max=0;
+        for(var i=0; i<arr.length; i++){
+            if(arr[i].length>max){
+                max=arr[i].length;
+            }
+        }
+        return max;
+    }var oldarr=[　　　　[2004, 2005, 2006, 2007, 2008],　　　　[46890000, 55900500, 33786400, 57054400, 61834100],　　　　[28440000, 29340700, 15127600, 16771500, 36568800]　　　]
+    var newarr=changearr(oldarr);console.log(newarr)
+    </script>
+</body>
+</html>

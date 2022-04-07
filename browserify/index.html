@@ -1,0 +1,31 @@
+<div id="div">hello browserify</div>
+
+
+
+<h1>browserify:</h1>
+
+<p>将通过require方式引用的nodeJS包编译为可以被浏览器script标签直接使用的js文件<P>
+
+
+<p><b>npm run start</b>：使用briwserify将index.js打包为bundle.js </p>
+
+<i>注意：browserify不支持ES6所以import语法需要先使用babel编译之后在browserify</i>
+
+
+<script src="./bundle.js"></script>
+<script>
+console.log($('#div').text())
+</script>
+
+<h1>babel</h1>
+
+<p>将最新ES6语法编译为低版本的可兼容的js</p>
+
+<p><b>npm run babel</b>：使用babel将es6.js输出到lib</p>
+
+<script src="./es5.js"></script>
+<script>
+console.log(jQuery('#div').text())
+</script>
+
+

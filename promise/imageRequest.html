@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" />
+    <!-- 实现一个函数获取图片，如果图片不存在就用默认图 -->
+    <script>
+            function getIMg(){
+               
+              
+               
+                    new Promise((resolve,reject)=>{
+                        var img = new Image();
+                        img.src = "https://www.baidu.com/img/flexible/logo/pc/result.png333"
+                        img.onload = () => {
+                            console.log("sucess")
+                            resolve("图片加载成功")
+                        }
+                        img.onerror = () => {
+                            console.log("err")
+                           reject("图片加载失败")
+                        }
+                         
+                    }).then((txt)=>{
+                        console.log(txt)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })                          
+            }
+            getIMg()
+    </script>
+  
+</body>
+</html>

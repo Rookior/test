@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script>
+//        var  option = {
+//     xAxis: {
+//         type: 'category',
+//         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+//     },
+//     yAxis: {
+//         type: 'value'
+//     },
+//     series: [{
+//         data: [820, 932, 901, 934, 1290, 1330, 1320],
+//         type: 'line',
+//         markLine : {
+//                 symbol:"none",
+            
+//                            /*symbol:"none",               //去掉警戒线最后面的箭头
+//                            label:{
+//                                position:"end"   ,       //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+                            
+                            
+//                            },*/
+//                            data : [{
+                                
+//                                silent:false,             //鼠标悬停事件  true没有，false有
+//                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                                    type:"solid",
+//                                    color:"#3398DB",
+//                                },
+//                                    label:{
+//                                    position:'end',
+//                                    formatter:"及格(150)"
+//                                },
+//                                yAxis:(Math.random()*50 + 100).toFixed(0)         // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                              
+//                            },
+//                            {
+                             
+//                                silent:false,             //鼠标悬停事件  true没有，false有
+//                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                                    type:"solid",
+//                                    color:"#FA3934",
+                                    
+//                                },
+//                                label:{
+//                                    position:'end',
+//                                    formatter:"优秀(350)",
+//                                    fontSize:'8'
+//                                },
+//                                yAxis:(Math.random()*50 + 200).toFixed(0)          // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                         
+//                            }
+//                            ]
+//                        }
+//     }]
+// };
+
+
+
+// 基于准备好的dom，初始化echarts实例
+   
+var option = {
+	"title": {
+		"show": true,
+		"x": "center",
+		"y": "bottom",
+		"padding": ["20", "5", "1", "5"],
+		"textStyle": {
+			"fontSize": 24,
+			"color": "#006ea3"
+		}
+	},
+	"tooltip": {
+		"show": true,
+		"trigger": "axis"
+	},
+	"legend": {
+		"show": true,
+		"data": ["风机发电量", "风速"],
+		"x": "center",
+		"y": "top",
+		"textStyle": {
+			"fontSize": 15,
+			"color": "#006ea3"
+		}
+	},
+	"grid": {
+		"y2": "17%",
+		"borderWidth": 1,
+		"borderColor": "#006ea3",
+		"containLabel": true
+	},
+	"xAxis": [{
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"rotate": 75,
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"type": "category",
+		"splitLine": {
+			"show": false
+		},
+		"data": ["01号风机", "02号风机", "03号风机", "04号风机", "05号风机", "06号风机", "07号风机", "08号风机", "09号风机", "10号风机", "11号风机", "12号风机", "13号风机", "14号风机", "15号风机", "16号风机", "17号风机"]
+	}],
+	"yAxis": [{
+		"type": "value",
+		"splitLine": {
+			"show": false
+		},
+		"name": "风机发电量",
+		// "interval": 5,
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"formatter": "{value}",
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"min": 0,
+		"scale": true
+	}, {
+		"type": "value",
+		"splitLine": {
+			"show": false
+		},
+		"name": "风速",
+		"interval": 5,
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"formatter": "{value}",
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"min": 0,
+		"scale": true
+	}],
+	"dataZoom": {
+		"show": false,
+		"y": 680,
+		"backgroundColor": "#102b3c",
+		"dataBackgroundColor": "#102b3c",
+		"start": 0,
+		"end": 100
+	},
+	"series": [{
+		"name": "风机发电量",
+		"type": "bar",
+		"data": [693.61, 683.01, 651.41, 674.84, 723.5, 729.32, 727.95, 690.75, 718.78, 621.91, 790.15, 693.61, 678.97, 635.07, 654.99, 729.71, 706.07],
+		"markLine": {
+			"lineStyle": {
+				"normal": {
+					"type": "dashed"
+				}
+			},
+			"symbol": "none",
+			"data": [
+				{
+					"xAxis": 0,
+					"yAxis": 694.33,
+					"name": "平均值",
+					"value": 694.33
+                    
+				}, {
+					"xAxis": 100,
+					"yAxis": 694.33
+				}
+			]
+		},
+		"itemStyle": {
+			"normal": {
+				"label": {
+					"show": true,
+					"position": "top",
+					"textStyle": {
+						"color": "white",
+						"fontSize": 11
+					}
+				}
+			}
+		}
+	}, {
+		"name": "风速",
+		"type": "bar",
+		"yAxisIndex": 1,
+		"data": [4.63, 5.08, 2.85, 5.59, 4.23, 5.23, 4.79, 4.22, 4.24, 3.59, 4.71, 4.63, 1.78, 3.42, 3.77, 3.67, 3.79],
+		"markLine": {
+			"lineStyle": {
+				"normal": {
+					"type": "dashed"
+				}
+			},
+			"symbol": "none",
+			"data": [
+				{
+					"xAxis": -1,
+					"yAxis": 4.13,
+					"name": "平均值",
+					"value": 4.13
+				}, {
+					"xAxis": 100,
+					"yAxis": 4.13
+				}
+			]
+		},
+		"itemStyle": {
+			"normal": {
+				"label": {
+					"show": true,
+					"position": "top",
+					"textStyle": {
+						"color": "white",
+						"fontSize": 11
+					}
+				}
+			}
+		}
+	}]
+}
+
+var myChart = echarts4.init(document.getElementById('main'));
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+setInterval(function(){
+//     option = {
+//     xAxis: {
+//         type: 'category',
+//         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+//     },
+//     yAxis: {
+//         type: 'value'
+//     },
+//     series: [{
+//         data: [820, 932, 901, 934, 1290, 1330, 1320],
+//         type: 'line',
+//         markLine : {
+//                 symbol:"none",
+            
+//                            /*symbol:"none",               //去掉警戒线最后面的箭头
+//                            label:{
+//                                position:"end"   ,       //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+                            
+                            
+//                            },*/
+//                            data : [{
+                                
+//                                silent:false,             //鼠标悬停事件  true没有，false有
+//                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                                    type:"solid",
+//                                    color:"#3398DB",
+//                                },
+//                                    label:{
+//                                    position:'end',
+//                                    formatter:"及格(150)"
+//                                },
+//                                yAxis:(Math.random()*50 + 100).toFixed(0)         // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                              
+//                            },
+//                            {
+                             
+//                                silent:false,             //鼠标悬停事件  true没有，false有
+//                                lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                                    type:"solid",
+//                                    color:"#FA3934",
+                                    
+//                                },
+//                                label:{
+//                                    position:'end',
+//                                    formatter:"优秀(350)",
+//                                    fontSize:'8'
+//                                },
+//                                yAxis:(Math.random()*50 + 200).toFixed(0)          // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                         
+//                            }
+//                            ]
+//                        }
+//     }]
+// };
+   option = {
+	"title": {
+		"show": true,
+		"x": "center",
+		"y": "bottom",
+		"padding": ["20", "5", "1", "5"],
+		"textStyle": {
+			"fontSize": 24,
+			"color": "#006ea3"
+		}
+	},
+    color:['#ff7f50','#87cefa'],
+	"tooltip": {
+		"show": true,
+		"trigger": "axis"
+	},
+	"legend": {
+		"show": true,
+		"data": ["风机发电量", "风速"],
+		"x": "center",
+		"y": "top",
+		"textStyle": {
+			"fontSize": 15,
+			"color": "#006ea3"
+		}
+	},
+	"grid": {
+		"y2": "17%",
+		"borderWidth": 1,
+		"borderColor": "#006ea3",
+		"containLabel": true
+	},
+	"xAxis": [{
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"rotate": 75,
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"type": "category",
+		"splitLine": {
+			"show": false
+		},
+		"data": ["01号风机", "02号风机", "03号风机", "04号风机", "05号风机", "06号风机", "07号风机", "08号风机", "09号风机", "10号风机", "11号风机", "12号风机", "13号风机", "14号风机", "15号风机", "16号风机", "17号风机"]
+	}],
+	"yAxis": [{
+		"type": "value",
+		"splitLine": {
+			"show": false
+		},
+		"name": "风机发电量",
+		// "interval": 5,
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"formatter": "{value}",
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"min": 0,
+		"scale": true
+	}, {
+		"type": "value",
+		"splitLine": {
+			"show": false
+		},
+		"name": "风速",
+		"interval": 5,
+		"axisLine": {
+			"lineStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"axisLabel": {
+			"formatter": "{value}",
+			"textStyle": {
+				"color": "#006ea3"
+			}
+		},
+		"min": 0,
+		"scale": true
+	}],
+	"dataZoom": {
+		"show": false,
+		"y": 680,
+		"backgroundColor": "#102b3c",
+		"dataBackgroundColor": "#102b3c",
+		"start": 0,
+		"end": 100
+	},
+  
+	"series": [{
+		"name": "风机发电量",
+		"type": "bar",
+		"data": [693.61, 683.01, 651.41, 674.84, 723.5, 729.32, 727.95, 690.75, 718.78, 621.91, 790.15, 693.61, 678.97, 635.07, 654.99, 729.71, 706.07],
+		"markLine": {
+			"lineStyle": {
+				"normal": {
+					"type": "dashed"
+				}
+			},
+			"symbol": "none",
+			"data": [
+				{
+					"xAxis": 0,
+					"yAxis": (Math.random()*50 + 100).toFixed(0) ,
+					"name": "平均值",
+					"value": 694.33
+                    
+				}, {
+					"xAxis": 100,
+					"yAxis": (Math.random()*50 + 100).toFixed(0) 
+				}
+			]
+		},
+		"itemStyle": {
+			"normal": {
+				"label": {
+					"show": true,
+					"position": "top",
+					"textStyle": {
+						"color": "white",
+						"fontSize": 11
+					}
+				}
+			}
+		}
+	}, {
+		"name": "风速",
+		"type": "bar",
+		"yAxisIndex": 1,
+		"data": [4.63, 5.08, 2.85, 5.59, 4.23, 5.23, 4.79, 4.22, 4.24, 3.59, 4.71, 4.63, 1.78, 3.42, 3.77, 3.67, 3.79],
+		"markLine": {
+			"lineStyle": {
+				"normal": {
+					"type": "dashed"
+				}
+			},
+			"symbol": "none",
+			"data": [
+				{
+					"xAxis": -1,
+					"yAxis": 4.13,
+					"name": "平均值",
+					"value": (Math.random()*50 + 100).toFixed(0) 
+				}, {
+					"xAxis": 100,
+					"yAxis": (Math.random()*50 + 100).toFixed(0) 
+				}
+			]
+		},
+		"itemStyle": {
+			"normal": {
+				"label": {
+					"show": true,
+					"position": "top",
+					"textStyle": {
+						"color": "white",
+						"fontSize": 11
+					}
+				}
+			}
+		}
+	}]
+}
+
+    myChart.setOption(option);
+},2000)
+    
+    
+
+
+
+// markLine : {
+              
+//               data : [{
+                   
+//                   silent:false,             //鼠标悬停事件  true没有，false有
+//                   lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                       type:"solid",
+//                       color:"#3398DB",
+//                   },
+//                       label:{
+//                       position:'end',
+//                       formatter:"及格(150)"
+//                   },
+//                   yAxis:150         // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                 
+//               },
+//               {
+                
+//                   silent:false,             //鼠标悬停事件  true没有，false有
+//                   lineStyle:{               //警戒线的样式  ，虚实  颜色
+//                       type:"solid",
+//                       color:"#FA3934",
+                       
+//                   },
+//                   label:{
+//                       position:'end',
+//                       formatter:"优秀(350)",
+//                       fontSize:'8'
+//                   },
+//                   yAxis:350           // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+            
+//               },
+//               {
+// name: 'X 轴值为 100 的竖直线',
+// xAxis: 'Mon',
+
+// },
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D路径图</title>
+</head>
+<body>
+    <div id="container" style="height: 600px;width: 600px;"></div>
+    <script src="../echart/js/echart.js"></script>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script>
+          var myChart = echarts.init(document.getElementById("container"));
+          var option = {
+            xAxis:{
+                type:'value',
+                min:0,
+                max:100
+            },
+            yAxis:{
+                type:'value',
+                min:0,
+                max:100
+            },
+            series:[
+                {
+                    type : 'scatter',
+                    name:'点',
+                    zlevel: 3,
+                    label: {
+                            normal: {
+                                show: true,
+                                position: 'left',
+                                formatter: '{b}'
+                            }
+                        },                                                        
+                    data:[
+                        {
+                            name:'太原',
+                                value: [10, 10],
+                                symbolSize: 10,
+                                symbol:'circle',
+                                itemStyle: {
+                                   
+                                   color: "#000"
+                                   
+                               }
+                        },
+                        {
+                            name:'大同',
+                                value: [20, 20],
+                                symbolSize: 10,
+                                symbol:'circle',
+                                itemStyle: {
+                                   
+                                   color: "#000"
+                                   
+                               }
+                        }
+                    ]
+                },
+                {
+                    type:'lines',
+                    name:'线',
+                    zlevel: 2,                      
+                    symbol: ['none', 'arrow'],
+                    symbolSize: 10,
+                    effect: {
+                        show: true,
+                        period: 6,
+                        trailLength: 0,
+                        symbol: 'arrow',
+                        symbolSize: 8
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: '#f00',
+                            width: 1,
+                            opacity: 0.6,
+                            curveness: 0.2
+                        }
+                    },
+                    coordinateSystem:'cartesian2d',
+                    data:[{
+                        coords:[[10,10],[20,20]]
+                            
+                        }
+                    ]
+                }
+                      
+            ]
+          }
+          myChart.setOption(option)
+    </script>
+</body>
+</html>

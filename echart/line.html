@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<s>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echarts4.js"></script>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script>
+        var option = {
+            // 标题
+            title:{
+                show:true, //显示标题
+                text:'折线图标题', //标题文本
+                textStyle:{
+                    color :'#f00',  //标题颜色
+                    fontStyle:'normal', //'italic''oblique''  //标题字体
+                    fontWeight:'200',  //标题文字粗细
+                    fontSize: 30,
+                },
+                subtext:'折线图副标题', //副标题
+                subtextStyle:{  //副标题文字样式
+                    color:'#0f0',
+                    fontSize:'20',
+                    lineHeight:'120'
+                },
+                itemGap:20,  //主副标题之间的间距。
+                padding: [
+                    10,  // 上
+                    20, // 右
+                    5,  // 下
+                    10, // 左
+                ],                 //标题内边距
+                left:'center',   //标题水平定位 left', 'center', 'right'
+                top:'50',         //标题垂直定位   'top', 'middle', 'bottom' 
+                backgroundColor:'#ccc',  //标题背景色
+                borderColor:'#000',       //标题边框颜色
+                borderWidth:2,            //标题边框宽度
+                borderRadius:[5,5,0,0]           //边框圆角 number|Array
+                
+            },
+            // 筛选
+            legend:{
+                show:true,  //是否显示
+                top:'200',   //垂直定位  'top', 'middle', 'bottom' 
+                left:'center', //水平定位  left', 'center', 'right'
+                orient:'vertical',   //排列方向水平或者垂直 'horizontal'|'vertical'
+                itemGap:20,   //每项间隔
+                itemWidth:40,  //标记图形宽度
+                itemHeight:5,   //标记图形高度
+                textStyle:{
+                    color:'#fff', //标记的文本颜色,
+                    fontStyle:'normal',
+                    fontWeight:'bold',
+                    fontSize: 12,
+                    backgroundColor:'#00f',
+                    //backgroundColor: {
+                        //image: 'xxx/xxx.png'
+                        // 这里可以是图片的 URL，
+                        // 或者图片的 dataURI，
+                        // 或者 HTMLImageElement 对象，
+                        // 或者 HTMLCanvasElement 对象。
+                    //}
+                    borderColor:'transparent',  //transparent表示透明
+                    borderWidth:1,
+                    borderRadius:0,
+                    padding:5    
+                },
+                icon:'roundRect',   //标记图形形状 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+                data: ['邮件营销', '联盟广告', '视频广告', '视频广告','直接访问','搜索引擎'],
+                backgroundColor:'#ccc',
+                borderColor:'#f00',  //transparent表示透明
+                borderWidth:1,
+                borderRadius:10,
+            },
+            grid:{
+                show:true,
+                left:'center',   //网格水平位置
+                top:'400',        //网格垂直位置
+                width:300,        //网格宽度
+                height:'300',      //网格高度
+                backgroundColor:'#f8f8f8',  //网格背景色
+                borderColor :'#000',        //网格边框颜色
+                borderWidth:1               //网格边框宽度
+
+            },
+            color:['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'], //每项颜色
+            xAxis: {
+                type: 'category',
+                name:'X轴名称',  //轴名称
+                nameLocation:'end',  //轴名称位置 start  'middle' 或者 'center' 'end'
+                nameTextStyle:{      //轴名称样式
+                    color:'#fff',
+                    padding:10,
+                    backgroundColor:'#000'
+                },
+                min:'0',  //坐标轴刻度最小值
+                max:'100', //坐标轴刻度最大值
+                nameGap:35,    //轴名称与轴线距离
+                nameRotate:30,  //轴名称旋转角度
+                axisLine:{      //x轴线
+                    show:true,
+                    onZero:false,  //X 轴或者 Y 轴的轴线是否在另一个轴的 0 刻度上，只有在另一个轴为数值轴且包含 0 刻度时有效。
+                },
+                axisTick:{    //刻度
+                    show:true,  //是否显示刻度
+                    inside:true,  //刻度是否朝内，默认朝外
+                    length:5,   //刻度线长度
+                    lineStyle:{  //刻度线样式 { color , width , type , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                       
+                    }
+                },
+                axisLabel:{      //刻度标签样式(x轴文字样式)
+                    show:true,   //是否显示文字
+                    inside:false,  //文字是否在内部，默认外部
+                    rotate:70,      //文字旋转角度，防止重叠
+                    margin:20,     //标签与轴线距离
+                    color:'#f00',   //文字颜色
+                    fontStyle:'normal',   //'normal''italic''oblique'
+                    fontFamily:'sans-serif',  //文字的字体系列。
+                    fontWeight:600,       //文字字体的粗细。
+                    fontSize: 15,          //文字的字体大小。
+                    backgroundColor:'#000',  //文字块背景颜色
+                    borderColor:'#0f0',      //文字边框颜色
+                    borderWidth: 2,           //文字边框宽度
+                    borderRadius: 5,          //边框圆角
+                    padding:10                //文字padding
+
+                },
+                splitLine:{  //坐标轴在grid中的分隔线(图形中间网格)
+                    show:true,
+                    lineStyle:{   //分割线样式
+                        color:'#0f0',  //分割线颜色
+                        width:2,   //分割线宽度    
+                        type:'dashed'  //分隔线线的类型。'solid''dashed''dotted'
+                    }
+                },
+                splitArea:{  //是否显示分隔区域。
+                    show:false  
+                },
+                data: [{
+                    value: '周一',  //单个类目名称
+                    textStyle: {  //标签样式 { color , fontStyle , fontWeight , fontFamily , fontSize , align , verticalAlign , lineHeight , backgroundColor , borderColor , borderWidth , borderRadius , padding , shadowColor , shadowBlur , shadowOffsetX , shadowOffsetY , width , height , textBorderColor , textBorderWidth , textShadowColor , textShadowBlur , textShadowOffsetX , textShadowOffsetY , rich }
+                        fontSize: 20,
+                        color: 'red'
+                    }
+                }, '周二', '周三', '周四', '周五', '周六', '周日'],
+                axisPointer:{ //坐标轴指示器(鼠标在x轴上移动到刻度显示垂直线)
+                    show:true,
+                    type:'line', //指示器类型 'line' 直线指示器'shadow' 阴影指示器'none' 无指示器
+                    label:{  //指示器文本 { show , precision , formatter , margin , color , fontStyle , fontWeight , fontFamily , fontSize , lineHeight , width , height , textBorderColor , textBorderWidth , textShadowColor , textShadowBlur , textShadowOffsetX , textShadowOffsetY , padding , backgroundColor , borderColor , borderWidth , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY }
+                      
+                    },
+                    lineStyle:{  //直线指示器样式
+                        color:'#f00',
+                        width:1,
+                        type:'dashed',  //'solid''dashed''dotted'
+                    }
+                },
+               // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value',
+                axisLine:{
+                    show:true,
+                    lineStyle:{  //轴线样式
+                        color:'#f00',
+                        width:1,
+                        type:'solid',
+
+                    }
+                },
+                axisTick:{ //刻度配置
+                   show:false
+                },
+                axisLabel:{   //刻度文本
+                    //{ show , interval , inside , rotate , margin , formatter , showMinLabel , showMaxLabel , color , fontStyle , fontWeight , fontFamily , fontSize , align , verticalAlign , lineHeight , backgroundColor , borderColor , borderWidth , borderRadius , padding , shadowColor , shadowBlur , shadowOffsetX , shadowOffsetY , width , height , textBorderColor , textBorderWidth , textShadowColor , textShadowBlur , textShadowOffsetX , textShadowOffsetY , rich }
+                    color:'#0f0',
+                    fontSize:20,
+					interval: 3 //文字间隔几个数据显示
+                }
+            },
+            tooltip:{   //提示框
+                show:true,
+                trigger:'axis',  //触发类型 'item'数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。'axis'坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
+                axisPointer:{   //坐标轴指示器(鼠标在x轴上移动到刻度显示垂直线)
+                        //tooltip.axisPointer 中诸配置项的优先级低于轴上的 axisPointer 的配置项。
+                },
+                showContent:true,   //是否显示提示框浮层（鼠标吸附显示垂直线旁边的提示框）
+                //position:{          //提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。
+                //
+                //},
+                backgroundColor:'rgba(50,50,50,0.7)',  //提示框背景颜色
+                borderColor:'#333',     //提示框边框颜色
+                borderWidth:'1',      //提示框边框
+                padding:5,             //提示框内边距
+                textStyle:{             //提示框文本样式
+                    //{ color , fontStyle , fontWeight , fontFamily , fontSize , lineHeight , width , height , textBorderColor , textBorderWidth , textShadowColor , textShadowBlur , textShadowOffsetX , textShadowOffsetY }
+                    color:'#000'
+                }
+
+            },
+            series: 
+            [         
+                    {
+                        type: 'line',      //折线图
+                        name: '邮件营销',  //数据项名称。
+                        symbol:'rect',  //标记图形（折线拐点图形）'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+                        symbolSize:4,   //标记图形大小 number|Array
+                        symbolRotate: 10,    //标记的旋转角度（而非弧度）。正值表示逆时针旋转
+                        showSymbol:false,     //是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
+                        hoverAnimation:true,  //是否开启 hover 在拐点标志上的提示动画效果。
+                        legendHoverLink:true,  //是否启用图例 hover 时的联动高亮。
+                        cursor:'pointer',       //鼠标悬浮在拐点上的样式同css
+                        step:false,              //是否是阶梯线图
+                        label:{                 //图形上的文本(折线点上面的文字)
+                            show:true,
+                            position:'top',       //标签的位置。
+                            distance:20,          //标签与图形距离
+                            rotat:30,             //标签旋转从 -90 度到 90 度。正值是逆时针。
+                            color:"#f00",           //文字颜色
+                            //fontStyle , fontWeight , fontFamily , fontSize , align , verticalAlign , lineHeight , backgroundColor , borderColor , borderWidth , borderRadius , padding
+                        },
+                        itemStyle:{                //折线拐点标志的样式。
+                            //{ color , borderColor , borderWidth , borderType , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                        },
+                        lineStyle:{                 //线条样式。
+                            //{ color , width , type , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                        },
+                        areaStyle: {                //填充区域样式
+                            //{ color , origin , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                        },
+                        emphasis:{                  //图形高亮样式
+                            label:{
+
+                            },
+                            itemStyle:{
+
+                            }
+                        },
+                        smooth:true,//如果是 boolean 类型，则表示是否开启平滑处理。如果是 number 类型（取值范围 0 到 1），表示平滑程度，越小表示越接近折线段，反之则反。设为 true 时相当于设为 0.5。是否平滑曲线显示。
+                        
+                        data: [120, 132, 101, 134, 90, 200, 210],
+                        markPoint:{     //标记一个固定点
+                            data: [{    //标记点的选取规则（确定标记哪个点）
+                                type: "max",
+                                //与当前父节点同级的属性
+                            }],
+                            label:{           //标记点文本（默认显示该点的值，设置该文本的样式）
+                                show:true,
+                                color:'#fff',
+                                fontSize:24,
+                            },
+                            itemStyle:{        //标记点背景的样式
+                                //{ color , borderColor , borderWidth , borderType , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
+                                color:'#000'
+                            },
+                            symbolSize:50,    //标记点的背景图形大小
+                            symbol: "circle", //标记点的背景图形 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none
+                            silent:true,  //图形不响应鼠标事件,默认为 false，即响应和触发鼠标事件。
+                            animation:false,  //是否开启动画(标记点逐渐显示)
+                        },
+                        markLine:{     //标记线
+
+                        }
+                    },
+                    // {
+                    //     name: '联盟广告',
+                    //     type: 'line',
+                    //     stack: '总量',
+                      
+                    //     data: [220, 182, 191, 234, 290, 330, 310]
+                    // },
+                    // {
+                    //     name: '视频广告',
+                    //     type: 'line',
+                    //     stack: '总量',
+                     
+                    //     data: [150, 232, 201, 154, 190, 330, 410]
+                    // },
+                    // {
+                    //     name: '直接访问',
+                    //     type: 'line',
+                    //     stack: '总量',
+                      
+                    //     data: [320, 332, 301, 334, 390, 330, 320]
+                    // },
+                    // {
+                    //     name: '搜索引擎',
+                    //     type: 'line',
+                    //     stack: '总量',
+                    //     label: {
+                    //         normal: {
+                    //             show: true,
+                    //             position: 'top'
+                    //         }
+                    //     },
+                        
+                    //     data: [820, 932, 901, 934, 1290, 1330, 1320]
+                    // }
+                ]
+        };
+
+         // 基于准备好的dom，初始化echarts实例
+         var myChart = echarts4.init(document.getElementById('main'));
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+       
+    </script>
+</body>
+</html>

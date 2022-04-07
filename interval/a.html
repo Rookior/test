@@ -1,0 +1,17 @@
+<div>
+    <div class="btn">全部确认</div>
+   <div class="data">
+
+   </div>
+</div>
+<button class="btn2"></button>
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script>
+   setInterval(function(){
+        var data = Math.random();
+        $('.data').html(data);
+        $('.btn').unbind('click').bind('click',function(){
+            alert('全部确认'+data)
+        })
+   },3000)
+</script>

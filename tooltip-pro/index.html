@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <title>JS原生tooltip提示框插件</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .box {
+            margin-top: 50px;
+        }
+        .item {
+            padding: 5px 10px;
+            border: 1px solid #28a7e1;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            float: left;
+            margin-right: 20px;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="box">
+        <!-- tip：tooltip提示框中的文本内容；direction：tooltip提示框的位置，可选值为top/right/bottom/left -->
+        <li class="item" data-tip="Tooltip-top" data-direction="top">top</li>
+		 <li class="item" data-tip="Tooltip-top" data-direction="top">top</li>
+        <li class="item" data-tip="Tooltip-right" data-direction="right">right</li>
+        <li class="item" data-tip="Tooltip-bottom" data-direction="bottom">bottom</li>
+        <li class="item" data-tip="Tooltip-left" data-direction="left">left</li>
+    </ul>
+</body>
+<script src="tooltip.js"></script>
+<script>
+    /*
+     * 参数：
+     * 1. '.item'：需要添加tooltip提示的目标元素，必填项；若只给一个元素添加tooltip，可以使用id
+     * 2. {transition: true[, time: 1000]}: 过度效果，transition：是否添加过度效果，time：过度效果的持续时间（单位为毫秒，默认为200毫秒）
+     * 3. enterCallback：tooltip显示时的回调函数
+     * 4. outCallback：tooltip消失时的回调函数
+     */
+    // tooltip('.item');
+    // tooltip('.item', null, enterCallback, outCallback);
+    // tooltip('.item', {transition: true}, enterCallback, outCallback);
+    tooltip('.item', {transition: true, time: 200}, enterCallback, outCallback);
+
+    function enterCallback() {
+        console.log('enterCallback');
+    }
+    function outCallback() {
+        console.log('outerCallback');
+    }
+</script>
+</html>

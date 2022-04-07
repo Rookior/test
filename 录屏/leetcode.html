@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+  var compressString = function(S) {
+      S = S.split("");
+      debugger
+    var current = S[0];
+    var num = 1;
+    var result = "";
+    for(var i=1;i<S.length;i++){
+        if(S[i] == current){
+            num++
+        }else{
+            result += (current + num);
+            current = S[i];
+            num = 1
+        }
+      
+    }
+    result += (current + num);
+    if(result.length < S.length){
+        return result; 
+    }else{
+        return S.toString();
+    }
+   
+};
+var a = compressString("aabcccccaaa")
+console.log(a)
+    </script>
+</body>
+</html>

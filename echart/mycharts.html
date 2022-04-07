@@ -1,0 +1,147 @@
+ 
+ <div>
+	<canvas style="width:800px;height:800px"></canvas>
+ </div>
+ <script type="text/javascript">
+    /*1.绘制网格  网格大小 10px 网格的颜色 #ddd */
+
+    /*2.绘制坐标  轴的离边距离  20px 箭头的尺寸 10px */
+    /*3.绘制点 点尺寸 6px */
+    /*4.连接点 */
+    /*5.准备数据*/
+    var data = [
+      { x: 50, y: 90 },
+      { x: 150, y: 150 },
+      { x: 250, y: 250 },
+      { x: 350, y: 130 },
+      { x: 450, y: 80 }
+    ]
+
+    /*使用面向对象的方式实现*/
+    var LineChart = function (ctx) {
+      //绘制工具
+      this.ctx = ctx || document.querySelector('canvas').getContext('2d');
+      //网格大小
+      this.gridSize = 10;
+      //网格线的颜色
+      this.gridColor = '#fff';
+      //轴的离边距离
+      this.space = 20;
+      //箭头的尺寸
+      this.arrowSize = 10;
+      //点尺寸
+      this.pointSize = 6;
+
+      //画布的高度
+      this.canvasHeight = this.ctx.canvas.height;
+      //画布的宽度
+      this.canvasWidth = this.ctx.canvas.width;
+
+      //入口函数
+      //this.init();
+    }
+    //入口函数
+    LineChart.prototype.init = function (data) {
+      this.drawGrid();
+      this.drawXY();
+      this.drawPointList(data);
+      this.joinPoint();
+    };
+    //绘制网格
+    LineChart.prototype.drawGrid = function () {
+      /*业务*/
+      /*1. 绘制X轴方向的线*/
+      var xCount = Math.floor(this.canvasHeight / this.gridSize);
+      for (var i = 0; i < xCount; i++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, i * this.gridSize - 0.5);
+        this.ctx.lineTo(this.canvasWidth, i * this.gridSize - 0.5);
+        this.ctx.strokeStyle = this.gridColor;
+        this.ctx.stroke();
+      }
+
+      /*2. 绘制Y轴方向的线*/
+      var yCount = Math.floor(this.canvasWidth / this.gridSize);
+      for (var i = 0; i < yCount; i++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(i * this.gridSize - 0.5, 0);
+        this.ctx.lineTo(i * this.gridSize - 0.5, this.canvasHeight);
+        this.ctx.strokeStyle = this.gridColor;
+        this.ctx.stroke();
+      }
+    }
+    //绘制原点和坐标轴
+    LineChart.prototype.drawXY = function () {
+      /*1.坐标原点*/
+      this.x0 = this.space;
+      this.y0 = this.canvasHeight - this.space;
+      /*2.绘制X轴*/
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.x0, this.y0);
+      this.ctx.lineTo(this.canvasWidth - this.space, this.y0);
+      this.ctx.lineTo(this.canvasWidth - this.space - this.arrowSize, this.y0 + this.arrowSize / 2);
+      this.ctx.lineTo(this.canvasWidth - this.space - this.arrowSize, this.y0 - this.arrowSize / 2);
+      this.ctx.lineTo(this.canvasWidth - this.space, this.y0);
+      this.ctx.strokeStyle = '#000';
+      this.ctx.stroke();
+      this.ctx.fill();
+      /*3.绘制Y轴*/
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.x0, this.y0);
+      this.ctx.lineTo(this.space, this.space);
+      this.ctx.lineTo(this.space + this.arrowSize / 2, this.space + this.arrowSize);
+      this.ctx.lineTo(this.space - this.arrowSize / 2, this.space + this.arrowSize);
+      this.ctx.lineTo(this.space, this.space);
+      this.ctx.stroke();
+      this.ctx.fill();
+    }
+    //绘制所有点
+    LineChart.prototype.drawPointList = function (data) {
+      //测试
+      //this.drawPoint(200,200);
+      var _this = this;
+      //原来的点
+      var oldPoint = {
+        x: this.x0,
+        y: this.y0
+      };
+      data.forEach(function (item, i) {
+        /*绘制小正方形 就是点*/
+        /*在绘制之前转成cnavas坐标*/
+        var x = _this.x0 + item.x;
+        var y = _this.y0 - item.y;
+        _this.drawPoint(x, y);
+        _this.joinPoint(oldPoint, {
+          x: x,
+          y: y
+        });
+
+        //连线完毕之后去记录  把这一次的点当做下一次连线的起始点
+        oldPoint = {
+          x: x,
+          y: y
+        }
+      });
+    }
+    LineChart.prototype.drawPoint = function (x, y) {
+      this.ctx.moveTo(x - this.pointSize / 2, y - this.pointSize / 2);
+      this.ctx.lineTo(x + this.pointSize / 2, y - this.pointSize / 2);
+      this.ctx.lineTo(x + this.pointSize / 2, y + this.pointSize / 2);
+      this.ctx.lineTo(x - this.pointSize / 2, y + this.pointSize / 2);
+      this.ctx.closePath();
+      this.ctx.fill();
+    };
+    //连接点
+    LineChart.prototype.joinPoint = function (oldPoint, currPoint) {
+      /*上一个点的坐标和现在的坐标相连*/
+      //oldPoint {x,y}
+      //currPoint {x,y}
+      this.ctx.beginPath();
+      this.ctx.moveTo(oldPoint.x, oldPoint.y);
+      this.ctx.lineTo(currPoint.x, currPoint.y);
+      this.ctx.stroke();
+    };
+    //使用
+    var lineChart = new LineChart();
+    lineChart.init(data);
+  </script>

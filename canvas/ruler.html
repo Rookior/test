@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .index-ruler{
+            background: #000f2b;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;					
+            width: 430px;
+            height: 100px;
+        }
+        #canvas{
+            width: 100%;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="index-ruler">
+        <canvas id="canvas" width="430" height="100"></canvas>
+    </div>
+    <script src="./jquery-1.11.1.min.js"></script>
+    <script>
+        var ruler = {
+				init:function(option){
+					var canvas = document.getElementById(option.el);					
+					var cxt = canvas.getContext("2d");
+					this.canvas = canvas;
+					this.cxt = cxt;
+					this.option = option;
+					var x = 20;
+					var x2 = 20;
+					this.x = x;
+					var y = canvas.height/2.5;
+					this.y = y;
+					var min = -1       //刻度最小值
+					this.min = min;
+					var max = 1       //刻度最大值
+					var spaceLength = 20; //刻度分段数
+					var spaceWidth = (canvas.width-x-x2)/spaceLength;
+					this.spaceWidth = spaceWidth; //0.1的宽度
+					var spaceHeight = canvas.height/4;
+					for (var i=0;i<=spaceLength;i++){
+						cxt.beginPath();
+					
+					
+						cxt.lineCap = "round";
+					
+						
+						if (i % 5 === 0) {
+							cxt.strokeStyle = "#014f77";
+							cxt.lineWidth = 3;
+							cxt.moveTo(spaceWidth * i + x, y);
+							cxt.lineTo(spaceWidth * i + x, y+spaceHeight);
+						}else{
+							cxt.strokeStyle = "#014f77";
+							cxt.lineWidth = 2;
+							cxt.moveTo(spaceWidth * i + x, y+spaceHeight*0.2);
+							cxt.lineTo(spaceWidth * i + x, y+spaceHeight);
+						}
+						cxt.stroke();
+						cxt.closePath();
+					}
+					// 画彩色图
+					var imgs2 = new Image();
+					imgs2.src = "./images/2.png";  
+					imgs2.onload = function (){
+						cxt.drawImage(imgs2,x-2 ,y+spaceHeight/1.7,canvas.width-x-x2+2,spaceHeight);
+					}
+					// 画数字
+					cxt.beginPath();
+					var space = (max-min)/spaceLength;
+					this.space = space;
+					cxt.font = "12px Arial";
+					cxt.fillStyle = "#03D4FF";
+					cxt.textAlign = "center";
+					cxt.textBaseline = "middle";
+					var scaleValueList = []				
+					for (var i = 0; i <= spaceLength; i++) {
+						scaleValueList.push(parseFloat((min + space*i).toFixed(1)));
+						
+					}
+					console.log(scaleValueList)
+					scaleValueList.forEach(function (num, i) {
+						if (i % 5 === 0) {
+							cxt.fillText(num.toString(), spaceWidth * i + x, y + 50);
+						}
+						
+					});
+					cxt.closePath();
+										
+					return this
+
+				},
+				drawValue:function(markValue){
+					cxt = this.cxt;
+					this.cxt.clearRect(0,0,this.canvas.width,this.canvas.height);
+					this.init(this.option)
+					min = this.min;
+					spaceWidth = this.spaceWidth;
+					x = this.x + (markValue - min) * spaceWidth / this.space
+					y = this.y - 10;
+					var imgs = new Image();
+					imgs.src = "./images/1.png";  
+					imgs.onload = function (){
+						cxt.drawImage(imgs,x-10.7,y,21,36);
+					}
+					// 画矩形
+					var react = {
+						width:40,
+						height:25
+					}
+					roundRect(cxt,x-react.width/2,y-react.height,react.width,react.height*0.8,2);
+					//画数值
+				    cxt.beginPath();
+					cxt.font = "14px Arial";
+					cxt.fillStyle = "#fff";
+					cxt.textAlign = "center";
+					cxt.textBaseline = "middle";
+					cxt.fillText(markValue.toString(), x , y-react.height/2);
+					cxt.closePath();
+					function roundRect(ctx, x, y, w, h, r) {
+						ctx.save();
+						if (w < 2 * r) {r = w / 2;}
+						if (h < 2 * r){ r = h / 2;}
+						ctx.beginPath();
+					
+						ctx.moveTo(x+r, y);
+						ctx.arcTo(x+w, y, x+w, y+h, r);
+						ctx.arcTo(x+w, y+h, x, y+h, r);
+						ctx.arcTo(x, y+h, x, y, r);
+						ctx.arcTo(x, y, x+w, y, r);
+						ctx.stroke();
+						ctx.closePath();
+					
+					}
+
+				}	 			
+	 		}
+			//  时间进度比赋值
+			var rulerObj = ruler.init({
+				el:'canvas'
+			})
+			rulerObj.drawValue(0.9)
+    </script>
+</body>
+</html>

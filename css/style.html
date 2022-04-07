@@ -1,0 +1,22 @@
+<style index="newi" type="text/css">
+.a{
+	height:200px;
+	background:#ccc
+}
+
+div[style ^='width:200px']{
+
+	background:#f00
+}
+div[style $='scale(2)']{
+
+	font-size:20px
+}
+
+div[style *='color:#0f0']{
+
+	border:1px solid #ccc;
+}
+</style>
+
+<div class="a" style="width:200px;color:#0f0;transform:scale(2)">eee</div>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <style>
+        .leaflet-control-attribution{
+            display: none;
+        }
+        /* 地图大小 */
+        #mapid { height: 580px; }    
+        .my-div-icon-bg{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: url('https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png') no-repeat;
+            background-size: auto 100%;
+        }   
+        .my-div-txt{
+            margin: 0;padding: 5px;
+            position: absolute;         
+            left: 50%;
+            transform: translate(-50%,-100%); 
+            background: #000;
+            color:#fff; 
+            width: 100px;
+            text-align: center;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mapid"></div>
+  
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script> 
+    <script>
+        
+        var MYMAP = function(targetDomID,options){
+            this.options = this.extend({                
+                scrollWheelZoom:true,     //是否允许缩放地图  
+            }, options);
+            this.mymap = L.map(targetDomID,{             
+                center: this.options.center,  //地图的初始地理中心[纬度，经度]
+                zoom: this.options.zoom,                 //初始地图缩放级别         
+                scrollWheelZoom:this.options.scrollWheelZoom
+            })       
+        }
+
+        MYMAP('mapid',{
+            center: [41.6973298333,123.481162666],
+            zoom: 15,                 //初始地图缩放级别                   
+        })
+
+
+
+       
+        // 初始化地图
+        var mymap = L.map('mapid',{  
+            //map的options           
+            center: [41.6973298333,123.481162666],  //地图的初始地理中心[纬度，经度]
+            zoom: 15,                 //初始地图缩放级别         
+            scrollWheelZoom:true,     //是否允许缩放地图   
+        })       
+        // Layer的方法，添加地图图层
+        var mytileLayer = L.tileLayer('http://api.openioe.net/?LINK=googleMap&ISTR=getMap&lyrs=m&x={x}&y={y}&z={z}', { 
+           
+        }).addTo(mymap)
+        // 地图画点 L.marker(<LatLng> [纬度，经度], <Marker options> options?)
+        // L.marker([41.6973298333, 123.481162666],{
+        //     icon: L.icon({
+        //         iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',    //标记点自定义图片
+        //         iconSize: [20],                                     //标记点自定义图片大小
+        //     }),
+        //    // title:'沈阳国际软件园',                                        //标记点鼠标悬停提示文本           
+        // }).addTo(mymap).bindPopup('<p>沈阳国际软件园</p>').openPopup(); 
+
+        // 地图画点自定义
+        L.marker([41.6973298333, 123.481162666],{
+            icon:L.divIcon({
+                html: "<div class='my-div-icon-bg'><p class='my-div-txt'>沈阳国际软件园</p></div>",                         
+                className: 'my-div-icon',               
+            }),                  
+        }).addTo(mymap);
+        L.marker([41.702628, 123.47677],{
+            icon:L.divIcon({
+                html: "<div class='my-div-icon-bg'><p class='my-div-txt'>沈阳国际软件园E01</p></div>",                         
+                className: 'my-div-icon',               
+            }),                  
+        }).addTo(mymap);
+        // 点击画点
+        // mymap.on("click", function(e){
+        //     var pointLatLng = [e.latlng.lat,e.latlng.lng];
+        //     console.log(e,pointLatLng)
+            
+        //     var addMaker = L.marker(pointLatLng,{
+        //         icon:L.divIcon({
+        //             html: "<div class='my-div-icon-bg'><p class='my-div-txt'>沈阳国际软件园E01</p></div>",                         
+        //             className: 'my-div-icon',               
+        //         }),                  
+        //     }).addTo(mymap);
+        //     // 点击点，删除该点
+        //     addMaker.on('click', function(e) {
+        //         mymap.removeLayer(addMaker)
+        //     })            
+        // })
+
+       
+        // 双击画线
+        var startMaker;
+        var startMakerFlag = true;       
+        var latlngs = [];        
+        mymap.on("dblclick", function(e){
+            var pointLatLng = [e.latlng.lat,e.latlng.lng]; 
+            console.log(e,pointLatLng)         
+            if(latlngs.length == 0){                                        
+                startMaker = L.circle(pointLatLng,50,{
+
+                }).addTo(mymap);                                       
+                latlngs.push(pointLatLng)  
+                startMaker.on('click', function(e) {
+                    var end = [startMaker.getLatLng().lat,startMaker.getLatLng().lng]
+                    latlngs.push(end)
+                    L.polyline(latlngs, {color: 'red'}).addTo(mymap); 
+                    startMakerFlag = false; 
+                    mymap.removeLayer(startMaker)  
+                    console.log('闭合')                                                
+                })                           
+            }else{                
+                if(startMakerFlag){
+                    latlngs.push(pointLatLng)         
+                    L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+                }                        
+            }            
+        })
+
+       
+        
+
+       
+   
+    </script>
+</body>
+</html>

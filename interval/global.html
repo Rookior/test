@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面定时器</title>
+</head>
+<body>
+    <button onclick="add()">添加定时器</button>
+    <button onclick="clearAdd()">清除所有定时器</button>
+    <script>
+        function add(){
+            var a = Math.random()
+            add_pageinterval(function(){
+                console.log(a)
+            },1000)
+        }
+        function clearAdd(){
+       
+            reset_pageinterval()
+        }
+    </script>
+    <script>
+        	//定时器数组
+			var pageinterval = []
+			//定时器清除所有
+			function reset_pageinterval(){
+				console.log('reset_pageinterval',pageinterval)
+				for(var i=0;i<pageinterval.length;i++){
+					window.clearInterval(pageinterval[i])
+				}
+				pageinterval = []
+			}
+			//定时器停止
+			function STOP_pageinterval(id){
+                console.log('STOP_pageinterval',id)
+				window.clearInterval(id)
+			}
+			//定时器添加
+			function add_pageinterval(fun,time){
+				var id = setInterval(fun,time)
+				console.log('add_pageinterval',id)
+				pageinterval.push(id)
+				return id;
+			}
+			// //页面加载jQuery.load扩展
+			// var _load=$.fn.load;
+			// $.fn.extend({
+			// 	load:function(url,param,calbck){
+			// 		//其他操作和处理
+			// 		reset_pageinterval()
+			// 		//此处用apply方法调用原来的load方法，因为load方法属于对象，所以不可直接对象._load（...）
+			// 		return _load.apply(this,[url,param,calbck]);
+			// 	}
+			// });
+    </script>
+</body>
+</html>

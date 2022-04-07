@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭头函数</title>
+</head>
+
+<body>
+    <button id="btn">我是按钮</button>
+    <script>
+        /*
+            1.this有回调时不能使用箭头函数
+            2.箭头函数定义对象里面的方法
+            3.箭头函数里面不能使用arguments
+            4.箭头函数不能作为构造函数使用
+            5.箭头函数不能定义原型里面的方法
+
+        */
+        function sum2(x, y) {
+            return x + y
+        }
+        const sum = sum2(2, 3)
+        console.log(sum)
+
+        //箭头函数
+        const sum3 = (x, y) => {
+            return x + y
+        }
+        const sum4 = sum3(5, 6)
+        console.log(sum4)
+
+        //获取按钮对象,this.只想dom对象
+        const btn = document.querySelector('#btn')
+        //    btn.addEventListener('click',function(){
+        //        this.style.backgroundColor = '#f00'
+        //    })
+        //箭头函数，this指向window
+        btn.addEventListener('click', () => {
+            console.log(this === window)  //=>true
+            this.style.backgroundColor = '#f00' //报错
+        })
+
+        //    箭头函数定义方法
+
+        const obj = {
+            name: "wzy",
+            name1: "wzy",
+            showName: function () {
+                console.log('我的名字是：' + this.name)
+            },
+            showDetail: () => {
+                console.log(this)
+                console.log('我的名字是：' + this.name) //=>window默认有name属性所以输出空
+                console.log('我的名字是：' + this.name1) //=>window没有name1所以输出undefined
+            },
+            esName() {  //es6正确写法
+                console.log('我的名字是：' + this.name) //=>window默认有name属性所以输出空
+            }
+        }
+        obj.showName()
+        obj.showDetail()
+        obj.esName()
+
+        //使用arguments不能使用箭头函数
+        function sum6(x, y) {
+           console.log(arguments)
+        }
+        sum6(2,3)
+        // sum7 = (x, y) =>{
+        //    console.log(arguments)
+        // }
+        //sum7(2,3)  //报错，argument is not defined
+
+        //构造函数不能使用箭头函数
+        function person(name,age){
+            this.name = name;
+            this.age = age
+        }
+        const p1 = new person('wzy','18')
+        person.prototype.study = function(){
+            console.log(`我是${this.name},年纪是${this.age}`)
+        }
+        console.log(p1)
+        p1.study()
+        person = (name,age) =>{
+            this.name = name;
+            this.age = age
+        }
+        // const p2 = new person('wzy','18') //报错，person is not a constructor
+        // console.log(p2)
+    </script>
+</body>
+
+</html>

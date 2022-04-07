@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>敏感词过滤</title>
+    <style>
+        #res{
+            width: 200px;
+            height: 300px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <textarea id="area" rows='10' cols="30"></textarea>
+    </p>
+    <input type="submit" id="input" value="发布">
+    <p id="res"></p>
+
+    <script>
+        let area = document.getElementById('area');
+        let input = document.getElementById('input');
+        let res = document.getElementById('res');
+        let reg = /妈的|滚/g
+
+        input.onclick=function(){
+            let content = area.value.replace(reg,'*');
+            res.innerText = content;
+
+        }
+    </script>
+</body>
+</html>
