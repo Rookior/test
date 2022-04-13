@@ -14,8 +14,8 @@
         function aa(){
             var data = document.getElementById('input').value;
             alert("子页面数据："+data)
-            window.top.postMessage(data, "http://127.0.0.1:5500/a.html")
-           // window.top.postMessage(data, "*")
+            //window.top.postMessage(data, "http://127.0.0.1:5500/a.html")
+            window.top.postMessage(data, "*")
         }
        
     </script>
