@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+        <div>
+             parent：{{child}}
+        
+           
+            <child-item v-bind:child.sync="child">
+                
+            </child-item>
+            <button @click="parentChange">修改父组件数据</button>
+        </div>
+    </div>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.component('child-item', {
+            template:`
+               <div>
+                    <div>child: {{child}}</div>
+                 
+                    <button @click="childChange">修改子组件数据</button>
+                </div>
+            `,
+            props:['child'],
+            methods:{
+                childChange:function(){
+                    this.$emit('update:child', 'child' + Math.random())
+                }
+            }
+        }) 
+
+      
+        var app = new Vue({
+            el: '#app',
+            data: {
+               
+                parent:'123',
+                child:'456'
+            },
+            computed: {
+                
+            },
+            watch: {
+                
+            },
+            methods: {
+                parentChange:function(){
+                    this.child = 'parent' + Math.random()
+                }           
+            },
+            component:{
+                'child-item':'child-item',
+               
+            }
+        })
+    </script>
+</body>
+</html>
