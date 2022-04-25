@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.nextTick</title>
+</head>
+
+<body>
+    <div class="app">
+         {{title}}
+        <button @click="changeObj()">修改title</button>
+        子节点
+        <text-item :title="title"></text-item>
+    </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script>
+         Vue.component('text-item', {
+            template: '<div>继承的title:<p>{{title}}</p></div>',
+            props: ['title'],
+            data:function(){
+                return{
+
+                }
+            },
+            methods:{
+                
+            },
+            watch:{
+                // title: {
+                //     handler (val, oldVal) {
+                //         if (oldVal) {
+                //            // this.setOption();
+                //         }
+                //     },
+                //     // deep: true,
+                //     // immediate: true
+                // }
+            }
+
+        })
+
+
+        new Vue({
+            el: '.app',
+            data: {
+                title:{
+                    a:1,
+                    b:2,
+                    c:[{
+                        d:4
+                    }]
+                }
+            },
+            methods: {
+                changeObj(){
+                    this.title.c[0].d = Math.random()
+                }
+            },
+            watch: {
+               
+            }
+        })
+    </script>
+</body>
+
+</html>

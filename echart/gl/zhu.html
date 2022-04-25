@@ -27,6 +27,7 @@ const CubeLeft = echarts.graphic.extendShape({
         const c1 = [shape.x - shape.width, shape.y - shape.height]
         const c2 = [xAxisPoint[0] - shape.width, xAxisPoint[1] - shape.height]
         const c3 = [xAxisPoint[0], xAxisPoint[1]]
+          //右上 左上 左下 右下
         ctx.moveTo(c0[0], c0[1]).lineTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).closePath()
     }
 })

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.nextTick</title>
+</head>
+<body>
+    <div class="app">
+
+        <p>Vue中DOM更新是异步的</p>
+
+        <ul>
+            <li>在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中</li>
+            <li>在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，这个操作都应该放进Vue.nextTick()的回调函数中。</li>
+        </ul>
+        <div ref="msgDiv">{{msg}}</div>
+        <div v-if="msg1">Message got outside $nextTick: {{msg1}}</div>
+        <div v-if="msg2">Message got inside $nextTick: {{msg2}}</div>
+        <div v-if="msg3">Message got outside $nextTick: {{msg3}}</div>
+        <button @click="changeMsg">
+          Change the Message
+        </button>
+      </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script>
+         new Vue({
+  el: '.app',
+  data: {
+    msg: 'Hello Vue.',
+    msg1: '',
+    msg2: '',
+    msg3: ''
+  },
+  methods: {
+    changeMsg() {
+      this.msg = "Hello world."
+      this.msg1 = this.$refs.msgDiv.innerHTML
+      this.$nextTick(() => {
+        this.msg2 = this.$refs.msgDiv.innerHTML
+      })
+      this.msg3 = this.$refs.msgDiv.innerHTML
+    }
+  }
+})
+    </script>
+</body>
+</html>
