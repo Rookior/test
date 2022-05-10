@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格列合并</title>
+</head>
+<body>
+    <div id="app">
+        <el-table
+      :data="tableData"
+      :span-method="objectSpanMethod"
+      border
+      style="width: 100%; margin-top: 20px">
+      <el-table-column
+        prop="id"
+        label="ID"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名">
+      </el-table-column>
+      <el-table-column
+        prop="amount1"
+        label="数值 1（元）">
+      </el-table-column>
+      <el-table-column
+        prop="amount2"
+        label="数值 2（元）">
+      </el-table-column>
+      <el-table-column
+        prop="amount3"
+        label="数值 3（元）">
+      </el-table-column>
+    </el-table>
+    </div>
+    <script src="./js/vue.js">
+
+
+    </script>
+   <!-- 引入样式 -->
+<link rel="stylesheet" href="./js/elementUI/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="./js/elementUI/lib/index.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:function(){
+                return {
+                    msg:11,
+                    tableData: [{
+          id: '12987122',
+          name: '王小虎',
+          amount1: '234',
+          amount2: '3.2',
+          amount3: 10
+        }, {
+          id: '12987122',
+          name: '王小虎',
+          amount1: '165',
+          amount2: '4.43',
+          amount3: 12
+        }, {
+          id: '12987124',
+          name: '王小虎',
+          amount1: '324',
+          amount2: '1.9',
+          amount3: 9
+        }, {
+          id: '12987126',
+          name: '王小虎',
+          amount1: '621',
+          amount2: '2.2',
+          amount3: 17
+        }, {
+          id: '12987126',
+          name: '王小虎',
+          amount1: '539',
+          amount2: '4.1',
+          amount3: 15
+        }]
+                }
+            },
+            methods: {
+                objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+                    // 合并第1列  id相同的挨着的项目           
+                    if(columnIndex === 0){
+                        let arr = this.tableData;
+                        let tempMergeIndex = [];
+                        let pos;
+                        for (let i = 0; i < arr.length; i++) {
+                            if (i === 0) {
+                                // 默认第一行rospan是1，正常显示
+                                tempMergeIndex.push(1);
+                                pos = 0;
+                            } else {
+                                // 第二行开始判断是否与前面值相等，相等的话就给前面的rospan+1;当前的r0span为0不显示
+                                if (arr[i].id && (arr[i].id === arr[i - 1].id)) {
+                                    tempMergeIndex[pos] += 1;
+                                    tempMergeIndex.push(0);
+                                } else {
+                                    // 不相等赋值为1正常显示
+                                    tempMergeIndex.push(1);
+                                    pos = i;
+                                }
+                            }
+                        }
+                        return {
+                            rowspan: tempMergeIndex[rowIndex], //行合并的数据
+                            colspan: 1 //列不合并
+                        }
+                    }                  
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <table id="myTable">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>44</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>44</td>
+        </tr>
+
+    </table>
+    <script>
+        /**
+ * 合并表格的列
+ * @param {String} tableId要合并的表格的id
+ * @param {int} fCol开始的列
+ * @param {int} eCol结束的列
+ * @return void
+ */
+   function mergCol(tableId, fCol, eCol){
+    var oTable = document.getElementById(tableId);
+    if (!oTable) {
+        return;
+    }
+    var oTBody = oTable.tBodies[0];
+    var oRows = oTBody.rows;
+    if (oRows.length == 0) {
+        return;
+    }
+    for (var j = fCol; j <= eCol; j++) {
+        var oRow = oRows[0];
+        var rowspan = 1;
+        for (var i = 1; i < oRows.length; i++) {
+            var oNextRow = oRows[i];
+            if (oRow.cells[j].innerHTML == oNextRow.cells[j].innerHTML) {
+                rowspan++;
+                oRow.cells[j].merg = rowspan;
+                oNextRow.cells[j].merg = -1;
+            }
+            else {
+                oRow = oNextRow;
+                rowspan = 1
+            }
+        }
+    }
+    
+    for (var i = oRows.length - 1; i >= 0; i--) {
+        for (var j = eCol; j >= fCol; j--) {
+            var oRow = oRows[i];
+            if (oRow.cells[j].merg == -1) {
+                oRow.cells[j].parentNode.removeChild(oRow.cells[j]);
+            }
+            else 
+                if (oRow.cells[j].merg > 0) {
+                    oRow.cells[j].rowSpan = oRow.cells[j].merg;
+                }
+        }
+    }
+    
+}
+
+mergCol("myTable",0,1)
+    </script>
+</body>
+</html>
