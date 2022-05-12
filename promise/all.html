@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise的all方法</title>
+</head>
+<body>
+    <script>
+        let arr2=[];
+        let pdfList = [
+            'reportA','reportB','reportC','reportD'
+        ];
+        for(var i=0;i<pdfList.length;i++){
+         
+          const p = new Promise((resolve, reject) => {
+              let temp = pdfList[i];
+              let random = Math.random()*3000
+              setTimeout(() => { 
+                  //此时i全是length值 ， 需要在上面缓存i值
+                  console.log(temp,i)           
+             
+                  resolve('result'+ temp);
+              },
+              random);
+          }) 
+          arr2.push(p) 
+        }
+        Promise.all(arr2).then((result) => {
+            console.log(result)
+        }).catch(err=>{
+        
+        })
+    </script>
+</body>
+</html>
