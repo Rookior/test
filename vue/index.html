@@ -1,0 +1,536 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>vue2入门</title>
+        <style>
+            .red {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+
+            <p id="msg" v-bind:title="title">{{ message }}</p>
+            <p v-if="true">
+                v-if 可见
+            </p>
+            <p v-else>
+                else 不可见
+            </p>
+
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+            <button v-on:click="btnClick">点击</button>
+
+            <p>数据双向绑定：<input v-model="message"></p>
+
+            <h1>
+                组件注册
+            </h1>
+            <span class="red">组要在使用前先注册组件</span>
+
+
+            <todo-item :todo="{text:'123'}"></todo-item>
+
+            <todo-list v-for="item in todos" :todo="item"></todo-list>
+
+            <h1>实例</h1>
+
+            <p>vue的data需要被提前注册，否则无法成为响应式的，初始值可以被设置为空</p>
+
+            <p>Vue 实例还暴露了一些有用的实例 property 与方法,它们都有前缀 $，以便与用户定义的 property 区分开来。例如：app.$data、app.$el、app.$watch</p>
+
+            <h1>
+                生命周期
+            </h1>
+            <span class="red">生命周期不要使用箭头函数</span>
+
+            <li v-for="item in life">
+                {{item}}
+            </li>
+
+            <button @click="updateText">修改数据</button>{{text}}
+
+            <h1>模板</h1>
+
+            <p v-once>v-once实现数据初始化后不会改变: {{ text }}</p>
+
+            <p v-html="rawHtml"></p>
+
+            <p v-bind:title="message">v-bind:Attribute 实现html的Attribute绑定</p>
+
+            <p>模板里面可以使用js的<b>单个表达式</b></p>
+
+            <p>v-bind 缩写为 ：</p>
+            <p>v-on 缩写为 @ </p>
+
+            <h1>计算属性和侦听器</h1>
+
+            <p>computed实时更新，无法被直接赋值修改,计算属性具有get和set方法： {{reversedMessage}}</p>
+
+            <p>{{fullName}}</p>
+
+            <p>{{question}} <input type="text" v-model="question" /></p>
+
+
+            <p>数组更新检测</p>
+
+            <h1>组件</h1>
+            <p>一个组件的 data 选项必须是一个函数，才能实现数据独立</p>
+            <p>每个组件必须只有一个根元素</p>
+            <p>子组件通过 Prop 接收父组件传递的数据</p>
+
+            <p>父组件定义attribute属性 建议全部使用小写，大写也会被转换成小写，在子组件的props中需要用小写字母来接收</p>
+
+            <li>父组件：{{parenttext}} <button @click="changeParentText">修改父组件值</button> </li>
+            <child-item :parentText="parenttext" v-on:enlarge-text="childSubmit"></child-item>
+
+            <p>父组件的属性值被子组件props接收后，父组件属性值修改后，子组件也会自动修改</p>
+            <p>子组件修改接收的props属性时，不会更新到父组件</p>
+            <p>父组件通过v-on:[事件名] 来监听子组件 $emit('事件名')" 的同名事件</p>
+
+            <p>
+                v-model的等价写法：
+            <pre>
+                <code>
+                    <span class="hljs-tag">
+                        &lt;<span class="hljs-name">input</span>
+                        <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"searchText"</span>
+                        <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"searchText = $event.target.value"</span>
+                    </span>
+                </code>
+            </pre>
+            </p>
+            <custom-input v-model="inputtext"></custom-input>
+
+            <h1>插槽</h1>
+
+            <p>组件标签之间的内容会替换掉 组件定义中的slot</p>
+            <alert-box>
+                Something happened {{message}}
+            </alert-box>
+
+            <p class="red">如果 组件 的 template 中没有包含一个 slot 元素，则该组件起始标签和结束标签之间的任何内容都会被抛弃。</p>
+
+            <p> slot 标签元素中内容可以 <b>作为后备内容</b> 在组件起始标签和结束标签之间没有任何内容时被显示</p>
+
+            <p>在使用的组件标签内通过 template v-slot:[插槽名称] 来定义具名插槽的内容， 除此以外的内容作为默认插槽插入到slot标签内 , 可缩写为 #[插槽名] </p>
+            <slot-item>
+                <template v-slot:header>
+                    <p>Here might be a page header</p>
+                </template>
+                默认插槽内容添加到slot
+                <template #footer>
+                    <p>Here might be a page footer</p>
+                </template>
+                <template v-slot:hasval>
+                    666666 {{currentuser}}
+                </template>
+
+            </slot-item>
+
+            <p>独占插槽。当只有一个slot时，可以不用template , 直接使用组件标签。独占插槽不能与具名插槽混用。</p>
+            <current-user>
+                父组件渲染值{{ currentuser }}
+            </current-user>
+
+            <current-user v-bind:user="`子组件渲染值${currentuser}`">
+
+            </current-user>
+
+            <h1>组件注册</h1>
+
+            <p>使用kebab-case注册组件 必须使用kebab-case使用<br /> 使用PascalCase注册组件 使用PascalCase或者kebab-case都可以，注意，尽管如此，直接在 DOM
+                (即非字符串的模板) 中使用时只有 kebab-case 是有效的</p>
+
+            <p>全局注册 ：
+            <pre>
+            Vue.component('my-component-name', {
+                /* ... */
+            })
+            </pre>
+            </p>
+
+            <p>局部注册 ：需在 components 选项中定义你想要使用的组件：
+            <pre>
+                var ComponentA = { /* ... */ }
+            </pre>
+            <pre>
+                new Vue({
+                el: '#app',
+                    components: {
+                        'component-a': ComponentA                    
+                    }
+                })
+            </pre>
+            </p>
+            <p class="red">记住全局注册的行为必须在根 Vue 实例 (通过 new Vue) 创建之前发生。</p>
+
+            <h1>prop</h1>
+
+            <p>html的attribute大小写不敏感，<b>全是小写</b>。父组件定义属性是使用kase-base定义，子组件props使用kaseBase接收</p>
+
+            <p>单向数据流:所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父级 prop
+                的更新会向下流动到子组件中，但是反过来则不行。这样会防止从子组件意外变更父级组件的状态，从而导致你的应用的数据流向难以理解。</p>
+
+            <p>props只作为一个初始值后面不跟随父组件变化时，可以定义为子组件的data</p>
+
+            <p>props只作为一个初始化且需要处理时，可以定义为子组件的computed</p>
+
+            <h1>自定义事件</h1>
+
+            <p>始终使用 kebab-case 的事件名。</p>
+
+            <p>prop 进行“双向绑定的简写 .sync修饰符</p>
+
+            <text-document v-bind:doctitle="docTitle" v-on:update:doctitle="docTitle = $event"></text-document>
+
+            <text-document v-bind:doctitle.sync="docTitle"></text-document>
+
+            <h1>边界情况</h1>
+
+            <p>this.$root 访问根节点</p>
+
+            <p>this.$parent 访问父组件实例</p>
+
+            <p>this.$refs.usernameInput 访问子组件实例或子元素 ，需要子组件定义 ref="usernameInput"</p>
+
+            <h1>程序化事件监听器：</h1>
+            <li> 通过 $on(eventName, eventHandler) 侦听一个事件</li>
+            <li> 通过 $once(eventName, eventHandler) 一次性侦听一个事件</li>
+            <li> 通过 $off(eventName, eventHandler) 停止侦听一个事件</li>
+
+            <p>示例代码</p>
+            <pre>
+                // 一次性将这个日期选择器附加到一个输入框上
+                // 它会被挂载到 DOM 上。
+                mounted: function () {
+                // Pikaday 是一个第三方日期选择器的库
+                    this.picker = new Pikaday({
+                        field: this.$refs.input,
+                        format: 'YYYY-MM-DD'
+                    })
+                },
+                // 在组件被销毁之前，
+                // 也销毁这个日期选择器。
+                beforeDestroy: function () {
+                    this.picker.destroy()
+                }
+            </pre>
+            <p>这里有两个潜在的问题：</p>
+            <li>它需要在这个组件实例中保存这个 picker，如果可以的话最好只有生命周期钩子可以访问到它。这并不算严重的问题，但是它可以被视为杂物。</li>
+            <li>我们的建立代码独立于我们的清理代码，这使得我们比较难于程序化地清理我们建立的所有东西。</li>
+            <p>你应该通过一个程序化的侦听器解决这两个问题：</p>
+            <pre>
+                mounted: function () {
+                    var picker = new Pikaday({
+                      field: this.$refs.input,
+                      format: 'YYYY-MM-DD'
+                    })
+                  
+                    this.$once('hook:beforeDestroy', function () {
+                      picker.destroy()
+                    })
+                  }
+            </pre>
+
+            <h1>模板定义的替代品</h1>
+
+            <my-component inline-template>
+                <div>
+                    <p>These are compiled as the component's own template.</p>
+                    <p>Not parent's transclusion content.</p>
+                </div>
+            </my-component>
+
+            <hello-world></hello-world>
+
+            <h1>控制更新</h1>
+
+            <p>vm.$forceUpdate() 迫使 Vue 实例重新渲染。注意它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
+            <p>v-once 创建低开销的静态组件。组件包含大量静态元素时使用，在根元素上添加 v-once attribute 以确保这些内容只计算一次然后缓存起来，需要谨慎使用，避免后面出现页面不刷新的困扰</p>
+
+            <h1>自定义指令</h1>
+
+            <h1>事件修饰符 </h1>
+            <table>
+                <tr>
+                    <td>.stop</td><td>event.stopPropagation()</td>
+                </tr>
+                <tr>
+                    <td>.prevent</td><td>event.preventDefault()</td>
+                </tr>
+                <tr>
+                    <td>.self</td><td>if (event.target !== event.currentTarget) return</td>
+                </tr>
+                <tr>
+                    <td>.enter || .13</td><td>键盘按键</td>
+                </tr>
+            </table>
+           <h1>使用插件</h1>
+           <p>Vue.use(插件名称)</p>
+
+           <h1>过滤器</h1>
+            组件内过滤器
+           <pre>
+            filters: {
+                capitalize: function (value) {
+                  if (!value) return ''
+                  value = value.toString()
+                  return value.charAt(0).toUpperCase() + value.slice(1)
+                }
+              }
+           </pre>
+           全局过滤器
+           <pre>
+            Vue.filter('capitalize', function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+              })              
+           </pre>
+           <p>局部过滤器与全局过滤器重名时，使用局部过滤器</p>
+
+           <h1>深入响应式原理</h1>
+           <p>新增data中对象的属性无法响应式，使用 实例方法vm.$set，这也是全局 Vue.set 方法的别名</p>
+           <p>Vue.set(vm.someObject, 'b', 2) || vm.$set(vm.someObject,'b',2) 示例代码  </p>
+           <p>data为数组时无法直接用this.arrs[indexOfArr]=newValue赋值，需要使用Vue.set(或者vm.$set)进行赋值</p>
+           <p>Vue.set(vm.arrs, indexOfArr, newValue) 示例代码 Vue.set(app.todos, 0, {text:'222'})</p>
+           <p>vm.$set(vm.arrs, indexOfArr, newValue) 示例代码 app.$set(app.todos, 0, {text:'111'})</p>
+
+           <p>异步更新：在数据变化之后等待 Vue 完成更新 DOM，可以在数据变化之后立即使用 Vue.nextTick(callback)</p>
+
+         
+           <example-item></example-item>
+
+        </div>
+        <script type="text/x-template" id="hello-world-template">
+            <p>x-template 需要定义在 Vue 所属的 DOM 元素外。</p>
+        </script>
+
+        <!-- 生产环境版本，优化了尺寸和速度 -->
+        <script src="./js/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script>
+            Vue.component('todo-item', {
+            props:['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+
+        Vue.component('todo-list', {
+            props:['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+
+        Vue.component('child-item', {
+            props:['parenttext'],
+            methods:{
+                changeText:function(){
+                    this.parenttext = "子组件修改自己的值" + Math.random()
+                } ,
+                childClick:function(){
+                    this.$emit('enlarge-text','子组件值'+Math.random())
+                }             
+            },
+            template: `<li>子组件：{{parenttext}}<button v-on:click="$emit('enlarge-text','子组件的parenttext值')">点击执行$emit触发父组件方法</button><button @click="changeText">修改子组件值</button><button v-on:click="childClick">点击执行$emit触发父组件方法</button></li>`
+        })
+        
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: `
+                <input
+                v-bind:value="value"
+                v-on:input="$emit('input', $event.target.value)"
+                >
+            `
+        })
+
+        Vue.component('alert-box', {
+        template: `
+            <div>        
+                <slot></slot>
+            </div>
+        `
+        })
+
+        Vue.component('text-document', {
+            props: ['doctitle'], 
+            template: `
+                <div>        
+                    {{doctitle}}
+                    <button @click="$emit('update:doctitle', '子组件doctitle')">子组件触发父组件方法</button>
+                </div>
+            `
+        })
+
+
+        Vue.component('slot-item', {         
+            template: `
+                <div>        
+                    <slot name="header"></slot>
+                    <slot></slot>
+                    <slot name="footer"></slot>
+                    <slot name="hasval"></slot>
+                </div>
+            `
+        })
+
+        Vue.component('current-user', {
+            props:['user'],
+            template: `
+                <div>        
+                <p>独占插槽：</p>
+                <slot>{{user}}</slot>
+                </div>
+            `
+            })
+
+
+        Vue.component('my-component', {})
+
+        Vue.component('hello-world', {
+            template: '#hello-world-template'
+        })
+
+
+        Vue.component('example-item', {
+            template: '<span>{{ message }}<button @click="updateMessage">更新</button></span>',
+            data: function () {
+                return {
+                message: '未更新'
+                }
+            },
+            methods: {
+                updateMessage: function () {
+                    this.message = '已更新'
+                    console.log(this.$el.textContent) // => '未更新'
+                    this.$nextTick(function () {
+                        // dom更新完成执行
+                        console.log(this.$el.textContent) // => '已更新'
+                    })
+                }
+            }
+        })
+            
+       
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: 'wzy' + '页面加载于 ' + new Date().toLocaleString(),
+                message: 'Hello Vue!',
+                text:'1234567',
+                todos: [
+                    { text: '学习 JavaScript' },
+                    { text: '学习 Vue' },
+                    { text: '整个牛项目' }
+                ],
+                todo:{
+                    text:'12345'
+                },
+                life:[
+                    'beforeCreate:此时不能访问data和menthods等中的东西,可以在这里做一个加载功能',
+                    'created:实例创建此时能访问data和menthods等中的东西，可以在这里做前后端数据交互',
+                    'beforeMount:虚拟dom',
+                    'mouented:虚拟dom挂在成为真实dom，可以获取页面dom节点了',
+                    'beforeUpdate:数据更新前调用，可以修改data。data是新的，但是dom还是旧的,可以在这里做数据检测，做最后修改',
+                    'updated:数据更新后调用，不能修改data数据，否则会进入死循环',
+                    'beforeDestroy:清除定时器/全局监听',
+                    'destroyed'
+                ],
+                rawHtml:'<p class="red">v-html实现html绑定<p>',
+                firstName:'w',
+                lastName:'zy',
+                question:'问题123',
+                parenttext:'父组件的parenttext值',
+                inputtext:'v-model绑定的值',
+                docTitle:'父组件doctitle',
+                currentuser:'wzy'
+            },
+            computed: {            
+                reversedMessage: function () {          
+                    return this.message.split('').reverse().join('')
+                },
+                fullName: {
+                    // getter
+                    get: function () {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[1]
+                    }
+                }
+            },
+            beforeCreate:function(){             
+                console.log('beforeCreate:此时不能访问data和menthods等中的东西')
+            },
+            created:function(){
+                console.log('created:实例创建此时能访问data和menthods等中的东西')
+            },
+            beforeMount:function(){
+                console.log('beforeMount:虚拟dom')
+            },
+            mounted:function(){
+                console.log('mouented:虚拟dom挂在成为真实dom')
+            },
+            beforeUpdate:function(){
+                
+                console.log('beforeUpdate:数据更新前调用')
+
+                console.log('数据更新前'+ this.message + ' ' +  $('#msg').html())
+            },
+            updated:function(){
+               console.log('updated:不能修改data数据，否则会进入死循环')
+
+               console.log('数据更新后'+ this.message)
+            },
+            methods:{
+                btnClick:function(){
+                    alert("点击事件")
+                },
+                updateText:function(){                  
+                    this.text = this.text.split('').reverse().join('')
+                },
+                childSubmit:function(val){
+                    this.parenttext = val
+                },
+                changeParentText:function(){
+                    this.parenttext = this.parenttext + Math.random()
+                }
+            },
+            watch: {
+                // 如果 `question` 发生改变，这个函数就会运行
+                question: function (newQuestion, oldQuestion) {
+                    console.log(newQuestion,oldQuestion)
+                }
+            },
+            beforeDestroy:function(){
+                console.log('beforeDestroy')
+            },
+            destroyed:function(){
+                console.log('destroyed')
+            }
+        })
+        console.log(Vue)
+        // 控制台赋值app.message 会自动更新页面（双向绑定）
+        // 控制台 app.todos.push({ text: '新项目' })  会自动更新页面（双向绑定）
+
+
+       
+        </script>
+    </body>
+
+    </html>
