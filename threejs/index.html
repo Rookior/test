@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			// const scene = new THREE.Scene();
+			// const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			// const renderer = new THREE.WebGLRenderer();
+			// renderer.setSize( window.innerWidth, window.innerHeight );
+			// document.body.appendChild( renderer.domElement );
+
+			// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			// const cube = new THREE.Mesh( geometry, material );
+			// scene.add( cube );
+
+			// camera.position.z = 5;
+
+			// function animate() {
+			// 	requestAnimationFrame( animate );
+
+			// 	cube.rotation.x += 0.01;
+			// 	cube.rotation.y += 0.01;
+
+			// 	renderer.render( scene, camera );
+			// };
+
+			// animate();
+
+            //threejs 我们需要3个组建：场景（scene）、相机（camera）和渲染器（renderer）
+
+            //renderer： 创建一个canvas并且添加到body  
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize( 500, 500 );
+            document.body.appendChild( renderer.domElement );
+
+            // 创建一个相机 camera
+            const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+            camera.position.set( 0, 0, 50 );  //相机位置
+            camera.lookAt( 0, 0, 0 );
+
+            // 创建一个场景 scene
+            const scene = new THREE.Scene();
+
+            //创建一个颜色为了画线
+            const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+            //创建一些点来画线
+            const points = [];
+            points.push( new THREE.Vector3( - 10, 0, 0 ) );
+            points.push( new THREE.Vector3( 0, 10, 0 ) );
+            points.push( new THREE.Vector3( 10, 0, 0 ) );
+            points.push( new THREE.Vector3( -10, 0, 0 ) );
+            const geometry = new THREE.BufferGeometry().setFromPoints( points );
+            //将颜色和点组合在一起，形成线
+            const line = new THREE.Line( geometry, material );
+            //在场景里面添加线
+            scene.add( line );
+            //在渲染器渲染场景和相机
+            renderer.render( scene, camera );
+
+
+
+            //创建canvas对象用来绘制文字
+            let position = {x:0,y:0,z:0};
+            let canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+            ctx.fillStyle = "rgb(255,255,250)";
+            ctx.font = "bolder 16px Arial ";
+
+            ctx.fillText("35KV", 0, 0);
+            ctx.globalAlpha = 1;
+
+            // 将画布生成的图片作为贴图给精灵使用，并将精灵创建在设定好的位置
+            let texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true;
+            
+		</script>
+	</body>
+</html>
