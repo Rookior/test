@@ -320,7 +320,6 @@
         </script>
 
         <!-- 生产环境版本，优化了尺寸和速度 -->
-        <script src="./js/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
         <script>
             Vue.component('todo-item', {
@@ -490,7 +489,7 @@
                 
                 console.log('beforeUpdate:数据更新前调用')
 
-                console.log('数据更新前'+ this.message + ' ' +  $('#msg').html())
+                console.log('数据更新前'+ this.message + ' ' + document.getElementById("msg").innerText)
             },
             updated:function(){
                console.log('updated:不能修改data数据，否则会进入死循环')
