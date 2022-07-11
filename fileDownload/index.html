@@ -34,12 +34,27 @@
                 xhr.open("GET", url, true);
                 xhr.responseType = "blob";
 
+                xhr.onprogress = function (event) {
+               
+                    if (event.lengthComputable) {
+
+                        console.log(event.loaded);
+                        console.log(event.total);  
+                        var percentComplete = ((event.loaded / event.total) * 100).toFixed(2);
+                        console.log("下载进度：" + percentComplete + '%')
+                        if(percentComplete == 1){
+                           console.log("下载完成")
+                        }
+                            
+                    }
+                };
 
                 xhr.onload = function () {
                     if (xhr.status === 200) {
+                        console.log("请求完成")
                         DISABLE_QUERY.value = false;
                         const tmpDown = new Blob([xhr.response]);
-                        const fileName = xhr.getResponseHeader('Content-Disposition').split(';')[1].split('=')[1];
+                        const fileName = 'base.apk' || xhr.getResponseHeader('Content-Disposition').split(';')[1].split('=')[1];
                         resolve({
                             "blob": tmpDown,
                             "fileName": fileName
@@ -88,7 +103,7 @@
         }
 
 
-        const downloadUrl = document.getElementById('input').value;
+       
 
 
         var DISABLE_QUERY = {
@@ -98,13 +113,14 @@
             },
             set value (newVal) {
                 if (newVal == true) {
-                    console.log(newVal)
+                   // console.log(newVal)
                 } else {
-                    console.log(newVal)
+                   // console.log(newVal)
                 }
                 this._value = newVal
             }
         };
+        const downloadUrl = document.getElementById('input').value;
         function download () {
             getBlob(downloadUrl).then(result => {
                 saveAs(result.blob, result.fileName);
