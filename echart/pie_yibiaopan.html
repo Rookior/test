@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	
+	<div id="main" style="width: 600px;height:800px;"></div>
+	<script src="./js/echarts4.js"></script>
+    <script>
+        // 发电机转速
+		var tempEchart2Data = [{
+			name: '发电机转速',
+			unit: '',
+			value: 0, //数值占百分比100/200*100
+			text:'0' //数值
+		}];
+
+		tempEchart2Option = {
+			backgroundColor: 'transparent',
+			series: (function() {
+				var result = [];
+
+				tempEchart2Data.forEach(function(item) {
+					result.push({
+						name: item.name,
+						type: 'gauge',
+						radius: '70.10%',
+						startAngle: 225,
+						endAngle: -45,
+						min: 0,
+						max: 100,
+						axisLine: {
+							show: true,
+							lineStyle: {
+								// 蓝色分割宽度
+								width: 6,
+								shadowBlur: 0,
+								color: [
+									[0, 'transparent'],
+									[0.1, '#194383'],
+									[0.108, 'transparent'],
+									[0.2, '#194383'],
+									[0.208, 'transparent'],
+									[0.3, '#194383'],
+									[0.308, 'transparent'],
+									[0.4, '#194383'],
+									[0.408, 'transparent'],
+									[0.5, '#194383'],
+									[0.508, 'transparent'],
+									[0.6, '#194383'],
+									[0.608, 'transparent'],
+									[0.7, '#194383'],
+									[0.708, 'transparent'],
+									[0.8, '#194383'],
+									[0.808, 'transparent'],
+									[0.9, '#194383'],
+									[0.908, 'transparent'],
+									[1, '#194383']
+								],
+							}
+						},
+						axisTick: {
+							show: false,
+						},
+						splitLine: {
+							show: 0,
+						},
+						axisLabel: {
+							show: 0
+						},
+						pointer: {
+							show: false,
+						},
+						detail: {
+							show: false,
+						},
+						data: [{
+							show: false,
+						}]
+					}, {
+						name: item.name,
+						type: 'gauge',
+						radius: '73.10%',
+						startAngle: 225,
+						endAngle: -45,
+						min: 0,
+						max: 100,
+						axisLine: {
+							show: true,
+							lineStyle: {
+								// 指示阴影宽度
+								width: '35',
+								color: [
+									[
+										item.value / 100, new echarts4.graphic.LinearGradient(0, 1, 0, 0, [
+										{
+											offset: 0.1,
+											color: "rgba(22,128,245,.0)"
+										},
+										{
+											offset: 0.3,
+											color: "rgba(22,128,245,.3)"
+										},
+										{
+											offset: 0.6,
+											color: "rgba(22,128,245,.5)"
+										},
+										{
+											offset: 1,
+											color: "rgba(22,128,245,.7)"
+										}
+									])
+									],
+									[
+										1, 'rgba(28,128,245,.0)'
+									]
+								],
+							}
+						},
+						axisTick: {
+							show: false,
+						},
+						splitLine: {
+							show: 0,
+						},
+						axisLabel: {
+							show: 0
+						},
+						pointer: {
+							show: false,
+							length: '100%'
+						},
+						detail: {
+							show: true,
+							offsetCenter: [0, '-10%'],
+							textStyle: {
+								fontSize: 28,
+								color: '#0AFCE0'
+							},
+							formatter: item.text,
+
+
+						},
+						itemStyle: {
+							color: 'rgba(28, 128, 245,.3)',
+							borderColor: 'rgba(28, 128, 245,1)',
+						},
+						data: [{
+							value: item.value
+						}]
+					}, {
+						type: 'gauge',
+						radius: '20%',
+						splitNumber: 0,
+						splitLine: {
+							show: false
+						},
+						min: 0,
+						max: 100,
+						startAngle: 225,
+						endAngle: -45,
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: false,
+							lineStyle: {
+								width: 20,
+								shadowBlur: 0,
+								color: [
+									[0, 'transparent'],
+									[1, 'transparent']
+								],
+							}
+						},
+
+						pointer: {
+							show: 0
+						},
+						axisTick: {
+							show: false
+						},
+						detail: {
+							show: true,
+							offsetCenter: [0, '70%'],
+							formatter: 'r/min',
+							textStyle: {
+								fontSize: 16,
+								color: '#808c9a',
+								lineHeight: 50,
+								fontWeight: '100',
+
+							}
+
+
+
+						}
+					}, {
+						type: 'gauge',
+						radius: '60%',
+						splitNumber: 20,
+						min: 0,
+						max: 100,
+						startAngle: 225,
+						endAngle: -45,
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								width: 0,
+								color: [
+									[1,
+										new echarts4.graphic.LinearGradient(0, 0, 1, 0, [
+
+											{
+												offset: 1,
+												color: '#194383'
+											},
+											{
+												offset: 1,
+												color: '#194383'
+											}
+										])
+									]
+								],
+							}
+						},
+
+						splitLine: {
+							show: true,
+							length: 6,
+							color: "#90D1FE"
+
+						},
+						axisTick: {
+							show: true,
+							length: 4,
+
+
+						},
+						pointer: {
+							show: 0
+						},
+						detail: {
+							show: 0
+						}
+					}, {
+						type: 'gauge',
+						radius: '90%',
+						splitNumber: 10,
+						splitLine: {
+							show: false
+						},
+						min: 0,
+						max: 100,
+						startAngle: 225,
+						endAngle: -45,
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: false,
+							lineStyle: {
+								width: 20,
+								shadowBlur: 0,
+								color: [
+									[0, 'transparent'],
+									[1, 'transparent']
+								],
+							}
+						},
+
+						pointer: {
+							show: 0
+						},
+						axisTick: {
+							show: false
+						},
+						detail: {
+							show: true,
+							offsetCenter: [0, '60%'],
+							formatter: item.name,
+							textStyle: {
+								fontSize: 16,
+								color: '#ffffff',
+								lineHeight: 50,
+								fontWeight: '100',
+
+							}
+
+
+
+						}
+					},{
+						type: 'gauge',
+						radius: '73%',
+						splitNumber: 10,
+						splitLine: {
+							show: false
+						},
+						min: 0,
+						max: 100,
+						startAngle: 225,
+						endAngle: -45,
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								width: 2,
+								shadowBlur: 0,
+								color: [
+									[0.05, '#3F6BFC'],
+									[0.10, '#4072FB'],
+									[0.15, '#4077F9'],
+									[0.20, '#417BF9'],
+									[0.25, '#4282F8'],
+									[0.30, '#4385F7'],
+									[0.35, '#4389F6'],
+									[0.40, '#448FF5'],
+									[0.45, '#4594F4'],
+									[0.50, '#4599F3'],
+									[0.55, '#469EF2'],
+									[0.60, '#46A3F1'],
+									[0.65, '#46A6F0'],
+									[0.70, '#24befe'],
+									[0.75, '#12d1ff'],
+									[0.80, '#06defe'],
+									[0.85, '#05e0ff'],
+									[0.90, '#06deff'],
+									[0.95, '#06deff'],
+									[1, '#06deff']
+								],
+
+							}
+
+						},
+						pointer: {
+							show: 0
+						},
+						axisTick: {
+							show: false
+						},
+						detail: {
+							show: false
+						}
+
+					}, {
+						type: 'gauge',
+						radius: '82%',
+						splitNumber: 10,
+						splitLine: {
+							show: false
+						},
+						min: 0,
+						max: 100,
+						startAngle: 225,
+						endAngle: -45,
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								width: 2,
+								shadowBlur: 0,
+								color: [
+									[0.05, '#0A498E'],
+									[0.10, '#0C58A7'],
+									[0.15, '#254DD3'],
+									[0.20, '#355FEC'],
+									[0.25, '#4072FB'],
+									[0.30, '#355FEC'],
+									[0.35, '#254DD3'],
+									[0.40, '#06478B'],
+									[0.45, '#0A246C'],
+									[0.50, '#071848'],
+									[0.55, '#071848'],
+									[0.60, '#0A246C'],
+									[0.65, '#06478B'],
+									[0.70, '#254DD3'],
+									[0.75, '#355FEC'],
+									[0.80, '#355FEC'],
+									[0.85, '#254DD3'],
+									[0.90, '#0C58A7'],
+									[0.95, '#0A498E'],
+									[1, '#0A498E']
+								],
+
+							}
+
+						},
+						pointer: {
+							show: 0
+						},
+						axisTick: {
+							show: false
+						},
+						detail: {
+							show: false
+						}
+
+					} );
+				});
+
+				return result;
+			})()
+		};
+
+	
+
+
+
+        // tempEchart2Option.series[1].axisLine={
+		// 				show: true,
+		// 				lineStyle: {
+		// 					// 指示阴影宽度
+		// 					width: '35',
+		// 					color: [
+		// 						[
+		// 							//百分比赋值20
+		// 							parentPercentage2, new echarts4.graphic.LinearGradient(0, 1, 0, 0, [
+		// 							{
+		// 								offset: 0.1,
+		// 								color: "rgba(22,128,245,.0)"
+		// 							},
+		// 							{
+		// 								offset: 0.3,
+		// 								color: "rgba(22,128,245,.3)"
+		// 							},
+		// 							{
+		// 								offset: 0.6,
+		// 								color: "rgba(22,128,245,.5)"
+		// 							},
+		// 							{
+		// 								offset: 1,
+		// 								color: "rgba(22,128,245,.7)"
+		// 							}
+		// 						])
+		// 						],
+		// 						[
+		// 							1, 'rgba(28,128,245,.0)'
+		// 						]
+		// 					],
+		// 				}
+		// 			},
+		// 					tempEchart2Option.series[1].detail.formatter = parentText2; //百分之60
+
+
+							 // 基于准备好的dom，初始化echarts实例
+							 var myChart = echarts4.init(document.getElementById('main'));
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(tempEchart2Option);
+    </script>
+</body>
+</html>

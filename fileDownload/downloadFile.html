@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+       
+
+        function download(url, filename) {
+            //使用xmlhttprequest
+            const req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.responseType = 'blob';
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.send();       //query-string             
+            //var formData = new FormData();
+            //formData.append("username", "Groucho");
+            //req.send(formData);  //form-data
+            //req.send(JSON.stringify({    //payload 
+            //    "username": "Groucho"
+            //})); 	
+
+            req.onload = function () {
+                const data = req.response;
+                const a = document.createElement('a');
+                const blob = new Blob([data]);
+                const blobUrl = window.URL.createObjectURL(blob);
+                a.href = blobUrl;
+                a.download = filename;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+	//使用window.fetch
+	// return fetch(url,{//method,headers,body}
+    this.download(
+            'http://192.168.188.45:9091/shandongpower/freeReport/exportElectricTargetData?querydata=' + JSON.stringify(querydata), '指标电量表格.xlsx')
+    .then(res => res.blob().then(blob => {
+                //     let a = document.createElement('a');
+                //     let url = window.URL.createObjectURL(blob);
+                //     a.href = url;
+                //     a.download = filename;
+                //     a.click();
+                //     window.URL.revokeObjectURL(url);
+                // }))
+            }
+
+
+    </script>
+</body>
+
+</html>

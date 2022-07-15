@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="month_dian" style="width: 660px;height: 365px;"></div>
+    <script src="./js/echarts4.js"></script>
+    <script>
+     var    month_dianOption = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [150, 230, 224, 218, 135, 147, 260],
+      type: 'line',
+      markLine:{
+        symbol:'none',
+        data:[
+          { type: 'average', name: 'Avg' },
+          {
+              name: '平均值',
+              yAxis: 100,
+             
+              label: {
+                position: 'end',
+                formatter: '平均值100'
+              }
+          }
+          ]
+      }
+    },{
+      type: 'line',
+      itemStyle:{
+        color:'#f00'
+      },
+      markLine:{
+        symbol:'none',
+        data:[
+          {
+              name: '平均值',
+              yAxis: 200,
+              label: {
+                color:'#f00',
+                position: 'end',
+                formatter: '平均值200'
+              }
+          }
+          ]
+      }
+    }
+  ]
+};
+
+var month_dianChart = echarts4.init(document.getElementById('month_dian'));
+        month_dianChart.setOption(month_dianOption);
+    </script>
+</body>
+</html>
