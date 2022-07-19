@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改变this指向</title>
+</head>
+
+<body>
+    <script>
+        /***   
+         *  相同之处：
+            改变函数体内 this 的指向。
+    
+            不同之处：
+            call、apply的区别：接受参数的方式不一样。
+            bind：不立即执行。而apply、call 立即执行。
+        ***/
+        function Person (name) {
+            this.name = name;
+        }
+        Person.prototype = {
+            constructor: Person,
+            showName: function () {
+                console.log(this.name);
+                console.log(this)
+            }
+        }
+        var person = new Person('wzy');
+        person.showName();
+
+
+        var animal = {
+            name: 'yyy'
+        }
+
+        //将animal作为person的this指向
+        person.showName.call(animal);
+
+        person.showName.apply(animal);
+
+        person.showName.bind(animal)();//不会立即执行，需要调用
+
+        
+        var arr = [1, 5, 9, 3, 5, 7];
+        Math.max.apply(Math, arr);
+        Math.max.call(Math, 1, 5, 9, 3, 5, 7);
+        Math.min.apply(Math, arr);
+        Math.min.call(Math, 1, 5, 9, 3, 5, 7);
+    </script>
+</body>
+
+</html>
