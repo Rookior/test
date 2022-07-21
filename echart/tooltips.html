@@ -1,74 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <script src="./js/jquery-1.11.1.min.js"></script>
-    <script src="./js/echarts4.js"></script>
-    <div id="main" style="width: 400px;height:400px;"></div>
-    <script>
-       var option = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  tooltip:{
-    formatter :function(params,ticket){
-        return '<div id="tool" style="width:50px;height:50px"></div>'
-    }
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line'
-    }
-  ]
-};
-         // 基于准备好的dom，初始化echarts实例
-         var myChart = echarts4.init(document.getElementById('main'));
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-
-         setInterval(function(){
-          var option2  = {
-  tooltip: {
-    show:false
-   
-  },
-  legend: {
-    show:false,
-   
-    left: 'center'
-  },
-  series: [
-    {
-     
-      type: 'pie',
-      radius: ['40%', '70%'],
-  
-      label: {
-        show: false,     
+  <script src="./js/jquery-1.11.1.min.js"></script>
+  <script src="./js/echarts5.js"></script>
+  <div id="main" style="width: 400px;height:400px;"></div>
+  <script>
+    var refresh = true;
+    var option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
       },
-      labelLine: {
-        show: false
+      yAxis: {
+        type: 'value'
       },
-      data: [1048,735,580,484,300]
-    }
-  ]
-};
-            var myChart2 = echarts4.init(document.getElementById('tool'));
+      tooltip: {
 
-            // 使用刚指定的配置项和数据显示图表。
-            myChart2.setOption(option2);
-        },1000)
-        </script>
+        transitionDuration: 0,
+        formatter: function (params, ticket) {
+          console.log(111)
+          refresh = true;
+          return '<div id="tool" style="width:50px;height:50px"></div>'
+        }
+      },
+      series: [
+        {
+          data: [150, 230, 224, 218, 135, 147, 260],
+          type: 'line'
+        },
+        {
+          data: [10, 30, 24, 18, 35, 47, 60],
+          type: 'line'
+        }
+      ]
+    };
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts5.init(document.getElementById('main'));
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+    var timer = null;
+    var myChart2
+
+
+
+    myChart.on('mouseout', 'series', function (params) {
+      mouseoutEvent(params);
+
+
+    });
+    myChart.on('mouseover', 'series', function (params) {
+      mouseoverEvent(params);
+    });
+
+
+
+    function mouseoverEvent(params) {
+      console.log("over", params)
+      refresh = true;
+      timer = setInterval(function () {
+        if (refresh) {
+          refresh = false;
+          drowTool(params)
+        }
+        console.log('interval')
+      }, 100)
+
+    }
+    function mouseoutEvent(params) {
+      console.log("out", params);
+      window.clearInterval(timer)
+
+    }
+
+    function drowTool(params) {
+
+      console.log('draw')
+      var option2 = {
+        tooltip: {
+          show: false
+
+        },
+        legend: {
+          show: false,
+
+          left: 'center'
+        },
+        series: [
+          {
+
+            type: 'pie',
+            radius: ['40%', '70%'],
+
+            label: {
+              show: false,
+            },
+            labelLine: {
+              show: false
+            },
+            data: [1048, 735, 580, 484, 300]
+          }
+        ]
+      };
+
+      myChart2 = echarts5.init(document.getElementById('tool'));
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart2.setOption(option2);
+
+    }
+  </script>
 </body>
+
 </html>
