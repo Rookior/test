@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS权值新方案layer</title>
+    <style>
+       
+       
+
+        @layer one{
+            .p{
+                color:#f00
+            }
+            
+        }
+        @layer two{
+            p{
+                color:#0f0
+            }     
+        }
+
+        /* @layer two{
+    body{
+        color:#f00 !important
+    }
+}
+@layer one{
+    body{
+        color:#0f0 !important
+    }
+} */
+
+body{
+    color:#f00
+}
+@layer one{
+    body{
+        color:#0f0
+    }
+}
+    </style>
+</head>
+<body>
+    <p class="p">1234</p>
+</body>
+</html>
