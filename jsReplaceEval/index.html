@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var callback = new Function ('json', 'return json');
+        var evil = function(str){
+            return new Function('return ' + str)()
+        }
+       
+        var aaa = 'callback({"STAT":true,"CODE":200,"MESG":{"weatherData":{"stationCode":"54342","stationName":"沈阳","highTemp":30,"dayWeather":"雷阵雨","dayWeatherCode":4,"dayWindDirection":"南风","dayWindPower":"3~4级","lowTemp":23,"nightWeather":"中到大雨","nightWeatherCode":22,"nightWindDirection":"南风","nightWindPower":"微风"},"weatherTime":"2022\/07\/28","updateTime":"2022\/07\/28 12:00","ddd":["大雨","雷阵雨","中雨","阴","多云","小雨","晴","阵雨","中到大雨","暴雨","大到暴雨","小到中雨","大暴雨"]},"OPCS":"OpenIOE","LINK":"Meteor","CONT":"Weather","ISTR":"get","LMBD":"cityWeather","BETA":"1.0.0","TYPE":"jsonp"})'
+        var result = new Function('return ' + aaa)()
+        
+        console.log(result)
+
+        console.log(evil(aaa))
+        console.log(eval(aaa))
+    </script>
+</body>
+</html>
