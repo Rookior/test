@@ -12,17 +12,38 @@
     </div>
     <script src="../js/jquery-1.11.1.min.js"></script>
     <script>
-        var i = setInterval(function(){
-            setTimeout(function(){
-                $('#a').empty();
-                $('#a').append("<a onclick='aa()'>"+Math.random()+"</a>")
-            },2000)
+        // var i = setInterval(function(){
+        //     setTimeout(function(){
+        //         $('#a').empty();
+        //         $('#a').append("<a onclick='aa()'>"+Math.random()+"</a>")
+        //     },2000)
            
-        },2000)
-        function aa(){
-            window.clearInterval(i)
-           $('#a').html("99999999999999")
-        }
+        // },2000)
+        // function aa(){
+        //     window.clearInterval(i)
+        //    $('#a').html("99999999999999")
+        // }
+        $.ajax({
+            url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=关键词&json=1",    //设置请求的url
+            dataType:"json",   //设置数据返回格式为json
+            async:false,//设置请求是否异步，默认为异步。
+            data:{"id":"value"},    //设置发送的数据
+            type:"GET",   //设置请求方式
+            beforeSend:function(){
+                //设置请求前的回调
+            },
+            success:function(req){
+                //设置请求成功后的回调
+                console.log(333)
+            },
+            complete:function(){
+                //设置请求完成后的回调
+            },
+            error:function(){
+                //设置请求出错处理的回调
+            }
+        });
+        console.log(222)
     </script>
 </body>
 </html>

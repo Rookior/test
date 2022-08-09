@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list {
+            /* border:1px solid #1C6FAE; */
+            padding: 10px 20px 20px;
+            border-top: 0;
+        }
+
+        .item {
+            margin: 5px;
+        }
+
+        #result {
+            margin: 20px;
+        }
+
+        .add_btn {
+            border: 1px solid transparent;
+            color: #fff;
+            background: url(./img/2.png) no-repeat;
+            background-size: 100% 100%;
+            border-radius: 0;
+            position: fixed;
+            right: 104px;
+            top: 170px;
+            height: 30px;
+        }
+
+        .tan {
+            position: fixed;
+            top: 10%;
+            left: 5%;
+            right: 5%;
+            bottom: 10%;
+
+            color: #fff;
+            padding: 0 20px;
+            width: 70%;
+            max-width: 1800px;
+            max-height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(to right, #155382, #1d71b1, #155382);
+            text-align: center;
+            padding: 0 5px 5px 5px;
+            border: 2px solid #016095;
+            border-top: 2px solid #009cea;
+        }
+
+        .el-dialog__header {
+            position: relative;
+            text-align: left;
+            padding: 10px 20px 10px;
+        }
+
+        .el-dialog__header::before {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 5px;
+            border-radius: 5px;
+            width: 6px;
+            height: 50%;
+            background-color: #00d161;
+        }
+
+        .el-dialog__headerbtn {
+            border: 1px solid #00cbff;
+            border-radius: 50%;
+            height: 22px;
+            width: 22px;
+            top: 12px;
+            position: absolute;
+            right: 20px;
+            padding: 0;
+            background: 0 0;
+            outline: 0;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .el-dialog__body {
+            padding: 20px 0;
+            color: #00cbff;
+            flex: 1;
+            height: 0;
+            background: #04172b;
+            font-size: 14px;
+            word-break: break-all;
+            text-align: left;
+            padding: 20px;
+        }
+
+        p {
+            margin: 0;
+
+        }
+
+        .label-bg {
+            background: rgba(213, 237, 245, .1);
+            font-size: 13px;
+            color: #00cbff;
+            padding: 0.2em 0.6em 0.3em;
+        }
+
+        .tan-item {}
+
+        .showitem {
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 2px 4px;
+            border-radius: 10px;
+            background: #082640;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .symbol {
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 2px;
+            border-radius: 10px;
+            background: #888;
+            min-width: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .item {
+            cursor: pointer;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            border: 1px solid transparent;
+            color: #fff;
+
+        }
+
+        .bottomBtn {
+            background: url(./img/2.png) no-repeat;
+            background-size: 100% 100%;
+            border-radius: 0;
+            line-height: 30px;
+            height: 30px;
+            width: 70px;
+            display: inline-block;
+
+        }
+
+        .input {
+            background: #032032;
+            border: 1px solid #096fae;
+            border-radius: 0;
+            color: #fff;
+            padding: 4px;
+        }
+
+        .input2 {
+            background: #032032;
+            border: 1px solid #096fae;
+            border-radius: 0;
+            color: #fff;
+            padding: 2px;
+        }
+
+        .input:focus,
+        input:active,
+        .input2:focus {
+            outline: 0;
+
+        }
+
+        .symbol::after,
+        .showitem::after {
+            content: 'x';
+            margin-top: -10px;
+            margin-left: -5px;
+            border: 1px solid #ccc;
+            position: absolute;
+            border-radius: 10px;
+            width: 12px;
+            height: 12px;
+            line-height: 10px;
+            text-align: center;
+            background: #ccc;
+            color: #8f8f8f;
+
+        }
+
+      
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div style="width: 100%;height:100%;background: url(./img/1.png) no-repeat;background-size: 100% 100%;">
+            <button class="add_btn" @click="showTan()">新增自定义指标</button>
+
+        </div>
+        <div class="tan" v-show="tan">
+            <div class="el-dialog__header"><span class="el-dialog__title">新增自定义指标</span><button type="button"
+                    aria-label="Close" class="el-dialog__headerbtn" @click="save()">X</button></div>
+
+            <div class="el-dialog__body">
+                <div class="tan-item">
+
+                    <div class="" style="margin-bottom:20px;display: flex;align-items: center;">
+                        <span>
+                            自定义指标名称：
+                        </span>
+                        <input class="input" type="text" />
+
+                    </div>
+                </div>
+                <div class="tan-item">
+                    <div class="label-bg">
+                        <div style="display: flex;justify-content: space-between; ">
+                            <span> 指标选择：
+
+
+                            </span>
+                            <div style="display: flex;align-items: center;">
+                                <input class="input2" v-model="searchText" /><span
+                                    style="margin-left: 5px;cursor: pointer;" @click="search()">搜索</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="list">
+
+                        <button class="item" @click="addResult(item)" v-for="item in listShow">{{item.name}}</button>
+                    </div>
+                </div>
+                <div class="tan-item">
+                    <p class="label-bg">计算符号选择：</p>
+                    <div class="list">
+                        <button style="min-width: 50px;" class="item" @click="addResult(item)"
+                            v-for="item in cal">{{item.name}}</button>
+                    </div>
+                </div>
+
+
+
+                <div style="color:#ccc">
+                    <p class="label-bg">公式数据：</p>
+                    <div v-html="html">
+                    </div>
+
+
+
+
+                </div>
+                <div class="tan-item">
+                    <p class="label-bg">最终运算展示：</p>
+                    <div class="list">
+                        <span class="item itemHasClose" v-for="(item,index) in html"  @dragenter="dragenter($event, index)" @dragover="dragover($event, index)"
+                        @dragstart="dragstart(index)" draggable :key="item.name">
+
+                            <span class="showitem" v-if="item.type == 1" @click="deleteResult(index)">
+                                {{item.name}}</span>
+                            <span class="symbol" v-else @click="deleteResult(index)"> {{item.name}}</span>
+
+                        </span>
+
+
+                    </div>
+                </div>
+
+                <div class="bottom">
+                    <span class="bottomBtn" @click="save()">保存</span>
+                </div>
+
+
+
+
+              
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../vue/js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    tan: false,
+                    html: [],
+                    searchText: '',
+                    listShow: [],
+                    list: [
+
+                        { type: 1, id: 1001, parentId: 1, name: "集电线发电量", value: "CMPT_ProductionLines", chkDisabled: false },
+                        { type: 1, id: 1020, parentId: 1, name: "理论发电量", value: "CMPT_ProductionTheory", chkDisabled: false },
+                        { type: 1, id: 1002, parentId: 1, name: "主高送电量", value: "CMPT_OnGridProduction", chkDisabled: false },
+                        { type: 1, id: 1003, parentId: 1, name: "购网电量", value: "CMPT_PurchaseProduction", chkDisabled: false },
+                        { type: 1, id: 1004, parentId: 1, name: "场用电量", value: "CMPT_HouseProduction", chkDisabled: false },
+                        { type: 1, id: 1005, parentId: 1, name: "场用电率", value: "CMPT_HouseRate", chkDisabled: false },
+                        { type: 1, id: 1006, parentId: 1, name: "综合场用电量", value: "CMPT_CompreHouseProduction", chkDisabled: false },
+                        { type: 1, id: 1007, parentId: 1, name: "综合场用电率", value: "CMPT_RateOfHousePower", chkDisabled: false },
+                        { type: 1, id: 1008, parentId: 1, name: "限电损失电量", value: "CMPT_LimPwrLost", chkDisabled: false },
+
+                        { type: 1, id: 1009, parentId: 1, name: "平均风速", value: "CMPT_WindSpeed_Avg", chkDisabled: false },
+                        { type: 1, id: 1010, parentId: 1, name: "最大风速", value: "CMPT_WindSpeed_Max", chkDisabled: false },
+                        { type: 1, id: 1011, parentId: 1, name: "有效风时数", value: "CMPT_WindSpeedValid", chkDisabled: false },
+                        { type: 1, id: 1012, parentId: 1, name: "设备发电量", value: "CMPT_Production", chkDisabled: false },
+                        { type: 1, id: 1013, parentId: 1, name: "利用小时", value: "CMPT_UseHours", chkDisabled: false },
+
+                        { type: 1, id: 1014, parentId: 1, name: "风机可利用率", value: "CMPT_AvailabilityFan", chkDisabled: false },
+                        { type: 1, id: 1014, parentId: 1, name: "风场可利用率", value: "CMPT_AvailabilityFarm", chkDisabled: false },
+                        { type: 1, id: 1015, parentId: 1, name: "故障次数", value: "CMPT_UserStatus_Fault_Cnt", chkDisabled: false },
+                        { type: 1, id: 1016, parentId: 1, name: "故障时长", value: "CMPT_UserStatus_Fault_Hours", chkDisabled: false },
+                        { type: 1, id: 1017, parentId: 1, name: "故障损失电量", value: "CMPT_UserStatus_Fault_Lost", chkDisabled: false },
+                        { type: 1, id: 1018, parentId: 1, name: "有功功率", value: "CMPT_ActPower_Avg", chkDisabled: false },
+                        { type: 1, id: 1019, parentId: 1, name: "最大有功功率", value: "CMPT_ActPower_Max", chkDisabled: false },
+
+
+                        // {id: 1020, parentId:1, name: "限电次数", value: "CMPT_LimPwrCnt", chkDisabled: false},
+                        // {id: 1021, parentId:1, name: "限电时间", value: "CMPT_LimPwrHours", chkDisabled: false},
+                        // {id: 1022, parentId:1, name: "可调小时数", value: "CMPT_UserForGenerationHours", chkDisabled: false},
+                        // {id: 1023, parentId:1, name: "满发小时数", value: "CMPT_FullHours", chkDisabled: false},
+                        { type: 1, id: 1024, parentId: 1, name: "运行小时", value: "CMPT_OnGridHours", chkDisabled: false },
+                        { type: 1, id: 1025, parentId: 1, name: "功率一致性", value: "CMPT_PowerConsRate", chkDisabled: false },
+                        { type: 1, id: 1026, parentId: 1, name: "左偏航", value: "CMPT_YawLfCnt", chkDisabled: false },
+                        { type: 1, id: 1027, parentId: 1, name: "右偏航", value: "CMPT_YawRtCnt", chkDisabled: false },
+                        { type: 1, id: 1028, parentId: 1, name: "偏航总数", value: "CMPT_YawCnt", chkDisabled: false },
+
+
+                        { type: 1, id: 2001, parentId: 2, name: "照时数", value: "CMPT_RadiationHours", chkDisabled: false },
+                        { type: 1, id: 2002, parentId: 2, name: "最大光照强度", value: "CMPT_Radiation_Max", chkDisabled: false }
+                    ],
+                    cal: [
+                        {
+                            name: "+",
+                            value: '+',
+                            type: 2
+                        },
+                        {
+                            name: "-",
+                            value: '-',
+                            type: 2
+                        },
+                        {
+                            name: "*",
+                            value: '*',
+                            type: 2
+                        },
+                        {
+                            name: "/",
+                            value: '/',
+                            type: 2
+                        },
+                        {
+                            name: "(",
+                            value: '(',
+                            type: 2
+                        },
+                        {
+                            name: ")",
+                            value: ')',
+                            type: 2
+                        },
+                    ],
+
+
+                    
+                    dragIndex: '',
+                   
+
+
+
+                }
+            },
+            computed: {
+                result () {
+                    return this.html
+                }
+            },
+            mounted () {
+                this.listShow = this.list;
+            },
+            methods: {
+                addResult (item) {
+                    this.html.push(item)
+                },
+                deleteResult (index) {
+                    this.html.splice(index, 1)
+                },
+                showTan () {
+                    this.tan = true
+                },
+                save () {
+                    this.tan = false
+                },
+                search () {
+                    var ttt = this.list.filter(item => {
+                        return item.name.includes(this.searchText)
+                    })
+                    this.listShow = ttt;
+                },
+
+
+                dragstart (index) {
+                    this.dragIndex = index;
+                },
+                dragenter (e, index) {
+                    console.log(index)
+                    e.preventDefault();
+                    // 避免源对象触发自身的dragenter事件
+                    if (this.dragIndex !== index) {
+                        const source = this.html[this.dragIndex];
+                        this.html.splice(this.dragIndex, 1);
+                        this.html.splice(index, 0, source);
+                        // 排序变化后目标对象的索引变成源对象的索引
+                        this.dragIndex = index;
+                    }
+                },
+                dragover (e, index) {
+                    e.preventDefault();
+                },
+
+            },
+        })
+
+
+    </script>
+</body>
+
+</html>

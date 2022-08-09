@@ -1,133 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>文件下载123</title>
     <style>
-        #input {
-            width: 60%;
-            height: 20%;
-            resize: none;
-            font-size: 20px;
-        }
+      #input {
+        width: 60%;
+        height: 20%;
+        resize: none;
+        font-size: 20px;
+      }
 
-        button {
-            padding: 20px;
-            font-size: 20px;
-        }
+      button {
+        padding: 20px;
+        font-size: 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <textArea rows="5" id="input">http://api.openioe.net/File/DigitalLS/App/WebPage/Apk/palmhengmu_App_1_0_0_Res_2_0_2.apk</textArea>
+  <body>
+    <textarea rows="5" id="input">
+http://api.openioe.net/File/DigitalLS/App/WebPage/Apk/palmhengmu_App_1_0_0_Res_2_0_2.apk</textarea
+    >
     <br />
     <button onclick="download()">下载</button>
     <script>
-        function getBlob (url) {
-            return new Promise(resolve => {
+      function getBlob(url) {
+        return new Promise((resolve) => {
+          const xhr = new XMLHttpRequest()
 
-                const xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true)
+          xhr.responseType = 'blob'
 
-                xhr.open("GET", url, true);
-                xhr.responseType = "blob";
+          xhr.onprogress = function (event) {
+            if (event.lengthComputable) {
+              console.log(event.loaded)
+              console.log(event.total)
+              var percentComplete = (
+                (event.loaded / event.total) *
+                100
+              ).toFixed(2)
+              console.log('下载进度：' + percentComplete + '%')
+              if (percentComplete == 1) {
+                console.log('下载完成')
+              }
+            }
+          }
 
-                xhr.onprogress = function (event) {
-               
-                    if (event.lengthComputable) {
-
-                        console.log(event.loaded);
-                        console.log(event.total);  
-                        var percentComplete = ((event.loaded / event.total) * 100).toFixed(2);
-                        console.log("下载进度：" + percentComplete + '%')
-                        if(percentComplete == 1){
-                           console.log("下载完成")
-                        }
-                            
-                    }
-                };
-
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        console.log("请求完成")
-                        DISABLE_QUERY.value = false;
-                        const tmpDown = new Blob([xhr.response]);
-                        const fileName = 'base.apk' || xhr.getResponseHeader('Content-Disposition').split(';')[1].split('=')[1];
-                        resolve({
-                            "blob": tmpDown,
-                            "fileName": fileName
-                        })
-                    } else {
-                        DISABLE_QUERY.value = false;
-                        alert("下载失败，请稍后重试！")
-                    }
-
-
-                };
-
-                xhr.send();
-            });
-        }
-
-        /**
-         * 保存
-         * @param  {Blob} blob
-         * @param  {String} filename 想要保存的文件名称
-         */
-        function saveAs (blob, filename) {
-            console.log(blob, filename)
-
-            if (window.navigator.msSaveOrOpenBlob) {
-                navigator.msSaveBlob(blob, filename);
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              console.log('请求完成')
+              DISABLE_QUERY.value = false
+              const tmpDown = new Blob([xhr.response])
+              const fileName =
+                'base.apk' ||
+                xhr
+                  .getResponseHeader('Content-Disposition')
+                  .split(';')[1]
+                  .split('=')[1]
+              resolve({
+                blob: tmpDown,
+                fileName: fileName
+              })
             } else {
-                // 非ie的下载
-                const a = document.createElement("a");
-                const body = document.querySelector("body");
-
-                a.href = window.URL.createObjectURL(blob);
-                a.download = filename;
-
-                // fix Firefox
-                a.style.display = "none";
-                body.appendChild(a);
-
-                a.click();
-                body.removeChild(a);
-
-                window.URL.revokeObjectURL(a.href);
-
-
+              DISABLE_QUERY.value = false
+              alert('下载失败，请稍后重试！')
             }
+          }
+
+          xhr.send()
+        })
+      }
+
+      /**
+       * 保存
+       * @param  {Blob} blob
+       * @param  {String} filename 想要保存的文件名称
+       */
+      function saveAs(blob, filename) {
+        console.log(blob, filename)
+
+        if (window.navigator.msSaveOrOpenBlob) {
+          navigator.msSaveBlob(blob, filename)
+        } else {
+          // 非ie的下载
+          const a = document.createElement('a')
+          const body = document.querySelector('body')
+
+          a.href = window.URL.createObjectURL(blob)
+          a.download = filename
+
+          // fix Firefox
+          a.style.display = 'none'
+          body.appendChild(a)
+
+          a.click()
+          body.removeChild(a)
+
+          window.URL.revokeObjectURL(a.href)
         }
+      }
 
-
-       
-
-
-        var DISABLE_QUERY = {
-            _value: false,
-            get value () {
-                return this._value
-            },
-            set value (newVal) {
-                if (newVal == true) {
-                   // console.log(newVal)
-                } else {
-                   // console.log(newVal)
-                }
-                this._value = newVal
-            }
-        };
-        const downloadUrl = document.getElementById('input').value;
-        function download () {
-            getBlob(downloadUrl).then(result => {
-                saveAs(result.blob, result.fileName);
-            });
+      var DISABLE_QUERY = {
+        _value: false,
+        get value() {
+          return this._value
+        },
+        set value(newVal) {
+          if (newVal == true) {
+            // console.log(newVal)
+          } else {
+            // console.log(newVal)
+          }
+          this._value = newVal
         }
-
+      }
+      const downloadUrl = document.getElementById('input').value
+      function download() {
+        getBlob(downloadUrl).then((result) => {
+          saveAs(result.blob, result.fileName)
+        })
+      }
     </script>
-</body>
-
+  </body>
 </html>
