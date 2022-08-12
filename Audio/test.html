@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js+css实现音量调节</title>
+    <style>
+      #wrap {
+        width: 600px;
+        padding: 200px 30px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+      }
+      .all {
+        width: 800px;
+        height: 20px;
+        position: relative;
+      }
+      .bar {
+        width: 100%;
+        height: 50%;
+        position: absolute;
+        top: 25%;
+        background: #ccc;
+      }
+      .circle {
+        width: 20px;     /* 与all的height保持一致，保证拖动圆点是圆形 */
+        position: absolute;
+        background: #000;
+        top: 0;
+        bottom: 0;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <p>当前位置0%</p>
+      <div class="all">
+        <div class="bar"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
+    <script>
+        var all = document.getElementsByClassName('all')[0]
+        var p = document.getElementsByTagName('p')[0]
+         var bar = document.getElementsByClassName('bar')[0]
+         var circle = document.getElementsByClassName('circle')[0]
+         var cha = bar.offsetWidth - circle.offsetWidth;
+         circle.onmousedown = function (ev) {
+            let circleL = circle.offsetLeft;
+            let e = ev || window.event //兼容性
+            let mouseX = e.clientX //鼠标按下的位置
+            window.onmousemove = function (ev) {
+              let e = ev || window.event
+              let moveL = e.clientX - mouseX //鼠标移动的距离
+              let newL = circleL + moveL //left值
+              if (newL < 0) {
+                newL = 0
+              } 
+              if (newL >= cha) {
+                newL = cha
+              }
+              circle.style.left = newL + 'px'
+              // 计算比例
+              let bili = (newL / cha) * 100
+              p.innerHTML = '当前位置' + Math.ceil(bili) + '%'
+            }
+            window.onmouseup = function () {
+              window.onmousemove = false //解绑移动事件
+              return false
+            }
+            return false
+           
+         }
+         // 点击音量条
+          bar.onclick = function (ev) {
+            //点击x - 调节box的距离屏幕左侧距离 - 原点宽度一半（保证点击位置在原点中间）
+            console.log(bar.offsetLeft,all.offsetLeft)
+            let newL = ev.clientX - all.offsetLeft -  circle.offsetWidth / 2
+            if (newL < 0) {
+              newL = 0
+            }
+            if (newL >= cha) {
+              newL = cha
+            }
+            circle.style.left = newL + 'px'
+              // 计算比例
+              let bili = (newL / cha) * 100
+              p.innerHTML = '当前位置' + Math.ceil(bili) + '%'
+          
+            return false
+          }
+
+    </script>
+  </body>
+</html>
