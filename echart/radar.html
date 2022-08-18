@@ -1,27 +1,16 @@
-<template>
-    <div :style="{ width, height }"></div>
-  </template>
-  <script>
-  import * as echarts from 'echarts';
-  export default {
-    name: "chart",
-    props: {
-      width: {
-        type: String,
-        default: "100%"
-      },
-      height: {
-        type: String,
-        default: "100%"
-      },
-      chartData: {
-        type: Object
-      }
-    },
-    data () {
-      return {
-        chart: null,
-        option: {
+<style>
+  body{
+    background: #000;
+  }
+</style>
+
+<div id="main" style="width: 600px;height:800px;"></div>
+ 
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./js/echart.js"></script>
+ <script>
+ 
+ var option = {
           //画线颜色
           color: '#FFBB00',  
           textStyle:{
@@ -30,14 +19,14 @@
           radar: {
             splitNumber: 3, // 圈数
             indicator: [
-              // { name: '场站1', max: 6500 },
-              // { name: '场站2', max: 6500 },
-              // { name: '场站3', max: 6500 },
-              // { name: '场站4', max: 6500 },
-              // { name: '场站5', max: 6500 },
-              // { name: '场站6', max: 6500 },
-              // { name: '场站7', max: 6500 },
-              // { name: '场站8', max: 6500 },
+              { name: '场站1', max: 6500 },
+              { name: '场站2', max: 6500 },
+              { name: '场站3', max: 6500 },
+              { name: '场站4', max: 6500 },
+              { name: '场站5', max: 6500 },
+              { name: '场站6', max: 6500 },
+              { name: '场站7', max: 6500 },
+              { name: '场站8', max: 6500 },
             ],
             axisName: {
               color: '#fff' //外侧文字颜色不生效
@@ -70,50 +59,21 @@
   
               }, // 将每一个产品的雷达图形成阴影的面积
               data: [
-              //   {
-              //     value: [4200, 3000, 2000, 3000, 5000, 1080],
+                {
+                  value: [4200, 3000, 2000, 3000, 5000, 1080],
   
-              //   }
+                }
               ]
             }
           ]
         }
-      };
-    },
-    mounted () {
-      this.initChart();
-      window.addEventListener("resize", this.temperatureCurveReSize);
-      this.$once("hook:beforeDestroy", () => {
-        window.removeEventListener("resize", this.temperatureCurveReSize);
-      });
-    },
-    methods: {
-      initChart () {
-        this.chart = echarts.init(this.$el);
-  
-          this.option.radar.indicator = this.chartData.axisData;
-  
-              this.option.series[0].data = this.chartData.seriesData;
-        this.chart.setOption(this.option);
-      },
-      temperatureCurveReSize () {
-        this.chart.resize();
-      }
-    },
-    watch: {
-      chartData: {
-        handler (newVal) {
-          if (newVal) {
-    this.option.radar.indicator = this.chartData.axisData;
-  
-              this.option.series[0].data = this.chartData.seriesData;
-            this.chart.setOption(this.option);
-          }
-        },
-        deep: true
-      }
-    }
-  };
+   
+        
+           // 基于准备好的dom，初始化echarts实例
+           var myChart = echarts.init(document.getElementById('main'));
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
   </script>
   
   
