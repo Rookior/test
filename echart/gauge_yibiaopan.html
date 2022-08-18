@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>模板</title>
+    <style>
+        body{
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+	<div id="main" style="width: 600px;height:800px;"></div>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/echart.js"></script>
+		<script>
+            var showData = 20;
+			var option = {
+        series: [
+          {
+            title: {
+              fontWeight: 'bolder',
+              fontSize: 18,
+              color: '#fff',
+              offsetCenter: [0, '65%']
+            },
+            detail: {
+              fontSize: 36,
+              color: '#00FCE0',
+              formatter: [
+                '{a|'+showData+'}',
+                '{b|%}'
+              ].join('\n'),
+              rich: {
+                a: {
+                  fontSize: 43,
+                  lineHeight: 40,
+                  color: '#00FCE0'
+                },
+                b: {
+                  fontSize: 14,
+
+                  color: 'rgba(255,255,255,.2)'
+                }
+              },
+              //   formatter: '{value}%',
+              offsetCenter: [0, '10%']
+            },
+            data: [
+              {
+                value: 0,
+                name: '仪表盘'
+              }
+            ],
+            type: 'gauge',
+            z: 3,
+            min: 0,
+            max: 100,
+            splitNumber: 10,
+            radius: '90%',
+            axisLine: {
+              lineStyle: {
+                width: 1,
+                shadowBlur: 0,
+                color: [
+                  [0.05, '#0A498E'],
+                  [0.10, '#0C58A7'],
+                  [0.15, '#254DD3'],
+                  [0.20, '#355FEC'],
+                  [0.25, '#4072FB'],
+                  [0.30, '#355FEC'],
+                  [0.35, '#254DD3'],
+                  [0.40, '#06478B'],
+                  [0.45, '#0A246C'],
+                  [0.50, '#071848'],
+                  [0.55, '#071848'],
+                  [0.60, '#0A246C'],
+                  [0.65, '#06478B'],
+                  [0.70, '#254DD3'],
+                  [0.75, '#355FEC'],
+                  [0.80, '#355FEC'],
+                  [0.85, '#254DD3'],
+                  [0.90, '#0C58A7'],
+                  [0.95, '#0A498E'],
+                  [1, '#0A498E']
+                ]
+
+              }
+            },
+            pointer: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            }
+          },
+          {
+            name: '',
+            type: 'gauge',
+            z: 3,
+            min: 0,
+            max: 100,
+            
+            splitNumber: 10,
+            radius: '80%',
+            axisLine: {
+              lineStyle: {
+                width: 2,
+                shadowBlur: 0,
+                color: [
+                  [0.05, '#3F6BFC'],
+                  [0.10, '#4072FB'],
+                  [0.15, '#4077F9'],
+                  [0.20, '#417BF9'],
+                  [0.25, '#4282F8'],
+                  [0.30, '#4385F7'],
+                  [0.35, '#4389F6'],
+                  [0.40, '#448FF5'],
+                  [0.45, '#4594F4'],
+                  [0.50, '#4599F3'],
+                  [0.55, '#469EF2'],
+                  [0.60, '#46A3F1'],
+                  [0.65, '#46A6F0'],
+                  [0.70, '#24befe'],
+                  [0.75, '#12d1ff'],
+                  [0.80, '#06defe'],
+                  [0.85, '#05e0ff'],
+                  [0.90, '#06deff'],
+                  [0.95, '#06deff'],
+                  [1, '#06deff']
+                ]
+
+              }
+            },
+            pointer: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            detail: {
+							show: true,
+							// offsetCenter: [0, '70%'],
+							formatter: 'r/min',
+							textStyle: {
+								fontSize: 16,
+								color: '#808c9a',
+								lineHeight: 50,
+								fontWeight: '100',
+
+							}
+
+
+
+						}
+          },
+
+          {
+            name: '',
+            type: 'gauge',
+            radius: '75.10%',
+            startAngle: 225,
+            endAngle: -45,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: true,
+              lineStyle: {
+                // 蓝色分割宽度
+                width: 8,
+                shadowBlur: 0,
+                color: [
+                  [0, 'transparent'],
+                  [0.1, '#427cd0'],
+                  [0.108, 'transparent'],
+                  [0.2, '#427cd0'],
+                  [0.208, 'transparent'],
+                  [0.3, '#427cd0'],
+                  [0.308, 'transparent'],
+                  [0.4, '#427cd0'],
+                  [0.408, 'transparent'],
+                  [0.5, '#427cd0'],
+                  [0.508, 'transparent'],
+                  [0.6, '#427cd0'],
+                  [0.608, 'transparent'],
+                  [0.7, '#427cd0'],
+                  [0.708, 'transparent'],
+                  [0.8, '#427cd0'],
+                  [0.808, 'transparent'],
+                  [0.9, '#427cd0'],
+                  [0.908, 'transparent'],
+                  [1, '#427cd0']
+                ]
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: 0
+            },
+            axisLabel: {
+              show: 0
+            },
+            pointer: {
+              show: false
+            },
+            detail: {
+              show: false
+            },
+            data: [{
+              show: false
+            }]
+          },
+
+          {
+            type: 'gauge',
+            radius: '70%',
+            splitNumber: 20,
+            min: 0,
+            max: 100,
+            startAngle: 225,
+            endAngle: -45,
+            axisLabel: {
+              show: false
+            },
+            axisLine: {
+              show: false,
+              lineStyle: {
+                width: 0
+              }
+            },
+            splitLine: {
+              show: true,
+              length: 8,
+              lineStyle: {
+                width: '1',
+                color: '#fff'
+              }
+
+            },
+            axisTick: {
+              show: true,
+              length: 4,
+              lineStyle: {
+                width: '1',
+                color: '#fff'
+              }
+            },
+            pointer: {
+              show: 0
+            },
+            detail: {
+              show: 0
+            }
+          },
+
+          {
+            name: '',
+            type: 'gauge',
+            radius: '79.10%',
+            startAngle: 225,
+            endAngle: -45,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: true,
+              lineStyle: {
+                // 指示阴影宽度
+                width: '50',
+                color: [
+                  [
+                  showData / 100, new echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                      {
+                        offset: 0.1,
+                        color: 'rgba(22,128,245,.0)'
+                      },
+                      {
+                        offset: 0.3,
+                        color: 'rgba(22,128,245,.3)'
+                      },
+                      {
+                        offset: 0.6,
+                        color: 'rgba(22,128,245,.5)'
+                      },
+                      {
+                        offset: 1,
+                        color: 'rgba(22,128,245,.7)'
+                      }
+                    ])
+                  ],
+                  [
+                    1, 'rgba(28,128,245,.0)'
+                  ]
+                ]
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: 0
+            },
+            axisLabel: {
+              show: 0
+            },
+            pointer: {
+              show: false,
+              length: '100%'
+            }
+
+          }
+
+        ]
+      }
+	
+			 // 基于准备好的dom，初始化echarts实例
+			 var myChart = echarts.init(document.getElementById('main'));
+	
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		   
+		</script>
+</body>
+</html>

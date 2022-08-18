@@ -1,6 +1,8 @@
  <div id="month_dian" style="width: 1260px;height: 665px;"></div> 
 <button onclick="refrash()">刷新</button>
- <script src="./js/echarts4.js"></script>
+ <script src="./gl/echart.js"></script>
+ <!-- 需要引入gl -->
+ <script src="./gl/gl.js"></script>
 <script>
 function refrash(){
 var VALUE = [212, 120, 390, 249, 1654, 1230, 3790, 2349, 1654, 3790, 2349, 1654]
@@ -13,7 +15,7 @@ option.series[2].data = VALUE;
 }
 
 
-const CubeLeft = echarts4.graphic.extendShape({
+const CubeLeft = echarts.graphic.extendShape({
     shape: {
         x: 0,
         y: 0,
@@ -29,7 +31,7 @@ const CubeLeft = echarts4.graphic.extendShape({
         ctx.moveTo(c0[0], c0[1]).lineTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).closePath()
     }
 })
-const CubeRight = echarts4.graphic.extendShape({
+const CubeRight = echarts.graphic.extendShape({
     shape: {
         x: 0,
         y: 0
@@ -43,7 +45,7 @@ const CubeRight = echarts4.graphic.extendShape({
         ctx.moveTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).lineTo(c4[0], c4[1]).closePath()
     }
 })
-const CubeTop = echarts4.graphic.extendShape({
+const CubeTop = echarts.graphic.extendShape({
     shape: {
         x: 0,
         y: 0
@@ -56,9 +58,9 @@ const CubeTop = echarts4.graphic.extendShape({
         ctx.moveTo(c1[0], c1[1]).lineTo(c2[0], c2[1]).lineTo(c3[0], c3[1]).lineTo(c4[0], c4[1]).closePath()
     }
 })
-echarts4.graphic.registerShape('CubeLeft', CubeLeft)
-echarts4.graphic.registerShape('CubeRight', CubeRight)
-echarts4.graphic.registerShape('CubeTop', CubeTop)
+echarts.graphic.registerShape('CubeLeft', CubeLeft)
+echarts.graphic.registerShape('CubeRight', CubeRight)
+echarts.graphic.registerShape('CubeTop', CubeTop)
 const MAX = [6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000]
 const VALUE = [2012, 1230, 3790, 2349, 1654, 1230, 3790, 2349, 1654, 3790, 2349, 1654]
 option = {
@@ -189,7 +191,7 @@ option = {
                         xAxisPoint: api.coord([api.value(0), 0])
                     },
                     style: {
-                        fill: new echarts4.graphic.LinearGradient(0, 0, 0, 1, [{
+                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
                                 color: '#3B80E2'
                             },
@@ -210,7 +212,7 @@ option = {
                         xAxisPoint: api.coord([api.value(0), 0])
                     },
                     style: {
-                        fill: new echarts4.graphic.LinearGradient(0, 0, 0, 1, [{
+                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
                                 color: '#3B80E2'
                             },
@@ -231,7 +233,7 @@ option = {
                         xAxisPoint: api.coord([api.value(0), 0])
                     },
                     style: {
-                        fill: new echarts4.graphic.LinearGradient(0, 0, 0, 1, [{
+                        fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
                                 color: '#3B80E2'
                             },
@@ -275,6 +277,6 @@ option = {
     }]
 }
 
-    var month_dianChart = echarts4.init(document.getElementById('month_dian'));
+    var month_dianChart = echarts.init(document.getElementById('month_dian'));
         month_dianChart.setOption(option);
 </script>
