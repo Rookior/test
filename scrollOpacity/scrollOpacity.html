@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="static/images/logo/logo_title.png">
+    <title>透明度轮播图</title>
+  </head>
+  <body>
+    <style>
+      #body {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-image: url(static/images/login/1-1920.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      #body2 {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -2;
+        background-image: url(static/images/login/1-1920.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .bodyHide {
+        animation: opacityHide 2s;
+        animation-fill-mode: none;
+      }
+      .bodyShow {
+        animation: opacityShow 1s;
+        animation-fill-mode: none;
+      }
+      @keyframes opacityHide {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      @keyframes opacityShow {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+
+    <div id="body"></div>
+    <div id="body2"></div>
+    <script>
+      var index = 1
+
+      var bgList = [
+        'static/images/login/1-1920.jpg',
+        'static/images/login/2-1920.jpg',
+        'static/images/login/3-1920.jpg',
+        'static/images/login/4-1920.jpg'
+      ]
+
+      setInterval(function () {
+        index++
+        document.getElementById('body').style.backgroundImage =
+          'url(' + bgList[index % 4] + ')'
+
+        setTimeout(function () {
+          document.getElementById('body').className = 'bodyHide'
+          document.getElementById('body2').style.backgroundImage =
+            'url(' + bgList[index % 4] + ')'
+        }, 1000)
+
+        setTimeout(function () {
+          document.getElementById('body').className = 'bodyShow'
+        }, 3000)
+      }, 3000)
+
+      setTimeout(function () {
+        document.getElementById('body').className = 'bodyHide'
+      }, 1000)
+
+      setTimeout(function () {
+        document.getElementById('body').className = 'bodyShow'
+      }, 3000)
+    </script>
+  </body>
+</html>
