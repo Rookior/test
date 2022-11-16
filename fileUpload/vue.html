@@ -20,7 +20,9 @@
 
             <input type="file" ref="file" @change="tirggerFile($event)" />
             <div id="result"></div>
-            <div @click="aaa">提交</div>
+            <div @click="aaa">提交文件</div>
+
+            <div @click="bbb">提交数据</div>
 
         </div>
        
@@ -62,6 +64,16 @@
                     });
                    
                 },
+                bbb(){
+                    axios({
+                        method: 'post',
+                        url: '/user/12345',
+                        data: {
+                            a:1,
+                            b:2
+                        }
+                    });
+                }
             }
         })
         console.log(Vue)
