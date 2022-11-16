@@ -1,0 +1,65 @@
+<form role="form" id="tf" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>上传镜像</label>
+        <input type="file" name="file" id="file">
+        <input type="number" name="number">
+        <img id="preview" />
+        <div id="result"></div>
+    </div>
+    <button type="button" class="btn btn-success" id="add">确认添加
+    </button>
+</form>
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script>
+    //文件上传函数
+    $('#add').click(function () {
+        var post = new FormData(document.getElementById("tf"));
+        post.append("versionId", 123);
+        // 
+        var bbb = $("#file")[0].files;
+       
+        post.append("myfile", bbb[0]);
+        $.ajax({
+            type: 'POST',
+            url: "../index.php/?c=imageController&m=register",
+            async: false,
+            data: post,
+            processData: false,
+            contentType: false,
+            timeout: 5000,
+            success: function (data) {
+                var message = JSON.parse(data);
+                console.log(message);
+                if (message.info === "true") {
+                    window.alert('镜像添加成功');
+                    window.location.reload();
+                } else {
+                    window.alert('镜像添加失败');
+                }
+            },
+            error: function () {
+                console.log("error")
+            }
+        });
+
+        var fileList = $("#file")[0].files;
+    //创建文件流获取文件地址
+    var src = window.URL.createObjectURL(fileList[0]); 
+    $("#preview").attr("src", src);
+
+
+    var reader = new FileReader();
+        //将文件以Data URL形式读入页面
+        reader.readAsDataURL(fileList[0]);
+
+        reader.onload = function (e) {
+            var result = document.getElementById("result");
+            //显示文件
+            result.innerHTML = '<img src="' + this.result + '" alt="" />';
+        }
+
+    console.log(src)
+        console.log(post.get('versionId'),typeof(post.get('versionId')))
+        console.log(post.get('number'),typeof(post.get('number')))
+    });
+</script>

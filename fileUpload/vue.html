@@ -1,0 +1,79 @@
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>vue2入门</title>
+        <style>
+            .red {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+
+            <input type="file" ref="file" @change="tirggerFile($event)" />
+            <div id="result"></div>
+            <div @click="aaa">提交</div>
+
+        </div>
+       
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script>
+            
+       
+        var app = new Vue({
+            el: '#app',
+            
+            methods:{
+                tirggerFile (event) {
+                    var reader = new FileReader()
+                    var fileList = event.target.files
+                    console.log(111, reader, fileList)
+                    // 将文件以Data URL形式读入页面
+                    reader.readAsDataURL(fileList[0])
+
+                    reader.onload = function (e) {
+                    console.log(123, this.result)
+                    var result = document.getElementById('result')
+                    // 显示文件
+                    result.innerHTML = '<img src="' + this.result + '" alt="" />'
+                    }
+                },
+                aaa () {
+                    var fileList = this.$refs.file.files
+                    console.log(fileList)
+                    var post = new FormData()
+                    post.append('versionId', 123)
+                    post.append('file', fileList[0])
+
+                    axios({
+                        method: 'post',
+                        url: '/user/12345',
+                        data: post
+                    });
+                   
+                },
+            }
+        })
+        console.log(Vue)
+        // 控制台赋值app.message 会自动更新页面（双向绑定）
+        // 控制台 app.todos.push({ text: '新项目' })  会自动更新页面（双向绑定）
+
+
+       
+        </script>
+    </body>
+
+    </html>
+
+
+ 
