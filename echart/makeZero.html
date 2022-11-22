@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双轴不对齐</title>
+</head>
+
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script src="./js/echarts4.js"></script>
+    <script>
+
+
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts4.init(document.getElementById('main'));
+        var option = {
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', "ddd"]
+            },
+            tooltip: {
+                show: true,
+
+                trigger: 'axis'
+            },
+            yAxis: [{
+                type: 'value',
+
+
+            }, {
+                type: 'value',
+
+
+            }],
+            series: [
+                {
+                    data: [],
+                    type: 'line'
+                },
+                {
+                    data: [],
+                    type: 'line',
+                    yAxisIndex: 1
+                }
+            ]
+        };
+
+        var a = [-150, 230, 224, -218, 135, 147, 60,-900, ]
+        var b = [10, 30, 24, 18, -15, 147, 60, 50]
+        option.series[0].data = a;
+        option.series[1].data = b;
+        // var result = getValue(a, b)
+
+        var result = getaaa(a, b)
+
+        function getaaa (arr1, arr2) {
+            a.push(0); b.push(0)
+            let arr1Min = Math.min.apply(Math, arr1)
+            let arr2Min = Math.min.apply(Math, arr2)
+            let arr1Max = Math.max.apply(Math, arr1)
+            let arr2Max = Math.max.apply(Math, arr2)
+            var sum1 = arr1Max - arr1Min;
+            var sum2 = arr2Max - arr2Min;
+            var val1 = sum1 / 500;
+            var val2 = sum2 / 500;
+            let radioMax = 1;
+            let radioMin = 1;
+
+            var scale1 = arr1Max / val1
+            var scale2 = arr2Max / val2
+            if (scale1 < 0) {
+                scale1 = Math.floor(scale1)
+            } else {
+                scale1 = Math.ceil(scale1)
+            }
+            if (scale2 < 0) {
+                scale2 = Math.floor(scale2)
+            } else {
+                scale2 = Math.ceil(scale2)
+            }
+
+            if (Math.abs(scale1) > Math.abs(scale2)) {
+                radioMax = scale1
+            } else {
+                radioMax = scale2
+            }
+
+
+
+            var scale3 = arr1Min / val1
+            var scale4 = arr2Min / val2
+            if (scale3 < 0) {
+                scale3 = Math.floor(scale3)
+            } else {
+                scale3 = Math.ceil(scale3)
+            }
+            if (scale4 < 0) {
+                scale4 = Math.floor(scale4)
+            } else {
+                scale4 = Math.ceil(scale4)
+            }
+
+            if (Math.abs(scale3) > Math.abs(scale4)) {
+                radioMin = scale3
+            } else {
+                radioMin = scale4
+            }
+
+            return {
+                arr1Max: parseInt(radioMax * val1),
+                arr2Max: parseInt(radioMax * val2),
+                arr1Min: parseInt(radioMin * val1),
+                arr2Min: parseInt(radioMin * val2),
+            }
+
+        }
+
+        option.yAxis[0].min = result.arr1Min;
+        option.yAxis[0].max = result.arr1Max;
+        option.yAxis[1].min = result.arr2Min;
+        option.yAxis[1].max = result.arr2Max;
+
+        function getValue (arr1, arr2) {
+            arr1.push(0)
+            arr2.push(0)
+            let arr1Min = Math.min.apply(Math, arr1)
+            let arr2Min = Math.min.apply(Math, arr2)
+            let arr1Max = Math.max.apply(Math, arr1)
+            let arr2Max = Math.max.apply(Math, arr2)
+            console.log(arr1Min, arr2Min, arr1Max, arr2Max)
+
+            var t1 = arr1Min ? arr1Max / arr1Min : 0
+            var t2 = arr2Min ? arr2Max / arr2Min : 0
+            console.log(t1, t2)
+            if (Math.abs(t1) > Math.abs(t2)) {
+                arr2Min = arr2Max / t1
+            } else if (Math.abs(t1) < Math.abs(t2)) {
+                arr1Min = arr1Max / t2
+            }
+            console.log(arr1Min, arr2Min, arr1Max, arr2Max)
+            return {
+                arr1Min: parseInt(arr1Min),
+                arr1Max: parseInt(arr1Max),
+                arr2Min: parseInt(arr2Min),
+                arr2Max: parseInt(arr2Max),
+            }
+        }
+
+
+        myChart.setOption(option)
+    </script>
+</body>
+
+</html>
