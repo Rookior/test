@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <input type="button" name="aa" value="跨域提交" onclick="send('bbb(666)')"/>
+    <div id="main"></div>
+    2222
+    <script>
+        if(!window.a){
+function send(val){   
+  sendMessage(val);
+    }
+    (function(win, doc){
+      
+      var ifr = win.parent;
+      
+      var cb = function(msg){
+        eval(msg);      
+      };
+      var sendMessage = function(){
+        if(win.postMessage){
+          if (win.addEventListener) {
+                    win.addEventListener("message",function(e){
+            cb.call(win,e.data);
+          },false);
+                }else if(win.attachEvent) {
+                    win.attachEvent("onmessage",function(e){    
+                      cb.call(win,e.data);
+        });
+                }
+          return function(data){
+            ifr.postMessage(data,'*');
+          };
+        }else{
+          var hash = '';
+          
+          setInterval(function(){
+            if(win.name!==hash){
+              hash = win.name;
+              cb.call(win,hash);
+            }
+          },200);
+          return function(data){
+            ifr.name = data;
+          };
+        }
+      }
+      win.sendMessage = sendMessage();
+        })(window, document);
+        window.a=1;
+}
+
+function aaa(text){
+    alert(text)
+    document.getElementById("main").innerHTML  = '父向子通信' +  text
+}
+    </script>
+</body>
+</html>

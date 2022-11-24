@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<script>
+window.name="aaaa";
+function f(){
+}
+</script>
+<body>
+  <input type="button" name="aa" value="跨域提交" onclick="send('aaa(123)')"/>
+  <div id="main"></div>
+<iframe name="iframeA" id="iframeA" width="900" height="400" src="./postmessage2.html"></iframe>
+<script type="text/javascript">
+    function bbb(num){
+        alert(num)
+        document.getElementById("main").innerHTML  = "子向父通信"+ num
+    }
+    //document.getElementById('host').innerHTML = location.host;
+    function send(msg){
+        debugger
+      sendMessage(msg);
+    }
+    (function(win, doc){
+      var ifr = doc.getElementById('iframeA').contentWindow;
+      var cb = function(json){
+        eval(json);
+      };
+      var sendMessage = function(){
+        if(win.postMessage){
+          if (win.addEventListener) {
+                    win.addEventListener("message",function(e){
+            cb.call(win,e.data);
+          },false);
+                }else if(win.attachEvent) {
+                    win.attachEvent("onmessage",function(e){
+            cb.call(win,e.data);
+          });
+                }
+          return function(data){
+            console.log(data)
+            ifr.postMessage(data,'*');
+          };
+        }else{
+          var hash = '';
+          
+          setInterval(function(){
+          
+            if (win.name !== hash) {
+              hash = win.name;
+              cb.call(win, hash);
+            }
+          }, 200);
+          return function(data){
+            ifr.name = data;
+          };
+        }
+      };
+      win.sendMessage = sendMessage();
+    })(window, document);
+</script>
+</body>
+</html>
