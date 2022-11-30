@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .a{
+            position: relative;
+            width: 1005;
+            height: 100%;
+        }
+        .b{
+            position: absolute;
+            z-index: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .c{
+            position: relative;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            /* width: 100%; */
+            height: 100%;
+            pointer-events: none;
+        }
+        .d{
+            position: absolute;
+            z-index: 999;
+        }
+        .e{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+        <div class="b">
+            <div class="d" style="width: 100%;height:100%;" onclick="aa()" >
+               bbb
+            </div>
+            <div class="e">
+                <div style="position: absolute;
+                left: 0;
+                top: 0;">
+                <div style="transform: translate3d(969px, 421px, 0px);
+                z-index: 421;">454545</div>
+                </div>
+            </div>
+        </div>
+        <div class="c">
+
+            <div style="position: relative;width: 100%;height:100%;">
+              <div style="margin-left: 200px;">vvv</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function aa(){
+            alert(3)
+        }
+    </script>
+</body>
+</html>
