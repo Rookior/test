@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .flex-box{
+            display: flex;
+align-items:stretch;
+
+-webkit-box-lines: multiple;
+
+-moz-box-lines: multiple;
+
+-ms-flex-wrap: wrap;
+
+-webkit-flex-wrap: wrap;
+
+flex-wrap: wrap;
+
+}
+
+.flex-box>div{
+
+-webkit-flex-shrink: 0;
+
+-ms-flex: 0 0 auto;
+
+flex-shrink: 0;
+
+
+
+position: relative;
+
+width: 50%;
+
+}
+
+flex-box a{
+
+position:absolute;
+
+bottom:0;
+
+left:0;
+
+color:red
+
+}
+    </style>
+</head>
+<body>
+    <div class="flex-box">
+        <div>a<br/>a<br/>a<br/><a class="more">more</a></div>
+     
+        <div>b<br/><a class="more">more</a></div>
+     
+        <div>c<br/>c<br/>c<br/>c<br/><a class="more">more</a></div>
+     
+        <div>d<br/>d<a class="more">more</a></div>
+     
+     </div>
+</body>
+</html>
