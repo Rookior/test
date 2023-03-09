@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       div{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin: 50px;
+       }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div v-for="item in color" :style="{background:getBg(item),border:getBorder(item)}">
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    color: ['#f00', '#0f0', '#00f']
+                }
+            },
+            computed: {
+
+            },
+            watch: {
+
+            },
+            methods: {
+                hextohsl (hexValue) {
+                    const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+                    const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b);
+                    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                    const r = parseInt(rgb[1], 16)/ 255;
+                    const g = parseInt(rgb[2], 16)/ 255;
+                    const b = parseInt(rgb[3], 16)/ 255;
+                    var min = Math.min(r, g, b);
+                    var max = Math.max(r, g, b);
+                    var l = (min + max) / 2;
+                    var difference = max - min;
+                    var h, s, l;
+                    if (max == min) {
+                        h = 0;
+                        s = 0;
+                    } else {
+                        s = l > 0.5 ? difference / (2.0 - max - min) : difference / (max + min);
+                        switch (max) {
+                            case r: h = (g - b) / difference + (g < b ? 6 : 0); break;
+                            case g: h = 2.0 + (b - r) / difference; break;
+                            case b: h = 4.0 + (r - g) / difference; break;
+                        }
+                        h = Math.round(h * 60);
+                    }
+                    s = Math.round(s * 100);//转换成百分比的形式
+                    l = Math.round(l * 100);
+                    return [h, s, l];
+                },
+                getBg (color) {
+                    const arr = this.hextohsl(color)
+                    return 'hsl(' +arr[0] + ',50%,50%,20%)'
+                },
+                getBorder (color) {
+                    const arr = this.hextohsl(color)
+                    return '1px solid hsl(' +arr[0] + ',80%,50%)'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
