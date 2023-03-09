@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 200px;
+        }
+        .div{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div">
+
+    </div>
+    <script>
+     
+        function hexToRgb(hexValue) {
+            const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b );
+            const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            const r = parseInt(rgb[1], 16);
+            const g = parseInt(rgb[2], 16);
+            const b = parseInt(rgb[3], 16);
+            return {
+                r,g,b
+            }
+        }
+        function rgbtohsl(r,g,b){
+            r=r/255;
+            g=g/255;
+            b=b/255;
+            var min=Math.min(r,g,b);
+            var max=Math.max(r,g,b);
+            var l=(min+max)/2;
+            var difference = max-min;
+            var h,s,l;
+            if(max==min){
+                h=0;
+                s=0;
+            }else{
+                s=l>0.5?difference/(2.0-max-min):difference/(max+min);
+                switch(max){
+                    case r: h=(g-b)/difference+(g < b ? 6 : 0);break;
+                    case g: h=2.0+(b-r)/difference;break;
+                    case b: h=4.0+(r-g)/difference;break;
+                }
+                h=Math.round(h*60);
+            }
+            s=Math.round(s*100);//转换成百分比的形式
+            l=Math.round(l*100);
+            return [h,s,l];
+        }
+        const color = '#ff0000'
+        let color2 = hexToRgb(color)
+        let color3 = rgbtohsl(color2.r,color2.g,color2.b)
+        
+        const background = 'hsl('+color3[0]+',50%,50%)'
+        const border = '1px solid hsl('+color3[0]+',80%,50%)'
+        document.querySelectorAll('div')[0].setAttribute("style", "background:"+background + ';' + "border:" + border);
+   
+    </script>
+</body>
+</html>
