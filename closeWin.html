@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="www.baidu.com">百度</a>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script>
+         $(function() {
+        window.onload = function() {
+            alert('你好，欢迎光临');//各浏览器均正常弹出
+        }
+        window.onbeforeunload = function() {
+            alert('谢谢光临'); //IE 火狐浏览器提示
+            return ('谢谢光临2');//IE 谷歌浏览器提示（opera浏览器只有刷新时提示）
+        }
+        window.onunload = function() {
+            alert('再见');//只有IE正常弹出
+        }
+    })
+    </script>
+</body>
+</html>
