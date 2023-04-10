@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>模板</title>
+</head>
+
+<body>
+	<div id="main" style="width: 600px;height:800px;background: #ccc;"></div>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<script
+		src="../js/echarts5.js"></script>
+	<script>
+		var option = {
+			"tooltip": { "trigger": "item", "formatter": "{b} : {c} ({d}%)" },
+			"legend": {
+				"bottom": 0,
+				"data": ["",
+					{ "name": "正常运行", "textStyle": { "backgroundColor": "#3A8C22" } },
+					{ "name": "通讯异常", "textStyle": { "backgroundColor": "#3A8C22" } },
+					{ "name": "调度限功率", "textStyle": { "backgroundColor": "#3A8C22" } },
+					{ "name": "超温限功率", "textStyle": { "backgroundColor": "#3A8C22" } }, "",
+					{ "name": "受累待机", "textStyle": { "backgroundColor": "#ACA500" } },
+					{ "name": "等风待机", "textStyle": { "backgroundColor": "#ACA500" } },
+					{ "name": "临修待机", "textStyle": { "backgroundColor": "#ACA500" } },
+					{ "name": "正常停机", "textStyle": { "backgroundColor": "#F84755" } }, "",
+					{ "name": "异常停机", "textStyle": { "backgroundColor": "#F84755" } }
+				],
+				"itemWidth": 0,
+				"selectedMode": false, "formatter": { "_custom": { "type": "function", "display": "<span>ƒ</span> bound formatter()" } }, "textStyle": { "rich": { "a": { "width": 80, "height": 30, "align": "center", "color": "#fff", "borderRadius": 3, "verticalAlign": "middle" } } }
+			}, "toolbox": { "top": "0%", "right": "4%", "showTitle": false, "itemSize": 14, "iconStyle": { "color": "rgba(255,255,255,.45)" }, "feature": { "saveAsImage": { "type": "png", "show": true, "name": "风电状态统计", "iconStyle": { "borderWidth": 0 }, "icon": "path://M13.417,10.792H11.958V3.5A1.444,1.444,0,0,0,10.5,2.042H3.208V.583A.551.551,0,0,0,2.625,0a.551.551,0,0,0-.583.583V2.042H.583A.551.551,0,0,0,0,2.625a.551.551,0,0,0,.583.583H2.042V10.5A1.444,1.444,0,0,0,3.5,11.958h7.292v1.458a.583.583,0,1,0,1.167,0V11.958h1.458a.583.583,0,1,0,0-1.167ZM10.5,3.208a.276.276,0,0,1,.292.292V8.167L8.808,6.242a.564.564,0,0,0-.817,0L6.067,8.225,5.25,7.408a.55.55,0,0,0-.758-.058l-1.225.992V3.208H10.5Zm-7,7.583a.276.276,0,0,1-.292-.292V9.917L4.783,8.633l.875.875a.564.564,0,0,0,.817,0L8.4,7.525,10.792,9.8v.992H3.5Zm1.75-4.2a1.283,1.283,0,1,0,0-2.567A1.246,1.246,0,0,0,3.967,5.25,1.346,1.346,0,0,0,5.25,6.592Zm0-1.75a.46.46,0,0,1,.467.467.413.413,0,0,1-.467.408.5.5,0,0,1-.467-.467A.451.451,0,0,1,5.25,4.842Z" } } }, "series": [{ "type": "pie", "radius": "50%", "label": { "alignTo": "edge", "formatter": "{b}：{d}%", "minMargin": 5, "edgeDistance": 10, "lineHeight": 15, "color": "white", "backgroundColor": "transparent" }, "labelLine": { "length": 15, "length2": 0, "maxSurfaceAngle": 80 }, "labelLayout": { "_custom": { "type": "function", "display": "<span>ƒ</span> labelLayout()" } }, "center": ["55%", "35%"], "data": [{ "itemStyle": { "color": "#3A8C22" }, "name": "正常运行", "key": "CMPT_Standard_1_Devices", "value": 305 }, { "itemStyle": { "color": "#3A8C22" }, "name": "通讯异常", "key": "CMPT_Standard_2_Devices", "value": 4 }, { "itemStyle": { "color": "#3A8C22" }, "name": "调度限功率", "key": "CMPT_Standard_3_Devices", "value": 36 }, { "itemStyle": { "color": "#3A8C22" }, "name": "超温限功率", "key": "CMPT_Standard_4_Devices", "value": 0 }, { "itemStyle": { "color": "#ACA500" }, "name": "受累待机", "key": "CMPT_Standard_5_Devices", "value": 0 }, { "itemStyle": { "color": "#ACA500" }, "name": "等风待机", "key": "CMPT_Standard_6_Devices", "value": 8 }, { "itemStyle": { "color": "#ACA500" }, "name": "临修待机", "key": "CMPT_Standard_7_Devices", "value": 10 }, { "itemStyle": { "color": "#F84755" }, "name": "正常停机", "key": "CMPT_Standard_8_Devices", "value": 14 }, { "itemStyle": { "color": "#F84755" }, "name": "异常停机", "key": "CMPT_Standard_9_Devices", "value": 0 }], "emphasis": { "itemStyle": { "shadowBlur": 10, "shadowOffsetX": 0, "shadowColor": "rgba(0, 0, 0, 0.5)" } } }]
+		}
+
+
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts5.init(document.getElementById('main'));
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+
+	</script>
+</body>
+
+</html>
