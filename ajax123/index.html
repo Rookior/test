@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="aaa()">
+        下载
+    </button>
+    <script src="./3.7.js"></script>
+    <script>
+function aaa(){
+    $.ajax({
+											type: 'POST',
+											contentType: "application/json;charset=utf-8",
+											beforeSend: function(xhr) {
+ 
+												xhr.setRequestHeader("Authorization", "Bearer eb413214-7c7e-456a-83ee-8d3ffb3f94f7");
+
+											},
+											//xhrFields: {
+											//	responseType: 'blob'
+											//},
+											//dataType: 'binary',
+	// xhrFields: { responseType: "blob" },
+xhrFields: {
+												responseType: "blob"
+											},
+											url: 'https://192.168.88.238:9600/gateway/api/v1/analysis/get/report2/download' || serverApi + '/api/v1/analysis/get/report2/download',
+											data: JSON.stringify({"obj":"batch","uids":["f0d19df6_a1df_5520_9183_48ed3f58f002.docx","0a2d16f2_5e55_5cfc_b4a6_14750dc371bd.docx"],"uidNames":["风场一效能分析报告.docx","风场二效能分析报告.docx"],"fileName":"2023-04 到 2023-05效能分析报告.zip"})  ||JSON.stringify({
+												obj: 'batch',
+												uids: uids,
+												uidNames: uidNames,
+												fileName: start + '到' + end + '效能分析报告.zip'
+											}),
+											//dataType: 'multipart/form-data',
+											//dataType: "blob",
+											processData: false,
+// xhx:function(){
+// var xhr = new XMLHttpRequest()
+// xhr.responseType = 'blob'
+// return xhr
+// },
+
+											success: function (data,status,xmr) {
+												//console.log(123,result,status,xmr)
+											
+
+	var url=URL.createObjectURL(new Blob([data],{type:'application/zip'}))
+											// // 文件下载实现
+											// let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(successData);//encodeURIComponent解决中文乱码
+											// //通过创建a标签实现
+											let link = document.createElement("a");
+											link.href = url;
+											//对下载的文件命名
+											link.download = 'a.zip' //fileName;
+											document.body.appendChild(link);
+											link.click();
+											document.body.removeChild(link);
+											window.URL.revokeObjectURL(url)
+
+												
+											},
+										
+
+
+											error: function () {
+
+											}
+										});
+
+}
+    </script>
+</body>
+</html>

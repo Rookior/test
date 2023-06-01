@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:800px;"></div>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<script crossorigin="anonymous" integrity="sha384-DX1FVVXdGcNR016Jj6c5WuxYmyUvkb2/0ZMXKwbXaXs8j9tPs3e4RUjNg4tViEj4"
+		src="https://lib.baomitu.com/echarts/4.7.0/echarts-en.common.js"></script>
+		<script>
+			
+		   
+		</script>
+    <script>
+
+var a = [-10,50,400,600,600,100]
+        var b = [40,20,70]
+
+        var arra =a.sort(function(a,b){
+            return a-b
+        })
+        var arrb = b.sort(function(a,b){
+            return a-b
+        })
+
+
+let Max =  Math.ceil(arra[arra.length-1]/10) * 10; 
+ let Max1 = Math.ceil(arrb[arrb.length-1]/10) *10;  
+ let Min = arra[0]
+ let Min1 =  arra[0]
+//处理最大最小值
+let rowNum = 6;
+let rat1 = Min/Max;
+let rat2 = Min1/Max1;
+let ratState=rat1>rat2
+ 
+if(ratState){
+Min=rat2*Max;
+}else{
+Min1=rat1*Max1;
+}
+ 
+// let inter1=Math.ceil((Max-Min)/rowNum);
+// let inter2=Math.ceil((Max1-Min1)/rowNum);
+
+// console.log({
+//     min: Min,
+//     max: Max,
+//     interval: inter1,
+//     min: Min1,
+//     max: Max1,
+//     interval: inter2,
+// })
+
+
+var option =  {
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            tooltip: {
+                show:true,
+                trigger: 'axis'
+            },
+         
+            yAxis: [{
+                type: 'value'
+            },{
+                type: 'value'
+            }],
+            grid:{
+                left:'40%'
+            }   ,
+         series: [
+                {
+                    name:'111',
+                data: a,
+                type: 'line'
+                },
+                {
+                    name:'222',
+                data: b,
+                
+yAxisIndex:'1',
+                type: 'line'
+                }
+            ]
+            };
+                
+			 // 基于准备好的dom，初始化echarts实例
+			 var myChart = echarts.init(document.getElementById('main'));
+	
+option.yAxis[0].min =  Min
+
+option.yAxis[0].max =  Max
+// option.yAxis[0].interval =  inter1
+
+option.yAxis[1].min =  Min1
+
+option.yAxis[1].max =  Max1
+// option.yAxis[1].interval =  inter2
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+
+ 
+//在两个y轴中设置这三个属性   yAxis中
+
+ 
+    </script>
+</body>
+</html>

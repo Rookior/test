@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main" style="width: 600px;height:800px;"></div>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script crossorigin="anonymous" integrity="sha384-DX1FVVXdGcNR016Jj6c5WuxYmyUvkb2/0ZMXKwbXaXs8j9tPs3e4RUjNg4tViEj4"
+        src="https://lib.baomitu.com/echarts/4.7.0/echarts-en.common.js"></script>
+    <script>
+
+
+    </script>
+    <script>
+     
+
+
+     function echartsZero (a, b, rowNum) {
+      a = [0].concat(a)
+      b = [0].concat(b)
+      if (!rowNum) rowNum = 6
+      var arra = a.sort(function (a, b) {
+        return a - b
+      })
+      var arrb = b.sort(function (a, b) {
+        return a - b
+      })
+
+      var amin = arra[0] * 1.1
+      var bmin = arrb[0] * 1.1
+      var amax = arra[arra.length - 1] * 1.1
+      var bmax = arrb[arrb.length - 1] * 1.1
+
+      var intervala = Math.abs((amax - amin) / rowNum)
+      var intervalb = Math.abs((bmax - bmin) / rowNum)
+
+      var aTop = amax / intervala
+      var bTop = bmax / intervalb
+
+      if (aTop < bTop) {
+        amax = bTop * intervala
+      } else {
+        bmax = aTop * intervalb
+      }
+
+      var aBtm = (amin / intervala)
+      var bBtm = (bmin / intervalb)
+
+      if (Math.abs(aBtm) < Math.abs(bBtm)) {
+        amin = bBtm * intervala
+      } else {
+        bmin = aBtm * intervalb
+      }
+
+      return {
+        amin: Number(amin).toFixed(0),
+        amax: Number(amax).toFixed(0),
+        bmin: Number(bmin).toFixed(0),
+        bmax: Number(bmax).toFixed(0)
+      }
+    }
+
+        var a = [50, 400, 600, 600, 100, 45.3, 834]
+        var b = [40, 20, 20, 20, 40, 12]
+        var option = {
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+
+            yAxis: [{
+                type: 'value'
+            }, {
+                type: 'value'
+            }],
+            grid: {
+                left: '40%'
+            },
+            series: [
+                {
+                    name: '111',
+                    data: a,
+                    type: 'line'
+                },
+                {
+                    name: '222',
+                    data: b,
+
+                    yAxisIndex: '1',
+                    type: 'line'
+                }
+            ]
+        };
+
+
+      
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        option.yAxis[0].min = echartsZero(a,b).amin
+
+        option.yAxis[0].max = echartsZero(a,b).amax
+        //  option.yAxis[0].interval =   echartsZero(a,b).intervala
+
+        option.yAxis[1].min = echartsZero(a,b).bmin
+
+        option.yAxis[1].max = echartsZero(a,b).bmax
+        // option.yAxis[1].interval =   echartsZero(a,b).intervalb
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+</body>
+
+</html>

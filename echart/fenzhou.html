@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function aaa(){
+            var a = [-20,50,400,600,600,100]
+        var b = [0,40,20,70]
+
+        var arra =a.sort(function(a,b){
+            return a-b
+        })
+        var arrb = b.sort(function(a,b){
+            return a-b
+        })
+
+        var maxa = Math.ceil(arra[arra.length-1]/5) * 5;
+
+        var maxb = Math.ceil(arrb[arrb.length-1]/5) * 5;
+
+        var intervala = maxa/5;
+        var intervalb = maxb/ 5
+
+        var amin = Math.floor(arra[0]/intervala) * intervala;
+        var scalea = amin/intervala;
+        var bmin = scalea * intervalb;  
+       
+
+
+
+        if(amin<0){
+            return {
+                a:{
+                    min: amin,
+                    max:maxa,
+                    interval:intervala
+                },
+                b:{
+                    min: bmin,
+                    max:maxb,
+                    interval:intervalb
+                }
+            }
+           
+        }else{
+            return {
+                a:{
+                    min: 0,
+                 
+                },
+                b:{
+                    min: 0,
+                   
+                }
+            }
+        }
+        }
+        console.log(aaa())
+     
+
+</script>
+</body>
+</html>
