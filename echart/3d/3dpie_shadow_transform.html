@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>模板</title>
+    <style>
+        canvas{
+            transform: rotateX(45deg)
+        }
+    </style>
+</head>
+<body>
+	<div id="main" style="width: 600px;height:800px;"></div>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js" integrity="sha512-VdqgeoWrVJcsDXFlQEKqE5MyhaIgB9yXUVaiUa8DR2J4Lr1uWcFm+ZH/YnzV5WqgKf4GPyHQ64vVLgzqGIchyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script 
+		src="https://unpkg.com/echarts-gl@1.1.2/dist/echarts-gl.min.js"></script>
+		
+		<script>
+		const MyShape = echarts.graphic.extendShape({
+    shape: {
+        cx: 0,
+        cy: 0,
+        r: 0,
+        startAngle: 0,
+        endAngle: Math.PI * 2,
+        clockwise: true,
+        step: 0
+    },
+    style: {
+        stroke: '#000',
+        fill: null
+    },
+    buildPath: function(ctx, shape) {
+        const x = shape.cx
+        const y = shape.cy
+        const r = Math.max(shape.r, 0)
+        const startAngle = shape.startAngle
+        const endAngle = shape.endAngle
+        const clockwise = shape.clockwise
+        const unitX = Math.cos(startAngle)
+        const unitY = Math.sin(startAngle)
+        const unitXE = Math.cos(endAngle)
+        const unitYE = Math.sin(endAngle)
+        ctx.moveTo(unitX * r + x, unitY * r + y)
+        ctx.arc(x, y, r, startAngle, endAngle, !clockwise)
+        ctx.lineTo(unitXE * r + x, unitYE * r + y + shape.step)
+        ctx.arc(x, y + shape.step, r, endAngle, startAngle, clockwise)
+        ctx.lineTo(unitX * r + x, unitY * r + y)
+    }
+})
+echarts.graphic.registerShape('myCustomShape', MyShape)
+
+
+data = [
+        { value: 1048, name: 'Search Engine' },
+        { value: 735, name: 'Direct' },
+        { value: 580, name: 'Email' },
+        { value: 484, name: 'Union Ads' },
+        { value: 300, name: 'Video Ads' }
+      ]
+
+
+const redius = 50
+
+
+const PI2 = Math.PI * 2
+
+const valueList = []
+for (let i = 0; i < data.length; i++) {
+    valueList.push(data[i].value)
+}
+const viewData = []
+let validDataCount = 0
+const colorList = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
+for (let i = 0; i < data.length; i++) {
+    const item = data[i]
+
+
+    const percent = echarts.number.getPercentWithPrecision(valueList, i, 1)
+    validDataCount += percent
+    viewData.push({
+        name: item.name,
+        value: item.value,
+        percent: percent,
+        validDataCount: validDataCount,
+        __pieColor: colorList[i % colorList.length]
+    })
+}
+
+
+option = {
+  title: {
+    text: 'Referer of a Website',
+    subtext: 'Fake Data',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  graphic:{ // 将旋转过的 group 整体定位右下角：
+    type: 'group',
+      right: 'center',  // 定位到右下角
+      bottom: '20', // 定位到右下角
+      rotation: Math.PI / 360,
+      children: [
+          {
+              type: 'circle',
+              x: 0, // 相对父元素居中
+              y: 0,  // 相对父元素居中
+             shape: {
+                            cx: 0,
+                            cy: 0, //上下平移
+                            step: 20,
+                            r0: 10,
+                            r: 100 ,
+                            startAngle: 0,
+                            endAngle: 180
+                        },
+                        style:{
+                            fill: '#f00',
+                            stroke: '#f00',
+                            lineWidth: 0,
+                            opacity:0.6
+                        }
+          },
+          {
+              type: 'text',
+              left: 'center', // 相对父元素居中
+              top: 'middle',  // 相对父元素居中
+              style: {
+                  fill: '#777',
+                  text: [
+                      'This is text',
+                      '这是一段文字',
+                      'Print some text'
+                  ].join('\n'),
+                  font: '14px Microsoft YaHei'
+              }
+          }
+      ]
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: data,
+       startAngle:0,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    },
+    {
+        data: data,
+        type: 'custom',
+        coordinateSystem: 'none',
+        renderItem: (params, api) => {
+            // 使用echarts自己等lib计算出百分比
+            const index = params.dataIndex
+            const data = viewData[index]
+            const start = PI2 * (data.validDataCount - data.percent) / 100
+            const end = PI2 * data.validDataCount / 100
+            const center = [api.getWidth() / 2, api.getHeight() / 2]
+
+        
+         
+          
+            return {
+                type: 'group',
+                children: [
+                    {
+                        type: 'myCustomShape',
+                        scale:  [1, 1],
+                        origin: center,
+                        silent: true,
+                        z2: 1,
+                        shape: {
+                            cx: center[0],
+                            cy: center[1] - 0, //上下平移
+                            step: 20,
+                            r0: 0,
+                            r: center[0] * (redius/100) ,
+                            startAngle: start,
+                            endAngle: end
+                        },
+                        style: api.style({
+                            fill: data.__pieColor,
+                            stroke: data.__pieColor,
+                            lineWidth: 0,
+                            opacity:0.6
+                        })
+                    }
+                ]
+            }
+        }
+    }
+  ]
+};
+	
+			 // 基于准备好的dom，初始化echarts实例
+			 var myChart = echarts.init(document.getElementById('main'));
+	
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		   
+		</script>
+</body>
+</html>
