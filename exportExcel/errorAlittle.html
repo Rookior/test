@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./js/xlsx.full.min.js"></script>
+</head>
+ 
+<body>
+    <button onclick="exportAll()">导出(分多个sheet表, 并且能够合并列)</button>
+</body>
+ 
+<script>
+    let listData = [
+        {
+            deviceAmount: 2, deviceAmountEvery: 2, model: "MA9704E-B1", privilegeListArray: "ADAS", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 3, deviceAmountEvery: 1, model: "MR98C-S4-B3", privilegeListArray: "ADAS,DSM", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 3, deviceAmountEvery: 1, model: "MT95C-D4-B3", privilegeListArray: "ADAS,DSM", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 3, deviceAmountEvery: 1, model: "MT95C-H4-B3", privilegeListArray: "ADAS,DSM", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 6, deviceAmountEvery: 6, model: "MR98C-H6-B1", privilegeListArray: "ADAS,DSM,BSD", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 1, deviceAmountEvery: 1, model: "MA9708E-B1", privilegeListArray: "ADAS,DSM,BSD,BSD2", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 6, deviceAmountEvery: 4, model: "MR98E-H8-B1", privilegeListArray: "ADAS,DSM,DSM2,BSD,BSD2", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 6, deviceAmountEvery: 2, model: "MR98E-H8-B1", privilegeListArray: "ADAS,DSM,DSM2,BSD,BSD2", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 1, deviceAmountEvery: 1, model: "MR98C-H4-B1", privilegeListArray: "ADAS,DSM,DSM2,BSD,BSD2,CMS", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 1, deviceAmountEvery: 1, model: "MA9504E-B1", privilegeListArray: "DSM,OMS", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 2, deviceAmountEvery: 1, model: "MA9504E-B1", privilegeListArray: "DSM,BSD,OMS", supplierName: "BBC", total: 22
+        },
+        {
+            deviceAmount: 2, deviceAmountEvery: 1, model: "MA9504E-B1", privilegeListArray: "DSM,BSD,OMS", supplierName: "BBC", total: 22
+        }
+    ],
+ 
+        listData2 = [
+            {
+                deviceAmount: 2,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM",
+                model: "MR98E",
+                privilegeList: [1, 2],
+                privilegeListArr: "ADAS,DSM",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 2,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM",
+                model: "MR98EH",
+                privilegeList: [1, 2],
+                privilegeListArr: "ADAS,DSM,BSD,BSD2",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 3,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,BSD",
+                model: "MR98EH",
+                privilegeList: [1, 2, 4],
+                privilegeListArr: "ADAS,DSM,BSD",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 3,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,BSD",
+                model: "MR98E",
+                privilegeList: [1, 2, 4],
+                privilegeListArr: "ADAS,DSM,BSD,BSD2",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 3,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,BSD",
+                model: "MR98E",
+                privilegeList: [1, 2, 4],
+                privilegeListArr: "ADAS,DSM,DSM2,BSD",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 2,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,DSM2",
+                model: "MR98EH",
+                privilegeList: [1, 2, 3],
+                privilegeListArr: "ADAS",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 2,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,DSM2",
+                model: "MR98EH",
+                privilegeList: [1, 2, 3],
+                privilegeListArr: "ADAS,DSM,BSD",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            },
+            {
+                deviceAmount: 1,
+                deviceAmountEvery: 1,
+                endPrivilegeListArray: "ADAS,DSM,DSM2,BSD",
+                model: "MR98EH",
+                privilegeList: [1, 2, 3, 4],
+                privilegeListArr: "ADAS,DSM",
+                scrapDeviceAmount: 0,
+                supplierName: "魔视",
+                total: 8
+            }
+        ],
+ 
+        listData3 = [
+            {
+                deviceAmount: 2, model: "MA9704E-B1", privilegeListArray: "ADAS", scrapDeviceAmountEvery: 1, supplierName: "A", total: 11
+            },
+            {
+                deviceAmount: 3, model: "MR98C-S4-B3", privilegeListArray: "ADAS,DSM", scrapDeviceAmountEvery: 1, supplierName: "A", total: 11
+            },
+            {
+                deviceAmount: 3, model: "MT95C-D4-B3", privilegeListArray: "ADAS,DSM", scrapDeviceAmountEvery: 1, supplierName: "A", total: 11
+            },
+            {
+                deviceAmount: 3, model: "MT95C-H4-B3", privilegeListArray: "ADAS,DSM", scrapDeviceAmountEvery: 1, supplierName: "A", total: 11
+            },
+            {
+                deviceAmount: 6, model: "MR98C-H6-B1", privilegeListArray: "ADAS,DSM,BSD", scrapDeviceAmountEvery: 1, supplierName: "A", total: 11
+            }
+        ];
+ 
+ 
+ 
+    // add
+    let colsList = [
+        { field: 'supplierName', title: '厂商', align: 'center', width: 150, merge: true },
+        { field: 'privilegeListArray', title: '权限', align: 'center', merge: ['supplierName', 'privilegeListArray'], event: 'total' },
+        { field: 'model', title: '设备型号', align: 'center', event: 'totalEvery' },
+        { field: 'deviceAmountEvery', title: '设备数量', align: 'center', event: 'totalEvery' },
+        { field: 'deviceAmount', title: '设备总数', align: 'center', merge: ['privilegeListArray', 'deviceAmount'], event: 'total' },
+        { field: 'total', title: '合计', align: 'center', merge: true, width: 150 },
+    ];
+ 
+    // update
+    let colsList2 = [
+        { field: 'supplierName', title: '厂商', align: 'center', width: 150, merge: true },
+        { field: 'privilegeListArr', title: '变更前权限', align: 'center', event: 'total', merge: ['endPrivilegeListArray', 'privilegeListArr'] },
+        { field: 'endPrivilegeListArray', title: '变更后权限', align: 'center', merge: ['supplierName', 'endPrivilegeListArray'], event: 'total' },
+        { field: 'model', title: '设备型号', align: 'center', event: 'totalEvery' },
+        { field: 'deviceAmountEvery', title: '设备数量', align: 'center', event: 'totalEvery' },
+        { field: 'deviceAmount', title: '设备总数', align: 'center', merge: ['endPrivilegeListArray', 'deviceAmount'], event: 'total' },
+        { field: 'total', title: '合计', align: 'center', merge: true, width: 150 },
+    ];
+ 
+    // scrap
+    let colsList3 = [
+        { field: 'supplierName', title: '厂商', align: 'center', width: 150, merge: true },
+        { field: 'privilegeListArray', title: '权限', align: 'center', merge: ['supplierName', 'privilegeListArray'], event: 'total' },
+        { field: 'model', title: '设备型号', align: 'center', event: 'totalEvery', },
+        { field: 'scrapDeviceAmountEvery', title: '报废设备数量', align: 'center', event: 'totalEvery' },
+        { field: 'deviceAmount', title: '设备总数', align: 'center', merge: ['privilegeListArray', 'deviceAmount'], event: 'total' },
+        { field: 'total', title: '合计', align: 'center', merge: true, width: 150 },
+ 
+    ];
+ 
+   // add
+   function oneTable() {
+        let news = [[]];
+        colsList.map((item, index) => {
+            if (index != colsList.length - 1) {
+                news[0].push(item.title);
+            }
+        });
+        listData.map((v, i) => {
+            news.push([v.supplierName, v.privilegeListArray, v.model, v.deviceAmountEvery, v.deviceAmount]);
+        });
+ 
+        if (listData.length != 0) {
+            news.push(['合计', '', '', '', listData[0].total]);
+        }
+ 
+        let obj = {};
+        listData.forEach(item => {
+            if (obj[item.privilegeListArray]) {
+                obj[item.privilegeListArray]++;
+            } else {
+                obj[item.privilegeListArray] = 1;
+            }
+        });
+ 
+        let arrayY = []
+        for (let key in obj) {
+            arrayY.push(obj[key]);
+        }
+        let merge = [{ s: { r: 1, c: 0 }, e: { r: listData.length, c: 0 } }];
+        let ac = 1;
+        for (let i = 0; i < arrayY.length; i++) {
+            let key = arrayY[i];
+ 
+            if (i !== 0) {
+                let node = arrayY[i - 1];
+                if (node == 1 && key !== 1) {
+                    ac += 1;
+                } else if (node !== 1 && key !== 1) {
+                    ac += node;
+                } else if (node !== 1 && key == 1) {
+                    ac += node;
+                }
+                else if (node == 1 && key == 1) {
+                    ac += node;
+                }
+            } else {
+                ac == 1;
+            }
+            let obj = { s: { r: ac, c: 1 }, e: { r: ac + key - 1, c: 1 } };
+            let obj2 = { s: { r: ac, c: 4 }, e: { r: ac + key - 1, c: 4 } };
+            merge.push(obj);
+            merge.push(obj2);
+        }
+ 
+        const sheet1 = XLSX.utils.aoa_to_sheet(news);
+        sheet1['!ref'] = `A1:AI${news.length}`; // 行数则以 xlsxData 内容的长度结束即可
+        sheet1['!merges'] = merge;
+        return sheet1;
+    }
+ 
+    // update
+    function twoTable() {
+        let news = [[]];
+        colsList2.map((item, index) => {
+            if (index != colsList2.length - 1) {
+                news[0].push(item.title);
+            }
+        });
+        listData2.map((v, i) => {
+            news.push([v.supplierName, v.privilegeListArr, v.endPrivilegeListArray, v.model, v.deviceAmountEvery, v.deviceAmount]);
+        });
+ 
+        if (listData2.length != 0) {
+            news.push(['合计', '', '', '', '', listData2[0].total]);
+        }
+ 
+        let obj = {};
+        listData2.forEach(item => {
+            if (obj[item.endPrivilegeListArray]) {
+                obj[item.endPrivilegeListArray]++;
+            } else {
+                obj[item.endPrivilegeListArray] = 1;
+            }
+        });
+ 
+        let arrayY = []
+        for (let key in obj) {
+            arrayY.push(obj[key]);
+        }
+ 
+        let aa = 0, bb = [];
+        for (let i = 0; i < arrayY.length; i++) {
+            let num = arrayY[i];
+            aa += num;
+            if (num == 1) {
+                bb.push(1);
+            } else {
+                let cc = [];
+                for (let j = (aa - num); j <= (aa - 1); j++) {
+                    cc.push(listData2[j])
+                }
+ 
+                let obj = {};
+                cc.forEach(item => {
+                    if (obj[item.privilegeListArr]) {
+                        obj[item.privilegeListArr]++;
+                    } else {
+                        obj[item.privilegeListArr] = 1;
+                    }
+                });
+ 
+                let arrayY = []
+                for (let key in obj) {
+                    arrayY.push(obj[key]);
+                }
+                bb.push(arrayY)
+            }
+        }
+ 
+        let merge = [{ s: { r: 1, c: 0 }, e: { r: listData2.length, c: 0 } }];
+        let ac = 1;
+        for (let i = 0; i < arrayY.length; i++) {
+            let key = arrayY[i];
+            let value = bb[i];
+ 
+            if (i !== 0) {
+                let node = arrayY[i - 1];
+                if (node == 1 && key !== 1) {
+                    ac += 1;
+                } else if (node !== 1 && key !== 1) {
+                    ac += node;
+                } else if (node !== 1 && key == 1) {
+                    ac += node;
+                }
+                else if (node == 1 && key == 1) {
+                    ac += node;
+                }
+            } else {
+                ac == 1;
+            }
+            
+            if (key == value || key == value.toString()) {
+                let obj = { s: { r: ac, c: 1 }, e: { r: ac + key - 1, c: 1 } };
+                merge.push(obj);
+            } else {
+                value.map((node, index) => {
+                    let start = 0;
+                    if (index == 0 || node == 1) {
+                        merge.push({ s: { r: ac, c: 1 }, e: { r: ac, c: 1 } });
+                        start = ac + 1;
+                    } else if (index == 0 || node != 1) {
+                        merge.push({ s: { r: ac, c: 1 }, e: { r: ac + node - 1, c: 1 } });
+                        start = ac + node;
+                    } else if (index == value.length - 1 || node != 1) {
+                        merge.push({ s: { r: ac + key - 1, c: 1 }, e: { r: ac + key - 1, c: 1 } });
+                    } else if (index == value.length - 1 || node == 1) {
+                        merge.push({ s: { r: (ac + key - 1) - node + 1, c: 1 }, e: { r: ac + key - 1, c: 1 } });
+                    } else {
+                        if (node == 1) {
+                            merge.push({ s: { r: start, c: 1 }, e: { r: start, c: 1 } });
+                        } else {
+                            merge.push({ s: { r: start, c: 1 }, e: { r: start + node - 1, c: 1 } });
+                        }
+                    }
+                });
+            }
+ 
+            let obj2 = { s: { r: ac, c: 2 }, e: { r: ac + key - 1, c: 2 } };
+            let obj3 = { s: { r: ac, c: 5 }, e: { r: ac + key - 1, c: 5 } };
+            
+            merge.push(obj2);
+            merge.push(obj3);
+        }
+ 
+        const sheet1 = XLSX.utils.aoa_to_sheet(news);
+        sheet1['!ref'] = `A1:AI${news.length}`; // 行数则以 xlsxData 内容的长度结束即可
+        sheet1['!merges'] = merge;
+        return sheet1;
+    }
+ 
+    // scrap
+    function threeTable() {
+        let news = [[]];
+        colsList3.map((item, index) => {
+            if (index != colsList3.length - 1) {
+                news[0].push(item.title);
+            }
+        });
+        listData3.map((v, i) => {
+            news.push([v.supplierName, v.privilegeListArray, v.model, v.scrapDeviceAmountEvery, v.deviceAmount]);
+        });
+ 
+        if (listData3.length != 0) {
+            news.push(['合计', '', '', '', listData3[0].total]);
+        }
+ 
+        let obj = {};
+        listData3.forEach(item => {
+            if (obj[item.privilegeListArray]) {
+                obj[item.privilegeListArray]++;
+            } else {
+                obj[item.privilegeListArray] = 1;
+            }
+        });
+ 
+        let arrayY = []
+        for (let key in obj) {
+            arrayY.push(obj[key]);
+        }
+        let merge = [{ s: { r: 1, c: 0 }, e: { r: listData3.length, c: 0 } }];
+        let ac = 1;
+        for (let i = 0; i < arrayY.length; i++) {
+            let key = arrayY[i];
+ 
+            if (i !== 0) {
+                let node = arrayY[i - 1];
+                if (node == 1 && key !== 1) {
+                    ac += 1;
+                } else if (node !== 1 && key !== 1) {
+                    ac += node;
+                } else if (node !== 1 && key == 1) {
+                    ac += node;
+                }
+                else if (node == 1 && key == 1) {
+                    ac += node;
+                }
+            } else {
+                ac == 1;
+            }
+            let obj = { s: { r: ac, c: 1 }, e: { r: ac + key - 1, c: 1 } };
+            let obj2 = { s: { r: ac, c: 4 }, e: { r: ac + key - 1, c: 4 } };
+            merge.push(obj);
+            merge.push(obj2);
+        }
+ 
+        const sheet1 = XLSX.utils.aoa_to_sheet(news);
+        sheet1['!ref'] = `A1:AI${news.length}`; // 行数则以 xlsxData 内容的长度结束即可
+        sheet1['!merges'] = merge;
+        return sheet1;
+    }
+ 
+    // 导出
+    function exportAll() {
+ 
+        let sheet1 = oneTable();
+        console.log(sheet1)
+ 
+        let sheet2 = twoTable();
+        console.log(sheet2)
+ 
+        let sheet3 = threeTable();
+        console.log(sheet3)
+ 
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, sheet1, "add");
+        XLSX.utils.book_append_sheet(wb, sheet2, "update");
+        XLSX.utils.book_append_sheet(wb, sheet3, 'scrap');
+        const workbookBlob = workbook2blob(wb);
+ 
+        // 导出最后的总表
+        openDownloadDialog(workbookBlob, "AIInfo.xlsx");
+ 
+        function workbook2blob(workbook) {
+            // 生成excel的配置项
+            var wopts = {
+                // 要生成的文件类型
+                bookType: "xlsx",
+                // 是否生成Shared String Table, 官方解释是, 如果开启生成速度会下降, 但在低版本IOS设备上有更好的兼容性
+                bookSST: false,
+                type: "binary"
+            };
+            var wbout = XLSX.write(workbook, wopts);
+            // 将字符串转ArrayBuffer
+            function s2ab(s) {
+                var buf = new ArrayBuffer(s.length);
+                var view = new Uint8Array(buf);
+                for (var i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+                return buf;
+            }
+            let buf = s2ab(wbout);
+            var blob = new Blob([buf], {
+                type: "application/octet-stream"
+            });
+            return blob;
+        }
+ 
+        // 将blob对象 创建bloburl,然后用a标签实现弹出下载框
+        function openDownloadDialog(blob, fileName) {
+            if (typeof blob === "object" && blob instanceof Blob) {
+                blob = URL.createObjectURL(blob); // 创建blob地址
+            }
+            var aLink = document.createElement("a");
+            aLink.href = blob;
+            // HTML5add的属性, 指定保存文件名, 可以不要后缀, 注意, 有时候 file:///模式下不会生效
+            aLink.download = fileName || "";
+            var event;
+            if (window.MouseEvent) event = new MouseEvent("click");
+            //   移动端
+            else {
+                event = document.createEvent("MouseEvents");
+                event.initMouseEvent(
+                    "click",
+                    true,
+                    false,
+                    window,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    false,
+                    false,
+                    false,
+                    false,
+                    0,
+                    null
+                );
+            }
+            aLink.dispatchEvent(event);
+        }
+ 
+    }
+ 
+</script>
+ 
+</html>
