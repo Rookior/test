@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颜色转换生成背景与边框，rgba, hex , hsl </title>
+    <style>
+        
+        .namewrap {
+        position: relative;
+        display: inline-block;
+        color: #fff;
+        z-index: 9;
+        }
+
+        .namebg {
+        display: flex;
+        position: relative;
+        }
+        .namewrap:hover {
+        z-index: 10;
+        }
+        .namebgbefore {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-bottom: 13px solid transparent;
+        border-top: 13px solid transparent;
+        border-right-width: 13px;
+        border-right-style: solid;
+        }
+        .name {
+        /* background: #f00; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+        .namebgafter {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-bottom: 13px solid transparent;
+        border-top: 13px solid transparent;
+        border-left-width: 13px;
+        border-left-style: solid;
+        }
+        .namecnt {
+        display: flex;
+        transform: translate(2px, -24px);
+        }
+        .namecntbefore {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-bottom: 11px solid transparent;
+        border-top: 11px solid transparent;
+        border-right-width: 11px;
+        border-right-style: solid;
+        }
+        .namecntafter {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-bottom: 11px solid transparent;
+        border-top: 11px solid transparent;
+        border-left-width: 11px;
+        border-left-style: solid;
+        }
+        .name2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+
+        <div
+        class="namewrap"
+        :style="{
+          height: `26px`,
+        }"
+      >
+        <div class="namebg">
+          <div
+            class="namebgbefore"
+            :style="{ borderRightColor: getColor(farm.color).border }"
+          ></div>
+          <div
+            class="name"
+            :style="{ background: getColor(farm.color).border }"
+          >
+            {{ farm.alias }}
+          </div>
+          <div
+            class="namebgafter"
+            :style="{ borderLeftColor: getColor(farm.color).border }"
+          ></div>
+        </div>
+        <div class="namecnt">
+          <div
+            class="namecntbefore"
+            :style="{ borderRightColor: getColor(farm.color).background }"
+          ></div>
+          <div
+            class="name2"
+            :style="{ background: getColor(farm.color).background }"
+          >
+            {{ farm.alias }}
+          </div>
+          <div
+            class="namecntafter"
+            :style="{ borderLeftColor: getColor(farm.color).background }"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var v = new Vue( {
+            el: "#app",
+            data: {
+                farm:{
+                    color:'#f00',
+                    alias:'场站名称'
+                }
+            },
+            methods:{
+
+                hexToRgb (hexValue) {
+            const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+            const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b)
+            const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+            const r = parseInt(rgb[1], 16)
+            const g = parseInt(rgb[2], 16)
+            const b = parseInt(rgb[3], 16)
+            return {
+                r, g, b
+            }
+            },
+            getColor (color) {
+            const color2 = this.hexToRgb(color)
+            const rgba = 'rgba(' + color2.r + ', ' + color2.g + ', ' + color2.b + ', 1)' / [color2.r, color2.g, color2.b, 1]
+            const bg = this.rgbaToHsl2(rgba, 0.5)
+            const border = this.rgbaToHsl2(rgba, 0.8)
+            const obj = {
+                background: bg,
+                border: border
+            }
+            return obj
+            },
+            rgbaToHsl2 (rgbaColor, saturation) {
+            // 将RGBA颜色值转换为RGB颜色值
+            const rgbColor = rgbaColor.replace(/rgba?\(|\)/g, '').split(',')
+            const r = parseInt(rgbColor[0])
+            const g = parseInt(rgbColor[1])
+            const b = parseInt(rgbColor[2])
+
+            // 将RGB颜色值转换为HSL颜色值
+            const max = Math.max(r, g, b) / 255
+            const min = Math.min(r, g, b) / 255
+            let h; let s; const l = (max + min) / 2
+
+            if (max === min) {
+                h = s = 0 // achromatic
+            } else {
+                const d = max - min
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+                switch (max) {
+                case r / 255:
+                    h = (g - b) / d + (g < b ? 6 : 0)
+                    break
+                case g / 255:
+                    h = (b - r) / d + 2
+                    break
+                case b / 255:
+                    h = (r - g) / d + 4
+                    break
+                }
+                h /= 6
+            }
+
+            // 根据指定的饱和度参数调整饱和度
+            s *= saturation
+
+            return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`
+            }
+            }
+
+        } )
+    </script>
+</body>
+</html>

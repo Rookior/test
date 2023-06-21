@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 200px;
+        }
+        .namewrap{
+            position: relative;
+            display: inline-block;
+            color: #fff;
+        }
+        .namebg{
+            display: flex;
+            position: relative;
+        }
+        .namebgbefore{
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            /*在三角形底边设置一个边界颜色/
+            border-top: 13px solid red;
+            /*其它3边设置相同颜色，*/
+            border-bottom: 13px solid transparent;
+            border-top: 13px solid transparent;
+            border-right-width: 13px;
+            border-right-style: solid;
+            /* border-right: 13px solid #eee; */
+           
+        }
+        .name{
+            /* background: #eee; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .namebgafter{
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            /*在三角形底边设置一个边界颜色/
+            border-top: 13px solid red;
+            /*其它3边设置相同颜色，*/
+            border-bottom: 13px solid transparent;
+            border-top: 13px solid transparent;
+            border-left-width: 13px;
+            border-left-style: solid;
+            /* border-left: 13px solid #eee; */
+           
+        }
+        .namecnt{
+            /* position: absolute;
+            left: 1px;
+            top: 1px; */
+            display: flex;
+            transform: translate(2px,-38px);
+           
+        }
+        .namecntbefore{
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            /*在三角形底边设置一个边界颜色/
+            border-top: 13px solid red;
+            /*其它3边设置相同颜色，*/
+            border-bottom: 11px solid transparent;
+            border-top: 11px solid transparent;
+            border-right-width: 11px;
+            border-right-style: solid;
+            /* border-right: 11px solid #0f0; */
+           
+        }
+        .namecntafter{
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            /*在三角形底边设置一个边界颜色/
+            border-top: 13px solid red;
+            /*其它3边设置相同颜色，*/
+            border-bottom: 11px solid transparent;
+            border-top: 11px solid transparent;
+            border-left-width: 11px;
+            border-left-style: solid;
+            /* border-left: 11px solid #0f0; */
+           
+        }
+        .name2{
+            /* background: #0f0; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="namewrap" id="app">
+        <div class="namebg">
+            <div class="namebgbefore" :style="{borderRightColor:getColor('#0f0').border}"></div>
+            <div class="name" :style="{background:getColor('#0f0').border}">
+                场站名称23323222
+            </div>
+            <div class="namebgafter" :style="{borderLeftColor:getColor('#0f0').border}"></div>
+           
+        </div>
+        <div class="namecnt">
+            <div class="namecntbefore" :style="{borderRightColor:getColor('#0f0').background}"></div>
+            <div class="name2" :style="{background:getColor('#0f0').background}">
+                场站名称23323222
+            </div>
+            <div class="namecntafter" :style="{borderLeftColor:getColor('#0f0').background}"></div>
+           
+        </div>
+    </div>
+    
+    <script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var v = new Vue( {
+            el: "#app",
+            data: {
+                height:'50',
+                content:'40'
+            },
+            methods:{
+                hexToRgb(hexValue) {
+                        const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+                        const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b );
+                        const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                        const r = parseInt(rgb[1], 16);
+                        const g = parseInt(rgb[2], 16);
+                        const b = parseInt(rgb[3], 16);
+                        return {
+                            r,g,b
+                        }
+                    },
+                    rgbtohsl(r,g,b){
+                        r=r/255;
+                        g=g/255;
+                        b=b/255;
+                        var min=Math.min(r,g,b);
+                        var max=Math.max(r,g,b);
+                        var l=(min+max)/2;
+                        var difference = max-min;
+                        var h,s,l;
+                        if(max==min){
+                            h=0;
+                            s=0;
+                        }else{
+                            s=l>0.5?difference/(2.0-max-min):difference/(max+min);
+                            switch(max){
+                                case r: h=(g-b)/difference+(g < b ? 6 : 0);break;
+                                case g: h=2.0+(b-r)/difference;break;
+                                case b: h=4.0+(r-g)/difference;break;
+                            }
+                            h=Math.round(h*60);
+                        }
+                        s=Math.round(s*100);//转换成百分比的形式
+                        l=Math.round(l*100);
+                        return [h,s,l];
+                    },
+               getColor(color){
+              
+                let color2 = this.hexToRgb(color)
+                let color3 = this.rgbtohsl(color2.r,color2.g,color2.b)
+                
+                const background = 'hsl('+color3[0]+',50%,50%)'
+                const border =  'hsl('+color3[0]+',80%,50%)'
+
+                return {
+                    background:background,
+                    border:border,    
+                }
+               }
+            },
+            computed:{
+               
+            },
+            mounted () {
+              
+            },
+        } )
+    </script>
+</body>
+</html>
