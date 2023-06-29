@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 换肤</title>
+    <style>
+        :root{
+            --background-color: #5468ff;
+            --text-color: #1c1e21;
+        }
+        html.dark{
+            --background-color: #000;
+            --text-color: #fff;
+        }
+        body{
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+    </style>
+</head>
+<body>
+    <div onclick="changeThem()">切换</div>
+    <script>
+        var val = 'day'
+
+        function changeThem(){
+            if(val === 'day'){
+                val = 'night'
+                document.querySelector('html').className="dark"
+            }else{
+                val = 'day'
+                document.querySelector('html').className=""
+            }
+        }
+    </script>
+</body>
+</html>

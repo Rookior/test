@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        dfdfdfd
+    </div>
+    <script>
+        function rgbaToHsl(r, g, b, a) {
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            
+            let max = Math.max(r, g, b);
+            let min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+
+            if (max === min) {
+                h = s = 0; // achromatic
+            } else {
+                let d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                case r:
+                    h = (g - b) / d + (g < b ? 6 : 0);
+                    break;
+                case g:
+                    h = (b - r) / d + 2;
+                    break;
+                case b:
+                    h = (r - g) / d + 4;
+                    break;
+                }
+                h /= 6;
+            }
+
+            return [h, s, l, a];
+            }
+
+            function adjustSaturation(h, s, l, a, saturation) {
+            s *= saturation;
+            return  'hsl('+h+','+s*100 + '%,'+l*100 + '%,'+a+')';
+            }
+
+            // 示例用法
+            let rgbaColor = [255, 0, 0, 1]; // 红色
+            let hslColor = rgbaToHsl(...rgbaColor);
+            
+            console.log(adjustedColor);
+
+            document.getElementById('div').style.background = adjustSaturation(...hslColor, 0.5); // 饱和度减半
+
+            document.getElementById('div').style.borderColor = adjustSaturation(...hslColor, 0.8); // 饱和度减半
+
+    </script>
+</body>
+</html>
+
+
+
+
