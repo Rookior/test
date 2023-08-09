@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var testTimer = setInterval(function (){
+            if (window.location.href.includes("globalOverview/index")) {
+                if (document.querySelectorAll('.nav_cell.admin')[0].innerText === '芒果' || document.querySelectorAll('.nav_cell.admin')[0].innerText === '雷迪斯') {
+                    document.querySelectorAll('.menu-col').forEach(function (item) {
+                        if (item.innerText.includes("实时监控")) {
+                            item.remove()
+                        } else {
+                            item.click()
+                        }
+                    })
+
+                }
+                window.clearInterval(testTimer)
+
+            }
+            console.log("testTimer")
+        }, 1000)
+    </script>
+</body>
+
+</html>

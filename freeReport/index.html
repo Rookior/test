@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帆软自定义查询</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function autoSubmit() {
+      var num = document.getElementById('num').value; //获取文本控件的值
+      var row = document.getElementById('row').value; //获取下拉框控件的值
+      //拼接出最终报表访问路径，并对完整的路径进行编码转换，防止乱码问题
+      var reportURL = encodeURI("../../decision/view/report?viewlet=/demo/parameter/库存查询每页显示固定行.cpt&para=" + num + "&row=" + row);
+            document.paraForm.action = reportURL; //通过 form 的 name 获取表单，并将报表访问路径赋给表单的 action
+            document.paraForm.submit(); //触发表单提交事件
+        }
+      </script>
+      </head>  
+      <body>
+    <fieldset>
+        <legend>查询表单：</legend>
+        <form name="paraForm" method="post" target="reportFrame">
+        最小库存量：<input type="text" name="num" id="num" value="1"/>
+        每页显示行数：<select name="row" id="row">  
+        <option value="10" select>10  
+        <option value="20">20
+        <option value="30">30
+        <input type="button" name="show" value="查询" onclick="autoSubmit()"/>
+        </form> 
+    </fieldset>
+        <iframe id="reportFrame" name="reportFrame" width="100%" height="100%" ></iframe>  
+</body>
+</html>
