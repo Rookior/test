@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gitd布局</title>
+    <style>
+        div>div {
+            background-color: bisque;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .grid-box-1 {
+            display: grid;
+            width: 300px;
+            height: 200px;
+            grid-template-columns: 1fr 1fr 1fr;
+            /* 指定 3 列*/
+            grid-template-rows: 1fr 1fr;
+            /* 指定 2行 */
+        }
+
+        /* 隐式网格 */
+        .grid-box-2 {
+            width: 300px;
+            height: 200px;
+            display: grid;
+            margin: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-auto-rows: 40px;
+            /* 添加隐式网格的行高30px */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-box-1">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+
+
+    <div class="grid-box-2">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+    </div>
+
+    <!-- 
+有了网格线，我们可以通过网格线指定跨轨道的网格元素，从而实现网格元素占多行多列的效果。子元素通过grid-column-start，grid-column-end，grid-row-start，grid-row-end或者grid-column和grid-row，或者通过grid-area这一个属性来设置来指定元素占据的网格轨道。
+这里的属性值不仅可以指定网格线，还可以指定span xx 这个的意思是占据多少网格轨道。这个更符合我们的思维习惯。
+
+这里有7个属性，其实很好记忆，占据空间是通过指定网格线来指定的，所以会有行列 + 开始结束，这里是4个属性。然后行列的开始结束分别提供一个缩写，这里就是2个属性。最后，可以通过grid-area一个属性指定行列。
+grid-area的顺序是row-start / column-start / row-end / column-end。可以通过从左往右，从上往下，先start后end来记忆。
+
+作者：写代码的浩
+链接：https://juejin.cn/post/7207973807775039543
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ -->
+
+    <style>
+        .grid-box-3 {
+            width: 300px;
+            height: 300px;
+            display: grid;
+            margin: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-auto-rows: 40px;
+            /* 添加隐式网格的行高30px */
+
+
+            column-gap: 2px;
+            row-gap: 10px
+        }
+
+        .grid-box-3>div:nth-of-type(1) {
+            /* 网格线 开始 结束 的 行与列 
+                grid-column-start，grid-column-end，grid-row-start，grid-row-end
+            */
+            grid-column-start: 1;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 2;
+            /* 如果只占一行或一列，grid-xx-end属性可以不用写 */
+
+
+            /* 等同于下面的代码 */
+            grid-area: 1 / 1 / 2 / 4;
+            /* 这里的顺序是：row-start / column-start / row-end / column-end */
+        }
+
+        .grid-box-3>div:nth-of-type(2) {
+            grid-row: 2 / 4;
+            /* grid-row 是 grid-row-start 和 grid-row-end的缩写 */
+            grid-column: 2 / 3;
+            /* grid-row 是 grid-row-start 和 grid-row-end的缩写 */
+        }
+
+        .grid-box-3>div:nth-of-type(3) {
+            grid-column: 1 / span 1;
+            /* span表示占据几行，这里表示从2开始，占据2行，也就是网格线2到4 */
+            grid-row: 2 / span 3;
+            /* span表示占据几行，这里表示从2开始，占据2行，也就是网格线2到4 */
+        }
+    </style>
+    <div class="grid-box-3">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+    </div>
+
+    <style>
+        .grid-box-4 {
+            width: 90vw;
+            height: 20vh;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+
+            /* gap的顺序是row-gap column-gap。 */
+            gap: 10px 20px;
+        }
+    </style>
+    <div class="grid-box-4">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+    </div>
+
+    <style>
+        .grid-box-5{
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        .grid-box-5>div:nth-of-type(1) {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            /* 重叠可用z-index */
+            z-index: 1;  
+        }
+        .grid-box-5>div:nth-of-type(2) {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+    </style>
+    <div class="grid-box-5">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+
+    <!-- 
+        填充缺口
+        grid-auto-flow
+        是控制自动布局算法怎样运作的属性，
+        它能精确指定在网格中被自动布局的元素怎样排列。
+        它有3个属性值：column``，row(默认)，dense
+     -->
+
+
+     <!-- 元素对齐
+        justify-items: 垂直方向(列维度)的子元素在自己空间的对齐
+        align-items: 水平方向(行维度)的子元素在自己空间的对齐
+       justify-content: 垂直方向上，子元素在容器空间中的对齐
+        align-content: 水平方向上，子元素在容器空间中的对齐
+    -->
+</body>
+
+</html>
