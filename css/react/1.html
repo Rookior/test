@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body,
+html {
+  width: 100%;
+  height: 100%;
+  background: #2b3a42;
+  display: flex;
+}
+
+.demo-cube {
+  margin: auto;
+}
+
+.perspective {
+  transform-style: preserve-3d;
+  perspective: 200px;
+  transform: rotateX(20deg);
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.demo-cube {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+.demo-cube .cube-inner {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform-origin: 25px 25px;
+    transform: rotateX(246deg) rotateY(4deg) rotateZ(337deg);
+    animation: slowspin 6s ease-in-out infinite 2s;
+}
+.demo-cube .cube-inner li {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: #175d96;
+  border: 1px solid #fff;
+}
+.demo-cube .cube-inner .top {
+  transform: rotateX(90deg) translateZ(25px);
+}
+.demo-cube .cube-inner .bottom {
+  transform: rotateX(-90deg) translateZ(25px);
+}
+.demo-cube .cube-inner .front {
+  transform: translateZ(25px);
+}
+.demo-cube .cube-inner .back {
+  transform: rotateX(-180deg) translateZ(25px);
+}
+.demo-cube .cube-inner .left {
+  transform: rotateY(-90deg) translateZ(25px);
+}
+.demo-cube .cube-inner .right {
+  transform: rotateY(90deg) translateZ(25px);
+}
+
+@keyframes slowspin {
+  0% {
+    transform: rotateX(246deg) rotateY(4deg) rotateZ(336deg);
+  }
+  10%, to {
+    transform:  rotateX(68deg) rotateY(358deg) rotateZ(23deg);
+  }
+  
+}
+
+    </style>
+</head>
+<body>
+    <div class="demo-cube perspective">
+        <ul class="cube-inner">
+          <li class="top">1</li>
+          <li class="bottom">2</li>
+          <li class="front">3</li>
+          <li class="back">4</li>
+          <li class="right">5</li>
+          <li class="left">6</li>
+        </ul>
+      </div>
+</body>
+</html>

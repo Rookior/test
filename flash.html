@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cell{
+            width: 150px;
+            height: 50px;
+            background-color: rgb(1, 51, 72);
+        }
+        .flash{
+            animation: bganimation 2s ease-in-out infinite;
+        }
+        .bresh{
+            animation: bresh 2s ease-in-out infinite;
+        }
+        @keyframes bganimation{
+            0%{
+                opacity: 0;
+            }
+            50%{
+                opacity: .5;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        @keyframes bresh{
+            50%{
+                background: #fff;
+            }      
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cell" style="background: rgb(204, 0, 51);">
+        #001
+    </div>
+    <div class="cell flash" style="background: rgb(204, 0, 51);">
+        #001
+    </div>
+    <div class="cell bresh" style="background: rgb(204, 0, 51);">
+        #001
+    </div>
+</body>
+
+</html>

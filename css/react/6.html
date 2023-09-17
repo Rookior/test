@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6面体可手动旋转</title>
+    <style>
+        .cube {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  /* animation: rotate 10s infinite linear; */
+}
+
+.face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.front {
+  transform: translateZ(100px);
+  background-color: red;
+}
+
+.back {
+  transform: translateZ(-100px);
+  background-color: blue;
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+  background-color: green;
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+  background-color: yellow;
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+  background-color: orange;
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+  background-color: purple;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+    </style>
+<body>
+    <div class="cube">
+        <div class="face front">
+          <!-- 前面的内容 -->
+        </div>
+        <div class="face back">
+          <!-- 后面的内容 -->
+        </div>
+        <div class="face top">
+          <!-- 顶部的内容 -->
+        </div>
+        <div class="face bottom">
+          <!-- 底部的内容 -->
+        </div>
+        <div class="face left">
+          <!-- 左侧的内容 -->
+        </div>
+        <div class="face right">
+          <!-- 右侧的内容 -->
+        </div>
+      </div>
+      <script>
+       const cube = document.querySelector('.cube');
+let isDragging = false;
+let previousX;
+let previousY;
+
+cube.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  previousX = e.clientX;
+  previousY = e.clientY;
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    const deltaX = e.clientX - previousX;
+    const deltaY = e.clientY - previousY;
+    cube.style.transform = `rotateX(${deltaY}deg) rotateY(${deltaX}deg)`;
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+      </script>
+</body>
+</html>
