@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    bbbbbbbb
+    <div id="main"></div>
+    <div onclick="postParent()">
+        发消息给父窗口
+    </div>
+    <script>
+       
+window.addEventListener("message",function(e){
+            console.log(1234,e.data)
+            const {data} = e
+            const {code} = data
+            alert("子页面自己接收",code) 
+          },false);
+
+
+          function postParent(){
+            window.parent.postMessage("232323",'*')
+            window.postMessage({code:9999},'*')
+          }
+
+    </script>
+</body>
+</html>

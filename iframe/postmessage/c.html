@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" name="aa" value="跨域提交" onclick="send('aaa(123)')"/>
+    
+  <iframe name="iframeA" id="iframeA" width="900" height="400" src="./d.html"></iframe>
+  <script>
+    function send(num){
+
+        var ifr = document.getElementById('iframeA').contentWindow;
+        ifr.postMessage({code:123},'*');
+    }
+
+    window.addEventListener("message",function(e){
+      alert("子页面消息",e.data)
+    })
+
+    document.getElementById("iframeA").contentWindow.addEventListener("message",function(e){
+           
+            const {data} = e
+            const {code} = data
+            alert("父页面接收",code) 
+          },false);
+  </script>
+</body>
+</html>
