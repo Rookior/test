@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       function dropEquipment(equipmentProbabilities) {  
+        // 生成一个0-1之间的随机数  
+        let randomValue = Math.random();  
+    
+        // 遍历所有装备及其概率  
+        for (let equipment in equipmentProbabilities) {  
+            // 如果随机值小于当前装备的概率，返回该装备  
+            if (randomValue < equipmentProbabilities[equipment]) {  
+                return equipment;  
+            }  
+            // 否则，将随机值减去当前装备的概率，继续循环  
+            randomValue -= equipmentProbabilities[equipment];  
+        }  
+    
+        // 如果所有装备的概率都已用完，但随机值仍然小于1，返回最后一个装备（或默认装备）  
+        return equipment;  
+    }  
+    
+    // 定义装备及其概率  
+    let equipmentProbabilities = {  
+        "装备A": 0.2,  // 20% 的掉落概率  
+        "装备B": 0.3,  // 30% 的掉落概率  
+        "装备C": 0.5,  // 50% 的掉落概率  
+        "默认装备": 0   // 如果所有概率都已用完，返回默认装备  
+    };  
+    
+    console.log(dropEquipment(equipmentProbabilities)); // 输出一个装备的名称 
+    </script>
+</body>
+</html>
