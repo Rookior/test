@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="cell_wrap cell_wrap_light">
+
+        <div class="cell">
+
+            
+        </div>
+    </div>
+    <style>
+        body{
+            background: #000;
+        }
+        .cell_wrap {
+            overflow: hidden;
+            position: relative;
+            border-radius: 5px;
+            margin: 100px auto;
+            width: 226px;
+            height: 136px;
+        }
+
+        .cell_wrap_light::after {
+            content: "";
+            width: 300%;
+            height: 300%;
+        
+            background-image: conic-gradient(#EEEEEE22, #fff, #EEEEEE22 30%);
+          
+            border-radius: 5px;
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            z-index: 1;
+            animation: rotate 5s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .cell {
+            z-index: 2;
+            left: 3px;
+            top: 3px;
+            cursor: pointer;
+            position: relative;
+            background-color: rgb(1, 51, 72);
+            border-radius: 5px;
+            width: calc(100% - 6px);
+            height: calc(100% - 6px);
+        }
+    </style>
+</body>
+
+</html>
