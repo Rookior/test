@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>根节点事件触发</title>
+
+</head>
+
+<body>
+ 
+    <div id="app" @click="aaa" onclick="bbb()">
+        <div id="content"  >
+
+            <h1>介绍{{msg}}</h1>
+        </div>
+       
+    </div>
+
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/noScale.js"></script>
+    <script>
+        var a= $('#app')
+        console.log(a)
+function bbb(){
+    alert('bbbb')
+}
+
+$('#app').click(function(){
+                    alert(12345)
+                })
+
+        $('#app').click(function(){
+            alert(1)
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg:'一些描述'
+
+            },
+           
+            watch: {
+             
+            },
+            mounted () {
+                var b = $('#app')
+                console.log(b)
+                $('#app').click(function(){
+                    alert(1)
+                })
+            },
+            methods: {
+                aaa(){
+                   alert(999)
+                }
+            },
+            // component:{
+            //     'todo-item':'todo-item'
+            // }
+        })
+
+        document
+   
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      border: 1px solid #ccc;
+      height: 500px;
+      width: 200px;
+      overflow: auto;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+    }
+    .item {
+      width: 100%;
+     
+      position: absolute;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <div class="container"></div>
+    </div>
+    <script>
+
+      
+      // 最外层添加overflow的盒子
+      let box = document.querySelector(".box");
+      // item要撑起来的盒子
+      let container = document.querySelector(".container");
+
+        let itemHeight = 20 
+
+      // 所有数据
+      let arr = []
+        for (var i = 0; i < 1000; i++) {
+            arr.push('Item ' + i)
+        }
+      // 保存要渲染的数据 是实时变化的
+      let itemIncontainer = {};
+      // 以下方法属于常规方法可简单过滤
+      function createDom(str) {
+        return document.createElement(str);
+      }
+      // 插入方法
+      function insert(value, index) {
+        let div = createDom("div");
+        div.className = "item";
+        div.style.top = index * itemHeight + "px";
+
+        div.style.height = itemHeight + 'px'; 
+
+        div.innerHTML = arr[index];
+        container.appendChild(div);
+        itemIncontainer[index] = {
+          value: arr[index],
+          dom: div,
+        };
+      }
+      // 删除方法
+      function removeItem(rows) {
+        rows.map((item, index) => {
+          // 删除指定的dom
+          container.removeChild(itemIncontainer[item].dom);
+          // 删除对象中的节点
+          delete itemIncontainer[item];
+        });
+      }
+      box.onscroll = function () {
+        drawVirtualRows();
+      };
+      function init() {
+        // container的高度就是每个item*itemHeight的总高度
+        container.style.height = arr.length * itemHeight + "px";
+        // 先取出前五个渲染
+
+        const l = Math.ceil(box.clientHeight / itemHeight)
+        for (let i = 0; i < l; i++) {
+          insert(arr[i], i);
+        }
+      }
+      /**
+       * 虚拟列表核心方法
+       * 1.通过滚动距离 获取其实位置和结束位置
+       * 2.通过结束位置和起始位置来确定 要删除哪个item 要保留哪些item 要从arr中取哪些新的item插入
+       * 3.删除
+       */
+      function drawVirtualRows() {
+        // 滚动距离
+        let topPixel = box.scrollTop;
+        // 滚动距离加固定的高度
+        let bottomPixel = topPixel + box.offsetHeight;
+
+        let firstRow = Math.floor(topPixel / itemHeight);
+        let lastRow = Math.floor(bottomPixel / itemHeight);
+        ensureRowsRendered(firstRow, lastRow);
+      }
+      function ensureRowsRendered(start, finish) {
+       
+        let rowsIndex = Object.keys(itemIncontainer);
+        console.log(start, finish, rowsIndex);
+        for (let rowIndex = start; rowIndex <= finish; rowIndex++) {
+          // 当前item如果在rowsIndex 剔除掉 剩下的item就是需要删除的
+          if (rowsIndex.indexOf(rowIndex.toString()) > -1) {
+            rowsIndex.splice(rowsIndex.indexOf(rowIndex.toString()), 1);
+            continue;
+          }
+        
+            //   将显示范围的列表项插入
+          if (arr.length > rowIndex) {
+            // 判断没有的item 也就是新插入的索引是否超出arr的边界 没超出就添加到container中
+            insert(arr[rowIndex], rowIndex);
+          }
+        }
+        removeItem(rowsIndex);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

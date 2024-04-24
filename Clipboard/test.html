@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #haoronms-edit {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>复制的文本</p>
+    <img src="./1.png" />
+
+    <h1>粘贴的位置</h1>
+    <div id="haoronms-edit">
+
+    </div>
+    <script>
+
+        var haoroomsbox = document.getElementById('haoronms-edit');
+        haoroomsbox.addEventListener('paste', function (event) {
+            var data = (event.clipboardData || window.clipboardData);
+            var items = data.items;
+            var fileList = [];//存储文件数据
+            debugger
+            if (items && items.length) {
+                // 检索剪切板items
+                for (var i = 0; i < items.length; i++) {
+                    fileList.push(items[i].getAsFile());
+                }
+            }
+            window.willUploadFileList = fileList;
+            event.preventDefault();
+            submitUpload();
+        });
+        function submitUpload () {
+            var fileList = window.willUploadFileList || [];
+            if (!fileList.length) {
+                console.log('当前无粘贴文件');
+                return;
+            }
+            var haoroomsformData = new FormData();   //构造FormData对象
+            for (var i = 0; i < fileList.length; i++) {
+                haoroomsformData.append('filename', fileList[i]);//支持多文件上传
+            }
+            // http请求，当然你也可以用第三方的axios等
+            var xhr = new XMLHttpRequest();   //创建对象
+            xhr.open('POST', 'http://haorooms.com:8100/fileupload', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var obj = JSON.parse(xhr.responseText);   //返回值
+                    if (obj.fileUrl.length) {
+                        var img = document.createElement('img');
+                        img.src = obj.fileUrl[0];
+                        img.style.width = '100px';//这里可以自定义图片宽度，也可以不用写
+                        insertNodeToEditor(box, img);
+                        // alert('上传成功');
+                    }
+                }
+            }
+
+            //注意 send 一定要写在最下面，否则 onprogress 只会执行最后一次 也就是100%的时候
+            xhr.send(haoroomsformData);//发送时  Content-Type默认就是: multipart/form-data; 
+        }
+        //光标处插入 dom 节点
+        function insertNodeToEditor (editor, ele) {
+            //插入dom 节点
+            var range;//记录光标位置对象
+            var node = window.getSelection().anchorNode;
+            // 这里判断是做是否有光标判断，因为弹出框默认是没有的
+            if (node != null) {
+                range = window.getSelection().getRangeAt(0);// 获取光标起始位置
+                range.insertNode(ele);// 在光标位置插入该对象
+            } else {
+                editor.append(ele);
+            }
+        }
+    </script>
+</body>
+
+</html>

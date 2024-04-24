@@ -1,0 +1,37 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>立体矩形角</title>  
+<style>  
+  .box {  
+    position: relative;  
+    width: 200px;  
+    height: 100px;  
+    background-color: #ddd;  
+    border: 1px solid #ccc;  
+  }  
+  
+  .box::before {  
+    content: "";  
+    position: absolute;  
+    bottom: 0;  
+    right: 0;  
+    width: 20px;  
+    height: 20px;  
+    background-color: #bbb;  
+    border-left: 1px solid #ccc;  
+    border-bottom: 1px solid #ccc;  
+    transform: skewY(-45deg);  
+    transform-origin: bottom right;  
+    z-index: -1;  
+  }  
+</style>  
+</head>  
+<body>  
+  
+<div class="box"></div>  
+  
+</body>  
+</html>

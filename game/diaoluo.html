@@ -33,8 +33,26 @@
         "装备C": 0.5,  // 50% 的掉落概率  
         "默认装备": 0   // 如果所有概率都已用完，返回默认装备  
     };  
+
+    var a=0,b=0,c=0,d=0;
+    for(var i =0 ;i<100;i++){
+        switch(dropEquipment(equipmentProbabilities)){
+            case "装备A":
+                a++;
+                break;
+                case "装备B":
+                b++;
+                break;
+                case "装备C":
+                c++;
+                break;
+                case "默认装备":
+                d++;
+                break;
+        }
+    }
+    console.log(a/100,b/100,c/100,d/100)
     
-    console.log(dropEquipment(equipmentProbabilities)); // 输出一个装备的名称 
     </script>
 </body>
 </html>
