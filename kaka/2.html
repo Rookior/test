@@ -1,0 +1,149 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Scratch Card Example</title>  
+<style>  
+/* 相同的CSS样式 */  
+#puzzle {  
+  display: grid;  
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 10px;  
+  width: 200px;  
+  height: 200px;  
+}  
+  
+#puzzle .cell {  
+  position: relative;  
+  width: 60px;  
+  height: 60px;  
+  border: 1px solid #ccc;  
+  cursor: pointer;  
+  overflow: hidden;  
+}  
+  
+#puzzle .cell canvas {  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+}  
+  
+#puzzle .cell .scratch-mask {  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+  background: rgba(0, 0, 0, 0.5); /* 初始遮罩层 */  
+}  
+  
+#puzzle .cell.revealed .scratch-mask {  
+  display: none; /* 刮开后隐藏遮罩层 */  
+}  
+</style>  
+</head>  
+<body>  
+  
+<div id="puzzle">  
+  <!-- 九宫格将由JavaScript动态创建 -->  
+</div>  
+  
+<script>  
+document.addEventListener('DOMContentLoaded', () => {  
+  const puzzleContainer = document.getElementById('puzzle');  
+  const cells = [];  
+  let lastX =0;
+  let lastY = 0;
+  // 初始化刮刮乐卡片  
+  function initScratchCard() {  
+    // 假设我们有 3x3 的格子  
+    for (let i = 0; i < 9; i++) {  
+      // 创建单元格  
+      const cell = document.createElement('div');  
+      cell.classList.add('cell');  
+      cell.textContent = `Prize ${i + 1}`; // 示例文本  
+  
+      // 创建遮罩层  
+      const scratchMask = document.createElement('div');  
+      scratchMask.classList.add('scratch-mask');  
+  
+      // 创建 canvas 用于绘制刮擦路径  
+      const canvas = document.createElement('canvas');  
+      const ctx = canvas.getContext('2d');  
+      canvas.width = 60;  
+      canvas.height = 60;  
+  
+      // 绘制初始遮罩层  
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';  
+      ctx.fillRect(0, 0, canvas.width, canvas.height);  
+  
+      // 将 canvas 和遮罩层添加到单元格中  
+      cell.appendChild(scratchMask);  
+      cell.appendChild(canvas);  
+  
+      const cellObj = { cell, ctx, isScratching: false }
+      // 绑定刮擦事件  
+      cell.addEventListener('mousedown', onMouseDown.bind(null, cellObj, ctx));  
+  
+      // 将单元格添加到容器中  
+      puzzleContainer.appendChild(cell);  
+      cells.push(cellObj);  
+    }  
+  }  
+  
+  // 刮擦开始  
+  function onMouseDown(cellObj, ctx, e) {  
+    const { cell } = cellObj;  
+    cellObj.isScratching = true;  
+    const rect = cell.getBoundingClientRect();  
+    const x = e.clientX - rect.left;  
+    const y = e.clientY - rect.top;  
+    drawScratch(ctx, x, y);  
+  
+    // 添加 mousemove 和 mouseup 事件监听器  
+    document.addEventListener('mousemove', onMouseMove.bind(null, cellObj, ctx));  
+    document.addEventListener('mouseup', onMouseUp.bind(null, cellObj));  
+  }  
+  
+  // 刮擦过程中  
+  function onMouseMove(cellObj, ctx, e) {  
+    if (!cellObj.isScratching) return;  
+    const rect = cellObj.cell.getBoundingClientRect();  
+    const x = e.clientX - rect.left;  
+    const y = e.clientY - rect.top;  
+    drawScratch(ctx, x, y);  
+  }  
+  
+  // 刮擦结束  
+  function onMouseUp(cellObj) {  
+    cellObj.isScratching = false;  
+    document.removeEventListener('mousemove', onMouseMove.bind(null, cellObj));  
+    document.removeEventListener('mouseup', onMouseUp.bind(null, cellObj));  
+  
+    // 检查是否完全刮开，如果是，则移除遮罩层  
+    // 这里仅作为示例，未实现完全检测逻辑  
+    // cellObj.cell.classList.add('revealed'); // 假设完全刮开会添加这个类  
+  }  
+  
+  // 绘制刮擦路径  
+  function drawScratch(ctx, x, y) {  
+    ctx.lineWidth = 10; // 设置刮擦线条宽度  
+    ctx.lineCap = 'round'; // 设置线条端点为圆形  
+    ctx.strokeStyle = 'white'; // 设置刮擦线条颜色  
+    ctx.beginPath();  
+    ctx.moveTo(lastX, lastY); // 从上次位置开始  
+    ctx.lineTo(x, y); // 绘制到当前位置  
+    ctx.stroke(); // 绘制线条  
+    [lastX, lastY] = [x, y]; // 更新上次位置  
+  }  
+  
+  // 初始化刮刮乐卡片  
+  initScratchCard();  
+});
+</script>  
+  
+</body>  
+</html>

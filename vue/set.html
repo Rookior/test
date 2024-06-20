@@ -1,0 +1,115 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>$set</title>
+        <style>
+            
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+
+            {{objMap.aaa}}
+            <div v-for="item in 10">
+                <p v-if="objMap[item]">
+                    {{objMap[item]}}
+                </p>
+                    
+            </div>
+            <hr />
+            <div v-for="item in 10">
+                <p v-if="tableDataMap[item]">
+                    {{tableDataMap[item]}}
+                </p>
+                    
+            </div>
+            
+
+        </div>
+        
+
+        <!-- 生产环境版本，优化了尺寸和速度 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script>
+           
+        
+
+            
+       
+        var app = new Vue({
+            el: '#app',
+            data: {
+                objMap:{}
+            },
+            computed: {            
+                tableDataMap () {
+                    const { inverterData } = this
+                    const obj = {}
+                    for(var i=0;i<10;i++){
+                        obj[i] = 'i' + i + '-' + Math.random()
+                    }
+                   
+                    return obj
+                },
+            },
+            beforeCreate:function(){             
+                console.log('beforeCreate:此时不能访问data和menthods等中的东西')
+            },
+            created:function(){
+                console.log('created:实例创建此时能访问data和menthods等中的东西')
+            },
+            beforeMount:function(){
+                console.log('beforeMount:虚拟dom')
+            },
+            mounted:function(){
+                console.log('mouented:虚拟dom挂在成为真实dom')
+
+                this.init()
+            },
+            beforeUpdate:function(){
+                
+               
+                
+            },
+            updated:function(){
+              
+              
+            },
+            methods:{
+                init(){
+                    for(var i=0;i<10;i++){
+                        this.makeOption(i)
+                    }
+                },
+                makeOption(i){
+                   
+                    this.$set(this.objMap, [i], 'i' + i + '-' + Math.random())
+                    //this.objMap[i] = 'i' + i + '-' + Math.random()
+                }
+            },
+            watch: {
+                
+            },
+            beforeDestroy:function(){
+                console.log('beforeDestroy')
+            },
+            destroyed:function(){
+                console.log('destroyed')
+            }
+        })
+        console.log(Vue)
+        // 控制台赋值app.message 会自动更新页面（双向绑定）
+        // 控制台 app.todos.push({ text: '新项目' })  会自动更新页面（双向绑定）
+
+
+       
+        </script>
+    </body>
+
+    </html>

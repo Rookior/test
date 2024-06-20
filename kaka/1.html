@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #puzzle {  
+  display: grid;  
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 10px;  
+  width: 200px;  
+  height: 200px;  
+  color: #ccc; /* 蒙层效果 */  
+}  
+  
+#puzzle .cell {  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  width: 60px;  
+  height: 60px;  
+  border: 1px solid #ccc;  
+  position: relative;  
+  cursor: pointer;  
+}  
+  
+#puzzle .cell::before {  
+  content: "";  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+  background: #ccc; /* 蒙层效果 */  
+  transition: background 0.3s ease; /* 刮刮乐效果过渡 */  
+}  
+  
+#puzzle .cell.revealed::before {  
+  background: transparent; /* 移除蒙层 */  
+}
+#puzzle .cell.revealed{
+    color: #000;
+}
+    </style>
+</head>
+<body>
+    <div id="puzzle">  
+        <!-- 动态生成九宫格 -->  
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {  
+  const puzzleContainer = document.getElementById('puzzle');  
+  const cells = [];  
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];  
+  
+  // 随机打乱数字数组  
+  numbers.sort(() => 0.5 - Math.random());  
+  
+  // 创建九宫格  
+  for (let i = 0; i < 9; i++) {  
+    const cell = document.createElement('div');  
+    cell.classList.add('cell');  
+    cell.textContent = numbers[i]; // 设置格子数字  
+    cell.addEventListener('click', revealCell);  
+    puzzleContainer.appendChild(cell);  
+    cells.push(cell);  
+  }  
+  
+  // 移除蒙层函数  
+  function revealCell() {  
+    this.classList.add('revealed');  
+  }  
+});
+      </script>
+</body>
+</html>

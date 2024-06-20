@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刮刮盲盒</title>
+    <style>
+        .wrap{
+            margin: 200px auto;
+            width: 300px;
+            height: 300px;
+        }
+        .row{
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            /* 指定 3 列*/
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+        .col{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+        }
+        .col.open{
+            background: #fff;
+        }
+        .col.close{
+            background: #000;
+        }
+        button{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="wrap">
+
+    <button>重置</button>
+    <button>开始</button>
+    <div class="row">
+        <div class="col close">1</div>
+        <div class="col close">2</div>
+        <div class="col close">3</div>
+        <div class="col close">4</div>
+        <div class="col close">5</div>
+        <div class="col close">6</div>
+        <div class="col close">7</div>
+        <div class="col close">8</div>
+        <div class="col close">9</div>
+    </div>
+    <script>
+        //定义画布和画笔
+        var oCva = document.getElementById("myCanvas");
+        var ctx = oCva.getContext("2d");
+
+        //定义初始x,y(删除起始坐标)
+        var x = 0,y = 0;
+
+        //绘制遮罩层
+        ctx.beginPath();
+        ctx.rect(0, 0, oCva.offsetWidth, oCva.offsetHeight);
+        ctx.fillStyle = "#ccc";
+        ctx.fill();
+
+        //添加鼠标按下、移动事件
+        oCva.onmousedown = function() {
+            oCva.onmousemove = function(e) {
+                //获取鼠标位置,重新定义x,y坐标
+                var e = e || event;
+                x = e.clientX;
+                y = e.clientY;
+                console.log(x, y)
+                ctx.clearRect(x, y, 10, 10)
+
+                //鼠标松开,清除移动事件
+                oCva.onmouseup = function() {
+                    oCva.onmousemove = null;
+                }
+            }
+        };
+    </script>
+</body>
+</html>
