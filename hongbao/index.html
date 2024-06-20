@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function hongbao(total,num){
+    // 发红包的那一刻就已经决定了
+    // 宕机
+    const arr = [];
+    // 余额
+    let restAmount = total;
+    // 未领取人数
+    let restNum = num;
+    // num-1  
+    for(let i =0; i < num -1; i++) {
+        let amount = parseFloat(Math.random() *  (restAmount/restNum)).toFixed(2)
+        restAmount -= amount;
+        restNum--;
+        arr.push(amount)
+    }
+    // 最后一人的
+    arr.push(restAmount.toFixed(2));
+    return arr;
+    
+}
+    </script>
+</body>
+</html>
