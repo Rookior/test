@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //var url = 'http://10.96.248.157:8000/safe/device/workorder/form?action=add&workorder={%22defectInfo%22:%22%E9%83%8E%E6%B8%85-%E5%91%A8%E7%95%8C%E5%AE%89%E9%98%B2-%E8%A5%BF%E5%8C%97%E8%A7%92%E4%B8%9C%E5%90%91%E5%B0%8F%E5%8A%A8%E7%89%A9%E9%97%AF%E5%85%A5%22,%22sqDefectReformOrgId%22:15,%22account%22:%22%E7%AE%A1%E7%90%86%E5%91%98%22,%22reportedDate%22:%222024-06-25%2010:36:01%22}&access_token=7199936d-3186-4cc9-9e7b-5278fb2897f6'
+        //var url = 'http://10.96.248.157:8000/safe/device/workorder/form?action=add&workorder={%22defectInfo%22:%22#%E9%83%8E%E6%B8%85-%E5%85%89%E4%BC%8F%E5%8C%BA8%E5%8F%B7%E7%AE%B1%E5%8F%98%E5%B0%8F%E5%8A%A8%E7%89%A9%E9%97%AF%E5%85%A5%22,%22sqDefectReformOrgId%22:15,%22account%22:%22%E7%AE%A1%E7%90%86%E5%91%98%22,%22reportedDate%22:%222024-06-25%2010:22:51%22}&access_token=7199936d-3186-4cc9-9e7b-5278fb2897f6'
+    //    var url = 'http://10.96.248.157:8000/safe/device/workorder/form?action=add&workorder=%7B%22defectInfo%22%3A%22%E9%83%8E%E6%B8%85-%E5%85%89%E4%BC%8F%E5%8C%BA11%E5%8F%B7%E7%AE%B1%E5%8F%98%E5%B0%8F%E5%8A%A8%E7%89%A9%E9%97%AF%E5%85%A5%22%2C%22sqDefectReformOrgId%22%3A15%2C%22account%22%3A%22%E7%AE%A1%E7%90%86%E5%91%98%22%2C%22reportedDate%22%3A%222024-06-25%2011%3A33%3A23%22%7D&access_token=508f5a87-c7c3-4797-a182-f2115d79f2b3'
+    //     function extractQueryParams(url) {  
+    //         const searchParams = new URL(url).searchParams;  
+    //         const result = {};  
+        
+    //         for (const [key, value] of searchParams) {  
+    //             result[key] = value;  
+    //         }  
+        
+    //         return result;  
+    //     } 
+    //     const queryParams = extractQueryParams(url);
+    //     console.log(queryParams)
+
+    //     function getUrlParamsByName(name,url) {
+    //         // \b 边界   
+    //         // ?<= 向后匹配 
+    //         // 字符串转成正则表达式，其中的'\b'类型的特殊字符要多加一个'\'
+    //         let reg = new RegExp(`(?<=\\b${name}=)[^&]*`),
+    //         str = url || '',
+    //         target = str.match(reg);
+            
+    //         if(target) {
+    //             return target[0]
+    //         }
+
+    //         return;
+    //     }
+    //     const ppp = getUrlParamsByName('workorder',url);
+    //    //js默认url中文decodeURI() 解析，转化encodeURI()
+    //     console.log(JSON.parse(decodeURI(ppp)))
+
+
+
+  var obj = {
+              defectInfo: '#中文描述-001&345344',
+              sqDefectReformOrgId: 20,
+              account: 'admin',
+              reportedDate: new Date()
+            }
+   function jumpURL2 (obj) {
+        const userToken = Math.random()
+      const json = encodeURIComponent(JSON.stringify(obj))
+      const url = 'http://10.96.248.157:8000/safe/device/workorder/form?action=add&workorder=' + json + '&access_token=' + userToken
+     return url
+   
+    }
+    var url = jumpURL2(obj)
+        function extractQueryParamsFromUrl(url) {  
+                // 匹配查询字符串（? 后面的部分）  
+                const regex = /([^&?]+)=([^&]+)/g;  
+                const queryParams = {};  
+                let match;  
+            
+                // 找到URL中的查询字符串部分  
+                const queryString = url.split('?')[1];  
+                if (queryString) {  
+                    // 使用正则表达式迭代匹配参数  
+                    while ((match = regex.exec(queryString)) !== null) {  
+                        const key = decodeURIComponent(match[1]);  
+                        const value = decodeURIComponent(match[2] || '');  
+                        queryParams[key] = value;  
+                    }  
+                }  
+            
+                return queryParams;  
+            }
+            var qqq = extractQueryParamsFromUrl(url)
+            console.log(qqq)
+            console.log(JSON.parse(qqq.workorder))
+
+
+
+    //    var workorder = JSON.parse(queryParams.workorder)
+    //     console.log(workorder)
+    //     console.log(workorder.defectInfo)
+    //     console.log(queryParams.access_token)
+    </script>
+</body>
+</html>
