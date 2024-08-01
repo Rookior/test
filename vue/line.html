@@ -1,0 +1,119 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>div连线</title>
+        <style>
+            html,body{
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+         
+
+           .title{
+            width: 200px;
+            height: 50px;
+            background: #ccc;
+           }
+           .body{
+            width: 200px;
+            height: 200px;
+            background: #f8f8f8;
+           }
+          
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+
+                <div class="div" v-for="item in 10">
+                    <div class="title" :style="{'margin-left':(item) + '%'}">
+                        {{item}}title
+                    </div>
+                    <div class="body" :style="{'margin-left':(item) + 50 + '%'}">
+                        {{item}}body
+                    </div>
+                </div>
+              
+        </div>
+      
+
+        <!-- 生产环境版本，优化了尺寸和速度 -->
+        <script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.5/leader-line.min.js"></script>
+
+
+        <script>
+        
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg:"hello"
+            },
+            computed: {            
+               
+            },
+            beforeCreate:function(){             
+                console.log('beforeCreate:此时不能访问data和menthods等中的东西')
+            },
+            created:function(){
+                console.log('created:实例创建此时能访问data和menthods等中的东西')
+            },
+            beforeMount:function(){
+                console.log('beforeMount:虚拟dom')
+            },
+            mounted:function(){
+                console.log('mouented:虚拟dom挂在成为真实dom')
+
+                const a = document.getElementsByClassName('title')
+                 const b = document.getElementsByClassName('body');
+                    
+                for(var i=0;i<a.length;i++){
+                    new LeaderLine(
+                    a[i], b[i]
+                    )
+                }
+                    
+            },
+            beforeUpdate:function(){
+                
+                console.log('beforeUpdate:数据更新前调用')
+
+                console.log('数据更新前'+ this.message + ' ' + document.getElementById("msg").innerText)
+            },
+            updated:function(){
+               console.log('updated:不能修改data数据，否则会进入死循环')
+
+               console.log('数据更新后'+ this.message)
+            },
+            methods:{
+                
+            },
+            watch: {
+                
+            },
+            beforeDestroy:function(){
+                console.log('beforeDestroy')
+            },
+            destroyed:function(){
+                console.log('destroyed')
+            }
+        })
+        console.log(Vue)
+        // 控制台赋值app.message 会自动更新页面（双向绑定）
+        // 控制台 app.todos.push({ text: '新项目' })  会自动更新页面（双向绑定）
+
+       
+
+       
+        </script>
+    </body>
+
+    </html>

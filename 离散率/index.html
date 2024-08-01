@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function calculateDispersionRate(data) {  
+    // 计算平均值  
+    let sum = data.reduce((acc, val) => acc + val, 0);  
+    let mean = sum / data.length;  
+  
+    // 计算方差  
+    let variance = data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / data.length;  
+  
+    // 计算标准差  
+    let stdDev = Math.sqrt(variance);  
+  
+    // 计算离散率（变异系数）  
+    let dispersionRate = (stdDev / mean) * 100;  
+  
+    return dispersionRate;  
+}  
+  
+// 给定的数组  
+const data = [  
+    110.36, 99.46, 111.56, 108.65, 98.44, 100.52, 114.25, 109.56, 115.27, 122.17,  
+    113.36, 109.54, 109.23, 108.76, 99.49, 109.85, 99.29, 97.74, 107.57, 110.33,  
+    108.79, 111.47, 98.16, 108.15, 107.51, 98.83, 109.24, 105.7, 111.93, 97.97,  
+    109.82, 111.44, 108.49, 112.23, 110.57, 110.79, 113.07, 112.4, 100.49, 115.92,  
+    116.21  
+];  
+  
+// 计算离散率  
+const dispersionRate = calculateDispersionRate(data);  
+  
+console.log(`离散率（变异系数）为: ${dispersionRate.toFixed(2)}%`);
+
+    </script>
+</body>
+</html>
