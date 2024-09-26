@@ -77,7 +77,18 @@
                     
                 for(var i=0;i<a.length;i++){
                     new LeaderLine(
-                    a[i], b[i]
+                    a[i], b[i],
+                    {
+    color:'red', //线的颜色
+    size:8, //线的粗细
+    dash: true, // 虚线 
+    endPlug: 'hand', // 线尾类型
+    endPlugSize:1, // 线尾尺寸
+    startPlug:'disc',// 线头类型
+    startPlugSize:2, //线头尺寸
+    path:'grid', // 线的类型
+    // 更多配置可参见文档
+  }
                     )
                 }
                     

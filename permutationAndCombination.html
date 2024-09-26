@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排列组合</title>
+</head>
+<body>
+    <script>
+//         function generateCombinations(data) {
+//   const farms = data.find(item => item.key === 'farm').value;
+//   const devices = data.find(item => item.key === 'device').value;
+//   const tags = data.find(item => item.key === 'tagCN').value;
+
+//   let result = [];
+//   for (let farm of farms) {
+//     for (let device of devices) {
+//       for (let tag of tags) {
+//         result.push({
+//           farm: farm,
+//           device: device,
+//           tagCN: tag,
+//           value: `${farm}-${device}-${tag}`
+//         });
+//       }
+//     }
+//   }
+
+//   return result;
+// }
+
+// const inputArray = [
+//   {
+//     "key": "farm",
+//     "value": [
+//       "风场一",
+//       "风场二"
+//     ]
+//   },
+//   {
+//     "key": "device",
+//     "value": [
+//       "#1",
+//       "#29"
+//     ]
+//   },
+//   {
+//     "key": "tagCN",
+//     "value": [
+//       "故障地址",
+//       "发电机有功电量总数"
+//     ]
+//   }
+// ];
+
+// const outputArray = generateCombinations(inputArray);
+// console.log(outputArray); 
+
+function generateCombinations(data) {
+  // 创建一个映射存储所有的 key-value 对
+  const keyValueMap = {};
+  data.forEach(item => {
+    keyValueMap[item.key] = item.value;
+  });
+
+  // 定义一个递归函数来生成组合
+  function combine(current, keys, index = 0) {
+    if (index === keys.length) {
+      // 当所有键都被处理完毕时，生成组合
+      const combination = keys.reduce((acc, key) => {
+        acc[key] = current[key];
+        return acc;
+      }, {});
+      combination.value = keys.map(key => current[key]).join('-');
+      result.push(combination);
+      return;
+    }
+
+    // 获取当前键对应的值数组
+    const values = keyValueMap[keys[index]];
+
+    // 遍历当前键的所有值，并对下一个键进行递归调用
+    values.forEach(value => {
+      current[keys[index]] = value;
+      combine(current, keys, index + 1);
+    });
+  }
+
+  // 初始化结果数组和键名数组
+  const result = [];
+  const keys = Object.keys(keyValueMap);
+
+  // 开始递归生成组合
+  combine({}, keys);
+
+  return result;
+}
+
+// 示例输入
+const inputArray = [
+ 
+  {
+    "key": "device",
+    "value": [
+      "风场一-#1",
+      "风场二-#29"
+    ]
+  },
+  {
+    "key": "tagCN",
+    "value": [
+      "故障地址",
+      "风速",
+      "功率"
+    ]
+  }
+];
+debugger
+// 调用函数并输出结果
+const outputArray = generateCombinations(inputArray);
+console.log(outputArray);
+    </script>
+</body>
+</html>
