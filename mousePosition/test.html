@@ -1,0 +1,56 @@
+<style>
+    .scroll-container {
+      width: 300px;
+      height: 200px;
+      overflow: auto;
+      position: relative; /* 关键定位设置 */
+      border: 1px solid #ccc;
+    }
+  
+    .marker {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      transform: translate(-50%, -50%); /* 居中定位 */
+      pointer-events: none; /* 防止遮挡后续点击 */
+    }
+  </style>
+  
+  <div class="scroll-container" id="scrollBox">
+    <div style="width: 600px; height: 600px;">可滚动区域</div>
+  </div>
+  
+  <script>
+    const container = document.getElementById('scrollBox');
+    
+    container.addEventListener('click', (e) => {
+      // 计算相对位置（考虑滚动偏移）
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left + container.scrollLeft;
+      const y = e.clientY - rect.top + container.scrollTop;
+  
+      // 创建标记元素
+      const marker = document.createElement('div');
+      marker.className = 'marker';
+      marker.style.left = `${x}px`;
+      marker.style.top = `${y}px`;
+  
+      // 添加标记
+      container.appendChild(marker);
+    });
+
+//     const iframeDoc = document.querySelector('.ht-iframe').contentWindow.document
+// const newDiv = iframeDoc.createElement('div');
+    
+//     // 设置div样式
+//     newDiv.style.position = 'absolute';
+//     newDiv.style.top = '20px';
+//     newDiv.style.left = '20px';
+//     newDiv.style.padding = '10px';
+//     newDiv.style.background = 'rgba(255,0,0,0.5)';
+//     newDiv.textContent = '新增内容';
+
+//     iframeDoc.body.appendChild(newDiv);
+  </script>

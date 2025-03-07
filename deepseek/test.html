@@ -1,0 +1,36 @@
+background: linear-gradient(to right, red, blue);
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+// 示例用法
+console.log(sum(1, 2, 3, 4)); // 输出: 10
+console.log(sum(10, 20, 30)); // 输出: 60
+# 计算1+1
+1 + 1 = 2
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    # 为div添加渐变背景
+    <div style="background: linear-gradient(to right, red, blue); width: 100px; height: 100px;">
+    
+    </div>
+    # 绘制一个梯形的div
+    <div style="width: 0; height: 0; border-left: 50px solid transparent; border-right: 50px solid transparent; border-bottom: 100px solid blue;">
+    
+    </div>
+    <script>
+        // # 实现一个函数，可以接收任意数量的参数，并返回它们的和
+        function sum(...numbers) {
+            return numbers.reduce((acc, num) => acc + num, 0);
+        }
+    </script>
+</body>
+</html>
+

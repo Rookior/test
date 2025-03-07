@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap" style="margin-top: 200px;width: 800px;height: 80vh;overflow: auto;">
+        <div id="div" style="position: relative;width:100%;height:2000px;border:1px solid #ccc">
+        
+        </div>
+    </div>
+    
+    <script>
+const element = document.querySelector('#div')
+const parentElement = element.parentElement
+element.addEventListener('click', (event) => {
+  // 相对于屏幕的坐标
+  const screenX = event.screenX;
+  const screenY = event.screenY;
+  
+  
+  // 相对于文档的坐标（包含滚动）
+  const pageX = event.pageX;
+  const pageY = event.pageY;
+
+ 
+  
+  // 相对于当前窗口的坐标
+  const clientX = event.clientX;
+  const clientY = event.clientY;
+  
+  // 相对于父元素的坐标
+  const parentRect = parentElement.getBoundingClientRect();
+  const parentX = event.pageX - parentRect.left;
+  const parentY = event.pageY - parentRect.top;
+  
+  
+
+//   addContent(element,parentX,parentY,parentRect.left,parentRect.top)
+
+  // 相对于目标元素自身的坐标
+  const offsetX = event.offsetX;
+  const offsetY = event.offsetY;
+
+ 
+  const a = parentElement.getBoundingClientRect().left
+  const b = parentElement.getBoundingClientRect().top
+  
+
+  const aa = event.pageX
+  const bb = event.pageY
+
+  addContent(element,aa - a, bb - b)
+
+  console.log({
+    screenX:screenX,
+    screenY:screenY,
+    pageX:pageX,
+    pageY:pageY,
+    clientX:clientX,
+    clientY:clientY,
+    parentX:parentX,
+    parentY:parentY,
+    offsetX:offsetX,
+    offsetY:offsetY
+  })
+});
+function addContent(element,x,y){
+    
+    const content = document.createElement('div')
+    content.innerHTML = '内容' + Math.random()
+    content.style.position = 'absolute'
+    content.style.left = x + 'px'
+    content.style.top = y + 'px'
+    element.appendChild(content)
+}
+    </script>
+</body>
+</html>

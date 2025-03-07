@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="profile">
+        <img src="./1.png" alt="Avatar" class="avatar">
+      </div>
+    <style>
+
+.profile {
+  /* 设置一个相对定位，以确保子元素的绝对定位相对于这个容器 */
+  position: relative;
+  width: 200px; /* 根据需要调整宽度 */
+  height: 200px; /* 根据需要调整高度 */
+  background: url('path_to_background_image') no-repeat center center;
+  background-size: cover;
+  border-radius: 50%;
+  border: 2px solid #8f8f8f;
+  overflow: hidden;
+}
+
+.avatar {
+  /* 确保头像初始状态为居中 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  
+  /* 设置初始大小 */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  /* 添加过渡效果 */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* 当鼠标悬停在头像上时 */
+.avatar:hover {
+  /* 放大头像 */
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1.5); /* 根据需要调整缩放比例 */
+}
+    </style>
+</body>
+</html>

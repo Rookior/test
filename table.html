@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         /* 设置整个报表容器的高度和宽度 */
+        #report1 {
+            overflow: auto;
+            height: 100%;width: 1750px;
+        }
+        /* 固定表头 */
+        #report1 thead tr th {
+            position: sticky;
+            top: 0;
+            background-color: white; /* 根据需要调整背景颜色 */
+            z-index: 8;
+        }
+        /* 固定第一列 */
+        #report1 tbody tr td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: white; /* 根据需要调整背景颜色 */
+            z-index: 9;
+        }
+        #report1 thead tr th:first-child {
+            position: sticky;
+            left: 0;
+            top: 0;
+            background-color: white; /* 根据需要调整背景颜色 */
+            z-index: 11;
+        }
+        th,td{
+            text-align: center;
+            border: 1px solid #ccc;
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 600px;width:100%;overflow: auto;">
+        <table id="report1" style="height: 100%;width: 1750px;overflow: auto;">
+          <thead>
+            <tr>
+              <th style="position:sticky; left:0; background:white;">固定的第一列</th>
+              <!-- 其他表头 -->
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+              <th>第2列</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+              <!-- 其他数据列 -->
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+              <td>第2列</td>
+            </tr>
+            <!-- 更多数据行 -->
+            <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+              <tr>
+                <td style="position:sticky; left:0; background:white;">数据行第一列</td>
+                <!-- 其他数据列 -->
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+                <td>第2列</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+</body>
+</html>

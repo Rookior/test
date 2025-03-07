@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="downloadFun()">下载</button>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function downloadFun(){
+            axios.post('http://192.168.188.208:3000/build', {
+                "env":"DT"
+            })
+            .then(function (response) {
+                let blob = new Blob([response.data], { type: "application/zip" });
+               let url = window.URL.createObjectURL(blob);
+               const link = document.createElement("a"); // 创建a标签
+               link.href = url;
+              
+               link.download =  response.headers?.['content-disposition'] || 'aaa.zip'
+               link.click();
+               URL.revokeObjectURL(url); // 释放内存
+               
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+       
+    </script>
+</body>
+</html>

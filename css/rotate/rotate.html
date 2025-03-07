@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旋转中的视觉差效果 - CSS3</title>
+  <style type="text/css">
+    section {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-areas:
+        "TL TL TR"
+        "BL CE TR"
+        "BL BR BR"
+      ;
+      gap: 10px;
+      width: 500px;
+      height: 500px;
+      margin: auto;
+      animation: rotation 10s linear infinite;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 5px solid #696969;
+      overflow: hidden;
+    }
+
+    div:nth-child(1) {
+      grid-area: TL;
+    }
+
+    div:nth-child(2) {
+      grid-area: TR;
+    }
+
+    div:nth-child(3) {
+      grid-area: BL;
+    }
+
+    div:nth-child(4) {
+      grid-area: CE;
+    }
+
+    div:nth-child(5) {
+      grid-area: BR;
+    }
+
+    div>img {
+      width: 100%;
+      animation: rotation 10s linear infinite reverse;
+    }
+
+    @keyframes rotation {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <div><img src="./assets/img/1.png"></div>
+    <div><img src="./assets/img/2.png"></div>
+    <div><img src="./assets/img/3.png"></div>
+    <div><img src="./assets/img/4.png"></div>
+    <div><img src="./assets/img/5.png"></div>
+  </section>
+</body>
+
+</html>
