@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #draggable-items {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .draggable-item {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        #drop-area {
+            width: 100%;
+            min-height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #666;
+        }
+        #drop-area.drag-over {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+
+<div id="draggable-items">
+    <!-- 指标数组 -->
+    <div class="draggable-item" draggable="true" data-type="metric">发电量</div>
+    <div class="draggable-item" draggable="true" data-type="metric">功率</div>
+    <div class="draggable-item" draggable="true" data-type="metric">风速</div>
+    <!-- 计算数组 -->
+    <div class="draggable-item" draggable="true" data-type="operator">+</div>
+    <div class="draggable-item" draggable="true" data-type="operator">-</div>
+    <div class="draggable-item" draggable="true" data-type="operator">*</div>
+    <div class="draggable-item" draggable="true" data-type="operator">/</div>
+</div>
+
+<div id="drop-area">将指标或计算拖放到这里</div>
+
+<script>
+    const dropArea = document.getElementById('drop-area');
+
+    // 允许放置
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    // 不允许放置
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    // 处理放置事件
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function highlight(e) {
+        e.preventDefault();
+        dropArea.classList.add('drag-over');
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        const item = e.dataTransfer.getData('text/plain');
+        const div = document.createElement('div');
+        div.className = 'draggable-item';
+        div.textContent = item;
+        div.setAttribute('draggable', true);
+        div.addEventListener('dragstart', dragStart);
+        dropArea.appendChild(div);
+    }
+
+    // 开始拖动
+    document.querySelectorAll('.draggable-item').forEach(item => {
+        item.addEventListener('dragstart', dragStart);
+    });
+
+    function dragStart(e) {
+        e.dataTransfer.setData('text/plain', e.target.textContent);
+    }
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指标计算器</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .metrics-panel, .operations-panel, .result-panel {
+            padding: 15px;
+            border: 1px solid #ccc;
+            min-width: 200px;
+            min-height: 300px;
+        }
+
+        .draggable {
+            margin: 5px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: move;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .operation {
+            background-color: #e0e0ff;
+        }
+
+        .result-panel {
+            background-color: #f8f8f8;
+        }
+
+        .result-panel .draggable {
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* 拖拽时的视觉效果 */
+        .draggable.drag-over {
+            border: 2px dashed #666;
+            transform: scale(1.05);
+            background-color: #e8e8e8;
+        }
+
+        /* 拖拽时的间隔显示 */
+        .result-panel .draggable:not(.dragging) {
+            transition: transform 0.2s ease-in-out;
+        }
+        .draggable {
+            position: relative;
+            margin: 5px;
+            padding: 10px 30px 10px 10px; /* 为删除按钮留出空间 */
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: move;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            color: #666;
+            font-size: 16px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        /* 删除动画 */
+        .draggable.remove {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* 拖拽到面板外的提示 */
+        .result-panel .draggable:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* 内容容器样式 */
+        .content {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* 优化面板样式 */
+        .result-panel {
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .metrics-panel, .operations-panel, .result-panel {
+            padding: 15px;
+            border: 1px solid #ccc;
+            min-width: 200px;
+            min-height: 300px;
+        }
+
+       
+
+        .delete-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            color: #666;
+            font-size: 16px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        /* 删除动画 */
+        .draggable.remove {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* 拖拽到面板外的提示 */
+        .result-panel .draggable:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* 内容容器样式 */
+        .content {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* 优化面板样式 */
+        .result-panel {
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        /* 添加或更新以下样式 */
+.result-panel {
+    min-height: 100px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+
+.result-panel.drag-over {
+    background-color: #e8e8e8;
+    border-color: #999;
+}
+
+.draggable.drag-over {
+    border-top: 2px solid #666;
+}
+
+.draggable {
+    position: relative;
+    margin: 5px;
+    padding: 10px 30px 10px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.draggable:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+/* 源面板中的元素样式 */
+#operationPanel .draggable,
+#metricPanel .draggable {
+    cursor: pointer;
+}
+
+/* 结果面板中的元素样式 */
+#resultPanel .draggable {
+    cursor: move;
+}
+.draggable {
+    position: relative;
+    margin: 5px;
+    padding: 10px 30px 10px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: move;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.result-panel {
+    min-height: 100px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+
+.result-panel.drag-over {
+    background-color: #e8e8e8;
+    border-color: #999;
+}
+
+.draggable.drag-over {
+    border-top: 2px solid #666;
+}
+
+.draggable.remove {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.delete-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 0 5px;
+    color: #999;
+}
+
+.delete-btn:hover {
+    color: #ff4444;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="metrics-panel">
+            <h3>指标</h3>
+            <div class="draggable" draggable="true" data-type="metric" data-value="100">发电量: 100kWh</div>
+            <div class="draggable" draggable="true" data-type="metric" data-value="50">功率: 50kW</div>
+            <div class="draggable" draggable="true" data-type="metric" data-value="15">风速: 15m/s</div>
+        </div>
+
+        <div class="operations-panel">
+            <h3>运算</h3>
+            <div class="draggable operation" draggable="true" data-type="operation" data-op="+">加法 (+)</div>
+            <div class="draggable operation" draggable="true" data-type="operation" data-op="-">减法 (-)</div>
+            <div class="draggable operation" draggable="true" data-type="operation" data-op="*">乘法 (×)</div>
+            <div class="draggable operation" draggable="true" data-type="operation" data-op="/">除法 (÷)</div>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+            <h3>计算面板</h3>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const draggables = document.querySelectorAll('.draggable');
+    const resultPanel = document.getElementById('resultPanel');
+    let draggedItem = null;
+
+    function createDeleteButton() {
+        const deleteBtn = document.createElement('span');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '×';
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const parent = deleteBtn.parentElement;
+            parent.classList.add('remove');
+            setTimeout(() => parent.remove(), 300);
+        });
+        return deleteBtn;
+    }
+
+    function createDraggableElement(data) {
+        const newElement = document.createElement('div');
+        newElement.className = 'draggable';
+        newElement.draggable = true;
+        
+        const content = document.createElement('span');
+        content.className = 'content';
+        content.innerText = data.text;
+        newElement.appendChild(content);
+        
+        newElement.appendChild(createDeleteButton());
+        
+        newElement.dataset.type = data.type;
+        if (data.type === 'metric') {
+            newElement.dataset.value = data.value;
+        } else if (data.type === 'operation') {
+            newElement.dataset.op = data.op;
+            newElement.classList.add('operation');
+        }
+
+        addDragEvents(newElement);
+        return newElement;
+    }
+
+    function handleDragStart(e) {
+        draggedItem = this;
+        this.style.opacity = '0.4';
+        
+        e.dataTransfer.setData('text/plain', JSON.stringify({
+            type: this.dataset.type,
+            value: this.dataset.value,
+            op: this.dataset.op,
+            text: this.querySelector('.content')?.innerText || this.innerText,
+            fromResult: this.closest('#resultPanel') !== null
+        }));
+    }
+
+    function handleDragEnd(e) {
+        if (!draggedItem) return;
+        this.style.opacity = '1';
+        
+        if (e.dataTransfer.dropEffect === 'none' && this.closest('#resultPanel')) {
+            this.classList.add('remove');
+            setTimeout(() => this.remove(), 300);
+        }
+        
+        draggedItem = null;
+        resultPanel.classList.remove('drag-over');
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.classList.remove('drag-over');
+        });
+    }
+
+    function handleDragOver(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        // 显示插入位置指示器
+        const draggable = e.target.closest('.draggable');
+        const panel = e.target.closest('#resultPanel');
+        
+        // 重置所有指示器
+        clearDropIndicators();
+        
+        if (panel) {
+            if (draggable) {
+                // 获取鼠标在元素上的相对位置
+                const rect = draggable.getBoundingClientRect();
+                const midY = rect.top + rect.height / 2;
+                
+                if (e.clientY < midY) {
+                    // 鼠标在元素上半部分
+                    draggable.classList.add('drop-before');
+                } else {
+                    // 鼠标在元素下半部分
+                    draggable.classList.add('drop-after');
+                }
+            } else if (e.target === resultPanel) {
+                // 鼠标在面板空白处
+                resultPanel.classList.add('drag-over');
+            }
+            e.dataTransfer.dropEffect = 'move';
+        }
+    }
+
+    function clearDropIndicators() {
+        resultPanel.classList.remove('drag-over');
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.classList.remove('drop-before', 'drop-after');
+        });
+    }
+    function handleDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+        const draggable = e.target.closest('.draggable');
+        
+        // 清除所有指示器
+        clearDropIndicators();
+        
+        if (draggable) {
+            const rect = draggable.getBoundingClientRect();
+            const midY = rect.top + rect.height / 2;
+            
+            if (!data.fromResult) {
+                // 创建新元素
+                const newElement = createDraggableElement(data);
+                
+                if (e.clientY < midY) {
+                    // 插入到目标元素之前
+                    draggable.parentNode.insertBefore(newElement, draggable);
+                } else {
+                    // 插入到目标元素之后
+                    draggable.parentNode.insertBefore(newElement, draggable.nextSibling);
+                }
+            } else if (draggedItem && draggedItem !== draggable) {
+                // 移动现有元素
+                if (e.clientY < midY) {
+                    draggable.parentNode.insertBefore(draggedItem, draggable);
+                } else {
+                    draggable.parentNode.insertBefore(draggedItem, draggable.nextSibling);
+                }
+            }
+        } else if (e.target === resultPanel) {
+            // 放置到面板末尾
+            if (!data.fromResult) {
+                const newElement = createDraggableElement(data);
+                resultPanel.appendChild(newElement);
+            } else if (draggedItem) {
+                resultPanel.appendChild(draggedItem);
+            }
+        }
+    }
+
+    // 添加CSS样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .draggable.drop-before {
+            border-top: 2px solid #4a9eff;
+        }
+        
+        .draggable.drop-after {
+            border-bottom: 2px solid #4a9eff;
+        }
+        
+        #resultPanel.drag-over {
+            background-color: rgba(74, 158, 255, 0.1);
+        }
+        
+        .draggable {
+            position: relative;
+            transition: border-color 0.2s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 更新事件监听
+    function addDragEvents(element) {
+        element.addEventListener('dragstart', handleDragStart);
+        element.addEventListener('dragend', handleDragEnd);
+        element.addEventListener('dragover', handleDragOver);
+        element.addEventListener('drop', handleDrop);
+        element.addEventListener('dragleave', (e) => {
+            e.stopPropagation();
+            clearDropIndicators();
+        });
+    }
+
+    // 初始化所有可拖拽元素的事件
+    draggables.forEach(draggable => {
+        draggable.draggable = true;
+        addDragEvents(draggable);
+    });
+
+     // 更新结果面板的事件监听
+     resultPanel.addEventListener('dragover', handleDragOver);
+    resultPanel.addEventListener('dragleave', (e) => {
+        if (e.target === resultPanel) {
+            clearDropIndicators();
+        }
+    });
+    resultPanel.addEventListener('drop', handleDrop);
+
+
+    // 添加获取计算面板节点值的函数
+    function getResultPanelValues() {
+        const nodes = resultPanel.querySelectorAll('.draggable');
+        return Array.from(nodes).map(node => {
+            const type = node.dataset.type;
+            return {
+                type,
+                text: node.querySelector('.content').innerText,
+                ...(type === 'metric' ? { value: node.dataset.value } : { op: node.dataset.op })
+            };
+        });
+    }
+
+    // 监听计算面板的变化
+    const observer = new MutationObserver(() => {
+        const values = getResultPanelValues();
+        console.log('计算面板当前值:', values);
+        // 这里可以触发你的回调函数或其他操作
+        if (typeof onResultPanelChange === 'function') {
+            onResultPanelChange(values);
+        }
+    });
+
+    // 配置观察器
+    observer.observe(resultPanel, {
+        childList: true, // 监听子节点的增删
+        subtree: true,   // 监听所有后代节点
+        attributes: true // 监听属性变化
+    });
+
+    // 示例回调函数
+    window.onResultPanelChange = function(values) {
+        // 这里可以处理数组数据
+        // 例如: 发送到服务器、更新其他UI等
+        console.log("面板值已更新",values)
+    };
+
+   
+
+});
+    </script>
+</body>
+</html>

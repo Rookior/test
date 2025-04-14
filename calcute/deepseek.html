@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .box {
+            border: 2px solid #ccc;
+            padding: 10px;
+            min-width: 200px;
+            min-height: 300px;
+        }
+        
+        .draggable {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px;
+            margin: 4px;
+            cursor: move;
+            border-radius: 4px;
+        }
+        
+        .operator {
+            background-color: #2196F3;
+        }
+        
+        #targetBox {
+            border-color: #ff9800;
+            min-height: 200px;
+        }
+        
+        .dropped-item {
+            background-color: #9c27b0;
+            margin: 4px;
+            padding: 8px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 指标数组 -->
+        <div class="box" id="metricsBox">
+            <div class="draggable" draggable="true" data-type="metric" data-value="发电量">发电量</div>
+            <div class="draggable" draggable="true" data-type="metric" data-value="功率">功率</div>
+            <div class="draggable" draggable="true" data-type="metric" data-value="风速">风速</div>
+        </div>
+
+        <!-- 计算符号 -->
+        <div class="box" id="operatorsBox">
+            <div class="draggable operator" draggable="true" data-type="operator" data-value="+">+</div>
+            <div class="draggable operator" draggable="true" data-type="operator" data-value="-">-</div>
+            <div class="draggable operator" draggable="true" data-type="operator" data-value="×">×</div>
+            <div class="draggable operator" draggable="true" data-type="operator" data-value="÷">÷</div>
+        </div>
+
+        <!-- 目标区域 -->
+        <div class="box" id="targetBox"></div>
+    </div>
+
+    <script>
+        let currentDragElement = null;
+
+        // 处理拖拽开始事件
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.classList.contains('draggable')) {
+                currentDragElement = e.target;
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    type: e.target.dataset.type,
+                    value: e.target.dataset.value
+                }));
+            }
+        });
+
+        // 处理拖拽结束事件
+        document.addEventListener('dragend', function(e) {
+            currentDragElement = null;
+        });
+
+        // 处理拖拽悬停事件
+        document.getElementById('targetBox').addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        // 处理放置事件
+        document.getElementById('targetBox').addEventListener('drop', function(e) {
+            e.preventDefault();
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            
+            // 创建新元素
+            const newElement = document.createElement('div');
+            newElement.className = data.type === 'metric' ? 'dropped-item' : 'dropped-item operator';
+            newElement.textContent = data.value;
+            newElement.dataset.type = data.type;
+            newElement.dataset.value = data.value;
+
+            // 添加删除功能
+            newElement.onclick = function() {
+                this.remove();
+            };
+
+            // 插入到目标区域
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // 简单追加到容器
+            this.appendChild(newElement);
+        });
+    </script>
+</body>
+</html>

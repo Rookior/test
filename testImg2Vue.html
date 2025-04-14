@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风电场监控数据</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .power-chart {
+            height: 200px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            margin-top: 15px;
+            position: relative;
+        }
+        
+        .power-bar {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            background-color: #3498db;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .power-bar:nth-child(1) { height: 80%; left: 10%; }
+        .power-bar:nth-child(2) { height: 60%; left: 20%; }
+        .power-bar:nth-child(3) { height: 40%; left: 30%; }
+        .power-bar:nth-child(4) { height: 20%; left: 40%; }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .metric-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-badge {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .running { background-color: #2ecc71; }
+        .fault { background-color: #e74c3c; }
+        .standby { background-color: #f39c12; }
+        .maintenance { background-color: #9b59b6; }
+        .stopped { background-color: #95a5a6; }
+        .interrupted { background-color: #34495e; }
+        
+        .comparison {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .percentage {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71;
+            margin-right: 10px;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>风电场监控数据</h1>
+        
+        <div class="dashboard">
+            <div class="card">
+                <h2>月发电量</h2>
+                <div class="power-chart">
+                    <div class="power-bar"></div>
+                    <div class="power-bar"></div>
+                    <div class="power-bar"></div>
+                    <div class="power-bar"></div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <span>年发电量</span>
+                        <span class="metric-value">3939.38万kWh</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>月发电量</span>
+                        <span class="metric-value">371.38万kWh</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>日发电量</span>
+                        <span class="metric-value">63.26万kWh</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>场站指标</h2>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <span>机组台数</span>
+                        <span class="metric-value">33</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>平均风速</span>
+                        <span class="metric-value">13.35 m/min</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>装机容量</span>
+                        <span class="metric-value">1033 MW</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>实时功率</span>
+                        <span class="metric-value">5.87 MW</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>日利用小时数</span>
+                        <span class="metric-value">12.78 h</span>
+                    </div>
+                    <div class="metric-item">
+                        <span>月可利用率</span>
+                        <span class="metric-value">5.87%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>风机状态</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="status-badge running"></span>
+                    <span>运行 <strong>33</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge fault"></span>
+                    <span>故障 <strong>33</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge standby"></span>
+                    <span>待机 <strong>33</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge maintenance"></span>
+                    <span>维护 <strong>33</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge stopped"></span>
+                    <span>停机 <strong>33</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-badge interrupted"></span>
+                    <span>中断 <strong>33</strong></span>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="card">
+            <h3>月发电量对比</h3>
+            <div class="comparison">
+                <span class="percentage">90%</span>
+                <span>去年同比</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

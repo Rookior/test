@@ -1,0 +1,77 @@
+定义一个指标数组，例如发电量，功率，风速等，将数组值渲染为div，
+定义一个计算数组，包含加减乘除等，
+实现指标与计<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag & Drop Calculator</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 自定义样式表，用于基本布局和样式设计 -->
+    <style>
+        .container {
+  display: flex;
+}
+
+.draggable-list div, #target {
+  padding: 10px;
+  margin-bottom: 8px;
+  background-color: #f4f4f4;
+  border: solid 2px #ccc;
+  cursor: move;
+}
+
+#indicators, #operations {
+  width: 150px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 指标数组选项 -->
+        <div id="indicators" class="draggable-list">
+            <div draggable="true" data-value="发电量">发电量</div>
+            <div draggable="true" data-value="功率">功率</div>
+            <div draggable="true" data-value="风速">风速</div>
+        </div>
+
+        <!-- 计算操作选项 -->
+        <div id="operations" class="draggable-list">
+            <div draggable="true" data-value="+">+</div>
+            <div draggable="true" data-value="-">-</div>
+            <div draggable="true" data-value="*">*</div>
+            <div draggable="true" data-value="/">/</div>
+        </div>
+
+        <!-- 拖拽结果展示区域 -->
+        <div id="target">
+            将指标数组或计算操作拖放到这里
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const options = {
+        group: 'shared',
+        animation: 150,
+    };
+
+    const indicatorsContainer = document.getElementById('indicators');
+    Sortable.create(indicatorsContainer, Object.assign({}, options));
+
+    const operationsContainer = document.getElementById('operations');
+    Sortable.create(operationsContainer, Object.assign({}, options));
+
+    // 创建一个单独的sortable实例来接受所有来源的数据
+    const targetContainer = document.getElementById('target');
+    new Sortable(targetContainer, {
+        ...options,
+        acceptFrom: ['.draggable-list'], // 允许从哪些容器接受数据
+        onAdd(ev) {
+            console.log(`Item was moved from ${ev.from.id} to ${ev.to.id}.`);
+        },
+    });
+});
+    </script> <!-- 主逻辑脚本 -->
+</body>
+</html>
