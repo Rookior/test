@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue2 可拖动容器组件</title>
+  <script src="./js/vue.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      color: #fff;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      max-width: 800px;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .playground {
+      flex: 1;
+      min-width: 300px;
+      height: 500px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .controls {
+      flex: 0 0 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .controls h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+    
+    .control-group {
+      margin-bottom: 25px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      margin: 10px 0;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4a69bd;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    button:hover {
+      background: #3c5aa6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button.reset {
+      background: #e74c3c;
+    }
+    
+    button.reset:hover {
+      background: #c0392b;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .status p {
+      margin: 8px 0;
+    }
+    
+    .draggable-container {
+      position: absolute;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3498db, #8e44ad);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      cursor: move;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .draggable-container.dragging {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      transform: scale(1.02);
+    }
+    
+    .drag-handle {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: move;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .drag-handle i {
+      font-size: 1.2rem;
+      margin-right: 8px;
+    }
+    
+    .drag-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .drag-content h3 {
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .drag-content p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .playground {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <h1>Vue2 可拖动容器</h1>
+      <p class="subtitle">一个功能完整的可拖动容器组件，支持鼠标和触摸设备操作</p>
+    </div>
+    
+    <div class="container">
+      <div class="playground">
+        <!-- 可拖动容器将在这里渲染 -->
+        <draggable-container 
+          ref="draggable"
+          :initial-x="initialX"
+          :initial-y="initialY"
+          :width="width"
+          :height="height"
+          :boundary-restriction="boundaryRestriction"
+          @dragging="handleDragging"
+          @drag-start="handleDragStart"
+          @drag-end="handleDragEnd"
+        >
+          <template v-slot:handle>
+            <div class="drag-handle">
+              <div>
+                <i class="fas fa-arrows-alt"></i> 
+                拖拽我 ({{ position.x }}, {{ position.y }})
+              </div>
+              <i class="fas fa-grip-lines"></i>
+            </div>
+          </template>
+          
+          <div class="drag-content">
+            <h3>可拖动容器内容</h3>
+            <p>这是一个使用 Vue2 创建的可拖动容器组件。您可以通过拖拽标题栏来移动此容器。</p>
+            <p>当前状态: <strong>{{ isDragging ? '正在拖动' : '静止' }}</strong></p>
+            <p>容器尺寸: {{ width }} x {{ height }} px</p>
+            <p>边界限制: {{ boundaryRestriction ? '启用' : '禁用' }}</p>
+          </div>
+        </draggable-container>
+      </div>
+      
+      <div class="controls">
+        <h2>控制面板</h2>
+        
+        <div class="control-group">
+          <label>初始位置 X: {{ initialX }}px</label>
+          <input type="range" v-model="initialX" min="0" max="800">
+          
+          <label>初始位置 Y: {{ initialY }}px</label>
+          <input type="range" v-model="initialY" min="0" max="400">
+        </div>
+        
+        <div class="control-group">
+          <label>宽度: {{ width }}px</label>
+          <input type="range" v-model="width" min="200" max="500">
+          
+          <label>高度: {{ height }}px</label>
+          <input type="range" v-model="height" min="150" max="400">
+        </div>
+        
+        <div class="control-group">
+          <label>
+            <input type="checkbox" v-model="boundaryRestriction">
+            启用边界限制
+          </label>
+        </div>
+        
+        <div class="btn-group">
+          <button @click="resetPosition">重置位置</button>
+          <button @click="toggleBoundary" class="reset">
+            {{ boundaryRestriction ? '禁用' : '启用' }}边界
+          </button>
+        </div>
+        
+        <div class="status">
+          <h3>状态信息</h3>
+          <p>当前位置: X={{ position.x }}px, Y={{ position.y }}px</p>
+          <p>拖动状态: {{ isDragging ? '正在拖动' : '未拖动' }}</p>
+          <p>最后事件: {{ lastEvent }}</p>
+          <p>边界限制: {{ boundaryRestriction ? '已启用' : '已禁用' }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>使用 Vue2 创建的可拖动容器组件 | 支持鼠标和触摸设备</p>
+    </div>
+  </div>
+
+  <script>
+    // 可拖动容器组件
+    Vue.component('draggable-container', {
+      props: {
+        initialX: {
+          type: Number,
+          default: 50
+        },
+        initialY: {
+          type: Number,
+          default: 50
+        },
+        width: {
+          type: Number,
+          default: 300
+        },
+        height: {
+          type: Number,
+          default: 250
+        },
+        boundaryRestriction: {
+          type: Boolean,
+          default: true
+        }
+      },
+      data() {
+        return {
+          x: this.initialX,
+          y: this.initialY,
+          isDragging: false,
+          startX: 0,
+          startY: 0,
+          initialMouseX: 0,
+          initialMouseY: 0,
+          parentWidth: 0,
+          parentHeight: 0
+        };
+      },
+      mounted() {
+        this.updateParentSize();
+        window.addEventListener('resize', this.updateParentSize);
+      },
+      beforeDestroy() {
+        window.removeEventListener('resize', this.updateParentSize);
+      },
+      methods: {
+        startDrag(event) {
+          event.preventDefault();
+          
+          // 支持鼠标和触摸事件
+          const isTouch = event.type === 'touchstart';
+          const clientX = isTouch ? event.touches[0].clientX : event.clientX;
+          const clientY = isTouch ? event.touches[0].clientY : event.clientY;
+          
+          this.isDragging = true;
+          this.startX = this.x;
+          this.startY = this.y;
+          this.initialMouseX = clientX;
+          this.initialMouseY = clientY;
+          
+          // 添加事件监听
+          if (isTouch) {
+            document.addEventListener('touchmove', this.onDrag);
+            document.addEventListener('touchend', this.stopDrag);
+          } else {
+            document.addEventListener('mousemove', this.onDrag);
+            document.addEventListener('mouseup', this.stopDrag);
+          }
+          
+          this.$emit('drag-start', { x: this.x, y: this.y });
+        },
+        onDrag(event) {
+          if (!this.isDragging) return;
+          
+          event.preventDefault();
+          
+          const isTouch = event.type === 'touchmove';
+          const clientX = isTouch ? event.touches[0].clientX : event.clientX;
+          const clientY = isTouch ? event.touches[0].clientY : event.clientY;
+          
+          // 计算新位置
+          let newX = this.startX + (clientX - this.initialMouseX);
+          let newY = this.startY + (clientY - this.initialMouseY);
+          
+          // 边界限制
+          if (this.boundaryRestriction) {
+            newX = Math.max(0, Math.min(newX, this.parentWidth - this.width));
+            newY = Math.max(0, Math.min(newY, this.parentHeight - this.height));
+          }
+          
+          this.x = newX;
+          this.y = newY;
+          
+          this.$emit('dragging', { x: this.x, y: this.y });
+        },
+        stopDrag() {
+          this.isDragging = false;
+          
+          // 移除事件监听
+          document.removeEventListener('mousemove', this.onDrag);
+          document.removeEventListener('mouseup', this.stopDrag);
+          document.removeEventListener('touchmove', this.onDrag);
+          document.removeEventListener('touchend', this.stopDrag);
+          
+          this.$emit('drag-end', { x: this.x, y: this.y });
+        },
+        resetPosition() {
+          this.x = this.initialX;
+          this.y = this.initialY;
+        },
+        updateParentSize() {
+          const parent = this.$el.parentElement;
+          this.parentWidth = parent.clientWidth;
+          this.parentHeight = parent.clientHeight;
+        }
+      },
+      watch: {
+        initialX(newVal) {
+          if (!this.isDragging) {
+            this.x = newVal;
+          }
+        },
+        initialY(newVal) {
+          if (!this.isDragging) {
+            this.y = newVal;
+          }
+        }
+      },
+      template: `
+        <div 
+          class="draggable-container"
+          :class="{ dragging: isDragging }"
+          :style="{
+            left: x + 'px',
+            top: y + 'px',
+            width: width + 'px',
+            height: height + 'px'
+          }"
+        >
+          <div @mousedown="startDrag" @touchstart="startDrag">
+            <slot name="handle"></slot>
+          </div>
+          <slot></slot>
+        </div>
+      `
+    });
+    
+    // 主应用实例
+    new Vue({
+      el: '#app',
+      data: {
+        initialX: 100,
+        initialY: 80,
+        width: 320,
+        height: 250,
+        boundaryRestriction: true,
+        position: { x: 100, y: 80 },
+        isDragging: false,
+        lastEvent: '无'
+      },
+      methods: {
+        resetPosition() {
+          this.$refs.draggable.resetPosition();
+        },
+        toggleBoundary() {
+          this.boundaryRestriction = !this.boundaryRestriction;
+        },
+        handleDragging(position) {
+          this.position = position;
+          this.lastEvent = `拖动中 (${position.x}, ${position.y})`;
+        },
+        handleDragStart(position) {
+          this.position = position;
+          this.isDragging = true;
+          this.lastEvent = `拖动开始 (${position.x}, ${position.y})`;
+        },
+        handleDragEnd(position) {
+          this.position = position;
+          this.isDragging = false;
+          this.lastEvent = `拖动结束 (${position.x}, ${position.y})`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
