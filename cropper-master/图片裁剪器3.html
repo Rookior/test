@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图片裁剪</title>
+		<style>
+			body {
+				padding: 10px;
+				margin: 0;
+				height: 100vh;
+				box-sizing: border-box;
+			}
+			.container {
+				width: 375px;
+				height: 700px;
+				box-sizing: border-box;
+				position: relative;
+				margin-top: 10px;
+			}
+			.mask {
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mask__view {
+				width: 100%;
+				height: 100%;
+				background-size: 100% 100%;
+				clip-path: inset(0 0 0 0);
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 2;
+			}
+			.mask__vague {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-size: 100% 100%;
+				z-index: 1;
+			}
+			.cropper {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+				z-index: 10;
+			}
+			.cropper__view {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				user-select: none;
+				outline: 1px solid #39f;
+			}
+			.cropper-dashed {
+				border: 0 dashed #eee;
+				display: block;
+				opacity: 0.5;
+				position: absolute;
+			}
+			.cropper-dashed.dashed-h {
+				border-bottom-width: 1px;
+				border-top-width: 1px;
+				height: 33.33333%;
+				left: 0;
+				top: 33.33333%;
+				width: 100%;
+			}
+			.cropper-dashed.dashed-v {
+				border-left-width: 1px;
+				border-right-width: 1px;
+				height: 100%;
+				left: 33.33333%;
+				top: 0;
+				width: 33.33333%;
+			}
+			.cropper-center {
+				display: block;
+				height: 0;
+				left: 50%;
+				opacity: 0.75;
+				position: absolute;
+				top: 50%;
+				width: 0;
+			}
+			.cropper-center:after,
+			.cropper-center:before {
+				background-color: #eee;
+				content: " ";
+				display: block;
+				position: absolute;
+			}
+			.cropper-center:before {
+				height: 1px;
+				left: -3px;
+				top: 0;
+				width: 7px;
+			}
+			.cropper-center:after {
+				height: 7px;
+				left: 0;
+				top: -3px;
+				width: 1px;
+			}
+			.cropper-line {
+				background-color: #39f;
+				display: block;
+				height: 100%;
+				opacity: 0.1;
+				position: absolute;
+				width: 100%;
+			}
+			.cropper-line.line-e {
+				cursor: e-resize;
+				right: -3px;
+				top: 0;
+				width: 5px;
+			}
+			.cropper-line.line-n {
+				cursor: n-resize;
+				height: 5px;
+				left: 0;
+				top: -3px;
+			}
+			.cropper-line.line-w {
+				cursor: w-resize;
+				left: -3px;
+				top: 0;
+				width: 5px;
+			}
+			.cropper-line.line-s {
+				bottom: -3px;
+				cursor: s-resize;
+				height: 5px;
+				left: 0;
+			}
+			.cropper-point {
+				background-color: #39f;
+				height: 8px;
+				opacity: 0.75;
+				width: 8px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+			}
+			.cropper-point::after {
+				content: "";
+				display: block;
+				width: 6px;
+				height: 6px;
+				background-color: #fff;
+			}
+			.cropper-point.point-e {
+				cursor: e-resize;
+				margin-top: -5px;
+				right: -5px;
+				top: 50%;
+			}
+			.cropper-point.point-n {
+				cursor: n-resize;
+				left: 50%;
+				margin-left: -5px;
+				top: -5px;
+			}
+			.cropper-point.point-w {
+				cursor: w-resize;
+				left: -5px;
+				margin-top: -5px;
+				top: 50%;
+			}
+			.cropper-point.point-s {
+				bottom: -5px;
+				cursor: s-resize;
+				left: 50%;
+				margin-left: -5px;
+			}
+			.cropper-point.point-ne {
+				cursor: ne-resize;
+				right: -5px;
+				top: -5px;
+			}
+			.cropper-point.point-nw {
+				cursor: nw-resize;
+				left: -5px;
+				top: -5px;
+			}
+			.cropper-point.point-sw {
+				bottom: -5px;
+				cursor: sw-resize;
+				left: -5px;
+			}
+			.cropper-point.point-se {
+				bottom: -5px;
+				cursor: se-resize;
+				right: -5px;
+			}
+			.cropper-move {
+				display: block;
+				height: 100%;
+				opacity: 0.1;
+				position: absolute;
+				width: 100%;
+				cursor: move;
+				background-color: #fff;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="file" type="file" />
+		<div style="margin: 10px 0">
+			<label for="backgroundHandle">背景处理：</label>
+			<select id="backgroundHandle">
+				<option value="remove">去除背景</option>
+				<option value="blackBorder">保留黑边</option>
+				<option value="vague">图片模糊</option>
+			</select>
+		</div>
+		<div style="margin: 10px 0">
+			<label for="cutRange">裁剪比例：</label>
+			<select id="cutRange">
+				<option value="custom">自定义</option>
+				<option value="1:1">1:1</option>
+				<option value="3:4">3:4</option>
+				<option value="4:3">4:3</option>
+			</select>
+		</div>
+		<div style="margin: 10px 0">
+			<label for="blackBorderColor">黑边颜色：</label>
+			<input
+				type="color"
+				id="blackBorderColor"
+				value="#000000"
+				style="margin-right: 20px"
+			/>
+			<label for="vagueRange">模糊度：</label>
+			<input
+				type="range"
+				id="vagueRange"
+				min="1"
+				max="100"
+				value="50"
+				style="margin-right: 10px"
+			/>
+			<span id="vagueDisplay">10px</span>
+		</div>
+		<div style="display: flex; align-items: center">
+			<div id="container" class="container">
+				<img id="bgImage" width="100%" height="100%" />
+				<div id="mask" class="mask">
+					<div id="maskView" class="mask__view"></div>
+					<div id="maskVague" class="mask__vague" style="display: none"></div>
+				</div>
+				<div id="cropper" class="cropper">
+					<div id="cropperView" class="cropper__view">
+						<span class="cropper-dashed dashed-h"></span>
+						<span class="cropper-dashed dashed-v"></span>
+						<span class="cropper-center"></span>
+						<span class="cropper-move"></span>
+						<span class="cropper-line line-n" data-action="top"></span>
+						<span class="cropper-line line-e" data-action="right"></span>
+						<span class="cropper-line line-s" data-action="bottom"></span>
+						<span class="cropper-line line-w" data-action="left"></span>
+						<span class="cropper-point point-e" data-action="right"></span>
+						<span class="cropper-point point-n" data-action="top"></span>
+						<span class="cropper-point point-w" data-action="left"></span>
+						<span class="cropper-point point-s" data-action="bottom"></span>
+						<span class="cropper-point point-nw" data-action="top-left"></span>
+						<span class="cropper-point point-ne" data-action="top-right"></span>
+						<span
+							class="cropper-point point-se"
+							data-action="bottom-right"
+						></span>
+						<span
+							class="cropper-point point-sw"
+							data-action="bottom-left"
+						></span>
+					</div>
+				</div>
+			</div>
+			<button id="cropBtn">裁剪</button>
+			<button id="downloadBtn" style="display: none">下载图片</button>
+			<canvas
+				id="canvasCropping"
+				style="max-width: 375px; margin-left: 20px"
+			></canvas>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const file = document.getElementById("file");
+				const bgImage = document.getElementById("bgImage");
+				const mask = document.getElementById("mask");
+				const maskView = document.getElementById("maskView");
+				const maskVague = document.getElementById("maskVague");
+				const cropper = document.getElementById("cropper");
+				const cropperView = document.getElementById("cropperView");
+				const backgroundHandle = document.getElementById("backgroundHandle");
+				const cutRange = document.getElementById("cutRange");
+				const blackBorderColor = document.getElementById("blackBorderColor");
+				const vagueRange = document.getElementById("vagueRange");
+				const vagueDisplay = document.getElementById("vagueDisplay");
+				const cropBtn = document.getElementById("cropBtn");
+				const downloadBtn = document.getElementById("downloadBtn");
+				const canvasCropping = document.getElementById("canvasCropping");
+				const TOP = 0,
+					RIGHT = 1,
+					BOTTOM = 2,
+					LEFT = 3;
+				const CROPPER_MARGIN = 0;
+				const CANVAS_WIDTH = 375;
+				const CANVAS_HEIGHT = 700;
+				let currentDimension = [50, 50, 50, 50];
+				let initDimension = [50, 50, 50, 50];
+				let dragging = false;
+				let startPoint = [0, 0];
+				let startDimension = [];
+				let direction = [0, 0, 0, 0];
+				let moving = false;
+				let currentImageSrc = "";
+				function getVagueValue() {
+					const minVague = 1;
+					const maxVague = 20;
+					const minValue = 1;
+					const maxValue = 100;
+					const scale = (maxVague - minVague) / (maxValue - minValue);
+					const value = Math.round(
+						(parseInt(vagueRange.value) - minValue) * scale + minVague
+					);
+					return value;
+				}
+				function updateVagueDisplay() {
+					const value = getVagueValue();
+					vagueDisplay.textContent = value + "px";
+					updateMaskStyle();
+				}
+				function updateMaskStyle() {
+					const mode = backgroundHandle.value;
+					if (mode === "blackBorder") {
+						mask.style.backgroundColor = blackBorderColor.value;
+						mask.style.border = "1px solid #aaa";
+						maskVague.style.display = "none";
+					} else if (mode === "vague") {
+						mask.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+						mask.style.border = "none";
+						maskVague.style.display = "block";
+						maskVague.style.backgroundImage = `url(${currentImageSrc})`;
+						maskVague.style.filter = `blur(${getVagueValue()}px)`;
+					} else {
+						mask.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+						mask.style.border = "none";
+						maskVague.style.display = "none";
+					}
+				}
+				function getAspectRatioValue(ratio) {
+					switch (ratio) {
+						case "1:1":
+							return 1;
+						case "3:4":
+							return 3 / 4;
+						case "4:3":
+							return 4 / 3;
+						default:
+							return null;
+					}
+				}
+				function setDimension(dimension) {
+					currentDimension = [...dimension];
+					cropperView.style.inset = `${dimension[TOP]}px ${dimension[RIGHT]}px ${dimension[BOTTOM]}px ${dimension[LEFT]}px`;
+					maskView.style.clipPath = `inset(${dimension[TOP]}px ${dimension[RIGHT]}px ${dimension[BOTTOM]}px ${dimension[LEFT]}px)`;
+				}
+				function adjustCropperToAspectRatio() {
+					const currentAspectRatio = cutRange.value;
+					if (currentAspectRatio === "custom") return;
+					const ratio = getAspectRatioValue(currentAspectRatio);
+					if (!ratio) return;
+					const containerWidth = cropper.clientWidth;
+					const containerHeight = cropper.clientHeight;
+					let newWidth, newHeight;
+					if (currentAspectRatio === "1:1") {
+						newWidth = containerWidth;
+						newHeight = containerWidth;
+					} else if (currentAspectRatio === "3:4") {
+						newWidth = containerWidth;
+						newHeight = containerWidth * (4 / 3);
+					} else if (currentAspectRatio === "4:3") {
+						newHeight = containerWidth;
+						newWidth = containerWidth * (4 / 3);
+					} else {
+						newWidth = containerWidth;
+						newHeight = containerWidth / ratio;
+					}
+					if (newHeight > containerHeight - CROPPER_MARGIN) {
+						newHeight = containerHeight - CROPPER_MARGIN;
+						if (currentAspectRatio === "4:3") {
+							newWidth = newHeight * (4 / 3);
+						} else {
+							newWidth = newHeight * ratio;
+						}
+					}
+					if (newWidth > containerWidth - CROPPER_MARGIN) {
+						newWidth = containerWidth - CROPPER_MARGIN;
+						if (currentAspectRatio === "3:4") {
+							newHeight = newWidth * (4 / 3);
+						} else if (currentAspectRatio === "4:3") {
+							newHeight = newWidth * (3 / 4);
+						} else {
+							newHeight = newWidth / ratio;
+						}
+					}
+					const leftRight = (containerWidth - newWidth) / 2;
+					const topBottom = (containerHeight - newHeight) / 2;
+					setDimension([topBottom, leftRight, topBottom, leftRight]);
+				}
+				function createCropper() {
+					mask.style.display = "block";
+					cropper.style.display = "block";
+					setDimension(initDimension);
+					updateMaskStyle();
+					if (cutRange.value !== "custom") {
+						adjustCropperToAspectRatio();
+					}
+					const moveElement = document.querySelector(".cropper-move");
+					const elements = [
+						moveElement,
+						...document.querySelectorAll(".cropper-line"),
+						...document.querySelectorAll(".cropper-point"),
+					].filter((i) => i);
+					elements.forEach((ele) => {
+						ele.addEventListener("mousedown", (e) => {
+							dragging = true;
+							const { clientX, clientY } = e;
+							startPoint[0] = clientX;
+							startPoint[1] = clientY;
+							startDimension = [...currentDimension];
+							direction = [0, 0, 0, 0];
+							moving = false;
+							if (ele === moveElement) {
+								direction[TOP] = 1;
+								direction[BOTTOM] = -1;
+								direction[LEFT] = 1;
+								direction[RIGHT] = -1;
+								moving = true;
+							}
+							const action = ele.dataset.action;
+							switch (action) {
+								case "top":
+									direction[TOP] = 1;
+									break;
+								case "right":
+									direction[RIGHT] = -1;
+									break;
+								case "bottom":
+									direction[BOTTOM] = -1;
+									break;
+								case "left":
+									direction[LEFT] = 1;
+									break;
+								case "top-right":
+									direction[TOP] = 1;
+									direction[RIGHT] = -1;
+									break;
+								case "top-left":
+									direction[TOP] = 1;
+									direction[LEFT] = 1;
+									break;
+								case "bottom-left":
+									direction[BOTTOM] = -1;
+									direction[LEFT] = 1;
+									break;
+								case "bottom-right":
+									direction[BOTTOM] = -1;
+									direction[RIGHT] = -1;
+									break;
+							}
+						});
+					});
+				}
+				document.body.addEventListener("mousemove", (e) => {
+					if (!dragging) return;
+					const { clientX, clientY } = e;
+					let diffX = clientX - startPoint[0];
+					let diffY = clientY - startPoint[1];
+					if (moving) {
+						diffX = Math.min(
+							Math.max(diffX, -startDimension[LEFT]),
+							startDimension[RIGHT]
+						);
+						diffY = Math.min(
+							Math.max(diffY, -startDimension[TOP]),
+							startDimension[BOTTOM]
+						);
+					}
+					const minWidth = 30;
+					const minHeight = 30;
+					const currentAspectRatio = cutRange.value;
+					const cropperWidth = cropper.clientWidth;
+					const cropperHeight = cropper.clientHeight;
+					if (currentAspectRatio !== "custom" && !moving) {
+						const ratio = getAspectRatioValue(currentAspectRatio);
+						if (ratio) {
+							const currentWidth =
+								cropperWidth - startDimension[LEFT] - startDimension[RIGHT];
+							const currentHeight =
+								cropperHeight - startDimension[TOP] - startDimension[BOTTOM];
+							let newWidth, newHeight;
+							let widthChange = 0;
+							let heightChange = 0;
+							if (direction[LEFT] === 1) {
+								widthChange = -diffX;
+							} else if (direction[RIGHT] === -1) {
+								widthChange = diffX;
+							}
+							if (direction[TOP] === 1) {
+								heightChange = -diffY;
+							} else if (direction[BOTTOM] === -1) {
+								heightChange = diffY;
+							}
+							const isCornerDrag =
+								(direction[LEFT] === 1 || direction[RIGHT] === -1) &&
+								(direction[TOP] === 1 || direction[BOTTOM] === -1);
+							if (isCornerDrag) {
+								if (Math.abs(widthChange) > Math.abs(heightChange)) {
+									newWidth = Math.max(minWidth, currentWidth + widthChange);
+									newHeight = newWidth / ratio;
+								} else {
+									newHeight = Math.max(minHeight, currentHeight + heightChange);
+									newWidth = newHeight * ratio;
+								}
+							} else {
+								if (direction[LEFT] === 1 || direction[RIGHT] === -1) {
+									newWidth = Math.max(minWidth, currentWidth + widthChange);
+									newHeight = newWidth / ratio;
+								} else {
+									newHeight = Math.max(minHeight, currentHeight + heightChange);
+									newWidth = newHeight * ratio;
+								}
+							}
+							const maxWidth = cropperWidth - CROPPER_MARGIN;
+							const maxHeight = cropperHeight - CROPPER_MARGIN;
+							if (newWidth >= maxWidth || newHeight >= maxHeight) {
+								if (newWidth / maxWidth > newHeight / maxHeight) {
+									newWidth = maxWidth;
+									newHeight = newWidth / ratio;
+								} else {
+									newHeight = maxHeight;
+									newWidth = newHeight * ratio;
+								}
+								if (
+									Math.abs(newWidth - currentWidth) < 1 &&
+									Math.abs(newHeight - currentHeight) < 1
+								) {
+									return;
+								}
+							}
+							let newLeft = startDimension[LEFT];
+							let newTop = startDimension[TOP];
+							let newRight = startDimension[RIGHT];
+							let newBottom = startDimension[BOTTOM];
+							if (direction[LEFT] === 1) {
+								newRight = startDimension[RIGHT];
+								newLeft = cropperWidth - newWidth - newRight;
+							} else if (direction[RIGHT] === -1) {
+								newLeft = startDimension[LEFT];
+								newRight = cropperWidth - newWidth - newLeft;
+							} else if (!isCornerDrag) {
+								const currentHorizontalCenter =
+									startDimension[LEFT] +
+									(cropperWidth -
+										startDimension[LEFT] -
+										startDimension[RIGHT]) /
+										2;
+								const newHorizontalOffset = newWidth / 2;
+								newLeft = Math.max(
+									0,
+									Math.min(
+										cropperWidth - newWidth,
+										currentHorizontalCenter - newHorizontalOffset
+									)
+								);
+								newRight = cropperWidth - newWidth - newLeft;
+							}
+							if (direction[TOP] === 1) {
+								newBottom = startDimension[BOTTOM];
+								newTop = cropperHeight - newHeight - newBottom;
+							} else if (direction[BOTTOM] === -1) {
+								newTop = startDimension[TOP];
+								newBottom = cropperHeight - newHeight - newTop;
+							} else if (!isCornerDrag) {
+								const currentVerticalCenter =
+									startDimension[TOP] +
+									(cropperHeight -
+										startDimension[TOP] -
+										startDimension[BOTTOM]) /
+										2;
+								const newVerticalOffset = newHeight / 2;
+								newTop = Math.max(
+									0,
+									Math.min(
+										cropperHeight - newHeight,
+										currentVerticalCenter - newVerticalOffset
+									)
+								);
+								newBottom = cropperHeight - newHeight - newTop;
+							}
+							if (newLeft < 0) {
+								newLeft = 0;
+								newRight = cropperWidth - newWidth;
+							}
+							if (newTop < 0) {
+								newTop = 0;
+								newBottom = cropperHeight - newHeight;
+							}
+							if (newRight < 0) {
+								newRight = 0;
+								newLeft = cropperWidth - newWidth;
+							}
+							if (newBottom < 0) {
+								newBottom = 0;
+								newTop = cropperHeight - newHeight;
+							}
+							setDimension([newTop, newRight, newBottom, newLeft]);
+						}
+					} else {
+						const currentDimensionNew = [0, 0, 0, 0];
+						currentDimensionNew[TOP] = Math.min(
+							Math.max(startDimension[TOP] + direction[TOP] * diffY, 0),
+							cropperHeight - currentDimensionNew[BOTTOM] - minHeight
+						);
+						currentDimensionNew[RIGHT] = Math.min(
+							Math.max(startDimension[RIGHT] + direction[RIGHT] * diffX, 0),
+							cropperWidth - currentDimensionNew[LEFT] - minWidth
+						);
+						currentDimensionNew[BOTTOM] = Math.min(
+							Math.max(startDimension[BOTTOM] + direction[BOTTOM] * diffY, 0),
+							cropperHeight - currentDimensionNew[TOP] - minHeight
+						);
+						currentDimensionNew[LEFT] = Math.min(
+							Math.max(startDimension[LEFT] + direction[LEFT] * diffX, 0),
+							cropperWidth - currentDimensionNew[RIGHT] - minWidth
+						);
+						setDimension(currentDimensionNew);
+					}
+				});  
+				document.body.addEventListener("mouseup", () => {
+					dragging = false;
+					moving = false;
+					direction = [0, 0, 0, 0];
+				});
+				async function cropImage() {
+					if (!bgImage.src || currentDimension.length === 0) return;
+					const mode = backgroundHandle.value;
+					const canvas = document.createElement("canvas");
+					const ctx = canvas.getContext("2d");
+					const imgRect = bgImage.getBoundingClientRect();
+					const containerRect = document
+						.getElementById("container")
+						.getBoundingClientRect();
+					const cropLeft = Math.max(
+						0,
+						currentDimension[LEFT] - (imgRect.left - containerRect.left)
+					);
+					const cropTop = Math.max(
+						0,
+						currentDimension[TOP] - (imgRect.top - containerRect.top)
+					);
+					const cropRight = Math.max(
+						0,
+						currentDimension[RIGHT] - (containerRect.right - imgRect.right)
+					);
+					const cropBottom = Math.max(
+						0,
+						currentDimension[BOTTOM] - (containerRect.bottom - imgRect.bottom)
+					);
+					const cropWidth = imgRect.width - cropLeft - cropRight;
+					const cropHeight = imgRect.height - cropTop - cropBottom;
+					const scaleX = bgImage.naturalWidth / imgRect.width;
+					const scaleY = bgImage.naturalHeight / imgRect.height;
+					const actualX = cropLeft * scaleX;
+					const actualY = cropTop * scaleY;
+					const actualWidth = cropWidth * scaleX;
+					const actualHeight = cropHeight * scaleY;
+					canvas.width = CANVAS_WIDTH;
+					canvas.height = CANVAS_HEIGHT;
+					ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+					if (mode === "remove") {
+						canvas.width = actualWidth;
+						canvas.height = actualHeight;
+						ctx.clearRect(0, 0, actualWidth, actualHeight);
+						ctx.drawImage(
+							bgImage,
+							actualX,
+							actualY,
+							actualWidth,
+							actualHeight,
+							0,
+							0,
+							actualWidth,
+							actualHeight
+						);
+					} else if (mode === "blackBorder") {
+						canvas.width = CANVAS_WIDTH;
+						canvas.height = CANVAS_HEIGHT;
+						ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+						ctx.drawImage(bgImage, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+						ctx.fillStyle = blackBorderColor.value;
+						ctx.fillRect(0, 0, CANVAS_WIDTH, currentDimension[TOP]);
+						ctx.fillRect(
+							0,
+							CANVAS_HEIGHT - currentDimension[BOTTOM],
+							CANVAS_WIDTH,
+							currentDimension[BOTTOM]
+						);
+						ctx.fillRect(
+							0,
+							currentDimension[TOP],
+							currentDimension[LEFT],
+							CANVAS_HEIGHT - currentDimension[TOP] - currentDimension[BOTTOM]
+						);
+						ctx.fillRect(
+							CANVAS_WIDTH - currentDimension[RIGHT],
+							currentDimension[TOP],
+							currentDimension[RIGHT],
+							CANVAS_HEIGHT - currentDimension[TOP] - currentDimension[BOTTOM]
+						);
+					} else if (mode === "vague") {
+						const blurValue = getVagueValue();
+						canvas.width = CANVAS_WIDTH;
+						canvas.height = CANVAS_HEIGHT;
+						ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+						ctx.filter = `blur(${blurValue}px)`;
+						ctx.drawImage(bgImage, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+						ctx.filter = "none";
+						ctx.save();
+						ctx.beginPath();
+						ctx.rect(
+							currentDimension[LEFT],
+							currentDimension[TOP],
+							CANVAS_WIDTH - currentDimension[LEFT] - currentDimension[RIGHT],
+							CANVAS_HEIGHT - currentDimension[TOP] - currentDimension[BOTTOM]
+						);
+						ctx.clip();
+						ctx.drawImage(bgImage, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+						ctx.restore();
+					}
+					const croppingCtx = canvasCropping.getContext("2d");
+					canvasCropping.width = canvas.width;
+					canvasCropping.height = canvas.height;
+					croppingCtx.clearRect(0, 0, canvas.width, canvas.height);
+					croppingCtx.drawImage(canvas, 0, 0);
+					downloadBtn.style.display = "inline-block";
+					return canvas.toDataURL("image/png");
+				}
+				function downloadImage() {
+					const link = document.createElement("a");
+					link.download = `cropped-image-${new Date().getTime()}.png`;
+					link.href = canvasCropping.toDataURL();
+					link.click();
+					setTimeout(() => {
+						URL.revokeObjectURL(link.href);
+						link.remove();
+					}, 100);
+				}
+				file.addEventListener("change", (e) => {
+					const target = e.target.files[0];
+					if (!target) return;
+					const imgURL = URL.createObjectURL(target);
+					currentImageSrc = imgURL;
+					bgImage.src = imgURL;
+					maskView.style.backgroundImage = `url('${imgURL}')`;
+					bgImage.onload = () => {
+						createCropper();
+					};
+				});
+				backgroundHandle.addEventListener("change", updateMaskStyle);
+				blackBorderColor.addEventListener("input", updateMaskStyle);
+				vagueRange.addEventListener("input", updateVagueDisplay);
+				cutRange.addEventListener("change", (e) => {
+					if (e.target.value !== "custom") {
+						adjustCropperToAspectRatio();
+					}
+				});
+				cropBtn.addEventListener("click", cropImage);
+				downloadBtn.addEventListener("click", downloadImage);
+				updateVagueDisplay();
+			});
+		</script>
+	</body>
+</html>

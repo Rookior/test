@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>图片裁剪器2</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <input id="file" type="file" />
+    <div id="container" class="container">
+      <img id="bgImage" width="100%" height="100%" />
+      <div id="mask" class="mask">
+        <div id="maskView" class="mask__view"></div>
+      </div>
+      <div id="cropper" class="cropper">
+        <div id="cropperView" class="cropper__view">
+          <span class="cropper-dashed dashed-h"></span>
+          <span class="cropper-dashed dashed-v"></span>
+          <span class="cropper-center"></span>
+          <span class="cropper-move"></span>
+          <span class="cropper-line line-n" data-action="top"></span>
+          <span class="cropper-line line-e" data-action="right"></span>
+          <span class="cropper-line line-s" data-action="bottom"></span>
+          <span class="cropper-line line-w" data-action="left"></span>
+          <span class="cropper-point point-e"></span>
+          <span class="cropper-point point-n"></span>
+          <span class="cropper-point point-w"></span>
+          <span class="cropper-point point-s"></span>
+          <span class="cropper-point point-nw" data-action="top-left"></span>
+          <span class="cropper-point point-ne" data-action="top-right"></span>
+          <span
+            class="cropper-point point-se"
+            data-action="bottom-right"
+          ></span>
+          <span class="cropper-point point-sw" data-action="bottom-left"></span>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const file = document.getElementById("file");
+        const bgImage = document.getElementById("bgImage");
+        const mask = document.getElementById("mask");
+        const maskView = document.getElementById("maskView");
+        const cropper = document.getElementById("cropper");
+        const cropperView = document.getElementById("cropperView");
+        file.addEventListener("change", (e) => {
+          const target = e.target.files[0];
+          const imgURL = URL.createObjectURL(target);
+          bgImage.src = imgURL;
+          maskView.style.backgroundImage = `url('${imgURL}')`;
+          bgImage.onload = () => {
+            createCropper();
+          };
+        });
+        let initDimention = [50, 50, 50, 50];
+        const TOP = 0,
+          RIGHT = 1,
+          BOTTOM = 2,
+          LEFT = 3;
+        let dragging = false;
+        let startPoint = [0, 0];
+        let currentElement = null;
+        let currentDimention = [];
+        let startDimention = [];
+        let direction = [0, 0, 0, 0];
+        let moving = false;
+        function createCropper() {
+          mask.style.display = "block";
+          cropper.style.display = "block";
+          setDimention(initDimention);
+          const moveElement = document.querySelector(".cropper-move");
+
+          const elements = [
+            moveElement,
+            ...document.querySelectorAll(".cropper-line"),
+            ...document.querySelectorAll(".cropper-point"),
+          ];
+          elements.forEach((ele) => {
+            ele.addEventListener("mousedown", (e) => {
+              dragging = true;
+              const { clientX, clientY } = e;
+              startPoint[0] = clientX;
+              startPoint[1] = clientY;
+              currentElement = ele;
+              currentDimention = initDimention;
+              startDimention = [...initDimention];
+
+              if (ele === moveElement) {
+                direction[TOP] = 1;
+                direction[BOTTOM] = -1;
+                direction[LEFT] = 1;
+                direction[RIGHT] = -1;
+                moving = true;
+              }
+              const action = ele.dataset.action;
+              switch (action) {
+                case "top":
+                  direction[TOP] = 1;
+                  direction[BOTTOM] = 0;
+                  break;
+                case "right":
+                  direction[LEFT] = 0;
+                  direction[RIGHT] = -1;
+                  break;
+                case "bottom":
+                  direction[TOP] = 0;
+                  direction[BOTTOM] = -1;
+                  break;
+                case "left":
+                  direction[LEFT] = 1;
+                  direction[RIGHT] = 0;
+                  break;
+                case "top-right":
+                  direction[TOP] = 1;
+                  direction[RIGHT] = -1;
+                  break;
+                case "top-left":
+                  direction[TOP] = 1;
+                  direction[LEFT] = 1;
+                  break;
+                case "bottom-left":
+                  direction[BOTTOM] = -1;
+                  direction[LEFT] = 1;
+                  break;
+                case "bottom-right":
+                  direction[BOTTOM] = -1;
+                  direction[RIGHT] = -1;
+                  break;
+              }
+            });
+          });
+        }
+        document.body.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          const { clientX, clientY } = e;
+          let diffX = clientX - startPoint[0];
+          let diffY = clientY - startPoint[1];
+          if (moving) {
+            diffX = Math.min(
+              Math.max(diffX, -startDimention[LEFT]),
+              startDimention[RIGHT]
+            );
+            diffY = Math.min(
+              Math.max(diffY, -startDimention[TOP]),
+              startDimention[BOTTOM]
+            );
+          }
+          const minWidth = 30;
+          const minHeight = 30;
+          currentDimention[TOP] = Math.min(
+            Math.max(startDimention[TOP] + direction[TOP] * diffY, 0),
+            cropper.clientHeight - currentDimention[BOTTOM] - minHeight
+          );
+          currentDimention[RIGHT] = Math.min(
+            Math.max(startDimention[RIGHT] + direction[RIGHT] * diffX, 0),
+            cropper.clientWidth - currentDimention[LEFT] - minWidth
+          );
+          currentDimention[BOTTOM] = Math.min(
+            Math.max(startDimention[BOTTOM] + direction[BOTTOM] * diffY, 0),
+            cropper.clientHeight - currentDimention[TOP] - minHeight
+          );
+          currentDimention[LEFT] = Math.min(
+            Math.max(startDimention[LEFT] + direction[LEFT] * diffX, 0),
+            cropper.clientWidth - currentDimention[RIGHT] - minWidth
+          );
+          setDimention(currentDimention);
+        });
+        document.body.addEventListener("mouseup", () => {
+          dragging = false;
+          moving = false;
+          direction[TOP] = 0;
+          direction[BOTTOM] = 0;
+          direction[LEFT] = 0;
+          direction[RIGHT] = 0;
+        });
+        function setDimention(dimention) {
+          cropperView.style.inset = `${dimention[TOP]}px ${dimention[RIGHT]}px ${dimention[BOTTOM]}px ${dimention[LEFT]}px`;
+          maskView.style.clipPath = `inset(${dimention[TOP]}px ${dimention[RIGHT]}px ${dimention[BOTTOM]}px ${dimention[LEFT]}px)`;
+        }
+      });
+    </script>
+  </body>
+</html>
