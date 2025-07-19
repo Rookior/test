@@ -1,9 +1,147 @@
 [
   {
+    "hash": "8562b6a",
+    "author": "weizy",
+    "message": "20250307",
+    "date": "03/07/2025, 14:57:49"
+  },
+  {
+    "hash": "0e29abe",
+    "author": "weizy",
+    "message": "vueRouter实现",
+    "date": "12/11/2024, 15:04:42"
+  },
+  {
+    "hash": "1cf381a",
+    "author": "weizy",
+    "message": "css实现背景分割线效果",
+    "date": "11/08/2024, 10:07:35"
+  },
+  {
+    "hash": "1e6e166",
+    "author": "weizy",
+    "message": "修改20240926",
+    "date": "09/26/2024, 14:36:20"
+  },
+  {
+    "hash": "de89884",
+    "author": "weizy",
+    "message": "grid布局",
+    "date": "08/22/2024, 10:32:24"
+  },
+  {
+    "hash": "6d68250",
+    "author": "weizy",
+    "message": "增加视觉辅助线、离散率计算、echarts地图",
+    "date": "08/01/2024, 09:43:19"
+  },
+  {
+    "hash": "b6f12a9",
+    "author": "weizy",
+    "message": "跳转encodeURIComponent与解析decodeURIComponent",
+    "date": "06/25/2024, 15:00:09"
+  },
+  {
+    "hash": "896a6b8",
+    "author": "weizy",
+    "message": "其他",
+    "date": "06/20/2024, 16:34:42"
+  },
+  {
+    "hash": "2b2fbdd",
+    "author": "weizy",
+    "message": "录频",
+    "date": "06/20/2024, 16:29:47"
+  },
+  {
+    "hash": "6d0745d",
+    "author": "weizy",
+    "message": "红包",
+    "date": "06/20/2024, 16:04:55"
+  },
+  {
+    "hash": "a34c924",
+    "author": "weizy",
+    "message": "修改提交20240424",
+    "date": "04/24/2024, 19:06:14"
+  },
+  {
+    "hash": "e69569d",
+    "author": "weizy",
+    "message": "css实现光效边框",
+    "date": "03/11/2024, 16:18:30"
+  },
+  {
+    "hash": "e09dc2e",
+    "author": "weizy",
+    "message": "不通装备概率掉落",
+    "date": "11/08/2023, 15:57:43"
+  },
+  {
+    "hash": "fccfe94",
+    "author": "weizy",
+    "message": "使用grid实现固定列与自适应列布局",
+    "date": "11/08/2023, 14:19:57"
+  },
+  {
+    "hash": "bf7cc29",
+    "author": "weizy",
+    "message": "iframe的postmessage使用子窗口iframe.contentWindow通讯或者父窗口window接收",
+    "date": "10/23/2023, 13:36:20"
+  },
+  {
+    "hash": "994dd71",
+    "author": "weizy",
+    "message": "测试css闪烁，测试css多面体旋转，测试ajax跨域请求",
+    "date": "09/17/2023, 15:17:39"
+  },
+  {
+    "hash": "044882e",
+    "author": "weizy",
+    "message": "增加vuesavedata的加密解密",
+    "date": "09/12/2023, 16:33:43"
+  },
+  {
+    "hash": "afefb49",
+    "author": "weizy",
+    "message": "grid布局",
+    "date": "08/31/2023, 17:13:23"
+  },
+  {
+    "hash": "cea35d4",
+    "author": "weizy",
+    "message": "测试修改",
+    "date": "08/21/2023, 17:12:44"
+  },
+  {
+    "hash": "bb57e77",
+    "author": "weizy",
+    "message": "岳能帆软调试与演示系统js注入",
+    "date": "08/09/2023, 11:03:38"
+  },
+  {
+    "hash": "1c3ff97",
+    "author": "weizy",
+    "message": "Merge branch 'master' of github.com:Rookior/test",
+    "date": "07/27/2023, 13:33:29"
+  },
+  {
+    "hash": "3f35d49",
+    "author": "weizy",
+    "message": "使用nodejs导出git提交记录为json",
+    "date": "07/27/2023, 13:30:10"
+  },
+  {
     "hash": "4a85644",
     "author": "weizy",
     "message": "自定义指标公式",
     "date": "07/25/2023, 10:27:38"
+  },
+  {
+    "hash": "3e5eaec",
+    "author": "rookior",
+    "message": "media响应式",
+    "date": "07/20/2023, 22:00:22"
   },
   {
     "hash": "fecb6bc",
@@ -405,7 +543,7 @@
     "hash": "22b1b48",
     "author": "wzy",
     "message": "echarts的tooltips使用echarts",
-    "date": "07/22/2022, 00:34:53"
+    "date": "07/22/2022, 24:34:53"
   },
   {
     "hash": "8d53d00",

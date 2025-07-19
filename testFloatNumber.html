@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script>
+        var substation = {
+            keys: '',
+            id: undefined,
+            startwind: '',
+            stopwind: '2.3',
+            lost: '4',
+            duration: '4.0'
+        }
+        var obj = {
+          startwind: String(substation.startwind).includes('.') ? Number(substation.startwind) : Number(substation.startwind + '.0'),
+          stopwind: String(substation.stopwind).includes('.') ? Number(substation.stopwind) : Number(substation.stopwind + '.0'),
+          lost: String(substation.lost).includes('.') ? Number(substation.lost) : Number(substation.lost + '.0'),
+          duration: String(substation.duration).includes('.') ? Number(substation.duration) : Number(substation.duration + '.0')
+        }
+        $.ajax({
+            url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=关键词&json=1",    //设置请求的url
+            dataType:"json",   //设置数据返回格式为json
+            async:false,//设置请求是否异步，默认为异步。
+            data:obj,    //设置发送的数据
+            type:"POST",   //设置请求方式
+            beforeSend:function(){
+                //设置请求前的回调
+            },
+            success:function(req){
+                //设置请求成功后的回调
+                console.log(333)
+            },
+            complete:function(){
+                //设置请求完成后的回调
+            },
+            error:function(){
+                //设置请求出错处理的回调
+            }
+        });
+      
+        console.log(123,obj)
+    </script>
+</body>
+</html>
