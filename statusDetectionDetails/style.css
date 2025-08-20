@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background: linear-gradient(to bottom, #001529, #000a13);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 头部导航样式 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001529;
+    padding: 10px 20px;
+    border-bottom: 1px solid #0a2a42;
+    height: 50px;
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-item.active {
+    color: #1890ff;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #1890ff;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-info, .user-info, .time {
+    font-size: 14px;
+}
+
+/* 主内容区域样式 */
+.main-content {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 200px;
+    background-color: #001529;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.sidebar-item.active {
+    background-color: #1890ff;
+}
+
+.sidebar-item .icon {
+    margin-right: 10px;
+}
+
+/* 内容区域样式 */
+.content {
+    flex: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 状态栏样式 */
+.status-bar {
+    display: flex;
+    background-color: rgba(0, 21, 41, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.status-item .label {
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.status-item .value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.controls {
+    display: flex;
+    margin-left: auto;
+    gap: 5px;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn.active {
+    background-color: #52c41a;
+}
+
+.switch {
+    width: 40px;
+    height: 20px;
+    background-color: #13c2c2;
+    border-radius: 10px;
+    margin-left: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.switch::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 2px;
+    right: 2px;
+    transition: all 0.3s;
+}
+
+/* 设备网格样式 */
+.station-info {
+    background-color: rgba(0, 21, 41, 0.8);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.station-info h3 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.device-card {
+    background-color: #052440;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.device-card .device-id {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.device-card .device-icon {
+    align-self: center;
+    font-size: 24px;
+    margin: 10px 0;
+    color: #52c41a;
+}
+
+.device-card .device-data {
+    font-size: 12px;
+    margin-top: auto;
+}
+
+.device-card .data-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.device-card .data-label {
+    color: #8c8c8c;
+}
+
+.device-card .data-value {
+    color: #fff;
+}
+
+.device-card .status {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #52c41a;
+}
+
+/* 页脚样式 */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #001529;
+    color: #8c8c8c;
+    font-size: 12px;
+    border-top: 1px solid #0a2a42;
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+    .device-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .device-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .content {
+        margin-left: 0;
+    }
+    
+    .device-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .device-grid {
+        grid-template-columns: 1fr;
+    }
+}

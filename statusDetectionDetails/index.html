@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>状态检测详情</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="nav-left">
+                <span class="nav-item active">实时监控</span>
+                <span class="nav-item">生产统计</span>
+                <span class="nav-item">系统管理</span>
+                <span class="nav-item">数据分析</span>
+                <span class="nav-item">设备管理</span>
+                <span class="nav-item">系统配置</span>
+            </div>
+            <div class="nav-right">
+                <span class="status-info">✈️ 221 🔧 221 🏭 221 ⚡ 221</span>
+                <span class="user-info">admin</span>
+                <span class="time">11:44:44</span>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-item active">
+                    <span class="icon">🏠</span>
+                    <span>网络状态监控</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="icon">✈️</span>
+                    <span>大型设备状态</span>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="label">装机台数</span>
+                        <span class="value">9台</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">平均功率</span>
+                        <span class="value">2.72 MW</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">实时功率</span>
+                        <span class="value">0.54 MW</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">AGC目标值</span>
+                        <span class="value">0.54 MW</span>
+                    </div>
+                    <div class="controls">
+                        <button class="btn active">运行 45</button>
+                        <button class="btn">待机 45</button>
+                        <button class="btn">检修 45</button>
+                        <button class="btn">故障 45</button>
+                        <button class="btn">离线 45</button>
+                        <button class="btn">其他 45</button>
+                        <div class="switch"></div>
+                    </div>
+                </div>
+                
+                <div class="station-info">
+                    <h3>✈️ 大型设备状态</h3>
+                    <div class="device-grid" id="deviceGrid1"></div>
+                </div>
+                
+                <div class="station-info">
+                    <h3>✈️ 大型设备状态</h3>
+                    <div class="device-grid" id="deviceGrid2"></div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div class="copyright">© 2017 YUNENG SOFT. All rights reserved.</div>
+            <div class="version">IP:192.168.123.145</div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

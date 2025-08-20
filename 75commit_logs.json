@@ -1,5 +1,443 @@
 [
   {
+    "hash": "c7c3a15f",
+    "author": "yangyu",
+    "message": "fix(pages): :art: 根据现场实际情况修改充放电量单位问题",
+    "date": "08/19/2025, 17:29:58"
+  },
+  {
+    "hash": "37435063",
+    "author": "yangyu",
+    "message": "fix(pages): :art: 根据现场实际情况修改放电点名",
+    "date": "08/19/2025, 16:03:08"
+  },
+  {
+    "hash": "c21e15b3",
+    "author": "yangyu",
+    "message": "fix(pages): 修改充放电效率分析部分功能绑定的点位",
+    "date": "08/19/2025, 15:09:11"
+  },
+  {
+    "hash": "7b227fc2",
+    "author": "chenyang",
+    "message": "change(pages): 线增加挂牌状态，自动挂牌页面原因字段修改为faultName，对风不准下载文件名修改，详情增加测点不足提示，生产运行风电机组图例文字修改",
+    "date": "08/19/2025, 14:57:53"
+  },
+  {
+    "hash": "db0e0f1b",
+    "author": "weizy",
+    "message": "fix(page): 修复历史数据设备类型重置",
+    "date": "08/19/2025, 13:40:15"
+  },
+  {
+    "hash": "a636829d",
+    "author": "tianh",
+    "message": "fix(page): 海南汇流箱零电流统计数量修复",
+    "date": "08/19/2025, 12:43:52"
+  },
+  {
+    "hash": "487622ba",
+    "author": "weizy",
+    "message": "fix(page): 修复历史数据查询缓存分轴数据错误",
+    "date": "08/19/2025, 11:04:38"
+  },
+  {
+    "hash": "3d34ff93",
+    "author": "weizy",
+    "message": "fix(page): 修复风储场站风电箱变设备类型错误",
+    "date": "08/19/2025, 09:10:56"
+  },
+  {
+    "hash": "eabc087d",
+    "author": "weizy",
+    "message": "change(page): 增加历史数据查询上下限与设备类型筛选",
+    "date": "08/18/2025, 19:03:16"
+  },
+  {
+    "hash": "d8cad519",
+    "author": "tianh",
+    "message": "change(page): 海南汇流箱页面零电流筛选调整",
+    "date": "08/18/2025, 15:32:03"
+  },
+  {
+    "hash": "7c719f8d",
+    "author": "yangyu",
+    "message": "change(pages): :art: 修改储能分析-充放电效率分析下充放电状态相关字典配置",
+    "date": "08/18/2025, 15:10:35"
+  },
+  {
+    "hash": "dc2b4e32",
+    "author": "chenyang",
+    "message": "change(pages): 越限监视默认场站修改，重点机组场站选择框宽度修改，对风不准弹窗增加加载动作",
+    "date": "08/18/2025, 13:42:12"
+  },
+  {
+    "hash": "fb4143f5",
+    "author": "yangyu",
+    "message": "change(pages): :art: 优化充放电效率分析页面功能",
+    "date": "08/18/2025, 13:04:55"
+  },
+  {
+    "hash": "a0c6db16",
+    "author": "yangyu",
+    "message": "fix(controlCabin_LNDT): :art: 修改辽宁大唐驾驶舱页面公司概括功能的荣誉成果截图的显示方式",
+    "date": "08/15/2025, 16:36:12"
+  },
+  {
+    "hash": "185a0f13",
+    "author": "weizy",
+    "message": "fix(page): 修复双击曲线新增测点复选框重置",
+    "date": "08/15/2025, 15:27:52"
+  },
+  {
+    "hash": "b2301809",
+    "author": "yangyu",
+    "message": "fix(controlCabin_LNDT): :art: 修改辽宁大唐驾驶舱页面公司概括功能的荣誉成果截图不显示问题",
+    "date": "08/15/2025, 14:53:27"
+  },
+  {
+    "hash": "a93ceef0",
+    "author": "yangyu",
+    "message": "change(controlCabin_LNDT): :art: 修改辽宁大唐驾驶舱页面功能相关任务:task-view-5564 task-view-5611",
+    "date": "08/15/2025, 13:28:26"
+  },
+  {
+    "hash": "27a03825",
+    "author": "chenyang",
+    "message": "change(pages): 增加对风不准报告下载按钮，越限监视页面类型修改",
+    "date": "08/15/2025, 10:10:41"
+  },
+  {
+    "hash": "d83b612d",
+    "author": "yangyu",
+    "message": "[b4d7b6765] fix(pages): 完成储能分析现场问题修改",
+    "date": "08/12/2025, 09:45:41"
+  },
+  {
+    "hash": "9e02d067",
+    "author": "liuq",
+    "message": "add(pages): 新增光资源分析模块",
+    "date": "08/15/2025, 08:42:11"
+  },
+  {
+    "hash": "51b875c7",
+    "author": "weizy",
+    "message": "fix(pages): 修复京津冀扳手自动派单，修复报警故障代码取点，修改双击曲线指标无限制",
+    "date": "08/14/2025, 17:18:40"
+  },
+  {
+    "hash": "796babc1",
+    "author": "weizy",
+    "message": "fix(page): 修复储能机组状态功率单位",
+    "date": "08/14/2025, 12:32:45"
+  },
+  {
+    "hash": "3d239133",
+    "author": "weizy",
+    "message": "change(page): 双击曲线新增指标删除无设备场站、双击默认不收藏",
+    "date": "08/14/2025, 10:10:58"
+  },
+  {
+    "hash": "10158bde",
+    "author": "weizy",
+    "message": "fix(page): 修复江西光伏场站概览电站效率取昨天统计",
+    "date": "08/13/2025, 13:48:23"
+  },
+  {
+    "hash": "3b9d8bde",
+    "author": "weizy",
+    "message": "fix(page): 修复江西风速与功率不匹配",
+    "date": "08/13/2025, 13:11:29"
+  },
+  {
+    "hash": "2ffe1405",
+    "author": "weizy",
+    "message": "fix(page): 修复江西光伏场站概览点名",
+    "date": "08/13/2025, 11:14:04"
+  },
+  {
+    "hash": "1356d33b",
+    "author": "weizy",
+    "message": "change(pages): 修改数据调阅，修复江西大唐首页跳转场站",
+    "date": "08/13/2025, 10:28:52"
+  },
+  {
+    "hash": "1b30be3f",
+    "author": "weizy",
+    "message": "fix(web): 修改双击曲线指标绿色与复选框数据同步",
+    "date": "08/12/2025, 16:16:52"
+  },
+  {
+    "hash": "450291ff",
+    "author": "weizy",
+    "message": "change(page): 修改辽宁大唐首页显示场站列表",
+    "date": "08/12/2025, 16:00:11"
+  },
+  {
+    "hash": "b42f3241",
+    "author": "weizy",
+    "message": "change(app): 机组状态explain接口按场站分组请求",
+    "date": "08/11/2025, 20:29:30"
+  },
+  {
+    "hash": "cc77c04b",
+    "author": "weizy",
+    "message": "change(page): 修改青海功率一致性系数加减5",
+    "date": "08/11/2025, 20:11:10"
+  },
+  {
+    "hash": "9be91370",
+    "author": "tianh",
+    "message": "change(page): 汇流箱页面样式调整",
+    "date": "08/11/2025, 13:06:00"
+  },
+  {
+    "hash": "31939c51",
+    "author": "tianh",
+    "message": "change(page): 安全生产展板样式调整",
+    "date": "08/11/2025, 12:37:16"
+  },
+  {
+    "hash": "ba018ee6",
+    "author": "weizy",
+    "message": "change(web): 增加双击曲线右键数据调阅",
+    "date": "08/09/2025, 17:41:35"
+  },
+  {
+    "hash": "bc031d22",
+    "author": "tianh",
+    "message": "change(other): 海南汇流箱页面零电流筛选调整",
+    "date": "08/08/2025, 16:01:41"
+  },
+  {
+    "hash": "e23c65c7",
+    "author": "weizy",
+    "message": "change(web): 双击弹曲线指标删除多选",
+    "date": "08/07/2025, 14:37:18"
+  },
+  {
+    "hash": "11a7b691",
+    "author": "chenyang",
+    "message": "change(page): 可复位故障页面复位条件描述修改",
+    "date": "08/07/2025, 12:56:28"
+  },
+  {
+    "hash": "1b83c417",
+    "author": "chenyang",
+    "message": "change(pages): 集控生产运行风电机组状态增加自动手动挂牌图标，数据展板页面默认选择全部公司",
+    "date": "08/07/2025, 10:31:45"
+  },
+  {
+    "hash": "35d80a09",
+    "author": "tianh",
+    "message": "add(page): 大唐海南新增大屏页面",
+    "date": "08/06/2025, 13:26:49"
+  },
+  {
+    "hash": "fc7670da",
+    "author": "weizy",
+    "message": "fix(page): 修复储能箱变指标配置groupName:ESBOXTRANSFORMER_PARAMETER",
+    "date": "08/05/2025, 16:18:47"
+  },
+  {
+    "hash": "7d3cd64e",
+    "author": "weizy",
+    "message": "change(page): 修改国电投文昌首页",
+    "date": "08/05/2025, 16:17:13"
+  },
+  {
+    "hash": "057bd624",
+    "author": "yangyu",
+    "message": "change(controlCabin/LNDT): :art: 修改辽宁大唐驾驶舱对应的修改任务TASK-5567,TASK-5572,TASK-5573",
+    "date": "08/05/2025, 15:51:25"
+  },
+  {
+    "hash": "096498ee",
+    "author": "yangyu",
+    "message": "change(controlCabin/LNDT): :art: 修改辽宁大唐驾驶舱对应的修改任务TASK-5567,TASK-5572,TASK-5573",
+    "date": "08/05/2025, 15:47:06"
+  },
+  {
+    "hash": "62f764ec",
+    "author": "yangyu",
+    "message": "change(controlCabin/LNDT): :art: 修改辽宁大唐驾驶舱荣誉成果窗口，使其动画时间根据设置的证书数量来设置",
+    "date": "08/05/2025, 14:10:56"
+  },
+  {
+    "hash": "f23e75a5",
+    "author": "yangyu",
+    "message": "change(controlCabin/LNDT): :art: 修改辽宁大唐驾驶舱对应的修改任务TASK-5566,TASK-5565,TASK-5558",
+    "date": "08/05/2025, 13:02:01"
+  },
+  {
+    "hash": "6e66b5e8",
+    "author": "weizy",
+    "message": "change(other): 修改国电投双河项目为国电投新疆",
+    "date": "08/05/2025, 09:29:50"
+  },
+  {
+    "hash": "a6505ac4",
+    "author": "weizy",
+    "message": "change(page): 修改国电投文昌首页",
+    "date": "08/05/2025, 09:17:51"
+  },
+  {
+    "hash": "3b21720b",
+    "author": "weizy",
+    "message": "fix(page): 修复历史停机查询参数",
+    "date": "08/04/2025, 16:19:08"
+  },
+  {
+    "hash": "4cf7734e",
+    "author": "weizy",
+    "message": "change(page): 修改国电投文昌首页",
+    "date": "08/04/2025, 16:00:00"
+  },
+  {
+    "hash": "c48a17ba",
+    "author": "yangyu",
+    "message": "change(controlCabin/LNDT): :art: 修改辽宁大唐驾驶舱-公司概览-能源结构的供热单位显示",
+    "date": "08/04/2025, 08:50:54"
+  },
+  {
+    "hash": "7a8ebe88",
+    "author": "weizy",
+    "message": "fix(page): 修复组串支路未接入电流",
+    "date": "08/01/2025, 17:32:13"
+  },
+  {
+    "hash": "07eb1046",
+    "author": "yangyu",
+    "message": "fix(controlCabin/LNDT): :art: 参照原型图修改标题",
+    "date": "08/01/2025, 16:56:18"
+  },
+  {
+    "hash": "dbc64635",
+    "author": "yangyu",
+    "message": "fix(controlCabin/LNDT): :art: 修改现场反馈的待优化建议",
+    "date": "08/01/2025, 15:48:46"
+  },
+  {
+    "hash": "e1c2b53e",
+    "author": "yangyu",
+    "message": "fix(controlCabin_LNDT): 修改辽宁大唐驾驶舱分配二级菜单显示404问题",
+    "date": "08/01/2025, 09:46:37"
+  },
+  {
+    "hash": "27df0392",
+    "author": "weizy",
+    "message": "change(pages): 辽宁大唐报警确认提示",
+    "date": "08/01/2025, 09:16:26"
+  },
+  {
+    "hash": "05dd94e1",
+    "author": "yangyu",
+    "message": "add(controlCabin_LNDT/productionData): :sparkles: 完成辽宁大唐驾驶舱功能研发",
+    "date": "08/01/2025, 08:35:37"
+  },
+  {
+    "hash": "e662954f",
+    "author": "tianh",
+    "message": "change(other): 青海安全展板图片",
+    "date": "07/31/2025, 16:44:26"
+  },
+  {
+    "hash": "04b70d28",
+    "author": "tianh",
+    "message": "change(page): 青海安全生产展板页面按需调整",
+    "date": "07/31/2025, 16:25:01"
+  },
+  {
+    "hash": "541aafde",
+    "author": "chenyang",
+    "message": "change(pages): 智能监盘默认查询场站修改",
+    "date": "07/31/2025, 14:13:18"
+  },
+  {
+    "hash": "e71831ba",
+    "author": "weizy",
+    "message": "change(page): 隐藏国电投双河集中监控菜单",
+    "date": "07/31/2025, 13:09:45"
+  },
+  {
+    "hash": "f9d8375b",
+    "author": "weizy",
+    "message": "change(pages): 辽宁大唐拦截报警确认",
+    "date": "07/31/2025, 09:18:08"
+  },
+  {
+    "hash": "b4e11ae8",
+    "author": "weizy",
+    "message": "change(page): 修复国电投双河首页事件",
+    "date": "07/31/2025, 10:55:40"
+  },
+  {
+    "hash": "4970c73f",
+    "author": "weizy",
+    "message": "add(page): 增加国电投双河ht首页",
+    "date": "07/30/2025, 16:32:24"
+  },
+  {
+    "hash": "fc94f5da",
+    "author": "weizy",
+    "message": "change(page): 隐藏海南扳手查询升压站",
+    "date": "07/30/2025, 13:11:44"
+  },
+  {
+    "hash": "81185097",
+    "author": "chenyang",
+    "message": "change(page): 智能监盘挂牌点修改为集控挂牌点",
+    "date": "07/29/2025, 11:19:45"
+  },
+  {
+    "hash": "29729a2e",
+    "author": "tianh",
+    "message": "change(page): 吉电长春辅助监盘页面默认布局按调整",
+    "date": "07/25/2025, 10:16:37"
+  },
+  {
+    "hash": "ef9be0bf",
+    "author": "weizy",
+    "message": "fix(app): 增加昆玉停机记录接口默认参数",
+    "date": "07/24/2025, 13:16:34"
+  },
+  {
+    "hash": "73413d68",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表月维度结束时间",
+    "date": "07/23/2025, 16:36:29"
+  },
+  {
+    "hash": "12cc337e",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表月维度结束时间",
+    "date": "07/23/2025, 15:49:34"
+  },
+  {
+    "hash": "ba36eb82",
+    "author": "chenyang",
+    "message": "fix(page): 超温超速组件问题修复",
+    "date": "07/22/2025, 18:49:46"
+  },
+  {
+    "hash": "f9db2814",
+    "author": "chenyang",
+    "message": "add(page): 新增应发未发机组页面，agc页面表格山东定制化",
+    "date": "07/22/2025, 15:57:05"
+  },
+  {
+    "hash": "075bf99f",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表模板",
+    "date": "07/22/2025, 15:24:49"
+  },
+  {
+    "hash": "dbb827e6",
+    "author": "weizy",
+    "message": "change(page): 修改数据下载时间按照大小交换",
+    "date": "07/22/2025, 12:40:50"
+  },
+  {
     "hash": "d69c7e9b",
     "author": "chenyang",
     "message": "change(page): 缺陷详情任务流程修改",

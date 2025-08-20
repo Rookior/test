@@ -1,5 +1,377 @@
 [
   {
+    "hash": "264f2b07",
+    "author": "weizy",
+    "message": "change(page): 修改贵阳院历史报警为实际总数",
+    "date": "08/20/2025, 15:46:15"
+  },
+  {
+    "hash": "f46ab34b",
+    "author": "weizy",
+    "message": "change(page): 增加历史数据查询上下限与设备类型筛选",
+    "date": "08/20/2025, 12:47:21"
+  },
+  {
+    "hash": "928e1df4",
+    "author": "chenyang",
+    "message": "change(pages): 光伏曲线增加挂牌状态，挂牌弹窗增加设备名称，自动挂牌页面原因字段修改为faultName，对风不准下载文件名修改，详情增加测点不足提示",
+    "date": "08/19/2025, 14:56:01"
+  },
+  {
+    "hash": "10a9e9f6",
+    "author": "tianh",
+    "message": "fix(page): 海南汇流箱零电流统计数量修复",
+    "date": "08/19/2025, 13:08:06"
+  },
+  {
+    "hash": "a38c7b6f",
+    "author": "weizy",
+    "message": "fix(page): 修复风储场站风电箱变设备类型错误",
+    "date": "08/19/2025, 09:11:25"
+  },
+  {
+    "hash": "3cb74d80",
+    "author": "weizy",
+    "message": "change(page): 修改京津冀超发功率点名",
+    "date": "08/18/2025, 19:10:50"
+  },
+  {
+    "hash": "dd821fab",
+    "author": "tianh",
+    "message": "change(page): 海南汇流箱页面零电流筛选调整",
+    "date": "08/18/2025, 15:48:48"
+  },
+  {
+    "hash": "a030b02c",
+    "author": "chenyang",
+    "message": "change(pages): 成组控制挂牌弹窗取消摘牌按钮，越限监视默认场站修改，重点机组场站选择框宽度修改，对风不准弹窗增加加载动作",
+    "date": "08/18/2025, 13:41:23"
+  },
+  {
+    "hash": "4987a282",
+    "author": "weizy",
+    "message": "fix(page): 修复双击曲线新增测点复选框重置",
+    "date": "08/15/2025, 15:27:11"
+  },
+  {
+    "hash": "0d66d16a",
+    "author": "tianh",
+    "message": "fix(pages): 挂牌控制入参问题修复",
+    "date": "08/15/2025, 15:19:35"
+  },
+  {
+    "hash": "9f74e898",
+    "author": "tianh",
+    "message": "add(page): 新增掉串分析页面",
+    "date": "08/15/2025, 12:47:11"
+  },
+  {
+    "hash": "76a2ea95",
+    "author": "chenyang",
+    "message": "change(pages): 对风不准新增报告下载，越限监视页面分类修改，光伏负荷曲线增加挂牌按钮，光伏机组页面增加场站限电文字变红",
+    "date": "08/15/2025, 09:53:33"
+  },
+  {
+    "hash": "4e4e4754",
+    "author": "weizy",
+    "message": "fix(web): 修改双击曲线指标绿色与复选框数据同步",
+    "date": "08/14/2025, 18:32:33"
+  },
+  {
+    "hash": "4a311065",
+    "author": "weizy",
+    "message": "fix(pages): 修复京津冀扳手自动派单，修复报警故障代码取点，修改双击曲线指标无限制",
+    "date": "08/14/2025, 17:17:31"
+  },
+  {
+    "hash": "b0640104",
+    "author": "weizy",
+    "message": "change(page): 双击曲线新增指标删除无设备场站",
+    "date": "08/14/2025, 09:47:26"
+  },
+  {
+    "hash": "c38909b2",
+    "author": "weizy",
+    "message": "add(pages): 京津冀工单与预警修改，同步湍流页面",
+    "date": "08/14/2025, 09:43:00"
+  },
+  {
+    "hash": "37fe816f",
+    "author": "chenyang",
+    "message": "change(pages): 大唐山东光伏批量挂牌问题修改，弹窗描述修改",
+    "date": "08/14/2025, 09:23:20"
+  },
+  {
+    "hash": "e75b964f",
+    "author": "tianh",
+    "message": "change(pages): 挂牌控制入参调整",
+    "date": "08/13/2025, 16:10:54"
+  },
+  {
+    "hash": "4aa8826e",
+    "author": "tianh",
+    "message": "change(page): 新疆数采页面调整",
+    "date": "08/13/2025, 16:06:13"
+  },
+  {
+    "hash": "0614fbaf",
+    "author": "weizy",
+    "message": "fix(page): 修复江西光伏场站概览点名",
+    "date": "08/13/2025, 13:36:36"
+  },
+  {
+    "hash": "355472f0",
+    "author": "tianh",
+    "message": "change(page): 海南挂牌记录调整",
+    "date": "08/13/2025, 09:06:09"
+  },
+  {
+    "hash": "4b786d69",
+    "author": "weizy",
+    "message": "change(page): 京津冀工单修改",
+    "date": "08/12/2025, 18:56:41"
+  },
+  {
+    "hash": "da0fe2d2",
+    "author": "weizy",
+    "message": "fix(page): 修复右上角用户名与时间换行",
+    "date": "08/12/2025, 16:29:23"
+  },
+  {
+    "hash": "5685f599",
+    "author": "weizy",
+    "message": "change(pages): 京津冀工单修改",
+    "date": "08/09/2025, 16:48:19"
+  },
+  {
+    "hash": "9327a29a",
+    "author": "tianh",
+    "message": "change(other): 增加汇流箱零电流配置值",
+    "date": "08/08/2025, 14:28:14"
+  },
+  {
+    "hash": "90dd474a",
+    "author": "tianh",
+    "message": "change(page): 海南汇流箱页面零电流筛选调整",
+    "date": "08/08/2025, 13:28:23"
+  },
+  {
+    "hash": "f767152f",
+    "author": "weizy",
+    "message": "change(page): 修改新疆超发功率",
+    "date": "08/08/2025, 09:35:18"
+  },
+  {
+    "hash": "9972154e",
+    "author": "weizy",
+    "message": "change(pages): 京津冀工单修改、隐藏机组报警图标",
+    "date": "08/08/2025, 08:54:56"
+  },
+  {
+    "hash": "314f02a6",
+    "author": "tianh",
+    "message": "add(page): 新增电量差值页面",
+    "date": "08/07/2025, 16:14:54"
+  },
+  {
+    "hash": "b5d1ec20",
+    "author": "weizy",
+    "message": "change(web): 双击弹曲线指标删除多选",
+    "date": "08/07/2025, 14:36:04"
+  },
+  {
+    "hash": "a5438781",
+    "author": "chenyang",
+    "message": "fix(page): 可复位故障页面复位条件描述修改",
+    "date": "08/07/2025, 12:54:45"
+  },
+  {
+    "hash": "45cb79c4",
+    "author": "chenyang",
+    "message": "add(pages): 新增未接通提醒，集控成组控制修改批量挂牌为智能监盘挂牌，集控生产运行风电机组状态增加自动手动挂牌图标，数据展板页面默认选择全部公司",
+    "date": "08/07/2025, 10:30:41"
+  },
+  {
+    "hash": "b04313d7",
+    "author": "weizy",
+    "message": "change(page): 修改粤电湛江首页光伏装机容量点名",
+    "date": "08/07/2025, 09:57:39"
+  },
+  {
+    "hash": "feabda4d",
+    "author": "weizy",
+    "message": "change(app): 机组状态explain接口按场站分组请求",
+    "date": "08/05/2025, 17:10:58"
+  },
+  {
+    "hash": "07e29b3e",
+    "author": "weizy",
+    "message": "change(page): 京津冀工单完结状态",
+    "date": "08/07/2025, 08:38:14"
+  },
+  {
+    "hash": "0c3a304d",
+    "author": "weizy",
+    "message": "fix(page): 修复工单系统处理过程",
+    "date": "08/05/2025, 17:54:41"
+  },
+  {
+    "hash": "cb616dd6",
+    "author": "weizy",
+    "message": "change(page): 修改工单系统处理过程与表格宽度",
+    "date": "08/05/2025, 16:55:24"
+  },
+  {
+    "hash": "24a790a0",
+    "author": "weizy",
+    "message": "add(page): 同步功率预测列表3支持配置tag与dev",
+    "date": "08/05/2025, 16:42:41"
+  },
+  {
+    "hash": "464613f4",
+    "author": "weizy",
+    "message": "fix(page): 修复储能箱变指标配置groupName:ESBOXTRANSFORMER_PARAMETER",
+    "date": "08/05/2025, 16:22:14"
+  },
+  {
+    "hash": "4934a99e",
+    "author": "weizy",
+    "message": "fix(page): 修复组串支路未接入电流",
+    "date": "08/01/2025, 17:45:55"
+  },
+  {
+    "hash": "d7e119bd",
+    "author": "weizy",
+    "message": "change(page): 修复京津冀工单系统分类显示",
+    "date": "08/01/2025, 16:56:46"
+  },
+  {
+    "hash": "089cc1f7",
+    "author": "weizy",
+    "message": "change(app): change(app): 京津冀工单新增描述",
+    "date": "08/01/2025, 08:54:27"
+  },
+  {
+    "hash": "d1b3d7b8",
+    "author": "chenyang",
+    "message": "change(pages): 智能监盘改为默认场站全选",
+    "date": "07/31/2025, 11:12:56"
+  },
+  {
+    "hash": "274fb4f3",
+    "author": "weizy",
+    "message": "fix(pages): 修复京津冀历史预警导出、修复时间清空",
+    "date": "07/30/2025, 15:51:17"
+  },
+  {
+    "hash": "99588330",
+    "author": "weizy",
+    "message": "change(page): 增加京津冀挂牌时自动派单",
+    "date": "07/30/2025, 12:50:04"
+  },
+  {
+    "hash": "46480afb",
+    "author": "weizy",
+    "message": "add(app): 京津冀报警中心、历史预警、工单系统",
+    "date": "07/30/2025, 12:47:32"
+  },
+  {
+    "hash": "d8c59c52",
+    "author": "weizy",
+    "message": "change(page): 隐藏海南扳手查询升压站",
+    "date": "07/30/2025, 10:45:47"
+  },
+  {
+    "hash": "104e1d53",
+    "author": "chenyang",
+    "message": "change(pages): 智能监盘挂牌点修改为集控挂牌点，挂牌手机号码验证修改，大唐山东集控右键挂牌和单机详情挂牌以及成组控制批量摘牌组件切换为监盘组件",
+    "date": "07/29/2025, 11:34:00"
+  },
+  {
+    "hash": "f4331766",
+    "author": "weizy",
+    "message": "change(page): 京津冀恢复双击弹曲线导出按钮",
+    "date": "07/28/2025, 17:03:10"
+  },
+  {
+    "hash": "68f86a4e",
+    "author": "tianh",
+    "message": "fix(page): 单场站批量摘牌功能问题修复",
+    "date": "07/25/2025, 15:56:41"
+  },
+  {
+    "hash": "fa6d2458",
+    "author": "tianh",
+    "message": "change(page): 吉电长春辅助监盘页面默认布局按调整",
+    "date": "07/25/2025, 10:13:46"
+  },
+  {
+    "hash": "9678bc9d",
+    "author": "weizy",
+    "message": "change(page): 修改光伏温度曲线时间",
+    "date": "07/24/2025, 15:45:30"
+  },
+  {
+    "hash": "6175392d",
+    "author": "weizy",
+    "message": "add(page): 大唐安徽风电与光伏温度曲线",
+    "date": "07/24/2025, 14:28:54"
+  },
+  {
+    "hash": "30ba6818",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表月维度结束时间",
+    "date": "07/23/2025, 16:35:20"
+  },
+  {
+    "hash": "22710eb0",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表月维度结束时间",
+    "date": "07/23/2025, 15:51:11"
+  },
+  {
+    "hash": "880c2b82",
+    "author": "weizy",
+    "message": "change(page): 增加京津冀分分公司光伏机组状态权限",
+    "date": "07/23/2025, 09:30:25"
+  },
+  {
+    "hash": "8e388933",
+    "author": "chenyang",
+    "message": "fix(page): 超温超速弹窗问题修复",
+    "date": "07/22/2025, 18:50:15"
+  },
+  {
+    "hash": "7a1739bd",
+    "author": "chenyang",
+    "message": "add(page): 新增应发未发机组页面",
+    "date": "07/22/2025, 15:54:36"
+  },
+  {
+    "hash": "ca3e7697",
+    "author": "weizy",
+    "message": "fix(page): 修复自由综合报表模板",
+    "date": "07/22/2025, 14:32:00"
+  },
+  {
+    "hash": "287f4f5f",
+    "author": "weizy",
+    "message": "change(page): 修改数据下载时间按照大小交换",
+    "date": "07/22/2025, 12:41:55"
+  },
+  {
+    "hash": "c144adba",
+    "author": "chenyang",
+    "message": "change(pages): 工况报警下发缺陷带入时间，缺陷详情流程优化",
+    "date": "07/18/2025, 17:02:37"
+  },
+  {
+    "hash": "53592729",
+    "author": "chenyang",
+    "message": "Merge branch 'develop' of https://192.168.88.22:7002/JKSJPT/frontend_program/centralized-control into develop",
+    "date": "07/18/2025, 16:57:51"
+  },
+  {
     "hash": "5aabcb52",
     "author": "weizy",
     "message": "change(page): 修改江西首页与自动弹出报警",
@@ -10,6 +382,12 @@
     "author": "tianh",
     "message": "change(page): 功率预测列表(长春)一键导出按需调整",
     "date": "07/17/2025, 16:19:21"
+  },
+  {
+    "hash": "0f55291b",
+    "author": "chenyang",
+    "message": "change(page): agc页面列表名修改",
+    "date": "07/16/2025, 16:12:34"
   },
   {
     "hash": "118fd5c4",
