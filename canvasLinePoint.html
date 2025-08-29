@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Curved Lines - Merged Format两点连线</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        #canvasContainer {
+            margin: 20px auto;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+            padding: 10px;
+        }
+        canvas {
+            display: block;
+            background-color: #fdfdfd;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            justify-content: center;
+        }
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        label {
+            width: 130px;
+            text-align: right;
+            margin-right: 15px;
+            color: #555;
+            font-weight: 500;
+        }
+        input[type="range"] {
+            width: 220px;
+            margin: 0 10px;
+        }
+        span.value-display {
+            width: 50px;
+            text-align: left;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(to bottom, #2980b9, #2573a7);
+        }
+        .info {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #d6eaf8;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Canvas Draw Curved Lines ({startX, startY, endX, endY} format)</h3>
+    
+    <div class="controls">
+        <div class="control-group">
+            <label for="curvatureSlider">Curvature:</label>
+            <input type="range" id="curvatureSlider" min="-100" max="100" value="30">
+            <span id="curvatureValue" class="value-display">30</span>
+        </div>
+        <div class="control-group">
+            <label for="lineWidthSlider">Line Width:</label>
+            <input type="range" id="lineWidthSlider" min="0.5" max="10" step="0.5" value="2">
+            <span id="lineWidthValue" class="value-display">2</span>
+        </div>
+        <div class="control-group">
+            <label for="lineColorSelector">Line Color:</label>
+            <select id="lineColorSelector">
+                <option value="multi">Multi-Color</option>
+                <option value="single_blue">Blue</option>
+                <option value="single_green">Green</option>
+                <option value="single_red">Red</option>
+                <option value="single_purple">Purple</option>
+            </select>
+        </div>
+        <button id="redrawButton">Redraw Lines</button>
+    </div>
+
+    <div id="canvasContainer">
+        <canvas id="myCanvas"></canvas>
+    </div>
+
+    <div class="info">
+        <p><strong>Function Signature:</strong></p>
+        <code>
+            drawCurvedLines(lineSegments, canvasWidth, canvasHeight, curvature, lineWidth, lineColorMode = 'multi')
+        </code>
+        <p><strong>Data Format:</strong></p>
+        <code>
+            lineSegments = [ { startX: 50, startY: 50, endX: 550, endY: 150 }, ... ]
+        </code>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const config = {
+            canvasId: 'myCanvas',
+            // Example data in the new {startX, startY, endX, endY} format
+            defaultLineSegments: [
+                { startX: 50,  startY: 50,  endX: 550, endY: 150 },
+                { startX: 150, startY: 200, endX: 400, endY: 50  },
+                { startX: 300, startY: 100, endX: 500, endY: 350 },
+                { startX: 450, startY: 300, endX: 100, endY: 380 },
+                { startX: 100, startY: 350, endX: 520, endY: 80  }
+            ]
+        };
+
+        // --- Main Drawing Function ---
+        /**
+         * Draws curved lines on a canvas based on an array of line segment definitions.
+         * @param {Array} lineSegments - Array of objects with startX, startY, endX, endY properties.
+         * @param {number} canvasWidth - Width of the canvas.
+         * @param {number} canvasHeight - Height of the canvas.
+         * @param {number} curvature - Factor controlling the curve's bend. Positive bends one way, negative the other.
+         * @param {number} lineWidth - Width of the drawn lines.
+         * @param {string} [lineColorMode='multi'] - Color mode for lines: 'multi', 'single_blue', etc.
+         */
+        function drawCurvedLines(lineSegments, canvasWidth, canvasHeight, curvature, lineWidth, lineColorMode = 'multi') {
+            const canvas = document.getElementById(config.canvasId);
+            if (!canvas) {
+                console.error(`Canvas with ID '${config.canvasId}' not found.`);
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas dimensions
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Validate input
+            if (!Array.isArray(lineSegments)) {
+                console.error("lineSegments must be an array.");
+                return;
+            }
+
+
+            // Map color mode strings to actual styles
+            const getColorStyle = (index, total) => {
+                switch(lineColorMode) {
+                    case 'single_blue': return '#3498db';
+                    case 'single_green': return '#2ecc71';
+                    case 'single_red': return '#e74c3c';
+                    case 'single_purple': return '#9b59b6';
+                    case 'multi':
+                    default:
+                        // Use HSL for vibrant, distinct colors
+                        return `hsl(${(index * (360 / Math.max(1, total))) % 360}, 75%, 55%)`;
+                }
+            };
+
+            // Draw each line segment
+            lineSegments.forEach((segment, index) => {
+                 // Validate segment data
+                if (typeof segment.startX !== 'number' || typeof segment.startY !== 'number' ||
+                    typeof segment.endX !== 'number' || typeof segment.endY !== 'number') {
+                    console.warn(`Invalid segment data at index ${index}. Skipping line.`, segment);
+                    return; // Skip this segment
+                }
+
+                const startX = segment.startX;
+                const startY = segment.startY;
+                const endX = segment.endX;
+                const endY = segment.endY;
+
+                // --- Calculate Control Point for Quadratic Bezier Curve ---
+                const dx = endX - startX;
+                const dy = endY - startY;
+                const midX = (startX + endX) / 2;
+                const midY = (startY + endY) / 2;
+
+                // Perpendicular vector (dy, -dx) scaled by curvature factor
+                // Scaling factor (e.g., / 50) adjusts sensitivity of the curvature slider
+                const offsetX = dy * (curvature / 50);
+                const offsetY = -dx * (curvature / 50);
+
+                const controlX = midX + offsetX;
+                const controlY = midY + offsetY;
+
+                // --- Draw the Curve ---
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+                
+                // Style the line
+                ctx.strokeStyle = getColorStyle(index, lineSegments.length);
+                ctx.lineWidth = lineWidth;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+
+                // Optional: Draw start/end points
+                const pointRadius = Math.max(lineWidth * 1.2, 2.5);
+                ctx.fillStyle = 'rgba(52, 152, 219, 0.8)'; // Blue start point
+                ctx.beginPath();
+                ctx.arc(startX, startY, pointRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(231, 76, 60, 0.8)'; // Red end point
+                ctx.beginPath();
+                ctx.arc(endX, endY, pointRadius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        // --- UI Interaction ---
+        const canvasContainer = document.getElementById('canvasContainer');
+        const curvatureSlider = document.getElementById('curvatureSlider');
+        const curvatureValueSpan = document.getElementById('curvatureValue');
+        const lineWidthSlider = document.getElementById('lineWidthSlider');
+        const lineWidthValueSpan = document.getElementById('lineWidthValue');
+        const lineColorSelector = document.getElementById('lineColorSelector');
+        const redrawButton = document.getElementById('redrawButton');
+
+        function getSliderValue(sliderElement) {
+            return parseFloat(sliderElement.value);
+        }
+
+        function updateValueDisplays() {
+            curvatureValueSpan.textContent = getSliderValue(curvatureSlider);
+            lineWidthValueSpan.textContent = getSliderValue(lineWidthSlider);
+        }
+
+        function redraw() {
+            updateValueDisplays();
+
+            const curvature = getSliderValue(curvatureSlider);
+            const lineWidth = getSliderValue(lineWidthSlider);
+            const lineColorMode = lineColorSelector.value;
+
+            // Use default segments/size for this example
+            const lineSegments = config.defaultLineSegments;
+            const canvasWidth = 620;
+            const canvasHeight = 420;
+
+            drawCurvedLines(lineSegments, canvasWidth, canvasHeight, curvature, lineWidth, lineColorMode);
+        }
+
+        // Initial draw and setup
+        updateValueDisplays();
+        redraw();
+
+        // Event listeners
+        curvatureSlider.addEventListener('input', redraw);
+        lineWidthSlider.addEventListener('input', redraw);
+        lineColorSelector.addEventListener('change', redraw);
+        redrawButton.addEventListener('click', redraw);
+
+    </script>
+
+</body>
+</html>
+
+
+

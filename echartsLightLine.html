@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>模板</title>
+</head>
+<body>
+	<div id="main" style="width: 600px;height:800px;"></div>
+	
+	<script src="./echart/js/echart.js"></script>
+		<script>
+			var option = {
+					backgroundColor: 'rgba(0,0,0,0)',
+					xAxis: {
+						type: 'value',
+						show: true,
+						max: 300,
+						axisLabel: {
+							color: 'rgba(0,0,0,0)',
+						},
+						axisLine: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							show: false
+						}
+					},
+					yAxis: {
+						type: 'value',
+						show: true,
+						max: 300,
+						axisLabel: {
+							color: 'rgba(0,0,0,0)',
+						},
+						axisLine: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							show: false
+						}
+					},
+					grid: {
+						left: '0',
+						right: '0',
+						top: '0',
+						bottom: '0',
+						containLabel: true
+					},
+					series: [{
+						type: 'lines',
+						coordinateSystem: 'cartesian2d',
+						// symbol:'arrow',
+						zlevel: -1,
+						symbol: ['none', 'none'],
+						polyline: true,
+						silent: true,
+						effect: {
+							symbol: 'circle',
+							show: true,
+							color: '#00FFC4',
+							period: 3, // 箭头指向速度，值越小速度越快
+							trailLength: 0.01, // 特效尾迹长度[0,1]值越大，尾迹越长重
+							symbolSize: [10, 8], // 图标大小
+						},
+						lineStyle: {
+							width: 10,
+							normal: {
+								opacity: 1, // 线的透明度-设置为0，隐藏线条
+								// curveness: 0.4, // 曲线的弯曲程度 ，多段线不支持弯曲
+								color: '#00A780'
+							}
+						},
+						data: [
+							{
+								//  name:'11',
+								coords: [
+									[160, 250],
+
+									[100, 250],
+								]
+							},
+
+						]
+					},
+					{ // 这里必须有scatter，至少有一个点，路径图才会跑起来
+						zlevel: 1,
+						symbolSize: 0,
+						data: [
+							[160, 250],
+
+							[100, 250],
+						],
+						type: 'scatter'
+					},
+					{
+						type: 'lines',
+						coordinateSystem: 'cartesian2d',
+						// symbol:'arrow',
+						zlevel: -1,
+						symbol: ['none', 'none'],
+						polyline: true,
+						silent: true,
+						effect: {
+							symbol: 'circle',
+							show: true,
+							color: '#00FFC4',
+							period: 3, // 箭头指向速度，值越小速度越快
+							trailLength: 0.01, // 特效尾迹长度[0,1]值越大，尾迹越长重
+							symbolSize: [10, 8], // 图标大小
+						},
+						lineStyle: {
+							width: 10,
+							normal: {
+								opacity: 1, // 线的透明度-设置为0，隐藏线条
+								// curveness: 0.4, // 曲线的弯曲程度 ，多段线不支持弯曲
+								color: '#00A780'
+							}
+						},
+						data: [
+							{
+								//  name:'11',
+								coords: [
+									[177, 100],
+									[210, 100],
+									[210, 220],
+								]
+							},
+
+						]
+					},
+					{ // 这里必须有scatter，至少有一个点，路径图才会跑起来
+						zlevel: 1,
+						symbolSize: 0,
+						data: [
+							[177, 100],
+							[210, 100],
+							[210, 220],
+						],
+						type: 'scatter'
+					},
+					{
+						type: 'lines',
+						coordinateSystem: 'cartesian2d',
+						// symbol:'arrow',
+						zlevel: -1,
+						symbol: ['none', 'none'],
+						polyline: true,
+						silent: true,
+						effect: {
+							symbol: 'circle',
+							show: true,
+							color: '#00FFC4',
+							period: 3, // 箭头指向速度，值越小速度越快
+							trailLength: 0.01, // 特效尾迹长度[0,1]值越大，尾迹越长重
+							symbolSize: [10, 8], // 图标大小
+						},
+						lineStyle: {
+							width: 10,
+							normal: {
+								opacity: 1, // 线的透明度-设置为0，隐藏线条
+								// curveness: 0.4, // 曲线的弯曲程度 ，多段线不支持弯曲
+								color: '#00A780'
+							}
+						},
+						data: [
+							{
+								//  name:'11',
+								coords: [
+									[260, 70],
+									[260, 92],
+									[177, 92],
+								]
+							},
+
+						]
+					},
+					{ // 这里必须有scatter，至少有一个点，路径图才会跑起来
+						zlevel: 1,
+						symbolSize: 0,
+						data: [
+							[260, 70],
+							[260, 92],
+							[177, 92],
+						],
+						type: 'scatter'
+					},
+					{
+						type: 'lines',
+						coordinateSystem: 'cartesian2d',
+						// symbol:'arrow',
+						zlevel: -1,
+						symbol: ['none', 'none'],
+						polyline: true,
+						silent: true,
+						effect: {
+							symbol: 'circle',
+							show: true,
+							color: '#00FFC4',
+							period: 3, // 箭头指向速度，值越小速度越快
+							trailLength: 0.01, // 特效尾迹长度[0,1]值越大，尾迹越长重
+							symbolSize: [10, 8], // 图标大小
+						},
+						lineStyle: {
+							width: 10,
+							normal: {
+								opacity: 1, // 线的透明度-设置为0，隐藏线条
+								// curveness: 0.4, // 曲线的弯曲程度 ，多段线不支持弯曲
+								color: '#00A780'
+							}
+						},
+						data: [
+							{
+								//  name:'11',
+								coords: [
+									[267, 70],
+									[267, 250],
+									[260, 250],
+								]
+							},
+
+						]
+					},
+					{ // 这里必须有scatter，至少有一个点，路径图才会跑起来
+						zlevel: 1,
+						symbolSize: 0,
+						data: [
+							[267, 70],
+							[267, 250],
+							[260, 250],
+						],
+						type: 'scatter'
+					}
+					]
+				}
+	
+			 // 基于准备好的dom，初始化echarts实例
+			 var myChart = echarts.init(document.getElementById('main'));
+	
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		   
+		</script>
+</body>
+</html>
