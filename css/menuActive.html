@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        menu {
+            position: fixed;
+            scroll-target-group: auto;
+        }
+
+        a:target-current {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <menu>
+        <li><a href="#intro">前言</a></li>
+        <li><a href="#ch1">第1章</a></li>
+        <li><a href="#ch2">第2章</a></li>
+        <li><a href="#ch3">第3章</a></li>
+    </menu>
+
+    <article>
+        <h1>欢迎来到我的博客</h1>
+        <section id="intro">CSS scroll-target-group加:target-current滚动菜单自动高亮</section>
+        <section id="ch1">
+            一、又一个JS交互被干掉了
+            本文要介绍的 CSS scroll-target-group属性以及:target-current伪类，可以实现滚动的时候，基于位置不同，对应的菜单项自动高亮的效果。
+
+            关于这种效果的实现，我之前还专门写文章介绍过：“尝试使用JS IntersectionObserver让标题和导航联动”。
+
+            没想到，短短几年之后，纯CSS就能实现这样的效果了。
+
+            眼见为实，滚动下面内嵌的局部滚动条（需要Chrome 140+），大家就可以看到对应的效果了。
+        </section>
+        <section id="ch2">
+            二、结束了，就结束了，对吧，给菜单容器设置scroll-target-group:auto，然后菜单里面的链接元素使用:target-current设置匹配样式就可以了。
+
+            此时，链接元素对应的href锚点元素进入区域的时候，链接元素就会高亮啦！
+
+            牛逼！</section>
+
+        <section id="ch3">
+            三、关于scroll-target-group属性
+            下面快速介绍下scroll-target-group属性。
+
+            该属性可以让锚点元素有类似于::scroll-marker伪元素的特性（ CSS Carousel API中的一个特性），关于::scroll-marker伪元素，可以参见我前几个月刚写的文章：“CSS
+            ::scroll-button ::scroll-marker伪元素又是干嘛用的”。
+
+            需要使用的时候，直接设置值为auto就可以了。
+
+            兼容性
+            非常新的一个特性，MDN连文档都没有，Chrome 140浏览器支持。
+        </section>
+    </article>
+</body>
+
+</html>
