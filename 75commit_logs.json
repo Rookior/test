@@ -1,5 +1,605 @@
 [
   {
+    "hash": "3fc0c738",
+    "author": "weizy",
+    "message": "change(pages): 增加逆变器、箱变、储能ht上一页下一页切换设备",
+    "date": "09/26/2025, 11:08:10"
+  },
+  {
+    "hash": "9525fdf5",
+    "author": "chenyang",
+    "message": "change(pages): 挂牌备注描述修改",
+    "date": "09/25/2025, 16:07:55"
+  },
+  {
+    "hash": "6d5da80a",
+    "author": "weizy",
+    "message": "fix(page): 修复双击曲线表格参数",
+    "date": "09/25/2025, 15:03:44"
+  },
+  {
+    "hash": "e65d9a4f",
+    "author": "weizy",
+    "message": "change(pages): 修复箱变高度限制，修改京能场站概览、负荷曲线、首页",
+    "date": "09/25/2025, 13:22:34"
+  },
+  {
+    "hash": "dc811bd3",
+    "author": "chenyang",
+    "message": "change(pages): 特殊关注机组修改为手动关注机组",
+    "date": "09/25/2025, 11:11:51"
+  },
+  {
+    "hash": "5fc869ca",
+    "author": "weizy",
+    "message": "change(pages): 修改江苏机组状态报警图标显示",
+    "date": "09/25/2025, 08:54:14"
+  },
+  {
+    "hash": "9a266368",
+    "author": "weizy",
+    "message": "change(pages): 修改风电与光伏场站概览",
+    "date": "09/24/2025, 16:56:28"
+  },
+  {
+    "hash": "9937d56d",
+    "author": "liuq",
+    "message": "add(other): 新增机器人缺陷记录api",
+    "date": "09/24/2025, 15:18:16"
+  },
+  {
+    "hash": "f84ec63f",
+    "author": "liuq",
+    "message": "change(page): 昆玉设备预警作业页面工单编号字段修改",
+    "date": "09/24/2025, 15:17:39"
+  },
+  {
+    "hash": "69cd5614",
+    "author": "liuq",
+    "message": "change(page): 昆玉首页新增机器人设备及地图信息",
+    "date": "09/24/2025, 15:16:27"
+  },
+  {
+    "hash": "e6a8368f",
+    "author": "liuq",
+    "message": "change(page): 昆玉首页无人机模块新建任务雨量描述修改",
+    "date": "09/24/2025, 15:15:42"
+  },
+  {
+    "hash": "5d3818fe",
+    "author": "liuq",
+    "message": "change(page): 昆玉首页机器人模块新增设备",
+    "date": "09/24/2025, 15:14:55"
+  },
+  {
+    "hash": "01c9e3d8",
+    "author": "liuq",
+    "message": "change(page): 昆玉场站概览点名更换",
+    "date": "09/24/2025, 15:13:48"
+  },
+  {
+    "hash": "687efdce",
+    "author": "liuq",
+    "message": "change(page): 昆玉巡视报警页面新增机器人查询接口",
+    "date": "09/24/2025, 15:12:27"
+  },
+  {
+    "hash": "f61f56f9",
+    "author": "chenyang",
+    "message": "change(page): 大唐山东首页直流侧容量问题修复",
+    "date": "09/24/2025, 14:31:59"
+  },
+  {
+    "hash": "3420715a",
+    "author": "liuq",
+    "message": "change(page): 昆玉智慧电站首页无人机任务列表接口参数修改",
+    "date": "09/23/2025, 16:55:59"
+  },
+  {
+    "hash": "b2686c24",
+    "author": "liuq",
+    "message": "change(page): 昆玉智慧电站停机报警隐藏原始状态列",
+    "date": "09/23/2025, 16:54:53"
+  },
+  {
+    "hash": "d06e5ec4",
+    "author": "liuq",
+    "message": "fix(page): 昆玉智慧电站白名单管理详情数据异常问题修复",
+    "date": "09/23/2025, 16:53:45"
+  },
+  {
+    "hash": "1e456284",
+    "author": "liuq",
+    "message": "fix(page): 昆玉智慧电站派单参数缺失问题修复",
+    "date": "09/23/2025, 16:53:04"
+  },
+  {
+    "hash": "b5b49ecf",
+    "author": "liuq",
+    "message": "fix(pages): 昆玉实时报警、停机报警确认报警功能修复",
+    "date": "09/23/2025, 16:51:41"
+  },
+  {
+    "hash": "102eb4c0",
+    "author": "liuq",
+    "message": "change(page): 昆玉场站概览布局调整",
+    "date": "09/23/2025, 16:50:40"
+  },
+  {
+    "hash": "3a7b2a90",
+    "author": "liuq",
+    "message": "change(page): 昆玉巡视报警巡视设备筛选增加参数",
+    "date": "09/23/2025, 16:45:47"
+  },
+  {
+    "hash": "620ebf93",
+    "author": "liuq",
+    "message": "change(page): 昆玉缺陷处理页面接口参数修改、表格字段修改",
+    "date": "09/23/2025, 16:44:44"
+  },
+  {
+    "hash": "2539a38e",
+    "author": "liuq",
+    "message": "fix(page): 昆玉智慧电站加入缺陷库异常修复",
+    "date": "09/23/2025, 16:42:47"
+  },
+  {
+    "hash": "e1976e69",
+    "author": "weizy",
+    "message": "change(page): 修改江西首页储能场站详情",
+    "date": "09/23/2025, 13:58:54"
+  },
+  {
+    "hash": "35866096",
+    "author": "chenyang",
+    "message": "change(page): 取消停机失败弹窗",
+    "date": "09/23/2025, 09:57:18"
+  },
+  {
+    "hash": "d88dc177",
+    "author": "weizy",
+    "message": "change(web): 修改滚动条默认宽高",
+    "date": "09/23/2025, 09:22:49"
+  },
+  {
+    "hash": "bdcbffa0",
+    "author": "chenyang",
+    "message": "change(page): 增加全局停机失败提醒",
+    "date": "09/23/2025, 08:55:25"
+  },
+  {
+    "hash": "cdcd380d",
+    "author": "chenyang",
+    "message": "change(page): 大部件劣化报告下载修改",
+    "date": "09/22/2025, 15:12:17"
+  },
+  {
+    "hash": "d2b037e5",
+    "author": "chenyang",
+    "message": "change(page): 大唐山东新增停机失败提醒",
+    "date": "09/22/2025, 14:54:13"
+  },
+  {
+    "hash": "03a1cb1a",
+    "author": "liuq",
+    "message": "add(other): 损失率计算函数统一处理",
+    "date": "09/19/2025, 14:22:52"
+  },
+  {
+    "hash": "69d36cb5",
+    "author": "liuq",
+    "message": "change(other): 昆玉智慧电站事件报警弹窗确认后不隐藏弹窗",
+    "date": "09/19/2025, 14:20:51"
+  },
+  {
+    "hash": "b6a5378f",
+    "author": "liuq",
+    "message": "change(page): 昆玉分析报警损失率计算公式修改",
+    "date": "09/19/2025, 14:19:56"
+  },
+  {
+    "hash": "a61b65bd",
+    "author": "liuq",
+    "message": "change(page): 昆玉智慧电站首页报警数据接口参数修改",
+    "date": "09/19/2025, 14:19:17"
+  },
+  {
+    "hash": "0981c8e3",
+    "author": "weizy",
+    "message": "fix(page): 修复光伏能效停机分析停机时长",
+    "date": "09/19/2025, 11:03:49"
+  },
+  {
+    "hash": "e44a2514",
+    "author": "chenyang",
+    "message": "change(pages): 消防报警弹窗跳转修复，大部件劣化报告下载",
+    "date": "09/19/2025, 09:14:15"
+  },
+  {
+    "hash": "cdc15e57",
+    "author": "weizy",
+    "message": "fix(page): 修改储能分析充放电效率分析单日显示功率曲线",
+    "date": "09/18/2025, 17:58:57"
+  },
+  {
+    "hash": "60d5eb43",
+    "author": "weizy",
+    "message": "change(pages): 修改海南风电场站概览功率曲线预测功率，场站概览实时指标通用配置兼容",
+    "date": "09/18/2025, 17:32:41"
+  },
+  {
+    "hash": "b0d27bbf",
+    "author": "chenyang",
+    "message": "change(page): 应发未发增加分页",
+    "date": "09/18/2025, 13:10:37"
+  },
+  {
+    "hash": "f563e44f",
+    "author": "liuq",
+    "message": "fix(page): 昆玉白名单管理表格移除多选功能",
+    "date": "09/17/2025, 16:50:23"
+  },
+  {
+    "hash": "780584ff",
+    "author": "liuq",
+    "message": "fix(page): 昆玉分析报警接口数据异常时表格显示异常问题修复",
+    "date": "09/17/2025, 16:49:43"
+  },
+  {
+    "hash": "444d6f04",
+    "author": "liuq",
+    "message": "fix(pages): 昆玉实时报警和停机报警工单状态筛选异常修复",
+    "date": "09/17/2025, 16:48:06"
+  },
+  {
+    "hash": "59fc9cc7",
+    "author": "weizy",
+    "message": "change(pages): 修改实时数据查询导出全部数据",
+    "date": "09/17/2025, 15:20:13"
+  },
+  {
+    "hash": "792b0b8b",
+    "author": "weizy",
+    "message": "change(pages): 修改历史数据查询数据下载",
+    "date": "09/17/2025, 14:43:57"
+  },
+  {
+    "hash": "00847865",
+    "author": "weizy",
+    "message": "change(pages): 修改历史数据查询数据下载",
+    "date": "09/17/2025, 13:49:18"
+  },
+  {
+    "hash": "8fb10de8",
+    "author": "chenyang",
+    "message": "change(pages): 历史停机记录时间排序修改，下发缺陷增加userName字段，重复检修机组修改，大唐山东首页装机容量改为直流侧容量",
+    "date": "09/16/2025, 09:13:43"
+  },
+  {
+    "hash": "2688ad8a",
+    "author": "weizy",
+    "message": "change(page): 修改托克托风机消防默认显示数量",
+    "date": "09/15/2025, 15:47:31"
+  },
+  {
+    "hash": "81ad982c",
+    "author": "liuq",
+    "message": "change(page): 昆玉智慧场站首页报警弹窗接口筛选参数修改",
+    "date": "09/15/2025, 15:33:43"
+  },
+  {
+    "hash": "4392dcb9",
+    "author": "weizy",
+    "message": "add(page): 增加托克托风机消防查询",
+    "date": "09/15/2025, 10:33:54"
+  },
+  {
+    "hash": "6ae8c18e",
+    "author": "weizy",
+    "message": "fix(app): 修复矩阵视图与逆变器线路期次不应该显示储能",
+    "date": "09/15/2025, 10:07:23"
+  },
+  {
+    "hash": "b5210ed3",
+    "author": "weizy",
+    "message": "change(pages): 江西定制风电与光伏实时数据查询",
+    "date": "09/13/2025, 15:09:19"
+  },
+  {
+    "hash": "a725b42c",
+    "author": "liuq",
+    "message": "change(page): 自由综合报表导出文件后缀修改及机型筛选接口增加参数",
+    "date": "09/12/2025, 16:32:09"
+  },
+  {
+    "hash": "8ccbccfd",
+    "author": "chenyang",
+    "message": "change(pages): 完整性有效性问题修复，应发未发按需修改",
+    "date": "09/12/2025, 15:10:50"
+  },
+  {
+    "hash": "100fadf0",
+    "author": "weizy",
+    "message": "change(pages): 增加风电与光伏farmFooter状态跳转矩阵视图与逆变器，增加储能机组状态总计指标配置",
+    "date": "09/12/2025, 12:42:56"
+  },
+  {
+    "hash": "ee7f7be0",
+    "author": "weizy",
+    "message": "fix(pages): 禅道bug修复",
+    "date": "09/11/2025, 16:43:58"
+  },
+  {
+    "hash": "93e692d6",
+    "author": "weizy",
+    "message": "fix(page): 修复历史数据对比keys显示异常",
+    "date": "09/11/2025, 13:21:03"
+  },
+  {
+    "hash": "5261ac03",
+    "author": "tianh",
+    "message": "change(page): 计算平台报警页面报警类型状态增加",
+    "date": "09/11/2025, 09:57:03"
+  },
+  {
+    "hash": "033743dc",
+    "author": "chenyang",
+    "message": "change(pages): 重复检修机组表格时间修改，应发未发机组增加结束时间，自动拨打电话增加时间显示",
+    "date": "09/10/2025, 16:10:17"
+  },
+  {
+    "hash": "007ac934",
+    "author": "tianh",
+    "message": "add(page): 新增计算平台报警页面",
+    "date": "09/08/2025, 16:19:03"
+  },
+  {
+    "hash": "3c2f684d",
+    "author": "chenyang",
+    "message": "change(pages): 自动挂牌查询传参优化，新增停限统计页面，湍流强度详情湍流等级曲线修改",
+    "date": "09/08/2025, 14:46:54"
+  },
+  {
+    "hash": "0dea6309",
+    "author": "weizy",
+    "message": "fix(pages): 修改大唐江苏右键，修复江苏储能分析",
+    "date": "09/04/2025, 13:50:13"
+  },
+  {
+    "hash": "4bca97ad",
+    "author": "liuq",
+    "message": "change(page): 昆玉智慧电站机器人增加切换功能开发",
+    "date": "09/04/2025, 10:06:29"
+  },
+  {
+    "hash": "25628086",
+    "author": "weizy",
+    "message": "fix(page): 修复大唐功率一致性全屏",
+    "date": "09/04/2025, 09:24:00"
+  },
+  {
+    "hash": "c0e6c5bc",
+    "author": "chenyang",
+    "message": "change(pages): 重点报警弹窗跳转问题修改，重复检修传参修改",
+    "date": "09/03/2025, 17:06:00"
+  },
+  {
+    "hash": "ccebf955",
+    "author": "weizy",
+    "message": "change(page): 增加辽宁大唐功率一致性曲线全屏",
+    "date": "09/03/2025, 10:51:08"
+  },
+  {
+    "hash": "f69f5c41",
+    "author": "weizy",
+    "message": "fix(page): 修复wtpv首页运行状态中文宽度异常",
+    "date": "09/03/2025, 10:32:19"
+  },
+  {
+    "hash": "93f9428a",
+    "author": "weizy",
+    "message": "fix(page): 修复wtpv首页运行状态9显示异常",
+    "date": "09/03/2025, 10:22:07"
+  },
+  {
+    "hash": "7eb9d060",
+    "author": "weizy",
+    "message": "change(page): 增加大唐海南首页外部跳转",
+    "date": "09/03/2025, 10:13:12"
+  },
+  {
+    "hash": "e8f8de11",
+    "author": "chenyang",
+    "message": "change(pages): 对风不准详情增加无数据提示，数据有效性详情无数据时取对应的完整性数据，风机长停增加加载动画，辅助监盘建议停机过滤已停机风机",
+    "date": "09/02/2025, 11:08:01"
+  },
+  {
+    "hash": "95cefc72",
+    "author": "weizy",
+    "message": "fix(page): 修复辽宁大唐功率一致性提示",
+    "date": "08/29/2025, 13:46:57"
+  },
+  {
+    "hash": "a014462b",
+    "author": "weizy",
+    "message": "fix(pages): 修复光伏汇流箱接口异常提示，修复江西场站概览指标名称换行",
+    "date": "08/29/2025, 13:43:54"
+  },
+  {
+    "hash": "8fb3c79e",
+    "author": "chenyang",
+    "message": "change(pages): 山东大唐pcs跳转ht，可复位规则修改为可配置",
+    "date": "08/29/2025, 10:00:07"
+  },
+  {
+    "hash": "51b78e55",
+    "author": "liuq",
+    "message": "change(other): getters增加companyMap",
+    "date": "08/29/2025, 09:42:55"
+  },
+  {
+    "hash": "f6755607",
+    "author": "liuq",
+    "message": "change(page): 自由报表指标筛选增加设备类型分类",
+    "date": "08/29/2025, 09:42:08"
+  },
+  {
+    "hash": "75a6b69c",
+    "author": "weizy",
+    "message": "add(page): 修改京能集团首页",
+    "date": "08/29/2025, 08:56:21"
+  },
+  {
+    "hash": "df909422",
+    "author": "weizy",
+    "message": "fix(page): 修复辽宁大唐功率一致性曲线提示超出显示范围",
+    "date": "08/28/2025, 17:02:43"
+  },
+  {
+    "hash": "76af138f",
+    "author": "weizy",
+    "message": "fix(pages): 修复ht跳转缺少type",
+    "date": "08/28/2025, 08:42:45"
+  },
+  {
+    "hash": "0e5f7612",
+    "author": "chenyang",
+    "message": "fix(pages): 辅助监盘详情弹窗挂牌信息样式修改，重点机组挂牌详情增加结束时间",
+    "date": "08/27/2025, 14:42:50"
+  },
+  {
+    "hash": "eb561997",
+    "author": "weizy",
+    "message": "add(page): 增加江西ht弹窗",
+    "date": "08/27/2025, 11:03:39"
+  },
+  {
+    "hash": "d4b93124",
+    "author": "weizy",
+    "message": "change(page): 修改国电投文昌首页",
+    "date": "08/26/2025, 15:14:51"
+  },
+  {
+    "hash": "cae1b905",
+    "author": "weizy",
+    "message": "change(pages): 修改江西时序状态弹窗开始时间，修改实时与历史报警多选",
+    "date": "08/25/2025, 17:16:59"
+  },
+  {
+    "hash": "05cb399b",
+    "author": "chenyang",
+    "message": "change(page): 箱变页面问题修改",
+    "date": "08/26/2025, 14:22:14"
+  },
+  {
+    "hash": "ee733e95",
+    "author": "liuq",
+    "message": "change(page): 储能场站footer默认参数系数修改",
+    "date": "08/26/2025, 14:11:32"
+  },
+  {
+    "hash": "b7c0e03e",
+    "author": "chenyang",
+    "message": "change(page): 扳手查询山东定制化开发",
+    "date": "08/26/2025, 10:18:47"
+  },
+  {
+    "hash": "685d2eaf",
+    "author": "yangyu",
+    "message": "fix(pages): 修改储能分析问题BUG-3806,BUG-3793",
+    "date": "08/25/2025, 17:41:16"
+  },
+  {
+    "hash": "1b9e38d0",
+    "author": "yangyu",
+    "message": "fix(pages): 整体修改储能分析调用历史库时传参",
+    "date": "08/25/2025, 16:21:12"
+  },
+  {
+    "hash": "d9199958",
+    "author": "yangyu",
+    "message": "fix(pages): 修改BUG-3806,储能分析soc显示问题",
+    "date": "08/25/2025, 15:42:08"
+  },
+  {
+    "hash": "2a9fbd02",
+    "author": "chenyang",
+    "message": "change(pages): 光伏箱变增加线路和期次切换，可复位故障增加排序",
+    "date": "08/25/2025, 15:04:47"
+  },
+  {
+    "hash": "2da3cca4",
+    "author": "yangyu",
+    "message": "fix(pages): 修改储能分析-电压一致性系数页面右下角的折线图",
+    "date": "08/25/2025, 14:33:37"
+  },
+  {
+    "hash": "cedc293b",
+    "author": "liuq",
+    "message": "change(pages): 储能电池簇、电池簇详情、场站footer增加参数配置功能",
+    "date": "08/25/2025, 13:16:12"
+  },
+  {
+    "hash": "004a2044",
+    "author": "yangyu",
+    "message": "fix(pages): 删除纯那个分析下温度均衡分析的电池错显示温度坐标轴问题，修改储能分析-充放电效率分析页面，电池簇的SOC显示“-”问题",
+    "date": "08/25/2025, 12:43:42"
+  },
+  {
+    "hash": "405ae8aa",
+    "author": "chenyang",
+    "message": "change(pages): 未接通提醒挂牌分类修改，可复位故障详情弹窗复位条件描述修改，辅助监盘详情曲线图数据补0，越限监视表格数据筛选,自动标识页面下载问题修复",
+    "date": "08/25/2025, 10:17:37"
+  },
+  {
+    "hash": "2426540f",
+    "author": "liuq",
+    "message": "fix(page): 电压一致性保留2位小数异常修复",
+    "date": "08/23/2025, 10:06:06"
+  },
+  {
+    "hash": "0e229533",
+    "author": "yangyu",
+    "message": "fix(BUG-3798): 修改储能分析电压一致性系数曲线的小数点后位数问题",
+    "date": "08/23/2025, 09:24:14"
+  },
+  {
+    "hash": "35e52bd3",
+    "author": "weizy",
+    "message": "add(other): 增加ccselectAll组件",
+    "date": "08/22/2025, 17:18:03"
+  },
+  {
+    "hash": "ddf7d798",
+    "author": "yangyu",
+    "message": "fix(BUG-3793): 修改储能分析充放电状态图标缩放问题",
+    "date": "08/22/2025, 11:27:59"
+  },
+  {
+    "hash": "38cd1f11",
+    "author": "yangyu",
+    "message": "fix(BUG-3793): 修改储能分析偏度峰度方差值位数过多问题",
+    "date": "08/22/2025, 09:40:49"
+  },
+  {
+    "hash": "d0bd8b20",
+    "author": "weizy",
+    "message": "fix(page): 修复辽宁大唐驾驶舱节能减排",
+    "date": "08/22/2025, 08:50:56"
+  },
+  {
+    "hash": "845d8a92",
+    "author": "yangyu",
+    "message": "fix(pages): 修改储能分析现场测试bug, BUG-3783",
+    "date": "08/21/2025, 16:24:09"
+  },
+  {
+    "hash": "da458bd7",
+    "author": "yangyu",
+    "message": "fix(pages): 修改储能分析现场测试bug",
+    "date": "08/21/2025, 15:05:34"
+  },
+  {
     "hash": "c7c3a15f",
     "author": "yangyu",
     "message": "fix(pages): :art: 根据现场实际情况修改充放电量单位问题",

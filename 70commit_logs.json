@@ -1,5 +1,413 @@
 [
   {
+    "hash": "3bc571be",
+    "author": "tianh",
+    "message": "change(other): 挂牌调整",
+    "date": "09/26/2025, 12:42:28"
+  },
+  {
+    "hash": "acb4b7c4",
+    "author": "weizy",
+    "message": "add(app): 增加报警忽略记录查询",
+    "date": "09/26/2025, 08:36:46"
+  },
+  {
+    "hash": "79a48809",
+    "author": "chenyang",
+    "message": "change(pages): 挂牌备注描述修改",
+    "date": "09/25/2025, 16:08:40"
+  },
+  {
+    "hash": "b07d5e08",
+    "author": "weizy",
+    "message": "fix(page): 修复双击曲线表格参数",
+    "date": "09/25/2025, 15:05:09"
+  },
+  {
+    "hash": "cb645cef",
+    "author": "weizy",
+    "message": "fix(page): 修复大唐海南光伏机组状态场站指标显示宽度",
+    "date": "09/25/2025, 14:00:53"
+  },
+  {
+    "hash": "f8ed9caa",
+    "author": "weizy",
+    "message": "fix(page): 修复箱变高度限制",
+    "date": "09/25/2025, 13:19:11"
+  },
+  {
+    "hash": "2bab6e84",
+    "author": "chenyang",
+    "message": "change(pages): 智能监盘特殊关注机组名称修改，挂牌备注描述修改",
+    "date": "09/25/2025, 10:57:31"
+  },
+  {
+    "hash": "4535a5ce",
+    "author": "weizy",
+    "message": "change(pages): 修改江苏机组状态报警图标显示",
+    "date": "09/25/2025, 08:52:41"
+  },
+  {
+    "hash": "dfe88785",
+    "author": "weizy",
+    "message": "change(pages): 修改风电与光伏场站概览",
+    "date": "09/24/2025, 15:33:01"
+  },
+  {
+    "hash": "39cc51a4",
+    "author": "weizy",
+    "message": "fix(web): 修复菜单样式不兼容",
+    "date": "09/24/2025, 15:31:13"
+  },
+  {
+    "hash": "3c4a033a",
+    "author": "chenyang",
+    "message": "change(page): 停机失败提醒传参修改",
+    "date": "09/24/2025, 14:33:32"
+  },
+  {
+    "hash": "75d9a169",
+    "author": "tianh",
+    "message": "add(pages): 新增深信服总体监控、云服务器列表页面",
+    "date": "09/23/2025, 15:56:28"
+  },
+  {
+    "hash": "3760cae0",
+    "author": "weizy",
+    "message": "change(page): 修改江西首页储能场站详情",
+    "date": "09/23/2025, 13:59:24"
+  },
+  {
+    "hash": "146bb5af",
+    "author": "weizy",
+    "message": "change(pages): 增加江西机组状态场站集中监视",
+    "date": "09/23/2025, 13:40:57"
+  },
+  {
+    "hash": "e72f4773",
+    "author": "weizy",
+    "message": "change(web): 修改滚动条默认宽高，场站概览实时指标通用配置兼容",
+    "date": "09/23/2025, 09:24:37"
+  },
+  {
+    "hash": "2a40cc9c",
+    "author": "chenyang",
+    "message": "change(page): 增加全局停机失败提醒",
+    "date": "09/23/2025, 08:53:17"
+  },
+  {
+    "hash": "293ff915",
+    "author": "chenyang",
+    "message": "change(page): 大部件劣化报告下载修改",
+    "date": "09/22/2025, 15:12:53"
+  },
+  {
+    "hash": "b89dc352",
+    "author": "chenyang",
+    "message": "change(page): 大唐山东新增停机失败提醒",
+    "date": "09/22/2025, 14:55:55"
+  },
+  {
+    "hash": "5692f33c",
+    "author": "chenyang",
+    "message": "change(pages): 消防报警弹窗跳转修复，大部件劣化报告下载，光伏场站首页点名配置问题修改，应发未发增加分页",
+    "date": "09/19/2025, 09:13:16"
+  },
+  {
+    "hash": "882376eb",
+    "author": "weizy",
+    "message": "change(page): 删除风机详情功率曲线Y轴最小值0",
+    "date": "09/18/2025, 18:30:39"
+  },
+  {
+    "hash": "6356acc7",
+    "author": "weizy",
+    "message": "change(pages): 修改实时数据查询导出全部数据",
+    "date": "09/17/2025, 15:07:28"
+  },
+  {
+    "hash": "0f8dfa7f",
+    "author": "weizy",
+    "message": "change(pages): 修改历史数据查询数据下载",
+    "date": "09/17/2025, 14:42:48"
+  },
+  {
+    "hash": "2b626e4a",
+    "author": "weizy",
+    "message": "change(page): 修改历史数据查询数据下载",
+    "date": "09/17/2025, 14:25:40"
+  },
+  {
+    "hash": "8a2c366b",
+    "author": "weizy",
+    "message": "change(pages): 修改历史数据查询数据下载",
+    "date": "09/17/2025, 13:46:46"
+  },
+  {
+    "hash": "ffc88490",
+    "author": "chenyang",
+    "message": "change(pages): 历史停机记录时间排序修改，下发缺陷增加userName字段，重复检修机组修改，大唐山东首页装机容量改为直流侧容量",
+    "date": "09/16/2025, 09:13:08"
+  },
+  {
+    "hash": "31910e0b",
+    "author": "weizy",
+    "message": "change(web): 修改一级菜单数量不同的间隔",
+    "date": "09/15/2025, 16:03:42"
+  },
+  {
+    "hash": "58b912e4",
+    "author": "weizy",
+    "message": "change(page): 修改托克托风机消防默认显示数量",
+    "date": "09/15/2025, 15:46:05"
+  },
+  {
+    "hash": "a9cbe08e",
+    "author": "weizy",
+    "message": "change(web): 修改一级菜单数量不同的间隔",
+    "date": "09/15/2025, 14:16:52"
+  },
+  {
+    "hash": "cbd19487",
+    "author": "weizy",
+    "message": "change(web): 修改一级菜单数量不同的间隔",
+    "date": "09/15/2025, 13:19:52"
+  },
+  {
+    "hash": "cdb6a945",
+    "author": "weizy",
+    "message": "add(page): 增加托克托风机消防查询",
+    "date": "09/15/2025, 10:34:23"
+  },
+  {
+    "hash": "2434f178",
+    "author": "weizy",
+    "message": "fix(app): 修复矩阵视图与逆变器线路期次不应该显示储能",
+    "date": "09/15/2025, 10:06:26"
+  },
+  {
+    "hash": "53bc07e8",
+    "author": "liuq",
+    "message": "fix(page): 扳手查询导出数据小数位保留两位",
+    "date": "09/14/2025, 11:27:08"
+  },
+  {
+    "hash": "e3f67950",
+    "author": "weizy",
+    "message": "change(pages): 江西定制风电与光伏实时数据查询",
+    "date": "09/13/2025, 15:08:07"
+  },
+  {
+    "hash": "a4212a70",
+    "author": "liuq",
+    "message": "change(page): 自由综合报表导出文件后缀修改及机型筛选接口增加参数",
+    "date": "09/12/2025, 16:34:29"
+  },
+  {
+    "hash": "43971e60",
+    "author": "weizy",
+    "message": "change(pages): 增加风电与光伏farmFooter状态跳转矩阵视图与逆变器",
+    "date": "09/12/2025, 15:30:21"
+  },
+  {
+    "hash": "17a97672",
+    "author": "weizy",
+    "message": "change(web): 菜单样式修改",
+    "date": "09/11/2025, 16:42:12"
+  },
+  {
+    "hash": "a96432fc",
+    "author": "liuq",
+    "message": "change(pages): 贵阳院用户管理加密后数据异常处理",
+    "date": "09/12/2025, 15:31:10"
+  },
+  {
+    "hash": "09d7d9e6",
+    "author": "chenyang",
+    "message": "change(pages): 完整性有效性问题修复，应发未发按需修改",
+    "date": "09/12/2025, 15:11:38"
+  },
+  {
+    "hash": "655e0949",
+    "author": "weizy",
+    "message": "change(page): 增加储能机组状态总计指标配置",
+    "date": "09/12/2025, 12:45:07"
+  },
+  {
+    "hash": "08bb942c",
+    "author": "weizy",
+    "message": "fix(pages): 禅道bug修复",
+    "date": "09/11/2025, 16:40:20"
+  },
+  {
+    "hash": "77f685bd",
+    "author": "weizy",
+    "message": "change(app): 修改京津冀报警中心与agc_avc",
+    "date": "09/08/2025, 16:59:39"
+  },
+  {
+    "hash": "8e393c26",
+    "author": "chenyang",
+    "message": "change(pages): 重复检修机组表格时间修改，应发未发机组增加结束时间，自动拨打电话增加时间设置，自降容详情增加实际功率曲线",
+    "date": "09/10/2025, 16:09:21"
+  },
+  {
+    "hash": "356240ba",
+    "author": "tianh",
+    "message": "change(page): 计算平台报警页面报警类型状态增加",
+    "date": "09/10/2025, 15:37:21"
+  },
+  {
+    "hash": "c2bb524b",
+    "author": "liuq",
+    "message": "change(page): 贵阳院环境下限制浏览器访问功能开发",
+    "date": "09/09/2025, 13:34:05"
+  },
+  {
+    "hash": "bc7d4a42",
+    "author": "tianh",
+    "message": "add(page): 新增计算平台报警页面",
+    "date": "09/08/2025, 16:15:54"
+  },
+  {
+    "hash": "da017c95",
+    "author": "chenyang",
+    "message": "change(pages): 自降容详情异常提醒数据为空时增加风机理论功率曲线，自动挂牌查询传参优化，新增停限统计页面",
+    "date": "09/08/2025, 14:49:10"
+  },
+  {
+    "hash": "a291f486",
+    "author": "chenyang",
+    "message": "change(pages): 可复位页面增加自动复位设置，可复位故障弹窗满足复位条件且设置为自动复位时自动复位",
+    "date": "09/04/2025, 14:51:48"
+  },
+  {
+    "hash": "709a4ba7",
+    "author": "weizy",
+    "message": "change(pages): 修改大唐安徽风电光伏机组状态宽度",
+    "date": "09/04/2025, 13:49:22"
+  },
+  {
+    "hash": "7af5387e",
+    "author": "chenyang",
+    "message": "change(pages): 重点报警弹窗跳转问题修改，重复检修传参修改，挂牌电话设置问题修复",
+    "date": "09/03/2025, 17:07:26"
+  },
+  {
+    "hash": "70c633bf",
+    "author": "chenyang",
+    "message": "change(pages): 对风不准详情增加无数据提示，数据有效性详情无数据时取对应的完整性数据，风机长停增加加载动画，辅助监盘建议停机过滤已停机风机",
+    "date": "09/02/2025, 11:06:38"
+  },
+  {
+    "hash": "d159d8bb",
+    "author": "weizy",
+    "message": "fix(pages): 修复光伏汇流箱接口异常提示，修复江西场站概览指标名称换行",
+    "date": "08/29/2025, 13:44:24"
+  },
+  {
+    "hash": "760cadcd",
+    "author": "chenyang",
+    "message": "change(pages): 可复位规则修改为可配置，故障类挂牌自动下发工单",
+    "date": "08/29/2025, 09:56:28"
+  },
+  {
+    "hash": "57efb595",
+    "author": "liuq",
+    "message": "change(other): getters映射增加companyMap数据",
+    "date": "08/29/2025, 09:46:53"
+  },
+  {
+    "hash": "0825a642",
+    "author": "liuq",
+    "message": "change(pages): 自由综合报表指标参数增加设备类型筛选",
+    "date": "08/29/2025, 09:46:04"
+  },
+  {
+    "hash": "8ba6346e",
+    "author": "chenyang",
+    "message": "fix(pages): 辅助监盘详情弹窗挂牌信息样式修改，重点机组挂牌详情增加结束时间",
+    "date": "08/27/2025, 14:42:11"
+  },
+  {
+    "hash": "40b67a09",
+    "author": "weizy",
+    "message": "change(page): 增加江西ht弹窗箱变报警与储能箱变报警",
+    "date": "08/26/2025, 16:30:01"
+  },
+  {
+    "hash": "0acec08f",
+    "author": "weizy",
+    "message": "change(pages): 修改江西时序状态弹窗开始时间，修改实时与历史报警多选",
+    "date": "08/25/2025, 17:09:44"
+  },
+  {
+    "hash": "6c8296d5",
+    "author": "weizy",
+    "message": "change(page): 修改京津冀潮流图",
+    "date": "08/26/2025, 12:58:50"
+  },
+  {
+    "hash": "c091f7ed",
+    "author": "weizy",
+    "message": "change(page): 修改京津冀更新扳手时自动派单",
+    "date": "08/25/2025, 17:08:23"
+  },
+  {
+    "hash": "15b5418d",
+    "author": "weizy",
+    "message": "change(pages): 修改数据下载机型版本增加期次, 修改京津冀自动派单类型",
+    "date": "08/25/2025, 11:07:08"
+  },
+  {
+    "hash": "dfccc686",
+    "author": "chenyang",
+    "message": "fix(page): 拨打电话提醒挂牌详情弹窗操作人修改",
+    "date": "08/26/2025, 18:26:28"
+  },
+  {
+    "hash": "b287f63a",
+    "author": "chenyang",
+    "message": "change(pages): 自动标识页面删除按钮显示逻辑修改，自动挂牌页面增加删除功能",
+    "date": "08/26/2025, 14:21:10"
+  },
+  {
+    "hash": "4142ba14",
+    "author": "chenyang",
+    "message": "change(page): 扳手查询山东定制化开发",
+    "date": "08/26/2025, 10:18:08"
+  },
+  {
+    "hash": "fad1fee7",
+    "author": "chenyang",
+    "message": "change(pages): 光伏箱变增加线路和期次选择,可复位故障增加排序",
+    "date": "08/25/2025, 15:02:00"
+  },
+  {
+    "hash": "a5acd58f",
+    "author": "liuq",
+    "message": "change(pages): 储能电池簇、电池簇详情、场站footer增加参数配置功能",
+    "date": "08/25/2025, 13:17:38"
+  },
+  {
+    "hash": "76334d0c",
+    "author": "chenyang",
+    "message": "change(pages): 自动标识页面下载问题修复，增加删除标识按钮，辅助监盘详情曲线图数据补0，越限监视表格数据筛选，未接通提醒挂牌分类修改，可复位故障详情弹窗复位条件描述修改",
+    "date": "08/25/2025, 10:18:45"
+  },
+  {
+    "hash": "0173da20",
+    "author": "weizy",
+    "message": "add(page): 京津冀潮流图",
+    "date": "08/23/2025, 14:32:01"
+  },
+  {
+    "hash": "62397036",
+    "author": "weizy",
+    "message": "change(page): 修改大唐新疆超发功率",
+    "date": "08/22/2025, 13:48:02"
+  },
+  {
     "hash": "264f2b07",
     "author": "weizy",
     "message": "change(page): 修改贵阳院历史报警为实际总数",
