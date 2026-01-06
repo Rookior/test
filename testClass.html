@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写js类</title>
+</head>
+<body>
+    <script>
+        class People {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            greet() {
+                console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+            }
+        }
+        var person = new People("Alice", 30);
+        person.greet();
+        console.log("Hello World");
+        People.prototype.greet();
+    </script>
+</body>
+</html>
