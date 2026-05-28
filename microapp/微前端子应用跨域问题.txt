@@ -1,0 +1,36 @@
+原理是：子应用接口请求不再依赖子应用自己的 origin，而是由基座告诉它应该走哪个网关地址。
+
+现在链路是这样：
+
+主应用打开地址：
+http://192.168.128.1:7200
+
+基座下发给子应用：
+gatewayBaseURL = http://192.168.128.1:7200/gateway
+
+子应用调用 yn-core/seventy：
+api-auth/oauth/user/token
+
+最终请求地址：
+http://192.168.128.1:7200/gateway/api-auth/oauth/user/token
+
+再由 7200 的 Vite proxy 转发到：
+http://192.168.88.98:12000/gateway/api-auth/oauth/user/token
+之前的问题是 yn-core/seventy 默认用相对路径 /gateway 或 ./gateway，在子应用 iframe 里执行时，请求会按子应用自己的地址解析：
+
+http://192.168.128.1:7003/gateway/...
+这样就绕过了基座 7200 的代理，导致请求走错端口或跨域。
+
+这次改动做了两件事：
+
+基座在 microAppData 里下发：
+
+baseOrigin: window.location.origin
+gatewayBaseURL: `${window.location.origin}/gateway`
+yn-core/seventy 每次请求前解析 baseURL：
+
+如果子应用拿得到 microApp.getData().gatewayBaseURL，就用基座的 7200/gateway
+如果只有 baseOrigin，就拼成 baseOrigin + /gateway
+如果是微前端但没拿到数据，就用 document.referrer 推断基座 origin
+如果不是微前端，就回退到普通 /gateway
+所以最终效果是：独立运行子应用时还能走自己的代理；嵌入基座时，70api 统一走基座 7200 的代理。
